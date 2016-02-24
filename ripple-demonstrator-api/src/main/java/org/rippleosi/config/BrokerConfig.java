@@ -28,14 +28,17 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BrokerConfig extends CamelConfiguration {
 
+    @Value("${queue.broker.name:embedded}")
+    private String brokerName;
+
     @Value("${queue.broker.directory:activemq-data}")
     private String dataDirectory;
 
     @Bean
     public BrokerService brokerService() throws Exception {
         BrokerService brokerService = new BrokerService();
-        brokerService.setBrokerName("embedded");
-        brokerService.addConnector("vm://embedded");
+        brokerService.setBrokerName(brokerName);
+        brokerService.addConnector("vm://" + brokerName);
         brokerService.setDataDirectory(dataDirectory);
         return brokerService;
     }
@@ -49,7 +52,7 @@ public class BrokerConfig extends CamelConfiguration {
     @Bean(name = "activemq")
 	public ActiveMQConnectionFactory activeMQConnectionFactory() throws Exception {
 		ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory();
-		activeMQConnectionFactory.setBrokerURL("vm://embedded?create=false");
+		activeMQConnectionFactory.setBrokerURL("vm://" + brokerName + "?create=false");
         activeMQConnectionFactory.setTrustAllPackages(true);
 
         return activeMQConnectionFactory;
