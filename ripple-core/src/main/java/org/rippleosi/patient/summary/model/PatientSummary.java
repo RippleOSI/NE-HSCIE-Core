@@ -28,6 +28,7 @@ public class PatientSummary {
     private String gender;
     private String nhsNumber;
     private String department;
+    private String source;
 
     public String getId() {
         return id;
@@ -83,5 +84,13 @@ public class PatientSummary {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 }
