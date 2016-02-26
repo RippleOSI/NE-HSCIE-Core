@@ -34,12 +34,19 @@ angular
       })
 
       .state('patients-charts', {
-         url: '/',
+         url: '/charts',
         views: {
           main: { templateUrl: 'views/patients/patients-charts.html', controller: 'PatientsChartsCtrl' }
         }
       })
-
+      
+      .state('patients-search', {
+         url: '/search',
+        views: {
+          main: { templateUrl: 'views/patients/patients-search.html', controller: 'PatientsSearchCtrl' }
+        }
+      })
+      
       .state('search-report', {
          url: '/search-report?searchString',
         views: {

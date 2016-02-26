@@ -19,13 +19,18 @@ angular.module('rippleDemonstrator')
     // Temporary default user
     if (!$scope.currentUser.role) {
       $scope.currentUser.role = 'idcr';
+      $scope.currentUser.client = 'st';
       $scope.currentUser.email = 'example@email.com';
     }
 
     // Direct different roles to different pages at login
     switch ($scope.currentUser.role) {
     case 'idcr':
-      $state.go('patients-charts');
+        if($scope.currentUser.client === 'st') {
+            $state.go('patients-search');
+        } else {
+            $state.go('patients-charts');
+        }
       break;
     case 'phr':
       $state.go('patients-summary', {
@@ -56,6 +61,13 @@ angular.module('rippleDemonstrator')
         detailWidth = 0;
         break;
       case 'patients-charts':
+        previousState = '';
+        pageHeader = 'Patient Dashboard';
+        previousPage = '';
+        mainWidth = 12;
+        detailWidth = 0;
+        break;
+      case 'patients-search':
         previousState = '';
         pageHeader = 'Patient Dashboard';
         previousPage = '';
