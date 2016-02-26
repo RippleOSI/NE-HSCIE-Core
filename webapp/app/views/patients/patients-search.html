@@ -94,7 +94,7 @@
             </thead>
 
             <tbody>
-                <tr ng-repeat="patient in patients| orderBy:'name'">
+                <tr ng-repeat="patient in patients| orderBy:'name'" ng-click="go(patient)">
                     <td>{{ patient.name}}</td>
                     <td>{{ patient.address}}</td>
                     <td>{{ patient.dateOfBirth | date:'dd-MMM-yyyy'}}</td>

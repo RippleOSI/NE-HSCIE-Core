@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-        .controller('PatientsSearchCtrl', function ($scope, $window, $state, PatientSearchService, $modal) {
+        .controller('PatientsSearchCtrl', function ($scope, $stateParams, $window, $state, PatientSearchService, $modal) {
 
             $scope.searching = false;
 
@@ -35,4 +35,13 @@ angular.module('rippleDemonstrator')
                 getData();
             };
 
+            $scope.go = function (patient) {
+                $state.go('patients-landing', {
+                    patientId: patient.nhsNumber,
+                    source: 'tie',
+                    reportType: $stateParams.reportType,
+                    searchString: $stateParams.searchString,
+                    queryType: $stateParams.queryType
+                });
+            }
         });
