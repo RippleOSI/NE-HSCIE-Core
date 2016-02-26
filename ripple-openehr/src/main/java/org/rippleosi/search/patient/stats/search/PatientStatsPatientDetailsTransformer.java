@@ -33,7 +33,7 @@ public class PatientStatsPatientDetailsTransformer implements Transformer<Patien
     @Override
     public SearchTablePatientDetails transform(PatientSummary patientSummary) {
         SearchTablePatientDetails details = new SearchTablePatientDetails();
-        details.setSource("local");
+        details.setSource(patientSummary.getSource());
         details.setSourceId(patientSummary.getId());
         details.setName(patientSummary.getName());
         details.setAddress(patientSummary.getAddress());

@@ -41,6 +41,7 @@ public class PatientsSearchController {
         ivor.setDateOfBirth(new Date());
         ivor.setGender("Male");
         ivor.setNhsNumber("9999999000");
+        ivor.setSource("tie");
 
         PatientSummary fredericka = new PatientSummary();
         fredericka.setId("2");
@@ -49,6 +50,7 @@ public class PatientsSearchController {
         fredericka.setDateOfBirth(new Date());
         fredericka.setGender("Female");
         fredericka.setNhsNumber("9999999001");
+        fredericka.setSource("tie");
 
         PatientSummary freya = new PatientSummary();
         freya.setId("3");
@@ -57,6 +59,7 @@ public class PatientsSearchController {
         freya.setDateOfBirth(new Date());
         freya.setGender("Female");
         freya.setNhsNumber("9999999002");
+        freya.setSource("tie");
 
         List<PatientSummary> patients = new ArrayList<>();
         patients.add(ivor);

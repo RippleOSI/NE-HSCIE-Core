@@ -40,6 +40,7 @@ public class PatientEntityToSummaryTransformer implements Transformer<PatientEnt
         patientSummary.setGender(patientEntity.getGender());
         patientSummary.setNhsNumber(patientEntity.getNhsNumber());
         patientSummary.setDepartment(patientEntity.getDepartment().getDepartment());
+        patientSummary.setSource("local");
 
         return patientSummary;
     }
