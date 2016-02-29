@@ -16,8 +16,8 @@ angular.module('rippleDemonstrator')
       });
     };
 
-    var get = function (id) {
-      return $http.get('/api/patients/' + id, {
+    var get = function (id, source) {
+      return $http.get('/api/patients/' + id + '?source=' + source, {
         cache: true
       }).then(function (result) {
         return new Patient(result.data);

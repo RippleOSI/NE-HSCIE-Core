@@ -47,6 +47,15 @@ angular
         }
       })
       
+      .state('patients-landing', {
+        url: '/patients/{patientId:int}/patients-landing?source&reportType&searchString&queryType',
+        views: {
+          'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
+          actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
+          main: { templateUrl: 'views/patients/patients-landing.html', controller: 'PatientsLandingCtrl' }
+        }
+      })
+      
       .state('search-report', {
          url: '/search-report?searchString',
         views: {

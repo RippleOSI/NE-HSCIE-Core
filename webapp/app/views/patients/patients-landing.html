@@ -1,0 +1,12 @@
+<div>
+    <h2><i class="fa fa-stethoscope patient-landing-icon"></i> Data Sources</h2>
+    <div class="border">
+        <div style="display:inline-block" ng-repeat="datasource in datasources">
+            <div>
+                {{datasource.sourceId}}
+                <div class="rounded-border-connected" ng-if="datasource.status=='Connected'">{{datasource.status}}</div>
+                <div class ="rounded-border-nolink" ng-if="datasource.status=='No link'">{{datasource.status}}</div>
+            </div>
+        </div>
+    </div>
+</div>

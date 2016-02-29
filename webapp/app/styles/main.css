@@ -1037,6 +1037,27 @@ svg {
   color: #7cbe31;
 }
 
+/* Patient Landing */
+.patient-landing-icon {
+    color: #C5E29F;
+}
+
+.border {
+    border:1px solid #bebcbd;
+}
+
+.rounded-border-nolink {
+    border-radius: 20px;
+    border:1px solid #bebcbd;
+    background-color: #bebcbd;
+}
+
+.rounded-border-connected {
+    border-radius: 20px;
+    border:1px solid #C5E29F;
+    background-color: #C5E29F;
+}
+
 
 /* Patient Detail */
 
