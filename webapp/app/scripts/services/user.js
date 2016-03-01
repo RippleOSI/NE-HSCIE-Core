@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .factory('UserService', function ($http, claims) {
+  .factory('UserService', function ($http, claims, content) {
 
     var currentUser = {
       role: claims.role,
@@ -17,12 +17,16 @@ angular.module('rippleDemonstrator')
     };
 
     var getCurrentUser = function () {
-      console.log(currentUser);
-      return currentUser;
+       return currentUser;
+    };
+
+    var getContent = function (key) {
+      return content[key];
     };
 
     return {
-      getCurrentUser: getCurrentUser
+      getCurrentUser: getCurrentUser,
+      getContent: getContent
     };
 
   });
