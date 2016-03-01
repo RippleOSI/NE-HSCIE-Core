@@ -13,14 +13,17 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package org.rippleosi.patient.search.rest;
+package org.rippleosi.patient.query.rest;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.rippleosi.patient.search.model.PatientSearchParams;
-import org.rippleosi.patient.summary.model.PatientSummary;
+import org.rippleosi.patient.query.search.PatientQuery;
+import org.rippleosi.patient.query.search.PatientQueryFactory;
+import org.rippleosi.patient.query.model.PatientQueryParams;
+import org.rippleosi.patient.query.model.PatientSummary;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,11 +34,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/search/patients")
 public class PatientsSearchController {
 
+    @Autowired
+    private PatientQueryFactory patientQueryFactory;
+
     @RequestMapping(method = RequestMethod.POST)
-    public List<PatientSummary> findAllPatients(@RequestParam(required = false) String source,
-                                                @RequestBody PatientSearchParams searchParams) {
+    public List<PatientSummary> findPatientsByQuery(@RequestParam(required = false) String source,
+                                              @RequestBody PatientQueryParams queryParams) {
         PatientSummary ivor = new PatientSummary();
-        ivor.setId("1");
+        ivor.setSourceId("1");
         ivor.setName("Ivor Cox");
         ivor.setAddress("55 Anne Street, Stockton-on-Tees, Durham, SL2 2II");
         ivor.setDateOfBirth(new Date());
@@ -44,7 +50,7 @@ public class PatientsSearchController {
         ivor.setSource("tie");
 
         PatientSummary fredericka = new PatientSummary();
-        fredericka.setId("2");
+        fredericka.setSourceId("2");
         fredericka.setName("Alden Cote");
         fredericka.setAddress("3115 Sit Ave, March, Cambridgeshire, PW3M 7GS");
         fredericka.setDateOfBirth(new Date());
@@ -53,7 +59,7 @@ public class PatientsSearchController {
         fredericka.setSource("tie");
 
         PatientSummary freya = new PatientSummary();
-        freya.setId("3");
+        freya.setSourceId("3");
         freya.setName("Freya Blackwell");
         freya.setAddress("2924 Pretium Av., Camborne, Cornwall, J1 3AM");
         freya.setDateOfBirth(new Date());
@@ -67,5 +73,9 @@ public class PatientsSearchController {
         patients.add(freya);
 
         return patients;
+
+//        PatientQuery patientQuery = patientQueryFactory.select(source);
+//
+//        return patientQuery.findPatientsByQuery(queryParams);
     }
 }

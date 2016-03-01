@@ -33,7 +33,7 @@
 
         <activemq.version>5.12.2</activemq.version>
         <camel.version>2.15.3</camel.version>
-        <cxf.version>3.0.2</cxf.version>
+        <cxf.version>3.1.5</cxf.version>
         <fhir.version>1.2</fhir.version>
         <jackson.version>2.4.4</jackson.version>
         <log4j.version>1.2.17</log4j.version>
@@ -48,10 +48,11 @@
         <module>ripple-core</module>
         <module>ripple-database</module>
         <module>ripple-demonstrator-api</module>
+        <module>ripple-dicom</module>
         <module>ripple-openehr</module>
+        <module>ripple-stft-tie</module>
         <module>ripple-terminology-example</module>
         <module>ripple-vista</module>
-        <module>ripple-dicom</module>
     </modules>
 
     <dependencyManagement>
@@ -83,6 +84,12 @@
             <dependency>
                 <groupId>org.rippleosi</groupId>
                 <artifactId>ripple-openehr</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.rippleosi</groupId>
+                <artifactId>ripple-stft-tie</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -274,9 +281,39 @@
 
             <dependency>
                 <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-core</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-frontend-jaxrs</artifactId>
                 <version>${cxf.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-bindings-soap</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+
+            <!--<dependency>-->
+                <!--<groupId>org.apache.cxf.xjc-utils</groupId>-->
+                <!--<artifactId>cxf-xjc-runtime</artifactId>-->
+                <!--<version>${cxf.version}</version>-->
+            <!--</dependency>-->
 
             <dependency>
                 <groupId>org.apache.tomcat</groupId>
@@ -410,6 +447,12 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <groupId>org.apache.cxf</groupId>
+                    <artifactId>cxf-codegen-plugin</artifactId>
+                    <version>${cxf.version}</version>
+                </plugin>
+
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>2.4</version>
@@ -445,6 +488,11 @@
         </pluginManagement>
 
         <plugins>
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-codegen-plugin</artifactId>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

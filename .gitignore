@@ -9,7 +9,7 @@ webapp/.idea/
 .settings/
 
 # Misc #
-target/
+*/target/
 .springBeans
 .tern-project
 node_modules/

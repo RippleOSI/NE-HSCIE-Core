@@ -13,11 +13,11 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package org.rippleosi.patient.search.model;
+package org.rippleosi.patient.query.model;
 
 import java.util.Date;
 
-public class PatientSearchParams {
+public class PatientQueryParams {
 
     private String forename;
     private String surname;
