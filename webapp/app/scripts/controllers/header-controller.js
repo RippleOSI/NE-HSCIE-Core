@@ -12,22 +12,22 @@ angular.module('rippleDemonstrator')
 
     // Direct different roles to different pages at login
     switch ($scope.currentUser.role) {
-    case 'idcr':
-        if($scope.currentUser.feature.homeView === 'search') {
-            $state.go('patients-search');
+      case 'idcr':
+        if ($scope.currentUser.feature.homeView === 'search') {
+          $state.go('patients-search');
         } else {
-            $state.go('patients-charts');
+          $state.go('patients-charts');
         }
-      break;
-    case 'phr':
-      $state.go('patients-summary', {
-        patientId: 10
-      }); // id is hard coded
-      break;
-    default:
-      $state.go('patients-summary', {
-        patientId: 10
-      }); // id is hard coded
+        break;
+      case 'phr':
+        $state.go('patients-summary', {
+          patientId: 10
+        }); // id is hard coded
+        break;
+      default:
+        $state.go('patients-summary', {
+          patientId: 10
+        }); // id is hard coded
     }
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState) {
@@ -276,8 +276,13 @@ angular.module('rippleDemonstrator')
 
       $scope.goHome = function () {
         $scope.cancelSearchMode();
+
         if ($scope.currentUser.role === 'idcr') {
-          $state.go('patients-charts');
+          if ($scope.currentUser.feature.homeView === 'search') {
+            $state.go('patients-search');
+          } else {
+            $state.go('patients-charts');
+          }
         }
         if ($scope.currentUser.role === 'phr') {
           $state.go('patients-summary', {
