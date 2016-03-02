@@ -8,8 +8,7 @@ angular.module('rippleDemonstrator')
     "email": "bob.smith@gmail.com",
     "scope": {
       "homeView": "chart",
-      "setting2": true,
-      "setting3": true
+      "searchBarEnabled": true
     },
     "tenant_id": "Ripple",
     "tenant_name": "Ripple Demonstrator",

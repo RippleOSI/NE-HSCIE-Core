@@ -595,6 +595,9 @@ legend {
 
 
 /* Header - Search Bar */
+.searchBarHidden {
+  visibility: hidden;
+}
 
 .icon-searchbar:before {
   color: #82BE36;

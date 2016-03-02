@@ -8,8 +8,7 @@ angular.module('rippleDemonstrator')
     "email": "bob.smith@gmail.com",
     "scope": {
       "homeView": "search",
-      "setting2": true,
-      "setting3": true
+      "searchBarEnabled": false
     },
     "tenant_id": "STFT",
     "tenant_name": "South Tyneside NHS Trust",

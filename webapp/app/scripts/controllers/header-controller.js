@@ -30,6 +30,8 @@ angular.module('rippleDemonstrator')
         }); // id is hard coded
     }
 
+    $scope.searchBarEnabled = $scope.currentUser.feature.searchBarEnabled;
+
     $rootScope.$on('$stateChangeSuccess', function (event, toState) {
       var params = $stateParams;
       var previousState = '';
