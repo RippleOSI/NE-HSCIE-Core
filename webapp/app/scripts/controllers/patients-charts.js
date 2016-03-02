@@ -5,7 +5,7 @@ angular.module('rippleDemonstrator')
 
     var currentUser = UserService.getCurrentUser();
 
-    var proceed = function (row, chartType) {
+    $scope.proceed = function (row, chartType) {
       if (currentUser.feature.roleConfirmationRequired) {
         openModal(row, chartType);
       }
@@ -70,7 +70,7 @@ angular.module('rippleDemonstrator')
       }).on('click', function (i, row) {
 
         var chartType = 'age';
-        proceed(row, chartType);
+        $scope.proceed(row, chartType);
       });
     };
 
@@ -93,7 +93,7 @@ angular.module('rippleDemonstrator')
       }).on('click', function (i, row) {
 
         var chartType = 'summary';
-        proceed(row, chartType);
+        $scope.proceed(row, chartType);
       });
     };
 
