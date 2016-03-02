@@ -2,16 +2,13 @@
 
 angular.module('rippleDemonstrator')
   .factory('PatientSearchService', function ($http) {
-      
-      var searchPatients = function (searchForm) {
-      return $http.post('/api/search/patients', {searchParams : searchForm}).then(function (result) {
-       
-        return result.data;
-      });
+
+    var searchPatients = function (searchForm) {
+      return $http.post('/api/search/patients', {searchParams: searchForm});
     };
 
     return {
       searchPatients: searchPatients
     };
-          
-});
+
+  });

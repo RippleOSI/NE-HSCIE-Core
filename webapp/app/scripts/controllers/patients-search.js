@@ -21,7 +21,7 @@ angular.module('rippleDemonstrator')
       $scope.searching = true;
 
       PatientSearchService.searchPatients(search).then(function (result) {
-        $scope.patients = result;
+        $scope.patients = result.data;
       });
 
       $scope.searching = false;

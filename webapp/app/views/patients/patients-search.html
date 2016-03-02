@@ -17,7 +17,7 @@
             <label for="nhsNumber" class="control-label col-md-12">NHS Number</label>
             <div class="col-md-10">
               <div class="input-group">
-                <input type="text" class="form-control input-sm" id="nhsNumber" name="nhsNumber" ng-model="search.nhsNumber">
+                <input type="text" tabindex="1" class="form-control input-sm" id="nhsNumber" name="nhsNumber" ng-model="search.nhsNumber">
               </div>
               <span class="help-block animate-fade" ng-show="formSubmitted && patientSearchForm.nhsNumber.$error.required">You must enter a value.</span>
             </div>
@@ -27,7 +27,7 @@
             <label for="firstName" class="control-label col-md-12">First Name</label>
             <div class="col-md-10">
               <div class="input-group">
-                <input type="text" class="form-control input-sm" id="firstName" name="firstName" ng-model="search.forename"/>
+                <input type="text" tabindex="2" class="form-control input-sm" id="firstName" name="firstName" ng-model="search.forename"/>
               </div>
               <span class="help-block animate-fade" ng-show="formSubmitted && patientSearchForm.firstName.$error.required">You must enter a value.</span>
             </div>
@@ -40,7 +40,7 @@
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-default btn-sm" ng-click="dateOfBirthDatePicker($event, 'dateOfBirth')"><i class="fa fa-calendar"></i></button>
                 </span>
-                <input type="text" class="form-control" id="dateOfBirth" name="dateOfBirth"
+                <input type="text" tabindex="4" class="form-control" id="dateOfBirth" name="dateOfBirth"
                        ng-model="search.dateOfBirth" ng-click="dateOfBirthDatePicker($event, 'dateOfBirth')"
                        datepicker-popup="dd-MMM-y" is-open="dateOfBirth"/>
               </div>
@@ -53,7 +53,7 @@
             <label for="lastName" class="control-label col-md-12">Last Name</label>
             <div class="col-md-10">
               <div class="input-group">
-                <input type="text" class="form-control input-sm" id="lastName" name="lastName" ng-model="search.surname"/>
+                <input type="text" tabindex="3" class="form-control input-sm" id="lastName" name="lastName" ng-model="search.surname"/>
               </div>
               <span class="help-block animate-fade" ng-show="formSubmitted && patientSearchForm.lastName.$error.required">You must enter a value.</span>
             </div>
@@ -63,7 +63,7 @@
             <label for="gender" class="control-label col-md-10">Gender</label>
             <div class="col-md-6">
               <div class="input-group">
-                <select class="form-control" class="form-control input-sm" id="gender" name="gender" ng-model="search.gender">
+                <select class="form-control" tabindex="5" class="form-control input-sm" id="gender" name="gender" ng-model="search.gender">
                   <option value="">-- Gender --</option>
                   <option>Male</option>
                   <option>Female</option>
@@ -75,7 +75,7 @@
         </div>
 
         <div class="row col-md-4 rightSearchPatientRow">
-          <button type="submit" class="btn btn-success control-label" ng-disabled="searching" ng-click="searchPatients(search)">Search</button>
+          <button type="submit" tabindex="6" class="btn btn-success control-label" ng-disabled="searching" ng-click="searchPatients(search)">Search</button>
         </div>
       </div>
 
@@ -86,7 +86,7 @@
           <tr>
             <th ng-click="sort('name')" ng-class="sortClass('name')">Name</th>
             <th>Address</th>
-            <th>Born</th>
+            <th>Date of Birth</th>
             <th>Gender</th>
             <th>NHS Number</th>
           </tr>
