@@ -9,7 +9,7 @@ angular.module('rippleDemonstrator')
     "scope": {
       "homeView": "chart",
       "searchBarEnabled": true,
-      "roleConfirmationRequired": true
+      "roleConfirmationRequired": false
     },
     "tenant_id": "Ripple",
     "tenant_name": "Ripple Demonstrator",
