@@ -1,9 +1,20 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('PatientsChartsCtrl', function ($scope, $window, $state, PatientService, $modal) {
+  .controller('PatientsChartsCtrl', function ($scope, $window, $state, PatientService, $modal, UserService) {
 
-    $scope.openModal = function (row, chartType) {
+    var currentUser = UserService.getCurrentUser();
+
+    var proceed = function (row, chartType) {
+      if (currentUser.feature.roleConfirmationRequired) {
+        openModal(row, chartType);
+      }
+      else {
+        ok(row, chartType);
+      }
+    };
+
+    var openModal = function (row, chartType) {
       $modal.open({
         templateUrl: 'views/confirmation.html',
         size: 'md',
@@ -13,29 +24,32 @@ angular.module('rippleDemonstrator')
             $scope.$close(true);
           };
 
-          $scope.ok = function () {
+          $scope.ok = function (row, chartType) {
             $scope.$close(true);
-
-            switch (chartType) {
-              case 'all':
-                $state.go('patients-list');
-                break;
-              case 'age':
-                $state.go('patients-list', { ageRange: row.series });
-                break;
-              case 'summary':
-                if (row.series === 'All') {
-                  row.series = null;
-                }
-                $state.go('patients-list', { department: row.series });
-                break;
-              default:
-                $state.go('patients-list');
-                break;
-            }
+            ok(row, chartType);
           };
         }
       });
+    };
+
+    var ok = function (row, chartType) {
+      switch (chartType) {
+        case 'all':
+          $state.go('patients-list');
+          break;
+        case 'age':
+          $state.go('patients-list', {ageRange: row.series});
+          break;
+        case 'summary':
+          if (row.series === 'All') {
+            row.series = null;
+          }
+          $state.go('patients-list', {department: row.series});
+          break;
+        default:
+          $state.go('patients-list');
+          break;
+      }
     };
 
     var ageChart = function (summaries) {
@@ -56,7 +70,7 @@ angular.module('rippleDemonstrator')
       }).on('click', function (i, row) {
 
         var chartType = 'age';
-        $scope.openModal(row, chartType);
+        proceed(row, chartType);
       });
     };
 
@@ -79,7 +93,7 @@ angular.module('rippleDemonstrator')
       }).on('click', function (i, row) {
 
         var chartType = 'summary';
-        $scope.openModal(row, chartType);
+        proceed(row, chartType);
       });
     };
 

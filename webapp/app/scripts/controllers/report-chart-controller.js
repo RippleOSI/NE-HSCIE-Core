@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('ReportChartsCtrl', function ($scope, $rootScope, $window, $modal, $state, $stateParams, Report) {
+  .controller('ReportChartsCtrl', function ($scope, $rootScope, $window, $modal, $state, $stateParams, Report, UserService) {
 
     $rootScope.searchMode = true;
     $rootScope.reportMode = true;
@@ -9,7 +9,18 @@ angular.module('rippleDemonstrator')
     $scope.resultSize = 0;
     $scope.noResults = '';
 
-    $scope.openModal = function (row, requestBody) {
+    var currentUser = UserService.getCurrentUser();
+
+    var proceed = function (row, requestBody) {
+      if (currentUser.feature.roleConfirmationRequired) {
+        openModal(row, requestBody);
+      }
+      else {
+        ok(row, requestBody);
+      }
+    };
+
+    var openModal = function (row, requestBody) {
       $modal.open({
         templateUrl: 'views/confirmation.html',
         size: 'md',
@@ -21,31 +32,35 @@ angular.module('rippleDemonstrator')
 
           $scope.ok = function () {
             $scope.$close(true);
-            var ageArr = row.series.split('-');
-            var ageFr = 0;
-            var ageT = 0;
-
-            if (ageArr.length === 2) {
-              ageFr = ageArr[0];
-              ageT = ageArr[1];
-            } else {
-              ageFr = 80;
-              ageT = 130;
-            }
-
-            $state.go('patients-list-full', {
-              queryType: 'Reports: ',
-              ageFrom: ageFr,
-              ageTo: ageT,
-              orderColumn: 'name',
-              orderType: 'ASC',
-              pageNumber: 1,
-              reportType: requestBody.reportType,
-              searchString: requestBody.searchString
-            });
-
-          };
+            ok(row, requestBody);
+          }
         }
+      });
+    };
+
+    var ok = function (row, requestBody) {
+      var ageArr = row.series.split('-');
+      var ageFr = 0;
+      var ageT = 0;
+
+      if (ageArr.length === 2) {
+        ageFr = ageArr[0];
+        ageT = ageArr[1];
+      }
+      else {
+        ageFr = 80;
+        ageT = 130;
+      }
+
+      $state.go('patients-list-full', {
+        queryType: 'Reports: ',
+        ageFrom: ageFr,
+        ageTo: ageT,
+        orderColumn: 'name',
+        orderType: 'ASC',
+        pageNumber: 1,
+        reportType: requestBody.reportType,
+        searchString: requestBody.searchString
       });
     };
 
@@ -65,7 +80,7 @@ angular.module('rippleDemonstrator')
         xLabelAngle: 50,
         redraw: true
       }).on('click', function (i, row) {
-        $scope.openModal(row, $scope.requestBody);
+        proceed(row, $scope.requestBody);
       });
     };
 
