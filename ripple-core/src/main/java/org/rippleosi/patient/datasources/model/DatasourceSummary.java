@@ -15,11 +15,22 @@
  */
 package org.rippleosi.patient.datasources.model;
 
+import java.util.Date;
+
 public class DatasourceSummary {
 
+    private Date cachedDate;
     private String source;
     private String sourceId;
     private String status;
+
+    public Date getCachedDate() {
+        return cachedDate;
+    }
+
+    public void setCachedDate(Date cachedDate) {
+        this.cachedDate = cachedDate;
+    }
 
     public String getSource() {
         return source;

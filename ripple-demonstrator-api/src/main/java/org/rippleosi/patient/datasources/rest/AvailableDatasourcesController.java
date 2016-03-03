@@ -16,6 +16,7 @@
 package org.rippleosi.patient.datasources.rest;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.rippleosi.patient.datasources.model.DatasourceSummary;
@@ -33,26 +34,31 @@ public class AvailableDatasourcesController {
     public List<DatasourceSummary> findAvailableDatasources(@PathVariable("patientId") String patientId,
                                                             @RequestParam(required = false) String source) {
         DatasourceSummary secondaryCare = new DatasourceSummary();
+        secondaryCare.setCachedDate(new Date());
         secondaryCare.setSource("TIE");
         secondaryCare.setSourceId("Secondary Care");
         secondaryCare.setStatus("No link");
 
         DatasourceSummary primaryCare = new DatasourceSummary();
+        primaryCare.setCachedDate(new Date());
         primaryCare.setSource("TIE");
         primaryCare.setSourceId("Primary Care");
         primaryCare.setStatus("No link");
 
         DatasourceSummary mentalHealth = new DatasourceSummary();
+        mentalHealth.setCachedDate(new Date());
         mentalHealth.setSource("TIE");
         mentalHealth.setSourceId("Mental Health");
         mentalHealth.setStatus("No link");
 
         DatasourceSummary socialCare = new DatasourceSummary();
+        socialCare.setCachedDate(new Date());
         socialCare.setSource("TIE");
         socialCare.setSourceId("Social Care");
         socialCare.setStatus("No link");
 
         DatasourceSummary community = new DatasourceSummary();
+        community.setCachedDate(new Date());
         community.setSource("TIE");
         community.setSourceId("Community");
         community.setStatus("Connected");
