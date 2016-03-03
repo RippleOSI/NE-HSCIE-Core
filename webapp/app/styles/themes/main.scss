@@ -1054,19 +1054,51 @@ svg {
 }
 
 .border {
-    border:1px solid #bebcbd;
+  border: 1px solid #bebcbd;
+  padding: 10px;
+  width: fit-content;
 }
 
-.rounded-border-nolink {
-    border-radius: 20px;
-    border:1px solid #bebcbd;
-    background-color: #bebcbd;
+.datasource-container {
+    padding: 5px;
 }
 
-.rounded-border-connected {
-    border-radius: 20px;
-    border:1px solid $rounded-connected-background;
-    background-color: $rounded-connected-background;
+.rounded-border {
+  border-radius: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  width: 120px;
+  align-content: center;
+}
+
+.nolink {
+  border: 1px solid #A0A0A0;
+  background-color: #A0A0A0; 
+}
+
+.connected {
+  border: 1px solid #C4F7C9;
+  background-color: #E4F0E7; 
+}
+
+.connected-label {
+    width: inherit;
+    color: black;
+    text-align: center;
+}
+
+.nolink-label {
+    width: inherit;
+    color: white;
+    text-align: center;
+}
+
+.datasource-icon {
+    float: left;
+    color: black;
+    padding-left: 2px;
 }
 
 
