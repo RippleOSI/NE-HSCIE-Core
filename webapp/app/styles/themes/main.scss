@@ -104,6 +104,11 @@ li {
   padding-left: 18px;
 }
 
+a.disabled {
+    pointer-events: none;
+    color: #A4A4A4;
+}
+
 
 /* Index */
 

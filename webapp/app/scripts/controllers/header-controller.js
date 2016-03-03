@@ -31,6 +31,7 @@ angular.module('rippleDemonstrator')
     }
 
     $scope.searchBarEnabled = $scope.currentUser.feature.searchBarEnabled;
+    $scope.navBar = $scope.currentUser.feature.navBar;
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState) {
       var params = $stateParams;
