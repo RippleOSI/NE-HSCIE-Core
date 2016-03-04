@@ -18,26 +18,27 @@ package org.rippleosi.patient.query.search;
 import java.util.Date;
 
 import org.apache.commons.collections4.Transformer;
-import org.hscieripple.patient.query.PatientDetailsResponse;
+import org.hscieripple.patient.query.ResultRow;
 import org.rippleosi.common.util.DateFormatter;
-import org.rippleosi.patient.query.model.PatientSummary;
+import org.rippleosi.patient.summary.model.PatientSummary;
 
-public class PatientDetailsToPatientSummaryTransformer implements Transformer<PatientDetailsResponse, PatientSummary> {
+public class PatientResponseToPatientSummaryTransformer implements Transformer<ResultRow, PatientSummary> {
 
     @Override
-    public PatientSummary transform(PatientDetailsResponse response) {
+    public PatientSummary transform(ResultRow response) {
 
         String sourceId = String.valueOf(response.getPersonNumber());
         String name = response.getForename() + " " + response.getSurname();
+        String address = response.getAddress() + ", " + response.getPostCode();
         Date dateOfBirth = DateFormatter.toDate(response.getDOB());
         String nhsNumber = String.valueOf(response.getNHSNumber());
 
         PatientSummary summary = new PatientSummary();
 
-        summary.setSourceId(sourceId);
-        summary.setSource("TIE");
+        summary.setId(sourceId);
+        summary.setSource("tie");
         summary.setName(name);
-        summary.setAddress(response.getAddress());
+        summary.setAddress(address);
         summary.setDateOfBirth(dateOfBirth);
         summary.setGender(response.getGender());
         summary.setNhsNumber(nhsNumber);

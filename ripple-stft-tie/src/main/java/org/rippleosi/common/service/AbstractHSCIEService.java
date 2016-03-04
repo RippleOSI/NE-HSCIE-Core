@@ -25,7 +25,7 @@ public abstract class AbstractHSCIEService implements Repository {
 
     @Override
     public String getSource() {
-        return "TIE";
+        return "tie";
     }
 
     @Override

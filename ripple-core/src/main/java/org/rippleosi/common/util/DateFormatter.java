@@ -98,7 +98,7 @@ public final class DateFormatter {
             return null;
         }
 
-        return DateFormatUtils.format(input, "yyyy/MM/dd");
+        return DateFormatUtils.format(input, "yyyy-MM-dd");
     }
 
     public static String combineDateTime(Date date, Date time) {

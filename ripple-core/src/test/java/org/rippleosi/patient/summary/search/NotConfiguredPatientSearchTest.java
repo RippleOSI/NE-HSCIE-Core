@@ -51,13 +51,13 @@ public class NotConfiguredPatientSearchTest {
     }
 
     @Test(expected = ConfigurationException.class)
-    public void shouldThrowExceptionWhenTryingToFindPatientsByQuery() {
-        patientSearch.findPatientsByQuery(null);
+    public void shouldThrowExceptionWhenTryingToFindPatientsBySearchString() {
+        patientSearch.findPatientsBySearchString(null);
     }
 
     @Test(expected = ConfigurationException.class)
     public void shouldThrowExceptionWhenTryingToCountPatientsByQuery() {
-        patientSearch.countPatientsByQuery(null);
+        patientSearch.countPatientsBySearchString(null);
     }
 
     @Test(expected = ConfigurationException.class)
@@ -73,5 +73,10 @@ public class NotConfiguredPatientSearchTest {
     @Test(expected = ConfigurationException.class)
     public void shouldThrowExceptionWhenTryingToFindPatientCountByDepartment() {
         patientSearch.findPatientCountByDepartment(null);
+    }
+
+    @Test(expected = ConfigurationException.class)
+    public void shouldThrowExceptionWhenTryingToFindPatientsByQueryObject() {
+        patientSearch.findPatientsByQueryObject(null);
     }
 }

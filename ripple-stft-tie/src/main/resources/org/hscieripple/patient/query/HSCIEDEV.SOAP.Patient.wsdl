@@ -16,7 +16,7 @@
             <s:element name="findPatientBOResponse">
                 <s:complexType>
                     <s:sequence>
-                        <s:element name="findPatientBOResult" type="s0:PatientDetailsResponse" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+                        <s:element name="findPatientBOResult" type="s0:PatientDetailsResponse"/>
                     </s:sequence>
                 </s:complexType>
             </s:element>
@@ -24,14 +24,9 @@
                 <s:complexContent>
                     <s:extension base="s0:Ens_Response">
                         <s:sequence>
-                            <s:element minOccurs="0" name="NHSNumber" type="s:long"/>
-                            <s:element minOccurs="0" name="PersonNumber" type="s:long"/>
-                            <s:element minOccurs="0" name="Forename" type="s:string"/>
-                            <s:element minOccurs="0" name="Surname" type="s:string"/>
-                            <s:element minOccurs="0" name="Gender" type="s:string"/>
-                            <s:element minOccurs="0" name="Address" type="s:string"/>
-                            <s:element minOccurs="0" name="PostCode" type="s:string"/>
-                            <s:element minOccurs="0" name="DOB" type="s:string"/>
+                            <s:element minOccurs="0" name="ResultCount" type="s:long"/>
+                            <s:element minOccurs="0" name="Results" type="s0:ArrayOfResultsItemPairOfResultsKeyString"/>
+                            <s:element minOccurs="0" name="ResultsSet" type="s0:ArrayOfResultRowPairOfResultsSetKeyResultRow"/>
                             <s:element minOccurs="0" name="StatusCode" type="s:string"/>
                             <s:element minOccurs="0" name="StatusDesc" type="s:string"/>
                         </s:sequence>
@@ -44,6 +39,46 @@
                 </s:complexContent>
             </s:complexType>
             <s:complexType name="Ens_Messagebody"/>
+            <s:complexType name="ArrayOfResultsItemPairOfResultsKeyString">
+                <s:sequence>
+                    <s:element maxOccurs="unbounded" minOccurs="0" name="ResultsItem" nillable="true" type="s0:PairOfResultsKeyString"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="PairOfResultsKeyString">
+                <s:simpleContent>
+                    <s:extension base="s:string">
+                        <s:attribute name="ResultsKey" type="s:string" use="required"/>
+                    </s:extension>
+                </s:simpleContent>
+            </s:complexType>
+            <s:complexType name="ArrayOfResultRowPairOfResultsSetKeyResultRow">
+                <s:sequence>
+                    <s:element maxOccurs="unbounded" minOccurs="0" name="ResultRow" nillable="true" type="s0:PairOfResultsSetKeyResultRow"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="PairOfResultsSetKeyResultRow">
+                <s:complexContent>
+                    <s:extension base="s0:ResultRow">
+                        <s:attribute name="ResultsSetKey" type="s:string" use="required"/>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="ResultRow">
+                <s:complexContent>
+                    <s:extension base="s0:Ens_Response">
+                        <s:sequence>
+                            <s:element minOccurs="0" name="NHSNumber" type="s:long"/>
+                            <s:element minOccurs="0" name="Forename" type="s:string"/>
+                            <s:element minOccurs="0" name="Surname" type="s:string"/>
+                            <s:element minOccurs="0" name="Gender" type="s:string"/>
+                            <s:element minOccurs="0" name="DOB" type="s:string"/>
+                            <s:element minOccurs="0" name="Address" type="s:string"/>
+                            <s:element minOccurs="0" name="PersonNumber" type="s:string"/>
+                            <s:element minOccurs="0" name="PostCode" type="s:string"/>
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
         </s:schema>
     </types>
     <message name="findPatientBOSoapIn">
@@ -71,6 +106,8 @@
         </operation>
     </binding>
     <service name="PatientService">
-        <port name="Patient" binding="s0:Patient"/>
+        <port name="Patient" binding="s0:Patient">
+            <soap:address location="http://10.152.3.237:57772/csp/healthshare/hscie_ripple_dev/HSCIEDEV.SOAP.Patient.cls"/>
+        </port>
     </service>
 </definitions>

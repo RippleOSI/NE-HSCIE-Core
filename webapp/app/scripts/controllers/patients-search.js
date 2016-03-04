@@ -19,8 +19,9 @@ angular.module('rippleDemonstrator')
       $scope.patientSearchForm.$valid = true;
 
       $scope.searching = true;
+      $stateParams.source = 'tie';
 
-      PatientSearchService.searchPatients(search).then(function (result) {
+      PatientSearchService.searchPatients(search, $stateParams.source).then(function (result) {
         $scope.patients = result.data;
       });
 

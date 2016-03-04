@@ -15,39 +15,111 @@
  */
 package org.rippleosi.patient.query.search;
 
+import javax.xml.ws.soap.SOAPFaultException;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.hscieripple.patient.query.PairOfResultsSetKeyResultRow;
 import org.hscieripple.patient.query.PatientDetailsResponse;
 import org.hscieripple.patient.query.PatientService;
 import org.hscieripple.patient.query.PatientServiceSoap;
+import org.rippleosi.common.exception.ConfigurationException;
 import org.rippleosi.common.service.AbstractHSCIEService;
 import org.rippleosi.common.util.DateFormatter;
-import org.rippleosi.patient.query.model.PatientQueryParams;
-import org.rippleosi.patient.query.model.PatientSummary;
+import org.rippleosi.patient.summary.model.PatientDetails;
+import org.rippleosi.patient.summary.model.PatientQueryParams;
+import org.rippleosi.patient.summary.model.PatientSummary;
+import org.rippleosi.patient.summary.search.PatientSearch;
+import org.rippleosi.search.patient.stats.model.PatientTableQuery;
+import org.rippleosi.search.reports.table.model.ReportTableQuery;
+import org.rippleosi.search.setting.table.model.SettingTableQuery;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientQuery {
+public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSearch {
+
+    private static final Logger log = LoggerFactory.getLogger(HSCIEPatientQuery.class);
 
     @Autowired
-    private PatientService patientService;
+    private PatientServiceSoap patientService;
 
     @Override
-    public List<PatientSummary> findPatientsByQuery(PatientQueryParams params) throws NumberFormatException {
-        PatientServiceSoap patientSoapService = patientService.getPatient();
+    public List<PatientSummary> findPatientsByQueryObject(PatientQueryParams params) throws NumberFormatException {
+        Long nhsNumber = params.getNhsNumber() == null ? null : Long.valueOf(params.getNhsNumber());
+        Date dateOfBirth = params.getDateOfBirth();
 
-        Long nhsNumber = Long.valueOf(params.getNhsNumber());
-        String dateOfBirth = DateFormatter.toSimpleDateString(params.getDateOfBirth());
+        try {
+            PatientDetailsResponse response = patientService.findPatientBO(nhsNumber,
+                                                                           params.getForename(),
+                                                                           params.getSurname(),
+                                                                           params.getGender(),
+                                                                           DateFormatter.toSimpleDateString(dateOfBirth));
 
-        List<PatientDetailsResponse> patients = patientSoapService.findPatientBO(nhsNumber,
-                                                                                 params.getForename(),
-                                                                                 params.getSurname(),
-                                                                                 params.getGender(),
-                                                                                 dateOfBirth);
+            return CollectionUtils.collect(response.getResultsSet().getResultRow(),
+                                           new PatientResponseToPatientSummaryTransformer(), new ArrayList<>());
+        }
+        catch (SOAPFaultException e) {
+            log.error(e.getMessage());
 
-        return CollectionUtils.collect(patients, new PatientDetailsToPatientSummaryTransformer(), new ArrayList<>());
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<PatientSummary> findAllPatients() {
+        throw ConfigurationException.unimplementedTransaction(PatientSearch.class);
+    }
+
+    @Override
+    public List<PatientSummary> findAllMatchingPatients(List<String> nhsNumbers, ReportTableQuery tableQuery) {
+        throw ConfigurationException.unimplementedTransaction(PatientSearch.class);
+    }
+
+    @Override
+    public PatientDetails findPatient(String patientId) throws NumberFormatException {
+        try {
+            PatientDetailsResponse response = patientService.findPatientBO(Long.valueOf(patientId),
+                                                                           null, null, null, null);
+
+            List<PairOfResultsSetKeyResultRow> patients = response.getResultsSet().getResultRow();
+
+            return new PatientResponseToPatientDetailsTransformer().transform(patients.get(0));
+        }
+        catch (SOAPFaultException e) {
+            log.error(e.getMessage());
+
+            return new PatientDetails();
+        }
+    }
+
+    @Override
+    public List<PatientSummary> findPatientsBySearchString(PatientTableQuery tableQuery) {
+        throw ConfigurationException.unimplementedTransaction(PatientSearch.class);
+    }
+
+    @Override
+    public Long countPatientsBySearchString(PatientTableQuery tableQuery) {
+        throw ConfigurationException.unimplementedTransaction(PatientSearch.class);
+    }
+
+    @Override
+    public PatientSummary findPatientSummary(String patientId) {
+        throw ConfigurationException.unimplementedTransaction(PatientSearch.class);
+    }
+
+    @Override
+    public List<PatientSummary> findAllPatientsByDepartment(SettingTableQuery tableQuery) {
+        throw ConfigurationException.unimplementedTransaction(PatientSearch.class);
+    }
+
+    @Override
+    public Long findPatientCountByDepartment(String department) {
+        throw ConfigurationException.unimplementedTransaction(PatientSearch.class);
     }
 }

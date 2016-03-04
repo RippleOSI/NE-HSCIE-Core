@@ -23,11 +23,13 @@ import com.mysema.query.BooleanBuilder;
 import com.mysema.util.ArrayUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.rippleosi.common.exception.ConfigurationException;
 import org.rippleosi.common.util.DateFormatter;
 import org.rippleosi.patient.details.model.PatientEntity;
 import org.rippleosi.patient.details.model.QPatientEntity;
 import org.rippleosi.patient.details.repo.PatientRepository;
 import org.rippleosi.patient.summary.model.PatientDetails;
+import org.rippleosi.patient.summary.model.PatientQueryParams;
 import org.rippleosi.patient.summary.model.PatientSummary;
 import org.rippleosi.patient.summary.search.PatientSearch;
 import org.rippleosi.search.common.model.PageableTableQuery;
@@ -101,7 +103,7 @@ public class LegacyPatientSearch implements PatientSearch {
     }
 
     @Override
-    public List<PatientSummary> findPatientsByQuery(PatientTableQuery tableQuery) {
+    public List<PatientSummary> findPatientsBySearchString(PatientTableQuery tableQuery) {
         BooleanBuilder predicate = generateSearchByPatientReportTablePredicate(tableQuery);
 
         if (predicate == null) {
@@ -113,7 +115,7 @@ public class LegacyPatientSearch implements PatientSearch {
     }
 
     @Override
-    public Long countPatientsByQuery(PatientTableQuery tableQuery) {
+    public Long countPatientsBySearchString(PatientTableQuery tableQuery) {
         BooleanBuilder predicate = generateSearchByPatientReportTablePredicate(tableQuery);
         return predicate == null ? 0 : patientRepository.count(predicate);
     }
@@ -236,6 +238,11 @@ public class LegacyPatientSearch implements PatientSearch {
     @Override
     public Long findPatientCountByDepartment(String department) {
         return patientRepository.countByDepartmentDepartmentIgnoreCase(department);
+    }
+
+    @Override
+    public List<PatientSummary> findPatientsByQueryObject(PatientQueryParams patientQueryParams) {
+        throw ConfigurationException.unimplementedTransaction(PatientSearch.class);
     }
 
     private PageRequest generatePageRequest(PageableTableQuery tableQuery) {

@@ -17,6 +17,7 @@ package org.rippleosi.config;
 
 import org.apache.cxf.jaxws.spring.JaxWsProxyFactoryBeanDefinitionParser.JAXWSSpringClientProxyFactoryBean;
 import org.hscieripple.patient.query.PatientService;
+import org.hscieripple.patient.query.PatientServiceSoap;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -35,27 +36,22 @@ public class CXFConfig {
     @Value("${hscie.tie.address:''}")
     private String hscieTieAddress;
 
-    @Value("{hscie.tie.patientServiceUrl:''}")
+    @Value("${hscie.tie.patientServiceUrl:''}")
     private String patientServiceUrl;
 
     @Bean
-    public PatientService findPatientService() {
-        return createJAXWSService(PatientService.class, patientServiceUrl);
+    public PatientServiceSoap findPatientService() {
+        return createJAXWSService(PatientServiceSoap.class, patientServiceUrl);
     }
 
-    @SuppressWarnings("unchecked")
     public <T> T createJAXWSService(Class<T> serviceClass, String serviceUrl) {
         JAXWSSpringClientProxyFactoryBean factoryBean = new JAXWSSpringClientProxyFactoryBean();
 
-        factoryBean.setServiceClass(serviceClass);
         factoryBean.setAddress(hscieTieAddress + serviceUrl);
 
         factoryBean.setUsername(username);
         factoryBean.setPassword(password);
 
-        // this bindingId needed?? would have to be parameterised in the method (one per search)
-//        factoryBean.setBindingId("s0:RippleWSSoap");
-
-        return (T) factoryBean.create();
+        return factoryBean.create(serviceClass);
     }
 }

@@ -39,14 +39,14 @@ angular
           main: { templateUrl: 'views/patients/patients-charts.html', controller: 'PatientsChartsCtrl' }
         }
       })
-      
+
       .state('patients-search', {
-         url: '/search',
+         url: '/search?source',
         views: {
           main: { templateUrl: 'views/patients/patients-search.html', controller: 'PatientsSearchCtrl' }
         }
       })
-      
+
       .state('patients-landing', {
         url: '/patients/{patientId:int}/patients-landing?source&reportType&searchString&queryType',
         views: {
@@ -55,7 +55,7 @@ angular
           main: { templateUrl: 'views/patients/patients-landing.html', controller: 'PatientsLandingCtrl' }
         }
       })
-      
+
       .state('search-report', {
          url: '/search-report?searchString',
         views: {
