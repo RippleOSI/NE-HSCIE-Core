@@ -1,21 +1,24 @@
-$background-image-url: '../images/site-bg2.png';
+$background-image-url: '../images/site-bg-ripple.png';
 
 $toolbar-background: #0E682F;
 
 $tab-background: #0E682F;
 
 $header-color: #0E682F;
+$header2-color: #000000;
+$header3-color: #000000;
 
 $icon-chevron-color: #0E682F;
 $icon-user-color: #82BE36;
 $icon-main-nav-color: #7cbe31;
-$icon-patient-landing-color: #C5E29F;
+$icon-patient-color: #7dbf31;
 
 $button-info-background: #007a41;
 $button-success-background: #007a41;
 $button-main-nav-background-hover: #f4f8ec;
 
 $table-header-background: #C5E29F;
+$table-header-color: #333333;
 $table-row-background-hover: #EDF2C3;
 
 $panel-background: #007a41;
@@ -23,3 +26,8 @@ $panel-background: #007a41;
 $link-color-hover: #7cbe31;
 
 $rounded-connected-background: #C5E29F;
+$rounded-connected-border: #C4F7C9;
+
+$modal-title-background: #007a41;
+
+$patient-label-color: #106333;

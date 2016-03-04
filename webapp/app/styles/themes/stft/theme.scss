@@ -1,25 +1,33 @@
-$background-image-url: '../images/site-bg2.png';
+$background-image-url: '../images/site-bg-stft.png';
 
-$toolbar-background: #0E682F;
+$toolbar-background: #54008b;
 
-$tab-background: #0E682F;
+$tab-background: #028fc7;
 
-$header-color: #0E682F;
+$header-color: #333333;
+$header2-color: #333333;
+$header3-color: #333333;
 
-$icon-chevron-color: #0E682F;
-$icon-user-color: #82BE36;
-$icon-main-nav-color: #7cbe31;
-$icon-patient-landing-color: #C5E29F;
+$icon-chevron-color: #01a99f;
+$icon-user-color: #028fc7;
+$icon-main-nav-color: #028fc7;
+$icon-patient-color: #01a99f;
 
-$button-info-background: #007a41;
-$button-success-background: #007a41;
-$button-main-nav-background-hover: #f4f8ec;
+$button-info-background: #028fc7;
+$button-success-background: #028fc7;
+$button-main-nav-background-hover: #e3f1f9;
 
-$table-header-background: #C5E29F;
-$table-row-background-hover: #EDF2C3;
+$table-header-background: #01a99f;
+$table-header-color: #ffffff;
+$table-row-background-hover: #aae2df;
 
-$panel-background: #007a41;
+$panel-background: #54008b;
 
-$link-color-hover: #7cbe31;
+$link-color-hover: #01a99f;
 
-$rounded-connected-background: #C5E29F;
+$rounded-connected-background: #aae2df;
+$rounded-connected-border: #01a99f;
+
+$modal-title-background: #54008b;
+
+$patient-label-color: #333333;
