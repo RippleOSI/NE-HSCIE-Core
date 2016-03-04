@@ -39,28 +39,28 @@ public class KeyWorkersController {
     @RequestMapping(method = RequestMethod.GET)
     public List<KeyWorkerSummary> findAllKeyWorkers(@PathVariable("patientId") String patientId,
                                                     @RequestParam(required = false) String source) {
-//        KeyWorkerSummary maisy = new KeyWorkerSummary();
-//        maisy.setSource("Liquid Logic");
-//        maisy.setSourceId("1");
-//        maisy.setName("Maisy Cox");
-//        maisy.setRole("GP");
-//        maisy.setContactNumber("0191 123 123");
-//
-//        KeyWorkerSummary joanne = new KeyWorkerSummary();
-//        joanne.setSource("Liquid Logic");
-//        joanne.setSourceId("2");
-//        joanne.setName("Joanne Smith");
-//        joanne.setRole("Social Worker");
-//        joanne.setContactNumber("0191 234 234");
-//
-//        List<KeyWorkerSummary> summaries = new ArrayList<>();
-//        summaries.add(maisy);
-//        summaries.add(joanne);
-//
-//        return summaries;
+        KeyWorkerSummary maisy = new KeyWorkerSummary();
+        maisy.setSource("Liquid Logic");
+        maisy.setSourceId("1");
+        maisy.setName("Maisy Cox");
+        maisy.setRole("GP");
+        maisy.setContactNumber("0191 123 123");
 
-        KeyWorkerSearch keyWorkerSearch = keyWorkerSearchFactory.select(source);
-        return keyWorkerSearch.findAllKeyWorkers(patientId);
+        KeyWorkerSummary joanne = new KeyWorkerSummary();
+        joanne.setSource("Liquid Logic");
+        joanne.setSourceId("2");
+        joanne.setName("Joanne Smith");
+        joanne.setRole("Social Worker");
+        joanne.setContactNumber("0191 234 234");
+
+        List<KeyWorkerSummary> summaries = new ArrayList<>();
+        summaries.add(maisy);
+        summaries.add(joanne);
+
+        return summaries;
+//
+//        KeyWorkerSearch keyWorkerSearch = keyWorkerSearchFactory.select(source);
+//        return keyWorkerSearch.findAllKeyWorkers(patientId);
     }
 
     @RequestMapping(value = "/{keyWorkerId}", method = RequestMethod.GET)
