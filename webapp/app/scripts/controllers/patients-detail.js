@@ -9,7 +9,10 @@ angular.module('rippleDemonstrator')
     });
 
     var currentUser = UserService.getCurrentUser();
+    var patientContextParams = UserService.getContent('patientContextParams');
+
     $stateParams.patientSource = currentUser.feature.patientSource;
+    $scope.pasNumberLabel = patientContextParams.pasNumberLabel;
 
     $scope.goTo = function (section) {
       var requestHeader = {
