@@ -12,25 +12,26 @@ angular.module('rippleDemonstrator')
       "searchBarEnabled": false,
       "roleConfirmationRequired": false,
       "navBar": {
-          "patientSummaryEnabled": true,
-          "keyworkersEnabled": true,
-          "contactsEnabled": false,
-          "diagnosisEnabled": false,
-          "allergiesEnabled": false,
-          "medicationsEnabled": false,
-          "ordersEnabled": false,
-          "resultsEnabled": false,
-          "proceduresEnabled": false,
-          "referralsEnabled": false,
-          "appointmentsEnabled": false,
-          "transfersEnabled": false,
-          "careplansEnabled": false,
-          "mdtEnabled": false,
-          "imagesEnabled": false
+        "patientSummaryEnabled": true,
+        "keyworkersEnabled": true,
+        "contactsEnabled": false,
+        "diagnosisEnabled": false,
+        "allergiesEnabled": false,
+        "medicationsEnabled": false,
+        "ordersEnabled": false,
+        "resultsEnabled": false,
+        "proceduresEnabled": false,
+        "referralsEnabled": false,
+        "appointmentsEnabled": false,
+        "transfersEnabled": false,
+        "careplansEnabled": false,
+        "mdtEnabled": false,
+        "imagesEnabled": false,
+        "tagsEnabled": false
       },
       "patientSource": "tie"
     },
     "tenant_id": "STFT",
     "tenant_name": "South Tyneside NHS Trust",
     "role": "idcr"
-});
+  });
