@@ -17,19 +17,19 @@
 package org.rippleosi.patient.keyworker.search;
 
 import org.apache.commons.collections4.Transformer;
-import org.hscieripple.patient.keyworker.KWSummaryResponse;
+import org.hscieripple.patient.keyworker.KWResultRow;
 import org.rippleosi.patient.keyworkers.model.KeyWorkerSummary;
 
 /**
  */
-public class KeyWorkerResponseToKeyWorkerSummaryTransformer implements Transformer<KWSummaryResponse, KeyWorkerSummary> {
+public class KeyWorkerResponseToKeyWorkerSummaryTransformer implements Transformer<KWResultRow, KeyWorkerSummary> {
 
     @Override
-    public KeyWorkerSummary transform(KWSummaryResponse response) {
+    public KeyWorkerSummary transform(KWResultRow response) {
 
         KeyWorkerSummary summary = new KeyWorkerSummary();
         summary.setContactNumber(response.getContactNumber());
-        summary.setName(response.getName());
+        summary.setName(response.getForename() + " " + response.getSurname());
         summary.setRole(response.getRole());
         summary.setSource(response.getDataSourceName());
 //        summary.setSourceId();

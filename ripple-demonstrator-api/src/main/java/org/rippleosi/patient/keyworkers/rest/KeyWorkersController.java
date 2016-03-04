@@ -20,6 +20,9 @@ import java.util.List;
 
 import org.rippleosi.patient.keyworkers.model.KeyWorkerDetails;
 import org.rippleosi.patient.keyworkers.model.KeyWorkerSummary;
+import org.rippleosi.patient.keyworkers.search.KeyWorkerSearch;
+import org.rippleosi.patient.keyworkers.search.KeyWorkerSearchFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,28 +33,34 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/patients/{patientId}/keyworkers")
 public class KeyWorkersController {
 
+    @Autowired
+    private KeyWorkerSearchFactory keyWorkerSearchFactory;
+
     @RequestMapping(method = RequestMethod.GET)
     public List<KeyWorkerSummary> findAllKeyWorkers(@PathVariable("patientId") String patientId,
                                                     @RequestParam(required = false) String source) {
-        KeyWorkerSummary maisy = new KeyWorkerSummary();
-        maisy.setSource("Liquid Logic");
-        maisy.setSourceId("1");
-        maisy.setName("Maisy Cox");
-        maisy.setRole("GP");
-        maisy.setContactNumber("0191 123 123");
+//        KeyWorkerSummary maisy = new KeyWorkerSummary();
+//        maisy.setSource("Liquid Logic");
+//        maisy.setSourceId("1");
+//        maisy.setName("Maisy Cox");
+//        maisy.setRole("GP");
+//        maisy.setContactNumber("0191 123 123");
+//
+//        KeyWorkerSummary joanne = new KeyWorkerSummary();
+//        joanne.setSource("Liquid Logic");
+//        joanne.setSourceId("2");
+//        joanne.setName("Joanne Smith");
+//        joanne.setRole("Social Worker");
+//        joanne.setContactNumber("0191 234 234");
+//
+//        List<KeyWorkerSummary> summaries = new ArrayList<>();
+//        summaries.add(maisy);
+//        summaries.add(joanne);
+//
+//        return summaries;
 
-        KeyWorkerSummary joanne = new KeyWorkerSummary();
-        joanne.setSource("Liquid Logic");
-        joanne.setSourceId("2");
-        joanne.setName("Joanne Smith");
-        joanne.setRole("Social Worker");
-        joanne.setContactNumber("0191 234 234");
-
-        List<KeyWorkerSummary> summaries = new ArrayList<>();
-        summaries.add(maisy);
-        summaries.add(joanne);
-
-        return summaries;
+        KeyWorkerSearch keyWorkerSearch = keyWorkerSearchFactory.select(source);
+        return keyWorkerSearch.findAllKeyWorkers(patientId);
     }
 
     @RequestMapping(value = "/{keyWorkerId}", method = RequestMethod.GET)

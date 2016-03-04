@@ -17,13 +17,13 @@
 package org.rippleosi.patient.keyworker.search;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
 import javax.xml.ws.soap.SOAPFaultException;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.hscieripple.patient.keyworker.KWSummariesServiceSoap;
 import org.hscieripple.patient.keyworker.KWSummaryResponse;
+import org.hscieripple.patient.keyworker.PairOfKeyWorkersListKeyKWResultRow;
 import org.rippleosi.common.service.AbstractHSCIEService;
 import org.rippleosi.patient.keyworkers.model.KeyWorkerSummary;
 import org.rippleosi.patient.keyworkers.search.KeyWorkerSearch;
@@ -48,7 +48,9 @@ public class HSCIEKeyWorkerSearch extends AbstractHSCIEService implements KeyWor
 
         try {
             KWSummaryResponse kwSummaryResponse = kwSummariesService.findKWSummariesBO(nhsNumber, "test");
-            return Collections.singletonList(new KeyWorkerResponseToKeyWorkerSummaryTransformer().transform(kwSummaryResponse));
+
+            List<PairOfKeyWorkersListKeyKWResultRow> kwResultRow = kwSummaryResponse.getKeyWorkersList().getKWResultRow();
+            return CollectionUtils.collect(kwResultRow, new KeyWorkerResponseToKeyWorkerSummaryTransformer(), new ArrayList<KeyWorkerSummary>());
         } catch (SOAPFaultException e) {
             log.error(e.getMessage());
 
