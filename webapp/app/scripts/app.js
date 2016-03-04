@@ -41,14 +41,14 @@ angular
       })
 
       .state('patients-search', {
-         url: '/search?source',
+         url: '/search?patientSource',
         views: {
           main: { templateUrl: 'views/patients/patients-search.html', controller: 'PatientsSearchCtrl' }
         }
       })
 
       .state('patients-landing', {
-        url: '/patients/{patientId:int}/patients-landing?source&reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/patients-landing?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -72,25 +72,25 @@ angular
       })
 
       .state('patients-summary', {
-        url: '/patients/{patientId:int}/patients-summary?reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/patients-summary?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
           main: { templateUrl: 'views/patients/patients-summary.html', controller: 'PatientsSummaryCtrl' }
         }
       })
-      
+
       .state('keyworkers-list', {
-        url: '/patients/{patientId:int}/keyworkers?reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/keyworkers?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
           main: { templateUrl: 'views/keyworkers/keyworkers-list.html', controller: 'KeyworkersListCtrl' }
         }
       })
-      
+
       .state('keyworkers-detail', {
-        url: '/patients/{patientId:int}/keyworkers/{keyworkerIndex}?filter&page&reportType&searchString&queryType&source',
+        url: '/patients/{patientId:int}/keyworkers/{keyworkerIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },

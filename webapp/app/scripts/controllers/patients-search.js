@@ -1,9 +1,12 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('PatientsSearchCtrl', function ($scope, $stateParams, $window, $state, PatientSearchService, usSpinnerService) {
+  .controller('PatientsSearchCtrl', function ($scope, $stateParams, $window, $state, PatientSearchService, usSpinnerService, UserService) {
 
     $scope.searching = false;
+
+    var currentUser = UserService.getCurrentUser();
+    $stateParams.patientSource = currentUser.feature.patientSource;
 
     $scope.dateOfBirthDatePicker = function ($event, name) {
       $event.preventDefault();
@@ -19,9 +22,8 @@ angular.module('rippleDemonstrator')
       $scope.patientSearchForm.$valid = true;
 
       $scope.searching = true;
-      $stateParams.source = 'tie';
 
-      PatientSearchService.searchPatients(search, $stateParams.source).then(function (result) {
+      PatientSearchService.searchPatients(search, 'tie').then(function (result) {
         $scope.patients = result.data;
       });
 
@@ -43,10 +45,10 @@ angular.module('rippleDemonstrator')
     $scope.go = function (patient) {
       $state.go('patients-landing', {
         patientId: patient.nhsNumber,
-        source: 'tie',
         reportType: $stateParams.reportType,
         searchString: $stateParams.searchString,
-        queryType: $stateParams.queryType
+        queryType: $stateParams.queryType,
+        patientSource: $stateParams.patientSource
       });
     }
   });
