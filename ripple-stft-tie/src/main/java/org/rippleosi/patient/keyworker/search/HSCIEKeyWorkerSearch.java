@@ -53,7 +53,8 @@ public class HSCIEKeyWorkerSearch extends AbstractHSCIEService implements KeyWor
             KWSummaryResponse kwSummaryResponse = kwSummariesService.findKWSummariesBO(nhsNumber, "test");
 
             List<PairOfKeyWorkersListKeyKWResultRow> kwResultRow = kwSummaryResponse.getKeyWorkersList().getKWResultRow();
-            return CollectionUtils.collect(kwResultRow, new KeyWorkerResponseToKeyWorkerSummaryTransformer(), new ArrayList<KeyWorkerSummary>());
+
+            return CollectionUtils.collect(kwResultRow, new KeyWorkerResponseToKeyWorkerSummaryTransformer(), new ArrayList<>());
         } catch (SOAPFaultException e) {
             log.error(e.getMessage());
 
