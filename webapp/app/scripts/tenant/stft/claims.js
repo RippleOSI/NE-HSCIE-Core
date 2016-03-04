@@ -8,6 +8,7 @@ angular.module('rippleDemonstrator')
     "email": "bob.smith@gmail.com",
     "scope": {
       "homeView": "search",
+      "patientSummaryView": "landing",
       "searchBarEnabled": false,
       "roleConfirmationRequired": false,
       "navBar": {
