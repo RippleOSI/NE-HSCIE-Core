@@ -28,7 +28,9 @@
     <artifactId>ripple-stft-tie</artifactId>
 
     <properties>
-        <patientServiceWsdlLocation>org/hscieripple/patient/query/HSCIEDEV.SOAP.Patient.wsdl</patientServiceWsdlLocation>
+        <keyworkerServiceWsdlLocation>org/hscieripple/patient/keyworker/HSCIEDEV.SOAP.FindKeyWorkersSummaries.wsdl</keyworkerServiceWsdlLocation>
+        <patientServiceWsdlLocation>org/hscieripple/patient/query/HSCIEDEV.SOAP.Patient.wsdl
+        </patientServiceWsdlLocation>
     </properties>
 
     <dependencies>
@@ -146,6 +148,14 @@
                                     <extraargs>
                                         <extraarg>-p</extraarg>
                                         <extraarg>org.hscieripple.patient.query</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${keyworkerServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${keyworkerServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.keyworker</extraarg>
                                     </extraargs>
                                 </wsdlOption>
                             </wsdlOptions>
