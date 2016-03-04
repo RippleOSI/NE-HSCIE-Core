@@ -9,7 +9,25 @@ angular.module('rippleDemonstrator')
     "scope": {
       "homeView": "chart",
       "searchBarEnabled": true,
-      "roleConfirmationRequired": false
+      "roleConfirmationRequired": false,
+      "navBar": {
+        "patientSummaryEnabled": true,
+        "keyworkersEnabled": false,
+        "contactsEnabled": true,
+        "diagnosisEnabled": true,
+        "allergiesEnabled": true,
+        "medicationsEnabled": true,
+        "ordersEnabled": true,
+        "resultsEnabled": true,
+        "proceduresEnabled": true,
+        "referralsEnabled": true,
+        "appointmentsEnabled": true,
+        "transfersEnabled": true,
+        "careplansEnabled": true,
+        "mdtEnabled": true,
+        "imagesEnabled": true,
+        "tagsEnabled": true
+      }
     },
     "tenant_id": "Ripple",
     "tenant_name": "Ripple Demonstrator",
