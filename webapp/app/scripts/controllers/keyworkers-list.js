@@ -1,10 +1,13 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('KeyworkersListCtrl', function ($scope, $state, $stateParams, SearchInput, $location, $modal, usSpinnerService, PatientService, KeyworkersService) {
+  .controller('KeyworkersListCtrl', function ($scope, $state, $stateParams, SearchInput, $location, $modal, usSpinnerService, PatientService, KeyworkersService, UserService) {
 
     SearchInput.update();
     $scope.currentPage = 1;
+
+    var currentUser = UserService.getCurrentUser();
+    $stateParams.patientSource = currentUser.feature.patientSource;
 
     $scope.pageChangeHandler = function (newPage) {
       $scope.currentPage = newPage;
@@ -27,7 +30,7 @@ angular.module('rippleDemonstrator')
       $scope.query = $stateParams.filter;
     }
 
-    PatientService.get($stateParams.patientId).then(function (patient) {
+    PatientService.get($stateParams.patientId, $stateParams.patientSource).then(function (patient) {
       $scope.patient = patient;
     });
 
@@ -39,14 +42,15 @@ angular.module('rippleDemonstrator')
 
     $scope.go = function (id, keyworkerSource) {
       $state.go('keyworkers-detail', {
-        patientId: $scope.patient.id,
+        patientId: $scope.patient.nhsNumber,
         keyworkerIndex: id,
         filter: $scope.query,
         page: $scope.currentPage,
         reportType: $stateParams.reportType,
         searchString: $stateParams.searchString,
         queryType: $stateParams.queryType,
-        source: keyworkerSource
+        source: keyworkerSource,
+        patientSource: $stateParams.patientSource
       });
     };
 

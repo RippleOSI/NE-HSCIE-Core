@@ -27,7 +27,8 @@ angular.module('rippleDemonstrator')
           "careplansEnabled": false,
           "mdtEnabled": false,
           "imagesEnabled": false
-      }
+      },
+      "patientSource": "tie"
     },
     "tenant_id": "STFT",
     "tenant_name": "South Tyneside NHS Trust",

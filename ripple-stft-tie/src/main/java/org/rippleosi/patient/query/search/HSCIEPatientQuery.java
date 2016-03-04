@@ -51,7 +51,7 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
 
     @Override
     public List<PatientSummary> findPatientsByQueryObject(PatientQueryParams params) throws NumberFormatException {
-        Long nhsNumber = params.getNhsNumber() == null ? null : Long.valueOf(params.getNhsNumber());
+        Long nhsNumber = params.getNhsNumber().isEmpty() ? null : Long.valueOf(params.getNhsNumber());
         Date dateOfBirth = params.getDateOfBirth();
 
         try {

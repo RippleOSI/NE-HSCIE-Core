@@ -1,13 +1,15 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('PatientsSummaryCtrl', function ($scope, $stateParams, $state, SearchInput, $rootScope, $location, usSpinnerService, PatientService) {
+  .controller('PatientsSummaryCtrl', function ($scope, $stateParams, $state, SearchInput, $rootScope, $location, usSpinnerService, PatientService, UserService) {
 
     SearchInput.update();
 
-    PatientService.get($stateParams.patientId).then(function (patient) {
-      $scope.patient = patient;
+    var currentUser = UserService.getCurrentUser();
+    $stateParams.patientSource = currentUser.feature.patientSource;
 
+    PatientService.get($stateParams.patientId, $stateParams.patientSource).then(function (patient) {
+      $scope.patient = patient;
 
       $scope.allergiesCount = patient.allergies.length;
       $scope.allergies = patient.allergies.slice(0, 5);
@@ -44,7 +46,8 @@ angular.module('rippleDemonstrator')
         patientId: $stateParams.patientId,
         reportType: $stateParams.reportType,
         searchString: $stateParams.searchString,
-        queryType: $stateParams.queryType
+        queryType: $stateParams.queryType,
+        patientSource: $stateParams.patientSource
       };
 
       var toState = '';
