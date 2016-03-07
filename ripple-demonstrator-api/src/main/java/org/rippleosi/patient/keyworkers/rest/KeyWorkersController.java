@@ -16,13 +16,10 @@
 package org.rippleosi.patient.keyworkers.rest;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import org.rippleosi.patient.datasources.model.DatasourceSummary;
 import org.rippleosi.patient.keyworkers.model.KeyWorkerDetails;
 import org.rippleosi.patient.keyworkers.model.KeyWorkerSummary;
-import org.rippleosi.patient.keyworkers.search.KeyWorkerSearch;
 import org.rippleosi.patient.keyworkers.search.KeyWorkerSearchFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,6 +60,7 @@ public class KeyWorkersController {
         //TODO make a call to retrieve all data sources once the service is available
 //
 //        KeyWorkerSearch keyWorkerSearch = keyWorkerSearchFactory.select(source);
+//
 //        return keyWorkerSearch.findAllKeyWorkers(patientId, Collections.singletonList(new DatasourceSummary()));
     }
 
@@ -100,6 +98,7 @@ public class KeyWorkersController {
 
         //TODO make a call to retrieve all data sources once the service is available
 //        KeyWorkerSearch keyWorkerSearch = keyWorkerSearchFactory.select(source);
+//
 //        return keyWorkerSearch.findKeyWorker(patientId, keyWorkerId, Collections.singletonList(new DatasourceSummary()));
     }
 }

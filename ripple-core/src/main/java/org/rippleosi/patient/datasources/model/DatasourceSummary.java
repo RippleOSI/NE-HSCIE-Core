@@ -17,20 +17,12 @@ package org.rippleosi.patient.datasources.model;
 
 import java.util.Date;
 
-public class DatasourceSummary {
+public class DataSourceSummary {
 
-    private Date cachedDate;
     private String source;
     private String sourceId;
-    private String status;
-
-    public Date getCachedDate() {
-        return cachedDate;
-    }
-
-    public void setCachedDate(Date cachedDate) {
-        this.cachedDate = cachedDate;
-    }
+    private boolean running;
+    private Date cachedDate;
 
     public String getSource() {
         return source;
@@ -48,11 +40,19 @@ public class DatasourceSummary {
         this.sourceId = sourceId;
     }
 
-    public String getStatus() {
-        return status;
+    public boolean isRunning() {
+        return running;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
+    public Date getCachedDate() {
+        return cachedDate;
+    }
+
+    public void setCachedDate(Date cachedDate) {
+        this.cachedDate = cachedDate;
     }
 }

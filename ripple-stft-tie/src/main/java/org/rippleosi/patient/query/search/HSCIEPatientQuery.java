@@ -61,8 +61,9 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
                                                                            params.getGender(),
                                                                            DateFormatter.toSimpleDateString(dateOfBirth));
 
-            return CollectionUtils.collect(response.getResultsSet().getResultRow(),
-                                           new PatientResponseToPatientSummaryTransformer(), new ArrayList<>());
+            List<PairOfResultsSetKeyResultRow> patients = response.getResultsSet().getResultRow();
+
+            return CollectionUtils.collect(patients, new PatientResponseToPatientSummaryTransformer(), new ArrayList<>());
         }
         catch (SOAPFaultException e) {
             log.error(e.getMessage());

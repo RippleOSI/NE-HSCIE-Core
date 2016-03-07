@@ -16,8 +16,8 @@
 package org.rippleosi.config;
 
 import org.apache.cxf.jaxws.spring.JaxWsProxyFactoryBeanDefinitionParser.JAXWSSpringClientProxyFactoryBean;
-import org.hscieripple.patient.keyworker.KWSummariesServiceSoap;
-import org.hscieripple.patient.query.PatientService;
+import org.hscieripple.patient.datasources.search.DataSourcesServiceSoap;
+import org.hscieripple.patient.keyworkers.search.KWSummariesServiceSoap;
 import org.hscieripple.patient.query.PatientServiceSoap;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -43,14 +43,22 @@ public class CXFConfig {
     @Value("${hscie.tie.keyWorkersServiceUrl:''}")
     private String keyWorkersServiceUrl;
 
+    @Value("${hscie.tie.dataSourcesServiceUrl:''}")
+    private String dataSourcesServiceUrl;
+
     @Bean
     public PatientServiceSoap patientService() {
         return createJAXWSService(PatientServiceSoap.class, patientServiceUrl);
     }
 
     @Bean
-    public KWSummariesServiceSoap keyWorkerService() {
+    public KWSummariesServiceSoap keyWorkersService() {
         return createJAXWSService(KWSummariesServiceSoap.class, keyWorkersServiceUrl);
+    }
+
+    @Bean
+    public DataSourcesServiceSoap dataSourcesService() {
+        return createJAXWSService(DataSourcesServiceSoap.class, dataSourcesServiceUrl);
     }
 
     public <T> T createJAXWSService(Class<T> serviceClass, String serviceUrl) {

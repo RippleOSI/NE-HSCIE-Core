@@ -21,11 +21,12 @@ import java.util.List;
 import javax.xml.ws.soap.SOAPFaultException;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.hscieripple.patient.keyworker.KWSummariesServiceSoap;
-import org.hscieripple.patient.keyworker.KWSummaryResponse;
-import org.hscieripple.patient.keyworker.PairOfKeyWorkersListKeyKWResultRow;
+import org.hscieripple.patient.keyworkers.search.KWSummariesServiceSoap;
+import org.hscieripple.patient.keyworkers.search.KWSummaryResponse;
+import org.hscieripple.patient.keyworkers.search.PairOfKeyWorkersListKeyKWResultRow;
+import org.rippleosi.common.exception.ConfigurationException;
 import org.rippleosi.common.service.AbstractHSCIEService;
-import org.rippleosi.patient.datasources.model.DatasourceSummary;
+import org.rippleosi.patient.datasources.model.DataSourceSummary;
 import org.rippleosi.patient.keyworkers.model.KeyWorkerDetails;
 import org.rippleosi.patient.keyworkers.model.KeyWorkerSummary;
 import org.rippleosi.patient.keyworkers.search.KeyWorkerSearch;
@@ -45,7 +46,7 @@ public class HSCIEKeyWorkerSearch extends AbstractHSCIEService implements KeyWor
     private KWSummariesServiceSoap kwSummariesService;
 
     @Override
-    public List<KeyWorkerSummary> findAllKeyWorkers(String patientId, List<DatasourceSummary> datasourceSummaries) {
+    public List<KeyWorkerSummary> findAllKeyWorkers(String patientId, List<DataSourceSummary> datasourceSummaries) {
         Long nhsNumber = patientId == null ? null : Long.valueOf(patientId);
 
         //TODO test needs removing to add asynchronous call for all data sources
@@ -63,8 +64,8 @@ public class HSCIEKeyWorkerSearch extends AbstractHSCIEService implements KeyWor
     }
 
     @Override
-    public KeyWorkerDetails findKeyWorker(String patientId, String keyWorkerId, List<DatasourceSummary> datasourceSummaries) {
+    public KeyWorkerDetails findKeyWorker(String patientId, String keyWorkerId, List<DataSourceSummary> datasourceSummaries) {
         //TODO awaiting wsdl
-        return null;
+        throw ConfigurationException.unimplementedTransaction(KeyWorkerSearch.class);
     }
 }

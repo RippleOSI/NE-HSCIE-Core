@@ -19,6 +19,8 @@ package org.rippleosi.patient.keyworkers.search;
 import java.util.List;
 
 import org.rippleosi.common.exception.ConfigurationException;
+import org.rippleosi.patient.datasources.model.DataSourceSummary;
+import org.rippleosi.patient.keyworkers.model.KeyWorkerDetails;
 import org.rippleosi.patient.keyworkers.model.KeyWorkerSummary;
 
 /**
@@ -36,7 +38,12 @@ public class NotConfiguredKeyWorkerSearch implements KeyWorkerSearch {
     }
 
     @Override
-    public List<KeyWorkerSummary> findAllKeyWorkers(String patientId) {
+    public List<KeyWorkerSummary> findAllKeyWorkers(String patientId, List<DataSourceSummary> datasourceSummaries) {
+        throw ConfigurationException.unimplementedTransaction(KeyWorkerSearch.class);
+    }
+
+    @Override
+    public KeyWorkerDetails findKeyWorker(String patientId, String keyWorkerId, List<DataSourceSummary> datasourceSummaries) {
         throw ConfigurationException.unimplementedTransaction(KeyWorkerSearch.class);
     }
 }

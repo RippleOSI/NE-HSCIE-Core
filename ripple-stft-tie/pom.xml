@@ -28,9 +28,9 @@
     <artifactId>ripple-stft-tie</artifactId>
 
     <properties>
-        <keyworkerServiceWsdlLocation>org/hscieripple/patient/keyworker/HSCIEDEV.SOAP.FindKeyWorkersSummaries.wsdl</keyworkerServiceWsdlLocation>
-        <patientServiceWsdlLocation>org/hscieripple/patient/query/HSCIEDEV.SOAP.Patient.wsdl
-        </patientServiceWsdlLocation>
+        <keyWorkersServiceWsdlLocation>org/hscieripple/patient/keyworkers/search/HSCIEDEV.SOAP.FindKeyWorkersSummaries.wsdl</keyWorkersServiceWsdlLocation>
+        <patientServiceWsdlLocation>org/hscieripple/patient/query/HSCIEDEV.SOAP.Patient.wsdl</patientServiceWsdlLocation>
+        <dataSourcesServiceWsdlLocation>org/hscieripple/patient/datasources/search/HSCIEDEV.SOAP.DataSources.wsdl</dataSourcesServiceWsdlLocation>
     </properties>
 
     <dependencies>
@@ -151,15 +151,23 @@
                                     </extraargs>
                                 </wsdlOption>
                                 <wsdlOption>
-                                    <wsdl>${basedir}/src/main/resources/${keyworkerServiceWsdlLocation}</wsdl>
-                                    <wsdlLocation>classpath:${keyworkerServiceWsdlLocation}</wsdlLocation>
+                                    <wsdl>${basedir}/src/main/resources/${keyWorkersServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${keyWorkersServiceWsdlLocation}</wsdlLocation>
                                     <extraargs>
                                         <extraarg>-p</extraarg>
-                                        <extraarg>org.hscieripple.patient.keyworker</extraarg>
+                                        <extraarg>org.hscieripple.patient.keyworkers.search</extraarg>
                                     </extraargs>
                                 </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${dataSourcesServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${dataSourcesServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.datasources.search</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                <!-- Insert a new option for any addition WSDL added to the codebase -->
                             </wsdlOptions>
-                            <!-- Insert a new option for any addition WSDL added to the codebase -->
                         </configuration>
                         <goals>
                             <goal>wsdl2java</goal>
