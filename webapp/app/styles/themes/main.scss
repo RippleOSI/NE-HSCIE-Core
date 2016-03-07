@@ -1106,9 +1106,11 @@ svg {
     padding-left: 2px;
 }
 
-
-/* Patient Detail */
-
+/* Forms */
+form legend {
+  background: $form-header-background;
+  color: $form-header-color;
+}
 
 /* Tables and Pagination */
 
