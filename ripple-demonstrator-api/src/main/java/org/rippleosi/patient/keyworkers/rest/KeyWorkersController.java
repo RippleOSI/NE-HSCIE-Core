@@ -58,6 +58,7 @@ public class KeyWorkersController {
         summaries.add(joanne);
 
         return summaries;
+        //TODO make a call to retrieve all data sources once the service is available
 //
 //        KeyWorkerSearch keyWorkerSearch = keyWorkerSearchFactory.select(source);
 //        return keyWorkerSearch.findAllKeyWorkers(patientId);

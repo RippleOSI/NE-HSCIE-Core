@@ -19,11 +19,15 @@ package org.rippleosi.patient.keyworkers.search;
 import java.util.List;
 
 import org.rippleosi.common.repo.Repository;
+import org.rippleosi.patient.datasources.model.DatasourceSummary;
+import org.rippleosi.patient.keyworkers.model.KeyWorkerDetails;
 import org.rippleosi.patient.keyworkers.model.KeyWorkerSummary;
 
 /**
  */
 public interface KeyWorkerSearch extends Repository {
 
-    List<KeyWorkerSummary> findAllKeyWorkers(String patientId);
+    List<KeyWorkerSummary> findAllKeyWorkers(String patientId, List<DatasourceSummary> datasourceSummaries);
+
+    KeyWorkerDetails findKeyWorker(String patientId, String keyWorkerId, List<DatasourceSummary> datasourceSummaries);
 }

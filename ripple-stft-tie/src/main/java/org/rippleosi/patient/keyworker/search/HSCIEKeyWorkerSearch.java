@@ -25,6 +25,8 @@ import org.hscieripple.patient.keyworker.KWSummariesServiceSoap;
 import org.hscieripple.patient.keyworker.KWSummaryResponse;
 import org.hscieripple.patient.keyworker.PairOfKeyWorkersListKeyKWResultRow;
 import org.rippleosi.common.service.AbstractHSCIEService;
+import org.rippleosi.patient.datasources.model.DatasourceSummary;
+import org.rippleosi.patient.keyworkers.model.KeyWorkerDetails;
 import org.rippleosi.patient.keyworkers.model.KeyWorkerSummary;
 import org.rippleosi.patient.keyworkers.search.KeyWorkerSearch;
 import org.slf4j.Logger;
@@ -43,9 +45,10 @@ public class HSCIEKeyWorkerSearch extends AbstractHSCIEService implements KeyWor
     private KWSummariesServiceSoap kwSummariesService;
 
     @Override
-    public List<KeyWorkerSummary> findAllKeyWorkers(String patientId) {
+    public List<KeyWorkerSummary> findAllKeyWorkers(String patientId, List<DatasourceSummary> datasourceSummaries) {
         Long nhsNumber = patientId == null ? null : Long.valueOf(patientId);
 
+        //TODO test needs removing to add asynchronous call for all data sources
         try {
             KWSummaryResponse kwSummaryResponse = kwSummariesService.findKWSummariesBO(nhsNumber, "test");
 
@@ -56,5 +59,11 @@ public class HSCIEKeyWorkerSearch extends AbstractHSCIEService implements KeyWor
 
             return new ArrayList<>();
         }
+    }
+
+    @Override
+    public KeyWorkerDetails findKeyWorker(String patientId, String keyWorkerId, List<DatasourceSummary> datasourceSummaries) {
+        //TODO awaiting wsdl
+        return null;
     }
 }
