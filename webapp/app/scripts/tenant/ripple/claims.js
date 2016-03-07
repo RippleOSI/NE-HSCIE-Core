@@ -9,7 +9,7 @@ angular.module('rippleDemonstrator')
     "scope": {
       "homeView": "chart",
       "searchBarEnabled": true,
-      "roleConfirmationRequired": false,
+      "roleConfirmationRequired": true,
       "navBar": {
         "patientSummaryEnabled": true,
         "keyworkersEnabled": false,
