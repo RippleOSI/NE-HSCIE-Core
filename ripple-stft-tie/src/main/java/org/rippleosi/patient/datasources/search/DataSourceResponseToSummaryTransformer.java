@@ -30,7 +30,7 @@ public class DataSourceResponseToSummaryTransformer implements Transformer<DSRes
 
         summary.setSource("tie");
         summary.setSourceId(dataSource.getDataSourceName());
-        summary.setRunning(dataSource.isDataSourceRunning());
+        summary.setDataExists(dataSource.isDataExists());
         summary.setCachedDate(new Date());
 
         return summary;
