@@ -21,7 +21,7 @@ public class DataSourceSummary {
 
     private String source;
     private String sourceId;
-    private boolean running;
+    private boolean dataExists;
     private Date cachedDate;
 
     public String getSource() {
@@ -40,12 +40,12 @@ public class DataSourceSummary {
         this.sourceId = sourceId;
     }
 
-    public boolean isRunning() {
-        return running;
+    public boolean isDataExists() {
+        return dataExists;
     }
 
-    public void setRunning(boolean running) {
-        this.running = running;
+    public void setDataExists(boolean dataExists) {
+        this.dataExists = dataExists;
     }
 
     public Date getCachedDate() {
