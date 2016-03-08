@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.hscieripple.patient.query.PairOfResultsSetKeyResultRow;
 import org.hscieripple.patient.query.PatientDetailsResponse;
 import org.hscieripple.patient.query.PatientService;
@@ -51,7 +52,9 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
 
     @Override
     public List<PatientSummary> findPatientsByQueryObject(PatientQueryParams params) throws NumberFormatException {
-        Long nhsNumber = params.getNhsNumber().isEmpty() ? null : Long.valueOf(params.getNhsNumber());
+        List<PairOfResultsSetKeyResultRow> patients = new ArrayList<>();
+
+        Long nhsNumber = convertPatientIdToLong(params.getNhsNumber());
         Date dateOfBirth = params.getDateOfBirth();
 
         try {
@@ -61,7 +64,9 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
                                                                            params.getGender(),
                                                                            DateFormatter.toSimpleDateString(dateOfBirth));
 
-            List<PairOfResultsSetKeyResultRow> patients = response.getResultsSet().getResultRow();
+            if (isSuccessfulResponse(response)) {
+                patients = response.getResultsSet().getResultRow();
+            }
 
             return CollectionUtils.collect(patients, new PatientResponseToPatientSummaryTransformer(), new ArrayList<>());
         }
@@ -84,11 +89,16 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
 
     @Override
     public PatientDetails findPatient(String patientId) throws NumberFormatException {
-        try {
-            PatientDetailsResponse response = patientService.findPatientBO(Long.valueOf(patientId),
-                                                                           null, null, null, null);
+        List<PairOfResultsSetKeyResultRow> patients = new ArrayList<>();
 
-            List<PairOfResultsSetKeyResultRow> patients = response.getResultsSet().getResultRow();
+        Long nhsNumber = convertPatientIdToLong(patientId);
+
+        try {
+            PatientDetailsResponse response = patientService.findPatientBO(nhsNumber, null, null, null, null);
+
+            if (isSuccessfulResponse(response)) {
+                patients = response.getResultsSet().getResultRow();
+            }
 
             return new PatientResponseToPatientDetailsTransformer().transform(patients.get(0));
         }
@@ -122,5 +132,9 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
     @Override
     public Long findPatientCountByDepartment(String department) {
         throw ConfigurationException.unimplementedTransaction(PatientSearch.class);
+    }
+
+    private boolean isSuccessfulResponse(PatientDetailsResponse response) {
+        return !response.getStatusCode().equalsIgnoreCase("error");
     }
 }

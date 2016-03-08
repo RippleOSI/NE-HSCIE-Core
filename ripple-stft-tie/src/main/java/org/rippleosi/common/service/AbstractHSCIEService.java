@@ -15,6 +15,7 @@
  */
 package org.rippleosi.common.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.rippleosi.common.repo.Repository;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -31,5 +32,12 @@ public abstract class AbstractHSCIEService implements Repository {
     @Override
     public int getPriority() {
         return priority;
+    }
+
+    protected Long convertPatientIdToLong(String patientId) {
+        boolean nullOrEmpty = StringUtils.isBlank(patientId);
+        boolean numeric = StringUtils.isNumeric(patientId);
+
+        return (nullOrEmpty || !numeric) ? null : Long.valueOf(patientId);
     }
 }

@@ -4,11 +4,11 @@
         <div style="display:inline-block" ng-repeat="datasource in datasources">
             <div class="datasource-container" title="{{datasource.cachedDate | date:'dd-MMM-yyyy'}}">
                 <label>{{datasource.sourceId}}</label>
-                <div class="rounded-border connected" ng-if="datasource.status=='Connected'">
-                    <label class="connected-label"><i class="fa fa-link fa-lg datasource-icon"></i> {{datasource.status}}</label>
+                <div class="rounded-border connected" ng-if="datasource.dataExists">
+                    <label class="connected-label"><i class="fa fa-link fa-lg datasource-icon"></i> Connected</label>
                 </div>
-                <div class ="rounded-border nolink" ng-if="datasource.status=='No link'">
-                    <label class="nolink-label"><i class="fa fa-chain-broken fa-lg datasource-icon"></i> {{datasource.status}}</label>
+                <div class ="rounded-border nolink" ng-if="!datasource.dataExists">
+                    <label class="nolink-label"><i class="fa fa-chain-broken fa-lg datasource-icon"></i> No Link</label>
                 </div>
             </div>
         </div>

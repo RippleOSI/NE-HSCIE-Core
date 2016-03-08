@@ -41,10 +41,8 @@ public class HSCIEDataSourcesSearch extends AbstractHSCIEService implements Data
 
     @Override
     public List<DataSourceSummary> findAvailableDataSources(String patientId, String dataType) {
-        Long nhsNumber = patientId.isEmpty() ? null : Long.valueOf(patientId);
-
         try {
-            DataSourceResponse response = dataSourcesService.findAvailableDSBO(dataType, nhsNumber);
+            DataSourceResponse response = dataSourcesService.findAvailableDSBO(dataType, convertPatientIdToLong(patientId));
 
             List<PairOfResultsSetKeyDSResultRow> dataSources = response.getResultsSet().getDSResultRow();
 
