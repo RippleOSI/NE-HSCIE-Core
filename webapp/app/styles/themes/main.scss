@@ -17,7 +17,7 @@ body,
 }
 
 body {
-  background: url($background-image-url) center 100px no-repeat #ffffff;
+  background: url($background-image-url) $background-image-position $background-image-offset no-repeat #ffffff;
   background-size: 100% auto;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
