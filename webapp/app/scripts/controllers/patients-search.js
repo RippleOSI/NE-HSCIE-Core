@@ -23,9 +23,11 @@ angular.module('rippleDemonstrator')
 
       $scope.searching = true;
 
-      PatientSearchService.searchPatients(search, 'tie').then(function (result) {
-        $scope.patients = result.data;
-      });
+      if (search != undefined) {
+        PatientSearchService.searchPatients(search, 'tie').then(function (result) {
+          $scope.patients = result.data;
+        });
+      }
 
       $scope.searching = false;
       usSpinnerService.stop('patientSearch-spinner');
