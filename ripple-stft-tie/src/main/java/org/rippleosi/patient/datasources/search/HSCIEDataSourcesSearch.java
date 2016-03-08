@@ -41,10 +41,14 @@ public class HSCIEDataSourcesSearch extends AbstractHSCIEService implements Data
 
     @Override
     public List<DataSourceSummary> findAvailableDataSources(String patientId, String dataType) {
+        List<PairOfResultsSetKeyDSResultRow> dataSources = new ArrayList<>();
+
         try {
             DataSourceResponse response = dataSourcesService.findAvailableDSBO(dataType, convertPatientIdToLong(patientId));
 
-            List<PairOfResultsSetKeyDSResultRow> dataSources = response.getResultsSet().getDSResultRow();
+            if (isSuccessfulResponse(response)) {
+                dataSources = response.getResultsSet().getDSResultRow();
+            }
 
             return CollectionUtils.collect(dataSources, new DataSourceResponseToSummaryTransformer(), new ArrayList<>());
         }
@@ -53,5 +57,9 @@ public class HSCIEDataSourcesSearch extends AbstractHSCIEService implements Data
 
             return new ArrayList<>();
         }
+    }
+
+    private boolean isSuccessfulResponse(DataSourceResponse response) {
+        return response.getStatusCode().equalsIgnoreCase("OK");
     }
 }

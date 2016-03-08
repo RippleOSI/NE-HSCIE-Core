@@ -135,6 +135,6 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
     }
 
     private boolean isSuccessfulResponse(PatientDetailsResponse response) {
-        return !response.getStatusCode().equalsIgnoreCase("error");
+        return response.getStatusCode().equalsIgnoreCase("OK");
     }
 }

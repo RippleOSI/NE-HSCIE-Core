@@ -24,6 +24,8 @@
                             <s:element minOccurs="0" name="ResultCount" type="s:long"/>
                             <s:element minOccurs="0" name="Results" type="s0:ArrayOfResultsItemPairOfResultsKeyString"/>
                             <s:element minOccurs="0" name="ResultsSet" type="s0:ArrayOfDSResultRowPairOfResultsSetKeyDSResultRow"/>
+                            <s:element minOccurs="0" name="StatusCode" type="s:string"/>
+                            <s:element minOccurs="0" name="StatusDesc" type="s:string"/>
                         </s:sequence>
                     </s:extension>
                 </s:complexContent>
@@ -95,6 +97,8 @@
         </operation>
     </binding>
     <service name="DataSourcesService">
-        <port name="DataSources" binding="s0:DataSources"/>
+        <port name="DataSources" binding="s0:DataSources">
+            <soap:address location="http://10.152.3.237:57772/csp/healthshare/hscie_ripple_dev/HSCIEDEV.SOAP.DataSources.cls"/>
+        </port>
     </service>
 </definitions>
