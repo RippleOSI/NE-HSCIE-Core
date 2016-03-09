@@ -28,9 +28,12 @@
     <artifactId>ripple-stft-tie</artifactId>
 
     <properties>
-        <patientServiceWsdlLocation>org/hscieripple/patient/query/HSCIEDEV.SOAP.Patient.wsdl</patientServiceWsdlLocation>
-        <dataSourcesServiceWsdlLocation>org/hscieripple/patient/datasources/HSCIEDEV.SOAP.DataSources.wsdl</dataSourcesServiceWsdlLocation>
-        <keyWorkersServiceWsdlLocation>org/hscieripple/patient/keyworkers/HSCIEDEV.SOAP.KeyWorkers.wsdl</keyWorkersServiceWsdlLocation>
+        <patientServiceWsdlLocation>org/hscieripple/patient/query/HSCIEDEV.SOAP.Patient.wsdl
+        </patientServiceWsdlLocation>
+        <dataSourcesServiceWsdlLocation>org/hscieripple/patient/datasources/HSCIEDEV.SOAP.DataSources.wsdl
+        </dataSourcesServiceWsdlLocation>
+        <keyWorkersServiceWsdlLocation>org/hscieripple/patient/keyworkers/HSCIEDEV.SOAP.KeyWorkers.wsdl
+        </keyWorkersServiceWsdlLocation>
     </properties>
 
     <dependencies>
@@ -47,6 +50,11 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
 
         <dependency>

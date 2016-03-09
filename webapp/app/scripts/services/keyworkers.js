@@ -7,8 +7,8 @@ angular.module('rippleDemonstrator')
       return $http.get('/api/patients/' + patientId + '/keyworkers');
     };
 
-    var get = function (patientId, keyworkerId, source) {
-      return $http.get('/api/patients/' + patientId + '/keyworkers/' + keyworkerId + '?source=' + source);
+    var get = function (patientId, keyworkerId, subSource) {
+      return $http.get('/api/patients/' + patientId + '/keyworkers/' + keyworkerId + '?subSource=' + subSource);
     };
 
     return {

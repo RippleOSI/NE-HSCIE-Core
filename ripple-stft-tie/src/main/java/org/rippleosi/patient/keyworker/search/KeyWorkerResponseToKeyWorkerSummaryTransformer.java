@@ -26,8 +26,8 @@ public class KeyWorkerResponseToKeyWorkerSummaryTransformer implements Transform
     public KeyWorkerSummary transform(KWSummaryResultRow response) {
         KeyWorkerSummary summary = new KeyWorkerSummary();
 
-        summary.setSource("tie");
-        summary.setSourceId(response.getDataSourceName());
+        summary.setSource(response.getDataSourceName());
+        summary.setSourceId(response.getSourceID());
 
         summary.setContactNumber(response.getContactNumber());
         summary.setName(response.getForename() + " " + response.getSurname());
