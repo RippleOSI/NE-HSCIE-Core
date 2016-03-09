@@ -85,12 +85,48 @@ mvn -version
 If they do not return a suitable response, ensure that your JAVA_HOME and M2_HOME system environment variables are pointing
 to the correct install directory, and that the \bin directories within them are on your PATH system environment variable.
 
-Now that the server is running, open up a second shell and serve the web assets. This will also watch for changes:  
+Now that the server is running, open up a second shell and serve the web assets. First, change the current directory to 
+the webapp package within the root directory of the project.
+  
 ```sh
-cd webapp && grunt serve
+cd webapp
+```
+
+Serving the web assets will also watch for changes to the front end code, and re-serve those assets (used to facilitate 
+speedy development of the UI).
+
+These assets, and the features and themes enabled, are centred around a specific tenant. 
+
+In order to run the application using the standard Ripple tenant:
+  
+```sh
+grunt serve
+```
+
+In order to run the application using the a specific tenant:
+  
+```sh
+grunt serve --tenant=stft
 ```
 
 ### Deployment and Server Configuration 
+
+Following the same logic shown above for serving the web assets, the same method can also be used to build the 
+application for a specific tenant:
+  
+```sh
+grunt build
+```
+
+Or...
+  
+```sh
+grunt build --tenant=stft
+```
+
+The build task above minifies and uglifies the front end code in the webapp directory of the project, and packages it up 
+in the ripple-demonstrator-api module under src->main->webapp. This is so that the packaged ripple-demonstrator-api 
+module can then be deployed to an application container, such as Tomcat, with the front end code packaged with it.
 
 For a full tutorial on how to deploy the application, read the following article:  
 http://dev.rippleosi.org/knowledgebase/server-installation-and-initial-setup/
