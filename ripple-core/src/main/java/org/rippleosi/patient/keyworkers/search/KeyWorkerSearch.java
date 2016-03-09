@@ -29,5 +29,5 @@ public interface KeyWorkerSearch extends Repository {
 
     List<KeyWorkerSummary> findAllKeyWorkers(String patientId, List<DataSourceSummary> datasourceSummaries);
 
-    KeyWorkerDetails findKeyWorker(String patientId, String keyWorkerId, List<DataSourceSummary> datasourceSummaries);
+    KeyWorkerDetails findKeyWorker(String patientId, String keyWorkerId, String source);
 }

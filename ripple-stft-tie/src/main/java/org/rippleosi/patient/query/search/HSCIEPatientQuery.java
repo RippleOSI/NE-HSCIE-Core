@@ -22,10 +22,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.hscieripple.patient.query.PairOfResultsSetKeyResultRow;
 import org.hscieripple.patient.query.PatientDetailsResponse;
-import org.hscieripple.patient.query.PatientService;
 import org.hscieripple.patient.query.PatientServiceSoap;
 import org.rippleosi.common.exception.ConfigurationException;
 import org.rippleosi.common.service.AbstractHSCIEService;
@@ -51,7 +49,7 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
     private PatientServiceSoap patientService;
 
     @Override
-    public List<PatientSummary> findPatientsByQueryObject(PatientQueryParams params) throws NumberFormatException {
+    public List<PatientSummary> findPatientsByQueryObject(PatientQueryParams params) {
         List<PairOfResultsSetKeyResultRow> patients = new ArrayList<>();
 
         Long nhsNumber = convertPatientIdToLong(params.getNhsNumber());
@@ -67,14 +65,12 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
             if (isSuccessfulResponse(response)) {
                 patients = response.getResultsSet().getResultRow();
             }
-
-            return CollectionUtils.collect(patients, new PatientResponseToPatientSummaryTransformer(), new ArrayList<>());
         }
         catch (SOAPFaultException e) {
             log.error(e.getMessage());
-
-            return new ArrayList<>();
         }
+
+        return CollectionUtils.collect(patients, new PatientResponseToPatientSummaryTransformer(), new ArrayList<>());
     }
 
     @Override
@@ -88,7 +84,7 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
     }
 
     @Override
-    public PatientDetails findPatient(String patientId) throws NumberFormatException {
+    public PatientDetails findPatient(String patientId) {
         List<PairOfResultsSetKeyResultRow> patients = new ArrayList<>();
 
         Long nhsNumber = convertPatientIdToLong(patientId);

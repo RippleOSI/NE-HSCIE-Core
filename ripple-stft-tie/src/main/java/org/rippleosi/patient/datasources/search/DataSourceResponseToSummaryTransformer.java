@@ -18,11 +18,10 @@ package org.rippleosi.patient.datasources.search;
 import java.util.Date;
 
 import org.apache.commons.collections4.Transformer;
-import org.hscieripple.patient.datasources.search.DSResultRow;
+import org.hscieripple.patient.datasources.DSResultRow;
 import org.rippleosi.patient.datasources.model.DataSourceSummary;
 
 public class DataSourceResponseToSummaryTransformer implements Transformer<DSResultRow, DataSourceSummary> {
-
 
     @Override
     public DataSourceSummary transform(DSResultRow dataSource) {

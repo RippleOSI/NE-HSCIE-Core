@@ -43,7 +43,7 @@ public class NotConfiguredKeyWorkerSearch implements KeyWorkerSearch {
     }
 
     @Override
-    public KeyWorkerDetails findKeyWorker(String patientId, String keyWorkerId, List<DataSourceSummary> datasourceSummaries) {
+    public KeyWorkerDetails findKeyWorker(String patientId, String keyWorkerId, String source) {
         throw ConfigurationException.unimplementedTransaction(KeyWorkerSearch.class);
     }
 }

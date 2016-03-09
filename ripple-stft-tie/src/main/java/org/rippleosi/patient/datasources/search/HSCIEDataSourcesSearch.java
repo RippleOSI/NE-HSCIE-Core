@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.hscieripple.patient.datasources.search.DataSourceResponse;
-import org.hscieripple.patient.datasources.search.DataSourcesServiceSoap;
-import org.hscieripple.patient.datasources.search.PairOfResultsSetKeyDSResultRow;
+import org.hscieripple.patient.datasources.DataSourceResponse;
+import org.hscieripple.patient.datasources.DataSourcesServiceSoap;
+import org.hscieripple.patient.datasources.PairOfResultsSetKeyDSResultRow;
 import org.rippleosi.common.service.AbstractHSCIEService;
 import org.rippleosi.patient.datasources.model.DataSourceSummary;
 import org.slf4j.Logger;
@@ -49,14 +49,12 @@ public class HSCIEDataSourcesSearch extends AbstractHSCIEService implements Data
             if (isSuccessfulResponse(response)) {
                 dataSources = response.getResultsSet().getDSResultRow();
             }
-
-            return CollectionUtils.collect(dataSources, new DataSourceResponseToSummaryTransformer(), new ArrayList<>());
         }
         catch (SOAPFaultException e) {
             log.error(e.getMessage());
-
-            return new ArrayList<>();
         }
+
+        return CollectionUtils.collect(dataSources, new DataSourceResponseToSummaryTransformer(), new ArrayList<>());
     }
 
     private boolean isSuccessfulResponse(DataSourceResponse response) {

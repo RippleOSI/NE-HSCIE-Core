@@ -15,11 +15,14 @@
  */
 package org.rippleosi.patient.keyworkers.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.rippleosi.patient.datasources.model.DataSourceSummary;
+import org.rippleosi.patient.datasources.search.DataSourcesSearch;
+import org.rippleosi.patient.datasources.search.DataSourcesSearchFactory;
 import org.rippleosi.patient.keyworkers.model.KeyWorkerDetails;
 import org.rippleosi.patient.keyworkers.model.KeyWorkerSummary;
+import org.rippleosi.patient.keyworkers.search.KeyWorkerSearch;
 import org.rippleosi.patient.keyworkers.search.KeyWorkerSearchFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,72 +36,28 @@ import org.springframework.web.bind.annotation.RestController;
 public class KeyWorkersController {
 
     @Autowired
+    private DataSourcesSearchFactory dataSourcesSearchFactory;
+
+    @Autowired
     private KeyWorkerSearchFactory keyWorkerSearchFactory;
 
     @RequestMapping(method = RequestMethod.GET)
     public List<KeyWorkerSummary> findAllKeyWorkers(@PathVariable("patientId") String patientId,
                                                     @RequestParam(required = false) String source) {
-        KeyWorkerSummary maisy = new KeyWorkerSummary();
-        maisy.setSource("Liquid Logic");
-        maisy.setSourceId("1");
-        maisy.setName("Maisy Cox");
-        maisy.setRole("GP");
-        maisy.setContactNumber("0191 123 123");
+        DataSourcesSearch dataSourcesSearch = dataSourcesSearchFactory.select(null);
+        List<DataSourceSummary> dataSources = dataSourcesSearch.findAvailableDataSources(patientId, "keyWorkers");
 
-        KeyWorkerSummary joanne = new KeyWorkerSummary();
-        joanne.setSource("Liquid Logic");
-        joanne.setSourceId("2");
-        joanne.setName("Joanne Smith");
-        joanne.setRole("Social Worker");
-        joanne.setContactNumber("0191 234 234");
-
-        List<KeyWorkerSummary> summaries = new ArrayList<>();
-        summaries.add(maisy);
-        summaries.add(joanne);
-
-        return summaries;
-        //TODO make a call to retrieve all data sources once the service is available
-//
-//        KeyWorkerSearch keyWorkerSearch = keyWorkerSearchFactory.select(source);
-//
-//        return keyWorkerSearch.findAllKeyWorkers(patientId, Collections.singletonList(new DatasourceSummary()));
+        KeyWorkerSearch keyWorkerSearch = keyWorkerSearchFactory.select(source);
+        return keyWorkerSearch.findAllKeyWorkers(patientId, dataSources);
     }
 
     @RequestMapping(value = "/{keyWorkerId}", method = RequestMethod.GET)
     public KeyWorkerDetails findKeyWorker(@PathVariable("patientId") String patientId,
                                           @PathVariable("keyWorkerId") String keyWorkerId,
-                                          @RequestParam(required = false) String source) {
-        if (keyWorkerId.equals("1")) {
-            KeyWorkerDetails maisy = new KeyWorkerDetails();
-            maisy.setSource("Liquid Logic");
-            maisy.setSourceId("1");
-            maisy.setName("Maisy Cox");
-            maisy.setRole("GP");
-            maisy.setTeamName("Team X");
-            maisy.setDepartmentDescription("Team of people from X");
-            maisy.setContactNumber("0191 123 123");
+                                          @RequestParam(required = false) String source,
+                                          @RequestParam(required = false) String subSource) {
+        KeyWorkerSearch keyWorkerSearch = keyWorkerSearchFactory.select(source);
 
-            return maisy;
-        }
-        else if (keyWorkerId.equals("2")) {
-            KeyWorkerDetails joanne = new KeyWorkerDetails();
-            joanne.setSource("Liquid Logic");
-            joanne.setSourceId("2");
-            joanne.setName("Joanne Smith");
-            joanne.setRole("Social Worker");
-            joanne.setTeamName("Team Y");
-            joanne.setDepartmentDescription("Team of people from Y");
-            joanne.setContactNumber("0191 234 234");
-
-            return joanne;
-        }
-        else {
-            return new KeyWorkerDetails();
-        }
-
-        //TODO make a call to retrieve all data sources once the service is available
-//        KeyWorkerSearch keyWorkerSearch = keyWorkerSearchFactory.select(source);
-//
-//        return keyWorkerSearch.findKeyWorker(patientId, keyWorkerId, Collections.singletonList(new DatasourceSummary()));
+        return keyWorkerSearch.findKeyWorker(patientId, keyWorkerId, subSource);
     }
 }

@@ -16,15 +16,16 @@
 
 package org.rippleosi.patient.keyworker.search;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.ws.soap.SOAPFaultException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.collections4.CollectionUtils;
-import org.hscieripple.patient.keyworkers.search.KWSummariesServiceSoap;
-import org.hscieripple.patient.keyworkers.search.KWSummaryResponse;
-import org.hscieripple.patient.keyworkers.search.PairOfKeyWorkersListKeyKWResultRow;
-import org.rippleosi.common.exception.ConfigurationException;
+import org.hscieripple.patient.keyworkers.KWDetailsResponse;
+import org.hscieripple.patient.keyworkers.KWSummaryResponse;
+import org.hscieripple.patient.keyworkers.KeyWorkerServiceSoap;
+import org.hscieripple.patient.keyworkers.PairOfKeyWorkersListKeyKWSummaryResultRow;
 import org.rippleosi.common.service.AbstractHSCIEService;
 import org.rippleosi.patient.datasources.model.DataSourceSummary;
 import org.rippleosi.patient.keyworkers.model.KeyWorkerDetails;
@@ -35,37 +36,71 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- */
 @Service
 public class HSCIEKeyWorkerSearch extends AbstractHSCIEService implements KeyWorkerSearch {
 
     private static final Logger log = LoggerFactory.getLogger(HSCIEKeyWorkerSearch.class);
 
     @Autowired
-    private KWSummariesServiceSoap kwSummariesService;
+    private KeyWorkerServiceSoap keyWorkersService;
 
     @Override
     public List<KeyWorkerSummary> findAllKeyWorkers(String patientId, List<DataSourceSummary> datasourceSummaries) {
-        Long nhsNumber = patientId == null ? null : Long.valueOf(patientId);
+        List<KeyWorkerSummary> keyWorkers = new ArrayList<>();
 
-        //TODO test needs removing to add asynchronous call for all data sources
-        try {
-            KWSummaryResponse kwSummaryResponse = kwSummariesService.findKWSummariesBO(nhsNumber, "test");
+        Long nhsNumber = convertPatientIdToLong(patientId);
 
-            List<PairOfKeyWorkersListKeyKWResultRow> kwResultRow = kwSummaryResponse.getKeyWorkersList().getKWResultRow();
+        for (DataSourceSummary summary : datasourceSummaries) {
+            List<KeyWorkerSummary> results = makeSummaryCall(nhsNumber, summary.getSourceId());
 
-            return CollectionUtils.collect(kwResultRow, new KeyWorkerResponseToKeyWorkerSummaryTransformer(), new ArrayList<>());
-        } catch (SOAPFaultException e) {
-            log.error(e.getMessage());
-
-            return new ArrayList<>();
+            keyWorkers.addAll(results);
         }
+
+        return keyWorkers;
     }
 
     @Override
-    public KeyWorkerDetails findKeyWorker(String patientId, String keyWorkerId, List<DataSourceSummary> datasourceSummaries) {
-        //TODO awaiting wsdl
-        throw ConfigurationException.unimplementedTransaction(KeyWorkerSearch.class);
+    public KeyWorkerDetails findKeyWorker(String patientId, String keyWorkerId, String source) {
+        KWDetailsResponse response = new KWDetailsResponse();
+
+        Long nhsNumber = convertPatientIdToLong(patientId);
+
+        try {
+            response = keyWorkersService.findKWDetailsBO(nhsNumber, keyWorkerId, source);
+
+            if (!isSuccessfulDetailsResponse(response)) {
+                return new KeyWorkerDetails();
+            }
+        }
+        catch (SOAPFaultException e) {
+            log.error(e.getMessage());
+        }
+
+        return new KeyWorkerDetailsResponseToDetailsTransformer().transform(response);
+    }
+
+    private List<KeyWorkerSummary> makeSummaryCall(Long nhsNumber, String source) {
+        List<PairOfKeyWorkersListKeyKWSummaryResultRow> results = new ArrayList<>();
+
+        try {
+            KWSummaryResponse response = keyWorkersService.findKWSummariesBO(nhsNumber, source);
+
+            if (isSuccessfulSummaryResponse(response)) {
+                results = response.getKeyWorkersList().getKWSummaryResultRow();
+            }
+        }
+        catch (SOAPFaultException e) {
+            log.error(e.getMessage());
+        }
+
+        return CollectionUtils.collect(results, new KeyWorkerResponseToKeyWorkerSummaryTransformer(), new ArrayList<>());
+    }
+
+    private boolean isSuccessfulSummaryResponse(KWSummaryResponse response) {
+        return response.getStatusCode().equalsIgnoreCase("OK");
+    }
+
+    private boolean isSuccessfulDetailsResponse(KWDetailsResponse response) {
+        return response.getStatusCode().equalsIgnoreCase("OK");
     }
 }
