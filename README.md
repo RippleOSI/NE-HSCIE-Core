@@ -190,6 +190,11 @@ grunt serve --tenant=stft
 Following the same logic shown above for serving the web assets, but use the *build* task instead of the *serve* task:  
 ```sh
 grunt build
+```  
+
+In order to run the application using the a specific tenant:  
+```sh
+grunt build --tenant=stft
 ```
 
 The build task minifies and uglifies the front end code in the webapp directory of the project, and packages it up 
