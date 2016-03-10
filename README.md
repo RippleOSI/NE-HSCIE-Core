@@ -2,6 +2,7 @@ Ripple IDCR Demonstrator
 =========
   
 
+
 ### Requirements
 
 To develop and run the application locally you must have the following installed:  
@@ -58,6 +59,7 @@ PATH should contain the bin directory of both M2_HOME and JAVA_HOME, e.g.
 ```
 
 
+
 ### Installation of the MySQL Database
 
 Install MySQL:  
@@ -72,6 +74,7 @@ These scripts are to be run in the order specified in the following file (locate
 *sql_script_run_order.info*
 
 
+
 ### Initialising the Tomcat Context File (XML Descriptor):
 
 Throughout the Java side of the application, environment properties are used. These are properties which correspond to
@@ -80,12 +83,17 @@ certain settings, such as:
 * Usernames and passwords for data sources  
 * Specific endpoints to be used for queries  
 
-It is imperative that this context file is located in the *root directory* of the project when on a development environment.
-
 To find an example of this file, you can copy the a fully working example of one, which is located in the following
 directory:  
 *ripple-demonstrator-api\src\main\resources\config\tomcat-context-example.xml*
-  
+
+Copy the file to the *root directory* of the project. It is imperative that this context file is located here when on a 
+development environment.
+
+Rename the context file to:  
+*context-ripple.xml*  
+
+
 
 ### Installing front end packages
 
@@ -120,10 +128,15 @@ npm update
 ```
   
 
+
 ### Running the Application
 
-Open up a shell and navigate to the project root directory. Use the following command to build and start the development
-server for the Java API:  
+Open up a shell and navigate to the *root directory* of the project.  
+```sh
+cd {projectRoot}
+```
+
+Use the following command to spin up an instance of a development server (the Java API code):    
 ```sh
 mvn clean package -Pwebapp:run
 ```
@@ -145,13 +158,14 @@ ruby --version
 gem --version 
 ```
 
-If they do not return a suitable response, ensure that your JAVA_HOME and M2_HOME system environment variables are pointing
-to the correct install directory, and that the \bin directories within them are on your PATH system environment variable.
+If they do not return a suitable response, ensure that the system environment variables described above are pointing
+to the correct install directory, and that the *\bin* directories within them are on your PATH system environment variable.
 
-Now that the server is running, open up a second shell and serve the web assets. First, change the current directory to 
-the webapp package within the root directory of the project.  
+Now that the server is running, open up a second shell and serve the web assets.
+
+Firstly, change the current directory to the webapp package within the root directory of the project.  
 ```sh
-cd webapp
+cd {projectRoot}\webapp
 ```
 
 Serving the web assets will also watch for changes to the front end code, and re-serve those assets (used to facilitate 
@@ -170,12 +184,43 @@ grunt serve --tenant=stft
 ```
   
 
+
 ### Deployment and Server Configuration
 
-Following the same logic shown above for serving the web assets, the same method can also be used to build the 
-application for a specific tenant:  
+Following the same logic shown above for serving the web assets, but use the *build* task instead of the *serve* task:  
 ```sh
 grunt build
+```
+
+The build task minifies and uglifies the front end code in the webapp directory of the project, and packages it up 
+in the ripple-demonstrator-api module under the following directory:  
+*ripple-demonstrator-api\src\main\webapp* 
+
+This is so that the packaged *ripple-demonstrator-api* module can then be deployed to an application container, 
+such as Tomcat, with the front end code packaged with it.
+
+With front end code and server-side code is packaged as one, it makes things easy to handle in a deployment scenario.
+
+For a full tutorial on how to deploy the application, read the following article:  
+http://dev.rippleosi.org/knowledgebase/server-installation-and-initial-setup/
+  
+
+### A Bit More on Tenants
+
+As mentioned previously, the application is centred around the concept of a tenant. This idea can be thought of as a 
+specific instance of the system, and the associated themes and behaviour of that instance.
+
+Using the system under the precept of a tenant will alter the look and feel of the site, and will also activate or deactivate 
+functionality.
+
+The current tenants programmed into Ripple are:  
+* ripple  
+* stft  
+
+In order to make use of a tenant's version of the site, you may either serve or build the site with the *--tenant* argument 
+appended to the grunt command, e.g.  
+```sh
+grunt serve --tenant=stft
 ```
 
 Or...  
@@ -183,13 +228,6 @@ Or...
 grunt build --tenant=stft
 ```
 
-The build task above minifies and uglifies the front end code in the webapp directory of the project, and packages it up 
-in the ripple-demonstrator-api module under src->main->webapp. This is so that the packaged ripple-demonstrator-api 
-module can then be deployed to an application container, such as Tomcat, with the front end code packaged with it.
 
-For a full tutorial on how to deploy the application, read the following article:  
-http://dev.rippleosi.org/knowledgebase/server-installation-and-initial-setup/
-  
-  
 
 ##### ENJOY!
