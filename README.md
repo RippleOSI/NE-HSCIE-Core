@@ -192,7 +192,7 @@ Following the same logic shown above for serving the web assets, but use the *bu
 grunt build
 ```  
 
-In order to run the application using the a specific tenant:  
+In order to build the application using the a specific tenant:  
 ```sh
 grunt build --tenant=stft
 ```
