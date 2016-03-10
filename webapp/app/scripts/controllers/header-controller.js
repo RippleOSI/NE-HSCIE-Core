@@ -254,6 +254,8 @@ angular.module('rippleDemonstrator')
       $scope.previousState = previousState;
       $scope.previousPage = previousPage;
 
+      $scope.backButtonEnabled = $scope.currentUser.feature.homeView !== 'search';
+
       $scope.mainWidth = mainWidth;
       $scope.detailWidth = detailWidth;
 
