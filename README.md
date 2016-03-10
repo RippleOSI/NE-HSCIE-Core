@@ -69,9 +69,7 @@ Create the database locally by executing the scripts found in the following dire
 *ripple-database/src/main/resources/sql/legacy*
 
 These scripts are to be run in the order specified in the following file (located in the directory described above):  
-```
-sql_script_run_order.info
-```
+*sql_script_run_order.info*
 
 
 ### Initialising the Tomcat Context File (XML Descriptor):
