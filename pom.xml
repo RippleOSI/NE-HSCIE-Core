@@ -19,12 +19,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.rippleosi</groupId>
-    <artifactId>ripple</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <groupId>org.hscieripple</groupId>
+    <artifactId>hscie-ripple</artifactId>
+    <version>0.5.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Ripple OSI</name>
+    <name>HSCIE Ripple</name>
 
     <properties>
         <java.version>1.8</java.version>
@@ -41,68 +41,77 @@
         <spring.version>4.2.1.RELEASE</spring.version>
         <swagger.version>2.2.2</swagger.version>
         <querydsl.version>3.6.8</querydsl.version>
+        
+        <ripple.version>0.5.1.0</ripple.version>
     </properties>
 
     <modules>
-        <module>ripple-audit-example</module>
-        <module>ripple-core</module>
-        <module>ripple-database</module>
-        <module>ripple-demonstrator-api</module>
-        <module>ripple-dicom</module>
-        <module>ripple-openehr</module>
-        <module>ripple-stft-tie</module>
-        <module>ripple-terminology-example</module>
-        <module>ripple-vista</module>
+        <module>hscie-ripple-api</module>
+        <module>hscie-ripple-core</module>
+        <module>hscie-ripple-packaging</module>
+        <module>hscie-ripple-tie</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.rippleosi</groupId>
+                <artifactId>ripple-api</artifactId>
+                <version>${ripple.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.rippleosi</groupId>
                 <artifactId>ripple-audit-example</artifactId>
-                <version>${project.version}</version>
+                <version>${ripple.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.rippleosi</groupId>
                 <artifactId>ripple-core</artifactId>
-                <version>${project.version}</version>
+                <version>${ripple.version}</version>
             </dependency>
 
             <dependency>
+                <groupId>org.hscieripple</groupId>
+                <artifactId>hscie-ripple-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
+            <dependency>
                 <groupId>org.rippleosi</groupId>
                 <artifactId>ripple-database</artifactId>
-                <version>${project.version}</version>
+                <version>${ripple.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.rippleosi</groupId>
                 <artifactId>ripple-dicom</artifactId>
-                <version>${project.version}</version>
+                <version>${ripple.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.rippleosi</groupId>
                 <artifactId>ripple-openehr</artifactId>
-                <version>${project.version}</version>
+                <version>${ripple.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.rippleosi</groupId>
-                <artifactId>ripple-stft-tie</artifactId>
+                <groupId>org.hscieripple</groupId>
+                <artifactId>hscie-ripple-tie</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.rippleosi</groupId>
                 <artifactId>ripple-terminology-example</artifactId>
-                <version>${project.version}</version>
+                <version>${ripple.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.rippleosi</groupId>
                 <artifactId>ripple-vista</artifactId>
-                <version>${project.version}</version>
+                <version>${ripple.version}</version>
             </dependency>
 
             <dependency>
@@ -314,12 +323,6 @@
                 <artifactId>cxf-rt-bindings-soap</artifactId>
                 <version>${cxf.version}</version>
             </dependency>
-
-            <!--<dependency>-->
-            <!--<groupId>org.apache.cxf.xjc-utils</groupId>-->
-            <!--<artifactId>cxf-xjc-runtime</artifactId>-->
-            <!--<version>${cxf.version}</version>-->
-            <!--</dependency>-->
 
             <dependency>
                 <groupId>org.apache.tomcat</groupId>
