@@ -27,7 +27,7 @@ import org.hscieripple.patient.query.PatientDetailsResponse;
 import org.hscieripple.patient.query.PatientServiceSoap;
 import org.rippleosi.common.exception.ConfigurationException;
 import org.rippleosi.common.service.AbstractHSCIEService;
-import org.hscieripple.common.util.DateFormatter;
+import org.rippleosi.common.util.DateFormatter;
 import org.rippleosi.patient.summary.model.PatientDetails;
 import org.rippleosi.patient.summary.model.PatientQueryParams;
 import org.rippleosi.patient.summary.model.PatientSummary;

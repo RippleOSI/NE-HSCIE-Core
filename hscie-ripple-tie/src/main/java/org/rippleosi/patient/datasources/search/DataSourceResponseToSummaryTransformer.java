@@ -19,7 +19,7 @@ import java.util.Date;
 
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.patient.datasources.DSResultRow;
-import org.rippleosi.patient.datasources.model.DataSourceSummary;
+import org.hscieripple.patient.datasources.model.DataSourceSummary;
 
 public class DataSourceResponseToSummaryTransformer implements Transformer<DSResultRow, DataSourceSummary> {
 

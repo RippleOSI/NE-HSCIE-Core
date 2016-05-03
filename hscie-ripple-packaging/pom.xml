@@ -30,8 +30,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.rippleosi</groupId>
-            <artifactId>ripple-api</artifactId>
+            <groupId>org.hscieripple</groupId>
+            <artifactId>hscie-ripple-api</artifactId>
         </dependency>
 
         <dependency>

@@ -13,14 +13,15 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package org.hscieripple.patient.datasources.rest;
+package org.rippleosi.patient.datasources.rest;
 
 import java.util.List;
-import org.hscieripple.common.types.RepoSourceType;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
 import org.hscieripple.patient.datasources.search.DataSourcesSearch;
 import org.hscieripple.patient.datasources.search.DataSourcesSearchFactory;
 import org.rippleosi.common.types.RepoSource;
+import org.rippleosi.common.types.RepoSourceType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

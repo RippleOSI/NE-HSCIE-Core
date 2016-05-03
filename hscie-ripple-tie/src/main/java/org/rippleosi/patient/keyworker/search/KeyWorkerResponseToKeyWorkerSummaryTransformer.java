@@ -18,7 +18,7 @@ package org.rippleosi.patient.keyworker.search;
 
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.patient.keyworkers.KWSummaryResultRow;
-import org.rippleosi.patient.keyworkers.model.KeyWorkerSummary;
+import org.hscieripple.patient.keyworkers.model.KeyWorkerSummary;
 
 public class KeyWorkerResponseToKeyWorkerSummaryTransformer implements Transformer<KWSummaryResultRow, KeyWorkerSummary> {
 
