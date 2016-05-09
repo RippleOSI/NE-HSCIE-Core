@@ -15,7 +15,6 @@
  */
 package org.hscieripple.patient.summary.model;
 
-import java.util.Date;
 import org.rippleosi.common.types.RepoSource;
 
 /**
