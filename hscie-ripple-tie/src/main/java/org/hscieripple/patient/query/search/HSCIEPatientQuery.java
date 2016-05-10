@@ -44,6 +44,8 @@ import org.springframework.stereotype.Service;
 public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSearch {
 
     private static final Logger log = LoggerFactory.getLogger(HSCIEPatientQuery.class);
+    
+    private static final String OK = "OK";
 
     @Autowired
     private PatientServiceSoap patientService;
@@ -131,6 +133,6 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
     }
 
     private boolean isSuccessfulResponse(PatientDetailsResponse response) {
-        return response.getStatusCode().equalsIgnoreCase("OK");
+        return OK.equalsIgnoreCase(response.getStatusCode());
     }
 }

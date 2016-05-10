@@ -36,6 +36,8 @@ public class HSCIEDataSourcesSearch extends AbstractHSCIEService implements Data
 
     private static final Logger log = LoggerFactory.getLogger(HSCIEDataSourcesSearch.class);
 
+    private static final String OK = "OK";
+
     @Autowired
     private DataSourcesServiceSoap dataSourcesService;
 
@@ -58,6 +60,6 @@ public class HSCIEDataSourcesSearch extends AbstractHSCIEService implements Data
     }
 
     private boolean isSuccessfulResponse(DataSourceResponse response) {
-        return response.getStatusCode().equalsIgnoreCase("OK");
+        return OK.equalsIgnoreCase(response.getStatusCode());
     }
 }

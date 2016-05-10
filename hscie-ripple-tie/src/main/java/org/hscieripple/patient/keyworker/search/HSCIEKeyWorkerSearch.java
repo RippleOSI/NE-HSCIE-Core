@@ -41,6 +41,8 @@ public class HSCIEKeyWorkerSearch extends AbstractHSCIEService implements KeyWor
 
     private static final Logger log = LoggerFactory.getLogger(HSCIEKeyWorkerSearch.class);
 
+    private static final String OK = "OK";
+
     @Autowired
     private KeyWorkerServiceSoap keyWorkersService;
 
@@ -97,10 +99,10 @@ public class HSCIEKeyWorkerSearch extends AbstractHSCIEService implements KeyWor
     }
 
     private boolean isSuccessfulSummaryResponse(KWSummaryResponse response) {
-        return response.getStatusCode().equalsIgnoreCase("OK");
+        return OK.equalsIgnoreCase(response.getStatusCode());
     }
 
     private boolean isSuccessfulDetailsResponse(KWDetailsResponse response) {
-        return response.getStatusCode().equalsIgnoreCase("OK");
+        return OK.equalsIgnoreCase(response.getStatusCode());
     }
 }
