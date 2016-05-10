@@ -67,7 +67,7 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
             }
         }
         catch (SOAPFaultException e) {
-            log.error(e.getMessage());
+            log.error(e.getMessage(), e);
         }
 
         return CollectionUtils.collect(patients, new PatientResponseToPatientSummaryTransformer(), new ArrayList<>());
@@ -99,7 +99,7 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
             return new PatientResponseToPatientDetailsTransformer().transform(patients.get(0));
         }
         catch (SOAPFaultException e) {
-            log.error(e.getMessage());
+            log.error(e.getMessage(), e);
 
             return new PatientDetails();
         }

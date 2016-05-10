@@ -73,7 +73,7 @@ public class HSCIEKeyWorkerSearch extends AbstractHSCIEService implements KeyWor
             }
         }
         catch (SOAPFaultException e) {
-            log.error(e.getMessage());
+            log.error(e.getMessage(), e);
         }
 
         return new KeyWorkerDetailsResponseToDetailsTransformer().transform(response);
@@ -90,7 +90,7 @@ public class HSCIEKeyWorkerSearch extends AbstractHSCIEService implements KeyWor
             }
         }
         catch (SOAPFaultException e) {
-            log.error(e.getMessage());
+            log.error(e.getMessage(), e);
         }
 
         return CollectionUtils.collect(results, new KeyWorkerResponseToKeyWorkerSummaryTransformer(), new ArrayList<>());
