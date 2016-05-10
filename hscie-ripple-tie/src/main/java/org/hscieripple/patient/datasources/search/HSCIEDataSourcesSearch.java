@@ -51,7 +51,7 @@ public class HSCIEDataSourcesSearch extends AbstractHSCIEService implements Data
             }
         }
         catch (SOAPFaultException e) {
-            log.error(e.getMessage());
+            log.error(e.getMessage(), e);
         }
 
         return CollectionUtils.collect(dataSources, new DataSourceResponseToSummaryTransformer(), new ArrayList<>());
