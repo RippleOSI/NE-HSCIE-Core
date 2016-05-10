@@ -17,11 +17,15 @@
 package org.hscieripple.common.types;
 
 import org.rippleosi.common.types.RepoSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  */
 public enum RepoSourceType implements RepoSource {
     TIE("TIE");
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(RepoSourceType.class);
 
     private final String sourceName;
 
@@ -45,7 +49,7 @@ public enum RepoSourceType implements RepoSource {
             }
         }
 
-        // TODO Log this
+        LOGGER.warn("Could not find an enumeration for '" + sourceName +"'");
         return null;
     }
 }
