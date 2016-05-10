@@ -21,12 +21,12 @@ import org.apache.commons.collections4.Transformer;
 import org.hscieripple.common.types.RepoSourceType;
 import org.hscieripple.patient.query.ResultRow;
 import org.rippleosi.common.util.DateFormatter;
-import org.hscieripple.patient.summary.model.PatientSummary;
+import org.hscieripple.patient.summary.model.HSCIEPatientSummary;
 
-public class PatientResponseToPatientSummaryTransformer implements Transformer<ResultRow, PatientSummary> {
+public class PatientResponseToPatientSummaryTransformer implements Transformer<ResultRow, HSCIEPatientSummary> {
 
     @Override
-    public PatientSummary transform(ResultRow response) {
+    public HSCIEPatientSummary transform(ResultRow response) {
 
         String sourceId = String.valueOf(response.getPersonNumber());
         String name = response.getForename() + " " + response.getSurname();
@@ -34,7 +34,7 @@ public class PatientResponseToPatientSummaryTransformer implements Transformer<R
         Date dateOfBirth = DateFormatter.toDate(response.getDOB());
         String nhsNumber = String.valueOf(response.getNHSNumber());
 
-        PatientSummary summary = new PatientSummary();
+        HSCIEPatientSummary summary = new HSCIEPatientSummary();
 
         summary.setId(sourceId);
         summary.setSource(RepoSourceType.TIE);

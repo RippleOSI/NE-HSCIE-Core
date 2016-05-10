@@ -16,10 +16,11 @@
 package org.hscieripple.patient.summary.model;
 
 import org.rippleosi.common.types.RepoSource;
+import org.rippleosi.patient.summary.model.PatientSummary;
 
 /**
  */
-public class PatientSummary extends org.rippleosi.patient.summary.model.PatientSummary{
+public class HSCIEPatientSummary extends PatientSummary{
 
     private RepoSource source;
 
