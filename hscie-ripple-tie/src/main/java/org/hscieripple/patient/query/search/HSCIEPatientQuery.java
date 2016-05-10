@@ -13,7 +13,7 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package org.rippleosi.patient.query.search;
+package org.hscieripple.patient.query.search;
 
 import javax.xml.ws.soap.SOAPFaultException;
 
@@ -26,7 +26,7 @@ import org.hscieripple.patient.query.PairOfResultsSetKeyResultRow;
 import org.hscieripple.patient.query.PatientDetailsResponse;
 import org.hscieripple.patient.query.PatientServiceSoap;
 import org.rippleosi.common.exception.ConfigurationException;
-import org.rippleosi.common.service.AbstractHSCIEService;
+import org.hscieripple.common.service.AbstractHSCIEService;
 import org.rippleosi.common.util.DateFormatter;
 import org.rippleosi.patient.summary.model.PatientDetails;
 import org.rippleosi.patient.summary.model.PatientQueryParams;

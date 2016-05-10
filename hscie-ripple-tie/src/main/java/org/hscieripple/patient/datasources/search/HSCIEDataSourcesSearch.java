@@ -13,7 +13,7 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package org.rippleosi.patient.datasources.search;
+package org.hscieripple.patient.datasources.search;
 
 import javax.xml.ws.soap.SOAPFaultException;
 
@@ -25,8 +25,7 @@ import org.hscieripple.patient.datasources.DataSourceResponse;
 import org.hscieripple.patient.datasources.DataSourcesServiceSoap;
 import org.hscieripple.patient.datasources.PairOfResultsSetKeyDSResultRow;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
-import org.hscieripple.patient.datasources.search.DataSourcesSearch;
-import org.rippleosi.common.service.AbstractHSCIEService;
+import org.hscieripple.common.service.AbstractHSCIEService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

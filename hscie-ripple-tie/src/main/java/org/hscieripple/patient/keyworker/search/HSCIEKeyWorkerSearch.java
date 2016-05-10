@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.rippleosi.patient.keyworker.search;
+package org.hscieripple.patient.keyworker.search;
 
 import javax.xml.ws.soap.SOAPFaultException;
 
@@ -30,7 +30,7 @@ import org.hscieripple.patient.keyworkers.PairOfKeyWorkersListKeyKWSummaryResult
 import org.hscieripple.patient.keyworkers.model.KeyWorkerDetails;
 import org.hscieripple.patient.keyworkers.model.KeyWorkerSummary;
 import org.hscieripple.patient.keyworkers.search.KeyWorkerSearch;
-import org.rippleosi.common.service.AbstractHSCIEService;
+import org.hscieripple.common.service.AbstractHSCIEService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

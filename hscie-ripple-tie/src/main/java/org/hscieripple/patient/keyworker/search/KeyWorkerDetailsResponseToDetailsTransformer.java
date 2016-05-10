@@ -13,7 +13,7 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package org.rippleosi.patient.keyworker.search;
+package org.hscieripple.patient.keyworker.search;
 
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.patient.keyworkers.KWDetailsResponse;

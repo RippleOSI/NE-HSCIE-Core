@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.rippleosi.patient.keyworker.search;
+package org.hscieripple.patient.keyworker.search;
 
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.patient.keyworkers.KWSummaryResultRow;

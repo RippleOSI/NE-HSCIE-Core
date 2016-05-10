@@ -16,7 +16,6 @@
 package org.hscieripple.patient.datasources.search;
 
 import org.rippleosi.common.repo.RepositoryFactory;
-import org.rippleosi.patient.contacts.search.ContactSearch;
 
 /**
  */

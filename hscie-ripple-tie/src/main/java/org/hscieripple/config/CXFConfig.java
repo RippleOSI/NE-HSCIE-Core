@@ -13,7 +13,7 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package org.rippleosi.config;
+package org.hscieripple.config;
 
 import org.apache.cxf.jaxws.spring.JaxWsProxyFactoryBeanDefinitionParser.JAXWSSpringClientProxyFactoryBean;
 import org.hscieripple.patient.datasources.DataSourcesServiceSoap;

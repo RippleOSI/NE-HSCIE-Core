@@ -13,19 +13,20 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package org.rippleosi.patient.query.search;
+package org.hscieripple.patient.query.search;
 
 import java.util.Date;
 
 import org.apache.commons.collections4.Transformer;
+import org.hscieripple.common.types.RepoSourceType;
 import org.hscieripple.patient.query.ResultRow;
 import org.rippleosi.common.util.DateFormatter;
-import org.rippleosi.patient.summary.model.PatientDetails;
+import org.hscieripple.patient.summary.model.PatientSummary;
 
-public class PatientResponseToPatientDetailsTransformer implements Transformer<ResultRow, PatientDetails> {
+public class PatientResponseToPatientSummaryTransformer implements Transformer<ResultRow, PatientSummary> {
 
     @Override
-    public PatientDetails transform(ResultRow response) {
+    public PatientSummary transform(ResultRow response) {
 
         String sourceId = String.valueOf(response.getPersonNumber());
         String name = response.getForename() + " " + response.getSurname();
@@ -33,16 +34,16 @@ public class PatientResponseToPatientDetailsTransformer implements Transformer<R
         Date dateOfBirth = DateFormatter.toDate(response.getDOB());
         String nhsNumber = String.valueOf(response.getNHSNumber());
 
-        PatientDetails details = new PatientDetails();
+        PatientSummary summary = new PatientSummary();
 
-        details.setId(sourceId);
-        details.setName(name);
-        details.setAddress(address);
-        details.setDateOfBirth(dateOfBirth);
-        details.setGender(response.getGender());
-        details.setNhsNumber(nhsNumber);
-        details.setPasNumber(response.getPersonNumber());
+        summary.setId(sourceId);
+        summary.setSource(RepoSourceType.TIE);
+        summary.setName(name);
+        summary.setAddress(address);
+        summary.setDateOfBirth(dateOfBirth);
+        summary.setGender(response.getGender());
+        summary.setNhsNumber(nhsNumber);
 
-        return details;
+        return summary;
     }
 }
