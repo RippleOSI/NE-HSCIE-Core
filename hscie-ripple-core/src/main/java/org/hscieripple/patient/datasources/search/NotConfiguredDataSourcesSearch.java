@@ -19,16 +19,16 @@ import java.util.List;
 import org.rippleosi.common.types.RepoSourceType;
 
 import org.rippleosi.common.exception.ConfigurationException;
-import org.rippleosi.common.types.RepoSource;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
+import org.rippleosi.common.types.RepoSourceTypes;
 
 /**
  */
 public class NotConfiguredDataSourcesSearch implements DataSourcesSearch {
 
     @Override
-    public RepoSource getSource() {
-        return RepoSourceType.NONE;
+    public RepoSourceType getSource() {
+        return RepoSourceTypes.NONE;
     }
 
     @Override

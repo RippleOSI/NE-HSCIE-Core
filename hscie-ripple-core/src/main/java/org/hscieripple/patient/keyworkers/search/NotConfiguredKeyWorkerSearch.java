@@ -19,19 +19,19 @@ package org.hscieripple.patient.keyworkers.search;
 import java.util.List;
 
 import org.rippleosi.common.exception.ConfigurationException;
-import org.rippleosi.common.types.RepoSource;
 import org.rippleosi.common.types.RepoSourceType;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
 import org.hscieripple.patient.keyworkers.model.KeyWorkerDetails;
 import org.hscieripple.patient.keyworkers.model.KeyWorkerSummary;
+import org.rippleosi.common.types.RepoSourceTypes;
 
 /**
  */
 public class NotConfiguredKeyWorkerSearch implements KeyWorkerSearch {
 
     @Override
-    public RepoSource getSource() {
-        return RepoSourceType.NONE;
+    public RepoSourceType getSource() {
+        return RepoSourceTypes.NONE;
     }
 
     @Override

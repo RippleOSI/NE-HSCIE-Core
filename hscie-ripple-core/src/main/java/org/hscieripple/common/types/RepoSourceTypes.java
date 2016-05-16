@@ -16,20 +16,20 @@
 
 package org.hscieripple.common.types;
 
-import org.rippleosi.common.types.RepoSource;
+import org.rippleosi.common.types.RepoSourceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  */
-public enum RepoSourceType implements RepoSource {
+public enum RepoSourceTypes implements RepoSourceType {
     TIE("TIE");
     
     private static final Logger LOGGER = LoggerFactory.getLogger(RepoSourceType.class);
 
     private final String sourceName;
 
-    private RepoSourceType(final String sourceName) {
+    private RepoSourceTypes(final String sourceName) {
         this.sourceName = sourceName;
     }
 
@@ -38,12 +38,12 @@ public enum RepoSourceType implements RepoSource {
         return sourceName;
     }
 
-    public static RepoSource fromString(final String sourceName) {
+    public static RepoSourceType fromString(final String sourceName) {
         if (sourceName == null) {
             return null;
         }
 
-        for (RepoSource enumValue : RepoSourceType.values()) {
+        for (RepoSourceType enumValue : RepoSourceTypes.values()) {
             if (enumValue.getSourceName().equalsIgnoreCase(sourceName)) {
                 return enumValue;
             }

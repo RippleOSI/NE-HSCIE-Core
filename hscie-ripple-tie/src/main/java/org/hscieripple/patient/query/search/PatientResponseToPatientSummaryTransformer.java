@@ -18,7 +18,7 @@ package org.hscieripple.patient.query.search;
 import java.util.Date;
 
 import org.apache.commons.collections4.Transformer;
-import org.hscieripple.common.types.RepoSourceType;
+import org.hscieripple.common.types.RepoSourceTypes;
 import org.hscieripple.patient.query.ResultRow;
 import org.rippleosi.common.util.DateFormatter;
 import org.hscieripple.patient.summary.model.HSCIEPatientSummary;
@@ -37,7 +37,7 @@ public class PatientResponseToPatientSummaryTransformer implements Transformer<R
         HSCIEPatientSummary summary = new HSCIEPatientSummary();
 
         summary.setId(sourceId);
-        summary.setSource(RepoSourceType.TIE);
+        summary.setSource(RepoSourceTypes.TIE);
         summary.setName(name);
         summary.setAddress(address);
         summary.setDateOfBirth(dateOfBirth);

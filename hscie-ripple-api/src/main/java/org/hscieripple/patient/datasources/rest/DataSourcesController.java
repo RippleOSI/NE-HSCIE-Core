@@ -19,8 +19,8 @@ import java.util.List;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
 import org.hscieripple.patient.datasources.search.DataSourcesSearch;
 import org.hscieripple.patient.datasources.search.DataSourcesSearchFactory;
-import org.rippleosi.common.types.RepoSource;
 import org.rippleosi.common.types.RepoSourceType;
+import org.rippleosi.common.types.lookup.RepoSourceLookupFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,12 +34,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class DataSourcesController {
 
     @Autowired
+    private RepoSourceLookupFactory repoSourceLookup;
+    
+    @Autowired
     private DataSourcesSearchFactory dataSourcesSearchFactory;
 
     @RequestMapping(method = RequestMethod.GET)
     public List<DataSourceSummary> findAvailableDataSources(@PathVariable("patientId") String patientId,
                                                             @RequestParam(required = false) String source) {
-        final RepoSource sourceType = RepoSourceType.fromString(source);
+        final RepoSourceType sourceType = repoSourceLookup.lookup(source);
         DataSourcesSearch dataSourcesSearch = dataSourcesSearchFactory.select(sourceType);
 
         return dataSourcesSearch.findAvailableDataSources(patientId, null);
@@ -49,7 +52,7 @@ public class DataSourcesController {
     public List<DataSourceSummary> findAvailableDataSourcesForType(@PathVariable("patientId") String patientId,
                                                                    @PathVariable("dataType") String dataType,
                                                                    @RequestParam(required = false) String source) {
-        final RepoSource sourceType = RepoSourceType.fromString(source);
+        final RepoSourceType sourceType = repoSourceLookup.lookup(source);
         DataSourcesSearch dataSourcesSearch = dataSourcesSearchFactory.select(sourceType);
 
         return dataSourcesSearch.findAvailableDataSources(patientId, dataType);

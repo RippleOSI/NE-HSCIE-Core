@@ -15,20 +15,20 @@
  */
 package org.hscieripple.patient.summary.model;
 
-import org.rippleosi.common.types.RepoSource;
+import org.rippleosi.common.types.RepoSourceType;
 import org.rippleosi.patient.summary.model.PatientSummary;
 
 /**
  */
 public class HSCIEPatientSummary extends PatientSummary{
 
-    private RepoSource source;
+    private RepoSourceType source;
 
-    public RepoSource getSource() {
+    public RepoSourceType getSource() {
         return source;
     }
 
-    public void setSource(RepoSource source) {
+    public void setSource(RepoSourceType source) {
         this.source = source;
     }
 
