@@ -22,14 +22,14 @@ import org.slf4j.LoggerFactory;
 
 /**
  */
-public enum RepoSourceTypes implements RepoSourceType {
+public enum HSCIERepoSourceTypes implements RepoSourceType {
     TIE("TIE");
     
     private static final Logger LOGGER = LoggerFactory.getLogger(RepoSourceType.class);
 
     private final String sourceName;
 
-    private RepoSourceTypes(final String sourceName) {
+    private HSCIERepoSourceTypes(final String sourceName) {
         this.sourceName = sourceName;
     }
 
@@ -43,7 +43,7 @@ public enum RepoSourceTypes implements RepoSourceType {
             return null;
         }
 
-        for (RepoSourceType enumValue : RepoSourceTypes.values()) {
+        for (RepoSourceType enumValue : HSCIERepoSourceTypes.values()) {
             if (enumValue.getSourceName().equalsIgnoreCase(sourceName)) {
                 return enumValue;
             }
