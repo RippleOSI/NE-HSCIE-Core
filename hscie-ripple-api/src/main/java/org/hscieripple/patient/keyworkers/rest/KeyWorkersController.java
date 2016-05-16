@@ -16,7 +16,7 @@
 package org.hscieripple.patient.keyworkers.rest;
 
 import java.util.List;
-import org.hscieripple.common.types.RepoSourceTypes;
+import org.hscieripple.common.types.HSCIERepoSourceTypes;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
 import org.hscieripple.patient.datasources.search.DataSourcesSearch;
 import org.hscieripple.patient.datasources.search.DataSourcesSearchFactory;

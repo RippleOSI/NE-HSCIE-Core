@@ -16,7 +16,7 @@
 package org.hscieripple.common.service;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hscieripple.common.types.RepoSourceTypes;
+import org.hscieripple.common.types.HSCIERepoSourceTypes;
 import org.rippleosi.common.repo.Repository;
 import org.rippleosi.common.types.RepoSourceType;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +28,7 @@ public abstract class AbstractHSCIEService implements Repository {
 
     @Override
     public RepoSourceType getSource() {
-        return RepoSourceTypes.TIE;
+        return HSCIERepoSourceTypes.TIE;
     }
 
     @Override
