@@ -326,6 +326,25 @@ angular
         }
       })
 
+      .state('informationgov', {
+        url: '/patients/{patientId:int}/consents?reportType&searchString&queryType',
+        views: {
+          'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
+          actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
+          main: { templateUrl: 'views/information-governance/information-governance-list.html', controller: 'InformationGovernanceCtrl' }
+        }
+      })
+
+      .state('informationgov-detail', {
+        url: '/patients/{patientId:int}/consents/{consentId}?reportType&searchString&queryType',
+        views: {
+          'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
+          actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
+          main: { templateUrl: 'views/information-governance/information-governance-list.html', controller: 'InformationGovernanceCtrl' },
+          detail: { templateUrl: 'views/information-governance/information-governance-detail.html', controller: 'InformationGovernanceDetailCtrl' }
+        }
+      })
+
       .state('results-detail', {
         url: '/patients/{patientId:int}/results/{resultIndex}?filter&page&reportType&searchString&queryType',
         views: {
@@ -420,6 +439,12 @@ angular
       });
     };
   }])
+
+  .filter('optedIn', function() {
+    return function(optedIn) {
+        return optedIn ? 'Opted In' : 'Opted Out';
+    }
+  })
 
   .config(function (datepickerConfig, datepickerPopupConfig, cfpLoadingBarProvider) {
     datepickerConfig.startingDay = 1;

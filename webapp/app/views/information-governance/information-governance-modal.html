@@ -1,0 +1,82 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ modal.title }}</h4>
+</div>
+
+<div class="modal-body">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">{{ patient.name }}</h4>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-4 text-left">
+          <label>Born:</label> <strong>{{ patient.dateOfBirth | date:'dd-MMM-yyyy' }}</strong></div>
+        <div class="col-sm-4 text-center">
+          <label>Gender:</label> <strong>{{ patient.gender }}</strong></div>
+        <div class="col-sm-4 text-right">
+          <label>NHS No:</label> <strong>{{ patient.nhsNumber }}</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <form name="infoGovForm" class="form-horizontal text-left">
+    <fieldset class="infoGovForm">
+      <legend>{{ modal.title }}</legend>
+
+      <div class="form-group" ng-class="{'has-error': (formSubmitted || infoGovForm.status.$dirty) && infoGovForm.status.$invalid, 'has-success': infoGovForm.status.$valid && infoGovForm.status.$dirty}">
+        <label for="status" class="control-label col-md-12">Status</label>
+        <div class="col-md-3">
+          <div class="input-group">
+            <select class="form-control" class="form-control input-sm" id="status" name="status" ng-model="consent.optIn" ng-options="opt as (opt | optedIn) for opt in optChoices" disabled required></select>
+          </div>
+          <span class="help-block animate-fade" ng-show="formSubmitted && infoGovForm.status.$error.required">You must enter a value.</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group" ng-class="{'has-error': (formSubmitted || infoGovForm.reason.$dirty) && infoGovForm.reason.$error.required, 'has-success': infoGovForm.reason.$valid && infoGovForm.reason.$dirty}">
+            <label for="reason" class="control-label col-md-12">Reason</label>
+            <div class="col-md-12">
+              <div class="input-group">
+                <textarea class="form-control input-sm" id="reason" name="reason" ng-model="consent.reason" ng-disabled="consent.optIn" ng-required="!consent.optIn"></textarea>
+              </div>
+              <span class="help-block animate-fade" ng-show="formSubmitted && infoGovForm.reason.$error.required">You must enter a value.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group form-group-sm">
+            <label for="author" class="control-label col-md-12">Author</label>
+            <div class="col-md-12">
+              <div class="input-group">
+                <input type="text" value="{{currentUser.email}}" placeholder="{{currentUser.email}}" class="form-control input-sm" id="author" name="author" ng-model="consent.author" disabled/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group form-group-sm">
+            <label for="submitDate" class="control-label col-md-12">Date</label>
+            <div class="col-md-12">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default btn-sm" ng-click="dateofSubmittedDatepicker($event, 'dateSubmitted')" disabled><i class="fa fa-calendar"></i></button>
+                </span>
+                <input type="text" class="form-control" id="submitDate" name="submitDate" ng-model="consent.dateCreated" ng-click="dateofSubmittedDatepicker($event, 'dateSubmitted')" datepicker-popup="dd-MMM-y" is-open="dateSubmitted" required disabled/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <a class="btn btn-danger" ng-click="cancel()">Cancel</a>
+  <button class="btn btn-success" ng-click="formSubmitted = true; ok(infoGovForm, consent);"><i class="fa fa-check"></i> Complete</button>
+</div>

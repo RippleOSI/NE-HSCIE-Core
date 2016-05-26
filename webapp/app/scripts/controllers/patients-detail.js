@@ -75,6 +75,9 @@ angular.module('rippleDemonstrator')
       case 'images':
         toState = 'images';
         break;
+      case 'informationgov':
+        toState = 'informationgov';
+        break;
       }
       $state.go(toState, requestHeader);
     };
