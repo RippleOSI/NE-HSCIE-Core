@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://www.HSCIERipple.org" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://www.HSCIERipple.org">
+    <types>
+        <s:schema elementFormDefault="qualified" targetNamespace="http://www.HSCIERipple.org">
+            <s:element name="FindConsentUpdateBO">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" name="NHSNumber" type="s:long"/>
+                        <s:element minOccurs="0" name="NewConsentReason" type="s:string"/>
+                        <s:element minOccurs="0" name="ConsentID" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="FindConsentUpdateBOResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element name="FindConsentUpdateBOResult" type="s0:ConsentUpdateResponse"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="ConsentUpdateResponse">
+                <s:complexContent>
+                    <s:extension base="s0:Ens_Response">
+                        <s:sequence>
+                            <s:element minOccurs="0" name="SuccessMessage" type="s:string"/>
+                            <s:element minOccurs="0" name="StatusCode" type="s:string"/>
+                            <s:element minOccurs="0" name="StatusDesc" type="s:string"/>
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="Ens_Response">
+                <s:complexContent>
+                    <s:extension base="s0:Ens_Messagebody"/>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="Ens_Messagebody"/>
+        </s:schema>
+    </types>
+    <message name="FindConsentUpdateBOSoapIn">
+        <part name="parameters" element="s0:FindConsentUpdateBO"/>
+    </message>
+    <message name="FindConsentUpdateBOSoapOut">
+        <part name="parameters" element="s0:FindConsentUpdateBOResponse"/>
+    </message>
+    <portType name="ConsentUpdateServiceSoap">
+        <operation name="FindConsentUpdateBO">
+            <input message="s0:FindConsentUpdateBOSoapIn"/>
+            <output message="s0:FindConsentUpdateBOSoapOut"/>
+        </operation>
+    </portType>
+    <binding name="ConsentUpdate" type="s0:ConsentUpdateServiceSoap">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="FindConsentUpdateBO">
+            <soap:operation soapAction="http://www.HSCIERipple.org/HSCIEDEV.SOAP.ConsentUpdate.FindConsentUpdateBO" style="document"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="ConsentUpdateService">
+        <port name="ConsentUpdate" binding="s0:ConsentUpdate">
+        </port>
+    </service>
+</definitions>

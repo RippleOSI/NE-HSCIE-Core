@@ -10,9 +10,9 @@ angular.module('rippleDemonstrator')
     $scope.optChoices = [consent.optIn];
 
     if (modal.title === 'Create Information Governance') {
-      $scope.consent.dateCreated = new Date().toISOString().slice(0, 10);
+      $scope.consent.dateCreated = new Date().toISOString();
     } else {
-      $scope.consent.dateCreated = new Date($scope.consent.dateCreated).toISOString().slice(0, 10);
+      $scope.consent.dateCreated = new Date($scope.consent.dateCreated).toISOString();
     }
 
     $scope.consent.author = $scope.currentUser.firstName + ' ' + $scope.currentUser.surname;
