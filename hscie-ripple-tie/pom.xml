@@ -34,6 +34,14 @@
         </dataSourcesServiceWsdlLocation>
         <keyWorkersServiceWsdlLocation>org/hscieripple/patient/keyworkers/HSCIEDEV.SOAP.KeyWorkers.wsdl
         </keyWorkersServiceWsdlLocation>
+        <consentsFindAllServiceWsdlLocation>org/hscieripple/patient/consent/HSCIEDEV.SOAP.ConsentFindAll.wsdl
+        </consentsFindAllServiceWsdlLocation>
+        <consentsFindOneServiceWsdlLocation>org/hscieripple/patient/consent/HSCIEDEV.SOAP.ConsentFindSingle.wsdl
+        </consentsFindOneServiceWsdlLocation>
+        <consentsInsertServiceWsdlLocation>org/hscieripple/patient/consent/HSCIEDEV.SOAP.ConsentInsert.wsdl
+        </consentsInsertServiceWsdlLocation>
+        <consentsUpdateServiceWsdlLocation>org/hscieripple/patient/consent/HSCIEDEV.SOAP.ConsentUpdate.wsdl
+        </consentsUpdateServiceWsdlLocation>
     </properties>
 
     <dependencies>
@@ -112,6 +120,38 @@
                                     <extraargs>
                                         <extraarg>-p</extraarg>
                                         <extraarg>org.hscieripple.patient.keyworkers</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${consentsFindAllServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${consentsFindAllServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.consent</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${consentsFindOneServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${consentsFindOneServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.consent</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${consentsInsertServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${consentsInsertServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.consent</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${consentsUpdateServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${consentsUpdateServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.consent</extraarg>
                                     </extraargs>
                                 </wsdlOption>
                                 <!-- Insert a new option for any addition WSDL added to the codebase -->

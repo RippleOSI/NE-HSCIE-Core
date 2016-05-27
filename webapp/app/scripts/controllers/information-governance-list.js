@@ -1,10 +1,13 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('InformationGovernanceCtrl', function ($scope, $location, $stateParams, SearchInput, $modal, $state, $filter, usSpinnerService, PatientService, InformationGovernance) {
+  .controller('InformationGovernanceCtrl', function ($scope, $location, $stateParams, SearchInput, $modal, $state, $filter, usSpinnerService, UserService, PatientService, InformationGovernance) {
 
     $scope.currentPage = 1;
     SearchInput.update();
+
+    var currentUser = UserService.getCurrentUser();
+    $stateParams.patientSource = currentUser.feature.patientSource;
 
     $scope.pageChangeHandler = function (newPage) {
       $scope.currentPage = newPage;
@@ -26,7 +29,7 @@ angular.module('rippleDemonstrator')
     }
 
     // HTTP services
-    PatientService.get($stateParams.patientId).then(function (patient) {
+    PatientService.get($stateParams.patientId, $stateParams.patientSource).then(function (patient) {
       $scope.patient = patient;
     });
 
@@ -34,7 +37,7 @@ angular.module('rippleDemonstrator')
       $scope.consents = result.data;
 
       for (var i = 0; i < $scope.consents.length; i++) {
-        $scope.consents[i].dateCreated = moment($scope.consents[i].dateCreated).format('DD-MMM-YYYY');
+        $scope.consents[i].dateCreated = new Date($scope.consents[i].dateCreated).toISOString();
       }
 
       usSpinnerService.stop('info-gov-spinner');
@@ -42,7 +45,7 @@ angular.module('rippleDemonstrator')
 
     $scope.go = function (id) {
       $state.go('informationgov-detail', {
-        patientId: $scope.patient.id,
+        patientId: $scope.patient.nhsNumber,
         consentId: id,
         filter: $scope.query,
         page: $scope.currentPage,
@@ -69,7 +72,7 @@ angular.module('rippleDemonstrator')
           },
           consent: function () {
             return {
-              optIn: false //!$scope.patient.optedIn
+              optIn: !$scope.patient.optIn
             }
           },
           patient: function () {
@@ -87,10 +90,10 @@ angular.module('rippleDemonstrator')
           dateCreated: consent.dateCreated
         };
 
-        InformationGovernance.create($scope.patient.id, toAdd).then(function () {
+        InformationGovernance.create($scope.patient.nhsNumber, toAdd).then(function () {
           setTimeout(function () {
-            $state.go('information-gov', {
-              patientId: $scope.patient.id,
+            $state.go('informationgov', {
+              patientId: $scope.patient.nhsNumber,
               filter: $scope.query,
               page: $scope.currentPage,
               reportType: $stateParams.reportType,
