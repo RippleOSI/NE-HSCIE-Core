@@ -42,7 +42,7 @@ angular.module('rippleDemonstrator')
 
     $scope.go = function (id) {
       $state.go('informationgov-detail', {
-        patientId: $scope.patient.id,
+        patientId: 9999999468, //$scope.patient.id,
         consentId: id,
         filter: $scope.query,
         page: $scope.currentPage,
@@ -90,7 +90,7 @@ angular.module('rippleDemonstrator')
         InformationGovernance.create($scope.patient.id, toAdd).then(function () {
           setTimeout(function () {
             $state.go('information-gov', {
-              patientId: $scope.patient.id,
+              patientId: 9999999468, //$scope.patient.id,
               filter: $scope.query,
               page: $scope.currentPage,
               reportType: $stateParams.reportType,

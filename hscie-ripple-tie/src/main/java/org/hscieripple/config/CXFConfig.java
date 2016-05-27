@@ -16,6 +16,9 @@
 package org.hscieripple.config;
 
 import org.apache.cxf.jaxws.spring.JaxWsProxyFactoryBeanDefinitionParser.JAXWSSpringClientProxyFactoryBean;
+import org.hscieripple.patient.consent.ConsentFindAllServiceSoap;
+import org.hscieripple.patient.consent.ConsentFindSingleService;
+import org.hscieripple.patient.consent.ConsentFindSingleServiceSoap;
 import org.hscieripple.patient.datasources.DataSourcesServiceSoap;
 import org.hscieripple.patient.keyworkers.KeyWorkerServiceSoap;
 import org.hscieripple.patient.query.PatientServiceSoap;
@@ -46,6 +49,12 @@ public class CXFConfig {
     @Value("${hscie.tie.dataSourcesServiceUrl:''}")
     private String dataSourcesServiceUrl;
 
+    @Value("${hscie.tie.consentsFindDetailsServiceUrl:''}")
+    private String consentsFindDetailsServiceUrl;
+
+    @Value("${hscie.tie.consentsFindAllServiceUrl:''}")
+    private String consentsFindAllServiceUrl;
+
     @Bean
     public PatientServiceSoap patientService() {
         return createJAXWSService(PatientServiceSoap.class, patientServiceUrl);
@@ -60,6 +69,18 @@ public class CXFConfig {
     public DataSourcesServiceSoap dataSourcesService() {
         return createJAXWSService(DataSourcesServiceSoap.class, dataSourcesServiceUrl);
     }
+
+    @Bean
+    public ConsentFindAllServiceSoap consentsFindAllService() {
+        return createJAXWSService(ConsentFindAllServiceSoap.class, consentsFindAllServiceUrl);
+    }
+
+    @Bean
+    public ConsentFindSingleServiceSoap consentsFindDetailsService() {
+        return createJAXWSService(ConsentFindSingleServiceSoap.class, consentsFindDetailsServiceUrl);
+    }
+
+
 
     public <T> T createJAXWSService(Class<T> serviceClass, String serviceUrl) {
         JAXWSSpringClientProxyFactoryBean factoryBean = new JAXWSSpringClientProxyFactoryBean();
