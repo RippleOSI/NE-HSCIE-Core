@@ -32,6 +32,7 @@
         </patientServiceWsdlLocation>
         <dataSourcesServiceWsdlLocation>org/hscieripple/patient/datasources/HSCIEDEV.SOAP.DataSources.wsdl
         </dataSourcesServiceWsdlLocation>
+        <contactsServiceWsdlLocation>org/hscieripple/patient/contacts/HSCIEDEV.SOAP.Contacts.wsdl</contactsServiceWsdlLocation>
         <keyWorkersServiceWsdlLocation>org/hscieripple/patient/keyworkers/HSCIEDEV.SOAP.KeyWorkers.wsdl
         </keyWorkersServiceWsdlLocation>
     </properties>
@@ -114,6 +115,16 @@
                                         <extraarg>org.hscieripple.patient.keyworkers</extraarg>
                                     </extraargs>
                                 </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${contactsServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${contactsServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.contacts</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                
+                                 
                                 <!-- Insert a new option for any addition WSDL added to the codebase -->
                             </wsdlOptions>
                         </configuration>
