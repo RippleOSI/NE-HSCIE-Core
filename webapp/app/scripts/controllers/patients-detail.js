@@ -37,7 +37,7 @@ angular.module('rippleDemonstrator')
         toState = 'keyworkers-list';
         break;
       case 'contacts':
-        toState = 'contacts';
+        toState = 'contacts-list';
         break;
       case 'diagnosis':
         toState = 'diagnoses-list';
@@ -58,10 +58,10 @@ angular.module('rippleDemonstrator')
         toState = 'procedures';
         break;
       case 'referrals':
-        toState = 'referrals';
+        toState = 'referrals-list';
         break;
       case 'appointments':
-        toState = 'appointments';
+        toState = 'appointments-list';
         break;
       case 'transfers':
         toState = 'transferOfCare';

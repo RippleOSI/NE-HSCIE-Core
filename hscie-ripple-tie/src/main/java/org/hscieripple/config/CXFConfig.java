@@ -19,6 +19,8 @@ import org.apache.cxf.jaxws.spring.JaxWsProxyFactoryBeanDefinitionParser.JAXWSSp
 import org.hscieripple.patient.datasources.DataSourcesServiceSoap;
 import org.hscieripple.patient.keyworkers.KeyWorkerServiceSoap;
 import org.hscieripple.patient.contacts.ContactsServiceSoap;
+import org.hscieripple.patient.appointments.AppointmentServiceSoap;
+import org.hscieripple.patient.referrals.ReferralServiceSoap;
 import org.hscieripple.patient.query.PatientServiceSoap;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -49,6 +51,12 @@ public class CXFConfig {
     
     @Value("${hscie.tie.contactsServiceUrl:''}")
     private String contactsServiceUrl;
+    
+    @Value("${hscie.tie.appointmentsServiceUrl:''}")
+    private String appointmentsServiceUrl;
+    
+    @Value("${hscie.tie.referralsServiceUrl:''}")
+    private String referralsServiceUrl;
 
     @Bean
     public PatientServiceSoap patientService() {
@@ -68,6 +76,16 @@ public class CXFConfig {
     @Bean
     public ContactsServiceSoap contactsService() {
       return createJAXWSService(ContactsServiceSoap.class, contactsServiceUrl);
+    }
+    
+    @Bean
+    public AppointmentServiceSoap appointmentsService() {
+      return createJAXWSService(AppointmentServiceSoap.class, appointmentsServiceUrl);
+    }
+    
+    @Bean
+    public ReferralServiceSoap referralsService() {
+        return createJAXWSService(ReferralServiceSoap.class, referralsServiceUrl);
     }
 
     public <T> T createJAXWSService(Class<T> serviceClass, String serviceUrl) {

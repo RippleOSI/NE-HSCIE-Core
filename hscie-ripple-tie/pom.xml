@@ -35,6 +35,9 @@
         <contactsServiceWsdlLocation>org/hscieripple/patient/contacts/HSCIEDEV.SOAP.Contacts.wsdl</contactsServiceWsdlLocation>
         <keyWorkersServiceWsdlLocation>org/hscieripple/patient/keyworkers/HSCIEDEV.SOAP.KeyWorkers.wsdl
         </keyWorkersServiceWsdlLocation>
+        <appointmentsServiceWsdlLocation>org/hscieripple/patient/appointments/HSCIEDEV.SOAP.Appointments.wsdl
+        </appointmentsServiceWsdlLocation>
+        <referralsServiceWsdlLocation>org/hscieripple/patient/referrals/HSCIEDEV.SOAP.Referrals.wsdl</referralsServiceWsdlLocation>
     </properties>
 
     <dependencies>
@@ -121,6 +124,22 @@
                                     <extraargs>
                                         <extraarg>-p</extraarg>
                                         <extraarg>org.hscieripple.patient.contacts</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${appointmentsServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${appointmentsServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.appointments</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${referralsServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${referralsServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.referrals</extraarg>
                                     </extraargs>
                                 </wsdlOption>
                                 

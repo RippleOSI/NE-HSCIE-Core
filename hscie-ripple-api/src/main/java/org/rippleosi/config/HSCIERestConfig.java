@@ -26,3 +26,4 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class HSCIERestConfig extends WebMvcConfigurerAdapter {
 
 }
+

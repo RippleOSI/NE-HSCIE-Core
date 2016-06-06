@@ -23,6 +23,7 @@ import org.rippleosi.patient.summary.model.PatientSummary;
 public class HSCIEPatientSummary extends PatientSummary{
 
     private RepoSourceType source;
+    private Boolean consentStatus;
 
     public RepoSourceType getSource() {
         return source;
@@ -30,6 +31,14 @@ public class HSCIEPatientSummary extends PatientSummary{
 
     public void setSource(RepoSourceType source) {
         this.source = source;
+    }
+    
+    public Boolean isConsentStatus() {
+        return consentStatus;
+    }
+
+    public void setConsentStatus(Boolean value) {
+        this.consentStatus = value;
     }
 
 }
