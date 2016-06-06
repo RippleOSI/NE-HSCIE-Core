@@ -137,8 +137,9 @@ angular
         }
       })
 
-      .state('medications', {
-        url: '/patients/{patientId:int}/medications?reportType&searchString&queryType',
+      
+	  .state('medications', {
+        url: '/patients/{patientId:int}/hscie-medications?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -147,7 +148,7 @@ angular
       })
 
       .state('medications-detail', {
-        url: '/patients/{patientId:int}/medications/{medicationIndex}?filter&page&reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/hscie-medications/{medicationIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -176,7 +177,7 @@ angular
       })
 
       .state('transferOfCare', {
-        url: '/patients/{patientId:int}/transfer-of-care-list?reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/hscie-transfer?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -185,7 +186,7 @@ angular
       })
 
       .state('transferOfCare-detail', {
-        url: '/patients/{patientId:int}/transfer-of-care-detail/{transferOfCareIndex}?filter&page&reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/transfer/{transferIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -193,6 +194,7 @@ angular
           detail: { templateUrl: 'views/transfer-of-care/transfer-of-care-detail.html', controller: 'TransferOfCareDetailCtrl' }
         }
       })
+
 
       .state('transferOfCare-create', {
         url: '/patients/{patientId:int}/transfer-of-care-create?reportType&searchString&queryType',

@@ -22,15 +22,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.hscieripple.patient.datasources.model.DataSourceSummary;
 import org.hscieripple.patient.keyworkers.KWDetailsResponse;
 import org.hscieripple.patient.keyworkers.KWSummaryResponse;
 import org.hscieripple.patient.keyworkers.KeyWorkerServiceSoap;
 import org.hscieripple.patient.keyworkers.PairOfKeyWorkersListKeyKWSummaryResultRow;
+import org.hscieripple.common.service.AbstractHSCIEService; 
+import org.hscieripple.patient.datasources.model.DataSourceSummary;
 import org.hscieripple.patient.keyworkers.model.KeyWorkerDetails;
 import org.hscieripple.patient.keyworkers.model.KeyWorkerSummary;
 import org.hscieripple.patient.keyworkers.search.KeyWorkerSearch;
-import org.hscieripple.common.service.AbstractHSCIEService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class HSCIEKeyWorkerSearch extends AbstractHSCIEService implements KeyWor
     private static final Logger log = LoggerFactory.getLogger(HSCIEKeyWorkerSearch.class);
 
     private static final String OK = "OK";
-
+    
     @Autowired
     private KeyWorkerServiceSoap keyWorkersService;
 
@@ -99,10 +99,10 @@ public class HSCIEKeyWorkerSearch extends AbstractHSCIEService implements KeyWor
     }
 
     private boolean isSuccessfulSummaryResponse(KWSummaryResponse response) {
-        return OK.equalsIgnoreCase(response.getStatusCode());
+    	return OK.equalsIgnoreCase(response.getStatusCode()); 
     }
 
     private boolean isSuccessfulDetailsResponse(KWDetailsResponse response) {
-        return OK.equalsIgnoreCase(response.getStatusCode());
+    	return OK.equalsIgnoreCase(response.getStatusCode()); 
     }
 }

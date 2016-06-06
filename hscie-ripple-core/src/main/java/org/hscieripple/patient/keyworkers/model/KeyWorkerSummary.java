@@ -15,6 +15,8 @@
  */
 package org.hscieripple.patient.keyworkers.model;
 
+import java.util.Date;
+
 public class KeyWorkerSummary {
 
     private String source;
@@ -22,6 +24,8 @@ public class KeyWorkerSummary {
     private String name;
     private String role;
     private String contactNumber;
+    private Date keyContactDate;
+    private Date keyContactTime;
 
     public String getSource() {
         return source;
@@ -61,5 +65,21 @@ public class KeyWorkerSummary {
 
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
+    }
+    
+    public Date getKeyContactDate() {
+        return keyContactDate;
+    }
+
+    public void setKeyContactDate(Date keyContactDate) {
+        this.keyContactDate = keyContactDate;
+    }
+    
+    public Date getKeyContactTime() {
+        return keyContactTime;
+    }
+
+    public void setKeyContactTime(Date keyContactTime) {
+        this.keyContactTime = keyContactTime;
     }
 }

@@ -16,15 +16,21 @@
 
 package org.hscieripple.patient.keyworker.search;
 
+import java.util.Date;
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.patient.keyworkers.KWSummaryResultRow;
 import org.hscieripple.patient.keyworkers.model.KeyWorkerSummary;
+import org.rippleosi.common.util.HSCIEDateFormatter;
 
 public class KeyWorkerResponseToKeyWorkerSummaryTransformer implements Transformer<KWSummaryResultRow, KeyWorkerSummary> {
 
     @Override
     public KeyWorkerSummary transform(KWSummaryResultRow response) {
         KeyWorkerSummary summary = new KeyWorkerSummary();
+        
+        Date keyContactDate = HSCIEDateFormatter.toDate(response.getKeyContactDate(),response.getDataSourceName());
+        Date keyContactTime = HSCIEDateFormatter.toDate(response.getKeyContactTime(),response.getDataSourceName() + " Time");
+    	
 
         summary.setSource(response.getDataSourceName());
         summary.setSourceId(response.getSourceID());
@@ -32,6 +38,8 @@ public class KeyWorkerResponseToKeyWorkerSummaryTransformer implements Transform
         summary.setContactNumber(response.getContactNumber());
         summary.setName(response.getForename() + " " + response.getSurname());
         summary.setRole(response.getRole());
+        summary.setKeyContactDate(keyContactDate);
+        summary.setKeyContactTime(keyContactTime);
 
         return summary;
     }

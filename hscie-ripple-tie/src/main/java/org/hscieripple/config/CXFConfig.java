@@ -19,6 +19,8 @@ import org.apache.cxf.jaxws.spring.JaxWsProxyFactoryBeanDefinitionParser.JAXWSSp
 import org.hscieripple.patient.datasources.DataSourcesServiceSoap;
 import org.hscieripple.patient.keyworkers.KeyWorkerServiceSoap;
 import org.hscieripple.patient.query.PatientServiceSoap;
+import org.hscieripple.patient.medications.MedicationServiceSoap;
+import org.hscieripple.patient.transfers.TransferOfCareServiceSoap;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -46,6 +48,12 @@ public class CXFConfig {
     @Value("${hscie.tie.dataSourcesServiceUrl:''}")
     private String dataSourcesServiceUrl;
 
+    @Value("${hscie.tie.medicationsServiceUrl:''}")
+    private String medicationsServiceUrl;
+    
+    @Value("${hscie.tie.transferOfCareServiceUrl:''}")
+    private String transferOfCareServiceUrl;
+    
     @Bean
     public PatientServiceSoap patientService() {
         return createJAXWSService(PatientServiceSoap.class, patientServiceUrl);
@@ -59,6 +67,16 @@ public class CXFConfig {
     @Bean
     public DataSourcesServiceSoap dataSourcesService() {
         return createJAXWSService(DataSourcesServiceSoap.class, dataSourcesServiceUrl);
+    }
+    
+    @Bean
+    public MedicationServiceSoap medicationsService() {
+        return createJAXWSService(MedicationServiceSoap.class, medicationsServiceUrl);
+    }
+    
+    @Bean
+    public TransferOfCareServiceSoap transfersService() {
+        return createJAXWSService(TransferOfCareServiceSoap.class, transferOfCareServiceUrl);
     }
 
     public <T> T createJAXWSService(Class<T> serviceClass, String serviceUrl) {
