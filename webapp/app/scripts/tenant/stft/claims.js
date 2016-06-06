@@ -7,7 +7,8 @@ angular.module('rippleDemonstrator')
     "family_name": "Smith",
     "email": "bob.smith@gmail.com",
     "scope": {
-      "homeView": "search",
+      "homeView": "main-search",
+      "autoAdvancedSearch": true,
       "patientSummaryView": "landing",
       "searchBarEnabled": false,
       "roleConfirmationRequired": false,

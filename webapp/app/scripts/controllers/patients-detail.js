@@ -27,11 +27,7 @@ angular.module('rippleDemonstrator')
 
       switch (section) {
       case 'summary':
-        if ($scope.currentUser.feature.patientSummaryView === 'landing') {
-          toState = 'patients-landing';
-        } else {
-          toState = 'patients-summary';
-        }
+        toState = 'patients-summary';
         break;
       case 'keyworkers':
         toState = 'keyworkers-list';
