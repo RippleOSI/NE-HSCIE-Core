@@ -40,19 +40,19 @@ angular
         }
       })
 
-      .state('patients-search', {
-         url: '/search?patientSource',
-        views: {
-          main: { templateUrl: 'views/patients/patients-search.html', controller: 'PatientsSearchCtrl' }
-        }
-      })
-
       .state('patients-landing', {
         url: '/patients/{patientId:int}/patients-landing?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
           main: { templateUrl: 'views/patients/patients-landing.html', controller: 'PatientsLandingCtrl' }
+        }
+      })
+
+      .state('main-search', {
+        url: '/search',
+        views: {
+          main: { templateUrl: 'views/main-search/main-search.html', controller: 'MainSearchController' }
         }
       })
 
@@ -454,6 +454,51 @@ angular
     };
   })
 
+  .directive('autoFocus', function($timeout) {
+    return {
+      restrict: 'A',
+      require: 'ngModel',
+      scope : {
+        ngModel: '='
+      },
+      link: function(scope, elem, attrs, ctrl) {
+        scope.$watch("ngModel", function (value) {
+          $timeout(function () {
+            elem[0].focus();
+          });
+        });
+      }
+    };
+  })
+
+  .directive('isValidNhsNumber', function() {
+    return {
+      restrict: 'A',
+      require: 'ngModel',
+      link: function(scope, elem, attrs, ctrl) {
+        scope.$watch(attrs.ngModel, function(value) {
+          checkFormat(value);
+        });
+
+        ctrl.$parsers.unshift(function(value) {
+          return checkFormat(value);
+        });
+
+        var checkFormat = function(value) {
+          // Strip white space
+          if(value) {
+            var nhsNum = value.replace(/\s+/g, '');
+            var valid = !isNaN(nhsNum) && nhsNum.length === 10;
+
+            ctrl.$setValidity('invalidNHSNumFormat', valid);
+
+            return valid ? nhsNum : '';
+          }
+        }
+      }
+    }
+  })
+
   .constant('keyCodes', {
     esc: 27,
     enter: 13
@@ -482,6 +527,20 @@ angular
       });
     };
   }])
+
+  .directive('focusElement', function($timeout) {
+    return {
+      link: function(scope, element, attrs) {
+        scope.$watch(attrs.focusElement, function(value) {
+          $timeout(function() {
+            if(value === true) {
+              element.focus();
+            }
+          });
+        });
+      }
+    }
+  })
 
   .directive('rpOnLoad', ['$parse', function ($parse) {
     return function (scope, elem, attrs) {
