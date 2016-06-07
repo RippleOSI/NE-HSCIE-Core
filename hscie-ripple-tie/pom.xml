@@ -38,6 +38,7 @@
         <appointmentsServiceWsdlLocation>org/hscieripple/patient/appointments/HSCIEDEV.SOAP.Appointments.wsdl
         </appointmentsServiceWsdlLocation>
         <referralsServiceWsdlLocation>org/hscieripple/patient/referrals/HSCIEDEV.SOAP.Referrals.wsdl</referralsServiceWsdlLocation>
+        <problemsServiceWsdlLocation>org/hscieripple/patient/problems/HSCIEDEV.SOAP.Problems.wsdl</problemsServiceWsdlLocation>
     </properties>
 
     <dependencies>
@@ -140,6 +141,14 @@
                                     <extraargs>
                                         <extraarg>-p</extraarg>
                                         <extraarg>org.hscieripple.patient.referrals</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                 <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${problemsServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${problemsServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.problems</extraarg>
                                     </extraargs>
                                 </wsdlOption>
                                 

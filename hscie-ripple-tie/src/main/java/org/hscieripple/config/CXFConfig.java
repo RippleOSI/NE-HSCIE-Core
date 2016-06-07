@@ -21,6 +21,7 @@ import org.hscieripple.patient.keyworkers.KeyWorkerServiceSoap;
 import org.hscieripple.patient.contacts.ContactsServiceSoap;
 import org.hscieripple.patient.appointments.AppointmentServiceSoap;
 import org.hscieripple.patient.referrals.ReferralServiceSoap;
+import org.hscieripple.patient.problems.ProblemServiceSoap;
 import org.hscieripple.patient.query.PatientServiceSoap;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -57,6 +58,9 @@ public class CXFConfig {
     
     @Value("${hscie.tie.referralsServiceUrl:''}")
     private String referralsServiceUrl;
+    
+    @Value("${hscie.tie.problemsServiceUrl:''}")
+    private String problemsServiceUrl;
 
     @Bean
     public PatientServiceSoap patientService() {
@@ -86,6 +90,11 @@ public class CXFConfig {
     @Bean
     public ReferralServiceSoap referralsService() {
         return createJAXWSService(ReferralServiceSoap.class, referralsServiceUrl);
+    }
+    
+    @Bean
+    public ProblemServiceSoap problemsService() {
+        return createJAXWSService(ProblemServiceSoap.class, problemsServiceUrl);
     }
 
     public <T> T createJAXWSService(Class<T> serviceClass, String serviceUrl) {

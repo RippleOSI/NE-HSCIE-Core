@@ -100,7 +100,7 @@ angular
       })
 
       .state('diagnoses-list', {
-        url: '/patients/{patientId:int}/diagnoses?reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/diagnoses?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -109,7 +109,7 @@ angular
       })
 
       .state('diagnoses-detail', {
-        url: '/patients/{patientId:int}/diagnoses/{diagnosisIndex}?filter&page&reportType&searchString&queryType&source',
+    	  url: '/patients/{patientId:int}/diagnoses/{diagnosesIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -171,6 +171,25 @@ angular
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
           main: { templateUrl: 'views/contacts/contacts-list.html', controller: 'ContactsListCtrl' },
           detail: { templateUrl: 'views/contacts/contacts-detail.html', controller: 'ContactsDetailCtrl' }
+        }
+      })
+      
+      .state('problems-list', {
+        url: '/patients/{patientId:int}/problems?patientSource&reportType&searchString&queryType',
+        views: {
+          'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
+          actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
+          main: { templateUrl: 'views/problems/problems-list.html', controller: 'ProblemsListCtrl' }
+        }
+      })
+
+      .state('problems-detail', {
+        url: '/patients/{patientId:int}/problems/{problemIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
+        views: {
+          'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
+          actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
+          main: { templateUrl: 'views/problems/problems-list.html', controller: 'ProblemsListCtrl' },
+          detail: { templateUrl: 'views/problems/problems-detail.html', controller: 'ProblemsDetailCtrl' }
         }
       })
       //.state('contacts', {
