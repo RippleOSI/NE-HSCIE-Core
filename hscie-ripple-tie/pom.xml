@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~   Copyright 2016 HSCIE Ripple
+  ~
+  ~      Licensed under the Apache License, Version 2.0 (the "License");
+  ~      you may not use this file except in compliance with the License.
+  ~      You may obtain a copy of the License at
+  ~
+  ~          http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~      Unless required by applicable law or agreed to in writing, software
+  ~      distributed under the License is distributed on an "AS IS" BASIS,
+  ~      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~      See the License for the specific language governing permissions and
+  ~      limitations under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.hscieripple</groupId>
+        <artifactId>hscie-ripple</artifactId>
+        <version>0.5.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>hscie-ripple-tie</artifactId>
+
+    <properties>
+        <patientServiceWsdlLocation>org/hscieripple/patient/query/HSCIEDEV.SOAP.Patient.wsdl
+        </patientServiceWsdlLocation>
+        <dataSourcesServiceWsdlLocation>org/hscieripple/patient/datasources/HSCIEDEV.SOAP.DataSources.wsdl
+        </dataSourcesServiceWsdlLocation>
+        <contactsServiceWsdlLocation>org/hscieripple/patient/contacts/HSCIEDEV.SOAP.Contacts.wsdl</contactsServiceWsdlLocation>
+        <keyWorkersServiceWsdlLocation>org/hscieripple/patient/keyworkers/HSCIEDEV.SOAP.KeyWorkers.wsdl
+        </keyWorkersServiceWsdlLocation>
+<<<<<<< HEAD
+        <appointmentsServiceWsdlLocation>org/hscieripple/patient/appointments/HSCIEDEV.SOAP.Appointments.wsdl
+        </appointmentsServiceWsdlLocation>
+        <referralsServiceWsdlLocation>org/hscieripple/patient/referrals/HSCIEDEV.SOAP.Referrals.wsdl</referralsServiceWsdlLocation>
+        <problemsServiceWsdlLocation>org/hscieripple/patient/problems/HSCIEDEV.SOAP.Problems.wsdl</problemsServiceWsdlLocation>
+=======
+        <consentsFindAllServiceWsdlLocation>org/hscieripple/patient/consent/HSCIEDEV.SOAP.ConsentFindAll.wsdl
+        </consentsFindAllServiceWsdlLocation>
+        <consentsFindOneServiceWsdlLocation>org/hscieripple/patient/consent/HSCIEDEV.SOAP.ConsentFindSingle.wsdl
+        </consentsFindOneServiceWsdlLocation>
+        <consentsInsertServiceWsdlLocation>org/hscieripple/patient/consent/HSCIEDEV.SOAP.ConsentInsert.wsdl
+        </consentsInsertServiceWsdlLocation>
+        <consentsUpdateServiceWsdlLocation>org/hscieripple/patient/consent/HSCIEDEV.SOAP.ConsentUpdate.wsdl
+        </consentsUpdateServiceWsdlLocation>
+>>>>>>> develop
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.hscieripple</groupId>
+            <artifactId>hscie-ripple-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-bindings-soap</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-codegen-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-sources</id>
+                        <configuration>
+                            <sourceRoot>${project.build.directory}/generated-sources/cxf</sourceRoot>
+                            <!-- WSDL definitions -->
+                            <wsdlOptions>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${patientServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${patientServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.query</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${dataSourcesServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${dataSourcesServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.datasources</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${keyWorkersServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${keyWorkersServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.keyworkers</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                <wsdlOption>
+<<<<<<< HEAD
+                                    <wsdl>${basedir}/src/main/resources/${contactsServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${contactsServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.contacts</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${appointmentsServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${appointmentsServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.appointments</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${referralsServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${referralsServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.referrals</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                 <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${problemsServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${problemsServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.problems</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                
+                                 
+=======
+                                    <wsdl>${basedir}/src/main/resources/${consentsFindAllServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${consentsFindAllServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.consent</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${consentsFindOneServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${consentsFindOneServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.consent</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${consentsInsertServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${consentsInsertServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.consent</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${consentsUpdateServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${consentsUpdateServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.consent</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+>>>>>>> develop
+                                <!-- Insert a new option for any addition WSDL added to the codebase -->
+                            </wsdlOptions>
+                        </configuration>
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

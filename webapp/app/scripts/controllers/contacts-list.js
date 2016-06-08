@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('ContactsListCtrl', function ($scope, $rootScope, $location, $stateParams, SearchInput, usSpinnerService, $modal, $state, PatientService, Contact) {
+  .controller('ContactsListCtrl', function ($scope, $state, $stateParams, SearchInput, $location, $modal, usSpinnerService, PatientService, ContactsService, UserService) {
 
     SearchInput.update();
-    $scope.query = {};
-    $scope.queryBy = '$';
     $scope.currentPage = 1;
+
+    var currentUser = UserService.getCurrentUser();
+    $stateParams.patientSource = currentUser.feature.patientSource;
 
     $scope.pageChangeHandler = function (newPage) {
       $scope.currentPage = newPage;
@@ -16,73 +17,45 @@ angular.module('rippleDemonstrator')
       $scope.currentPage = $stateParams.page;
     }
 
+    $scope.search = function (row) {
+      return (
+        angular.lowercase(row.name).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
+        angular.lowercase(row.relationship).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
+        angular.lowercase(row.nextOfKin).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
+        angular.lowercase(row.source).indexOf(angular.lowercase($scope.query) || '') !== -1
+      );
+    };
+
     if ($stateParams.filter) {
-      $scope.query.$ = $stateParams.filter;
+      $scope.query = $stateParams.filter;
     }
 
-    PatientService.get($stateParams.patientId).then(function (patient) {
+    PatientService.get($stateParams.patientId, $stateParams.patientSource).then(function (patient) {
       $scope.patient = patient;
     });
 
-    Contact.all($stateParams.patientId).then(function (result) {
+    ContactsService.all($stateParams.patientId).then(function (result) {
       $scope.contacts = result.data;
+
       usSpinnerService.stop('patientSummary-spinner');
     });
 
-    $scope.go = function (id) {
+    $scope.go = function (id, contactSource) {
       $state.go('contacts-detail', {
-        patientId: $scope.patient.id,
+        patientId: $scope.patient.nhsNumber,
         contactIndex: id,
-        filter: $scope.query.$,
+        filter: $scope.query,
         page: $scope.currentPage,
         reportType: $stateParams.reportType,
         searchString: $stateParams.searchString,
-        queryType: $stateParams.queryType
+        queryType: $stateParams.queryType,
+        source: contactSource,
+        patientSource: $stateParams.patientSource
       });
     };
 
     $scope.selected = function (contactIndex) {
       return contactIndex === $stateParams.contactIndex;
-    };
-
-    $scope.create = function () {
-      var modalInstance = $modal.open({
-        templateUrl: 'views/contacts/contacts-modal.html',
-        size: 'lg',
-        controller: 'ContactsModalCtrl',
-        resolve: {
-          modal: function () {
-            return {
-              title: 'Create Contact'
-            };
-          },
-          contact: function () {
-            return {};
-          },
-          patient: function () {
-            return $scope.patient;
-          }
-        }
-      });
-
-      modalInstance.result.then(function (contact) {
-        contact.sourceId = '';
-
-        Contact.create($scope.patient.id, contact).then(function () {
-          setTimeout(function () {
-            $state.go('contacts', {
-              patientId: $scope.patient.id,
-              filter: $scope.query.$,
-              page: $scope.currentPage,
-              reportType: $stateParams.reportType,
-              searchString: $stateParams.searchString,
-              queryType: $stateParams.queryType
-            }, {
-              reload: true
-            });
-          }, 2000);
-        });
-      });
     };
 
   });

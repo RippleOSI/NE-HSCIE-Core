@@ -1,53 +1,38 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('ContactsDetailCtrl', function ($scope, $stateParams, $modal, $location, SearchInput, $state, Helper, PatientService, usSpinnerService, Contact) {
+  .controller('ContactsDetailCtrl', function ($scope, $stateParams, SearchInput, $location, $modal, Helper, $state, usSpinnerService, PatientService, ContactsService) {
 
     SearchInput.update();
+    $scope.UnlockedSources = [
+      'handi.ehrscape.com'
+    ];
 
     PatientService.get($stateParams.patientId).then(function (patient) {
       $scope.patient = patient;
     });
 
-    Contact.get($stateParams.patientId, $stateParams.contactIndex).then(function (result) {
+    ContactsService.get($stateParams.patientId, $stateParams.contactIndex, $stateParams.source).then(function (result) {
       $scope.contact = result.data;
       usSpinnerService.stop('contactDetail-spinner');
     });
 
-    $scope.edit = function () {
-      var modalInstance = $modal.open({
-        templateUrl: 'views/contacts/contacts-modal.html',
-        size: 'lg',
-        controller: 'ContactsModalCtrl',
-        resolve: {
-          modal: function () {
-            return {
-              title: 'Edit Contact'
-            };
-          },
-          contact: function () {
-            return angular.copy($scope.contact);
-          },
-          patient: function () {
-            return $scope.patient;
-          }
-        }
-      });
+    $scope.isLocked = function (contact) {
+      if (!(contact && contact.id)) {
+        return true;
+      }
 
-      modalInstance.result.then(function (contact) {
-        Contact.update($scope.patient.id, contact).then(function () {
-          setTimeout(function () {
-            $state.go('contacts-detail', {
-              patientId: $scope.patient.id,
-              contactIndex: Helper.updateId(contact.sourceId),
-              page: $scope.currentPage,
-              reportType: $stateParams.reportType,
-              searchString: $stateParams.searchString,
-              queryType: $stateParams.queryType
-            });
-          }, 2000);
-        });
-      });
+      var contactIdSegments = contact.id.toString().split('::');
+      if (contactIdSegments.length > 1) {
+        return ($scope.UnlockedSources.indexOf(contactIdSegments[1]) < 0);
+      }
+
+      return true;
+    };
+
+    $scope.convertToLabel = function (text) {
+      var result = text.replace(/([A-Z])/g, ' $1');
+      return result.charAt(0).toUpperCase() + result.slice(1);
     };
 
   });

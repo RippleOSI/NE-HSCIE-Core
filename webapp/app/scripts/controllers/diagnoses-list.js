@@ -1,10 +1,13 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('DiagnosesListCtrl', function ($scope, $state, $stateParams, SearchInput, $location, $modal, usSpinnerService, PatientService, Diagnosis) {
+  .controller('DiagnosesListCtrl', function ($scope, $state, $stateParams, SearchInput, $location, $modal, usSpinnerService, PatientService, DiagnosesService, UserService) {
 
     SearchInput.update();
     $scope.currentPage = 1;
+
+    var currentUser = UserService.getCurrentUser();
+    $stateParams.patientSource = currentUser.feature.patientSource;
 
     $scope.pageChangeHandler = function (newPage) {
       $scope.currentPage = newPage;
@@ -16,9 +19,9 @@ angular.module('rippleDemonstrator')
 
     $scope.search = function (row) {
       return (
-        angular.lowercase(row.problem).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
-        angular.lowercase(row.dateOfOnset).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
-        angular.lowercase(row.source).indexOf(angular.lowercase($scope.query) || '') !== -1
+    		  angular.lowercase(row.problem).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
+    	        angular.lowercase(row.dateOfOnset).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
+    	        angular.lowercase(row.source).indexOf(angular.lowercase($scope.query) || '') !== -1
       );
     };
 
@@ -26,85 +29,32 @@ angular.module('rippleDemonstrator')
       $scope.query = $stateParams.filter;
     }
 
-    PatientService.get($stateParams.patientId).then(function (patient) {
+    PatientService.get($stateParams.patientId, $stateParams.patientSource).then(function (patient) {
       $scope.patient = patient;
     });
 
-    Diagnosis.all($stateParams.patientId).then(function (result) {
+    DiagnosesService.all($stateParams.patientId).then(function (result) {
       $scope.diagnoses = result.data;
 
-      for (var i = 0; i < $scope.diagnoses.length; i++) {
-        $scope.diagnoses[i].dateOfOnset = moment($scope.diagnoses[i].dateOfOnset).format('DD-MMM-YYYY');
-      }
       usSpinnerService.stop('patientSummary-spinner');
     });
 
-    $scope.go = function (id, diagnosisSource) {
+    $scope.go = function (id, diagnosesSource) {
       $state.go('diagnoses-detail', {
-        patientId: $scope.patient.id,
-        diagnosisIndex: id,
+        patientId: $scope.patient.nhsNumber,
+        diagnosesIndex: id,
         filter: $scope.query,
         page: $scope.currentPage,
         reportType: $stateParams.reportType,
         searchString: $stateParams.searchString,
         queryType: $stateParams.queryType,
-        source: diagnosisSource
+        source: diagnosesSource,
+        patientSource: $stateParams.patientSource
       });
     };
 
-    $scope.selected = function (diagnosisIndex) {
-      return diagnosisIndex === $stateParams.diagnosisIndex;
-    };
-
-    $scope.create = function () {
-      var modalInstance = $modal.open({
-        templateUrl: 'views/diagnoses/diagnoses-modal.html',
-        size: 'lg',
-        controller: 'DiagnosesModalCtrl',
-        resolve: {
-          modal: function () {
-            return {
-              title: 'Create Problem / Diagnosis'
-            };
-          },
-          diagnosis: function () {
-            return {};
-          },
-          patient: function () {
-            return $scope.patient;
-          }
-        }
-      });
-
-      modalInstance.result.then(function (diagnosis) {
-        diagnosis.dateOfOnset = new Date(diagnosis.dateOfOnset);
-
-        var toAdd = {
-          code: diagnosis.code,
-          dateOfOnset: diagnosis.dateOfOnset,
-          description: diagnosis.description,
-          problem: diagnosis.problem,
-          source: 'openehr',
-          sourceId: '',
-          terminology: diagnosis.terminology
-        };
-
-        Diagnosis.create($scope.patient.id, toAdd).then(function () {
-          setTimeout(function () {
-            $state.go('diagnoses-list', {
-              patientId: $scope.patient.id,
-              filter: $scope.query,
-              page: $scope.currentPage,
-              reportType: $stateParams.reportType,
-              searchString: $stateParams.searchString,
-              queryType: $stateParams.queryType
-               }, {
-              reload: true
-            });
-          }, 2000);
-
-        });
-      });
+    $scope.selected = function (diagnosesIndex) {
+      return diagnosesIndex === $stateParams.diagnosesIndex;
     };
 
   });
