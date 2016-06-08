@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://www.HSCIERipple.org"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://www.HSCIERipple.org">
+	<types>
+		<s:schema elementFormDefault="qualified" targetNamespace="http://www.HSCIERipple.org">
+			<s:element name="FindContactsDetailsBO">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" name="NHSNumber" type="s:long" />
+						<s:element minOccurs="0" name="SourceID" type="s:string" />
+						<s:element minOccurs="0" name="DataSource" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="FindContactsDetailsBOResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element name="FindContactsDetailsBOResult" type="s0:ContactsDetailsResponse" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:complexType name="ContactsDetailsResponse">
+				<s:complexContent>
+					<s:extension base="s0:Ens_Response">
+						<s:sequence>
+							<s:element minOccurs="0" name="SourceID" type="s:string" />
+							<s:element minOccurs="0" name="Name" type="s:string" />
+							<s:element minOccurs="0" name="Relationship" type="s:string" />
+							<s:element minOccurs="0" name="RelationshipType" type="s:string" />
+							<s:element minOccurs="0" name="RelationshipCode" type="s:string" />
+							<s:element minOccurs="0" name="RelationshipTerminology"
+								type="s:string" />
+							<s:element minOccurs="0" name="ContactInformation"
+								type="s:string" />
+							<s:element minOccurs="0" name="NextOfKin" type="s:boolean" />
+							<s:element minOccurs="0" name="Notes" type="s:string" />
+							<s:element minOccurs="0" name="Author" type="s:string" />
+							<s:element minOccurs="0" name="DateCreated" type="s:string" />
+							<s:element minOccurs="0" name="DataSourceName" type="s:string" />
+							<s:element minOccurs="0" name="StatusCode" type="s:string" />
+							<s:element minOccurs="0" name="StatusDesc" type="s:string" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:complexType name="Ens_Response">
+				<s:complexContent>
+					<s:extension base="s0:Ens_Messagebody" />
+				</s:complexContent>
+			</s:complexType>
+			<s:complexType name="Ens_Messagebody" />
+			<s:element name="FindContactsSummariesBO">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" name="NHSNumber" type="s:long" />
+						<s:element minOccurs="0" name="DataSource" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="FindContactsSummariesBOResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element name="FindContactsSummariesBOResult" type="s0:ContactsSummaryResponse" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:complexType name="ContactsSummaryResponse">
+				<s:complexContent>
+					<s:extension base="s0:Ens_Response">
+						<s:sequence>
+							<s:element minOccurs="0" name="ContactsList"
+								type="s0:ArrayOfContactsSummaryResultRowPairOfContactsListKeyContactsSummaryResultRow" />
+							<s:element minOccurs="0" name="StatusCode" type="s:string" />
+							<s:element minOccurs="0" name="StatusDesc" type="s:string" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:complexType
+				name="ArrayOfContactsSummaryResultRowPairOfContactsListKeyContactsSummaryResultRow">
+				<s:sequence>
+					<s:element maxOccurs="unbounded" minOccurs="0"
+						name="ContactsSummaryResultRow" nillable="true"
+						type="s0:PairOfContactsListKeyContactsSummaryResultRow" />
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="PairOfContactsListKeyContactsSummaryResultRow">
+				<s:complexContent>
+					<s:extension base="s0:ContactsSummaryResultRow">
+						<s:attribute name="ContactsListKey" type="s:string"
+							use="required" />
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:complexType name="ContactsSummaryResultRow">
+				<s:complexContent>
+					<s:extension base="s0:Ens_Response">
+						<s:sequence>
+							<s:element minOccurs="0" name="Name" type="s:string" />
+							<s:element minOccurs="0" name="Relationship" type="s:string" />
+							<s:element minOccurs="0" name="NextOfKin" type="s:boolean" />
+							<s:element minOccurs="0" name="SourceID" type="s:string" />
+							<s:element minOccurs="0" name="DataSourceName" type="s:string" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+		</s:schema>
+	</types>
+	<message name="FindContactsDetailsBOSoapIn">
+		<part name="parameters" element="s0:FindContactsDetailsBO" />
+	</message>
+	<message name="FindContactsDetailsBOSoapOut">
+		<part name="parameters" element="s0:FindContactsDetailsBOResponse" />
+	</message>
+	<message name="FindContactsSummariesBOSoapIn">
+		<part name="parameters" element="s0:FindContactsSummariesBO" />
+	</message>
+	<message name="FindContactsSummariesBOSoapOut">
+		<part name="parameters" element="s0:FindContactsSummariesBOResponse" />
+	</message>
+	<portType name="ContactsServiceSoap">
+		<operation name="FindContactsDetailsBO">
+			<input message="s0:FindContactsDetailsBOSoapIn" />
+			<output message="s0:FindContactsDetailsBOSoapOut" />
+		</operation>
+		<operation name="FindContactsSummariesBO">
+			<input message="s0:FindContactsSummariesBOSoapIn" />
+			<output message="s0:FindContactsSummariesBOSoapOut" />
+		</operation>
+	</portType>
+	<binding name="Contacts" type="s0:ContactsServiceSoap">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<operation name="FindContactsDetailsBO">
+			<soap:operation
+				soapAction="http://www.HSCIERipple.org/HSCIEDEV.SOAP.Contacts.FindContactsDetailsBO"
+				style="document" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		<operation name="FindContactsSummariesBO">
+			<soap:operation
+				soapAction="http://www.HSCIERipple.org/HSCIEDEV.SOAP.Contacts.FindContactsSummariesBO"
+				style="document" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+	</binding>
+	<service name="ContactsService">
+		<port name="Contacts" binding="s0:Contacts">
+			<soap:address
+				location="http://10.152.3.237:57772/csp/healthshare/hscie_ripple_dev/HSCIEDEV.SOAP.Contacts.cls" />
+		</port>
+	</service>
+</definitions>
