@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://www.HSCIERipple.org"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://www.HSCIERipple.org">
+	<types>
+		<s:schema elementFormDefault="qualified" targetNamespace="http://www.HSCIERipple.org">
+			<s:element name="FindAppointmentsDetailsBO">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" name="NHSNumber" type="s:long" />
+						<s:element minOccurs="0" name="SourceID" type="s:string" />
+						<s:element minOccurs="0" name="DataSource" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="FindAppointmentsDetailsBOResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element name="FindAppointmentsDetailsBOResult" type="s0:AppointmentsDetailsResponse" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:complexType name="AppointmentsDetailsResponse">
+				<s:complexContent>
+					<s:extension base="s0:Ens_Response">
+						<s:sequence>
+							<s:element minOccurs="0" name="SourceID" type="s:string" />
+							<s:element minOccurs="0" name="Author" type="s:string" />
+							<s:element minOccurs="0" name="ServiceTeam" type="s:string" />
+							<s:element minOccurs="0" name="DateOfAppointment" type="s:string" />
+							<s:element minOccurs="0" name="TimeOfAppointment" type="s:string" />
+							<s:element minOccurs="0" name="Location" type="s:string" />
+							<s:element minOccurs="0" name="Status" type="s:string" />
+							<s:element minOccurs="0" name="DateCreated" type="s:string" />
+							<s:element minOccurs="0" name="DataSourceName" type="s:string" />
+							<s:element minOccurs="0" name="StatusCode" type="s:string" />
+							<s:element minOccurs="0" name="StatusDesc" type="s:string" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:complexType name="Ens_Response">
+				<s:complexContent>
+					<s:extension base="s0:Ens_Messagebody" />
+				</s:complexContent>
+			</s:complexType>
+			<s:complexType name="Ens_Messagebody" />
+			<s:element name="FindAppointmentsSummariesBO">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" name="NHSNumber" type="s:long" />
+						<s:element minOccurs="0" name="DataSource" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="FindAppointmentsSummariesBOResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element name="FindAppointmentsSummariesBOResult"
+							type="s0:AppointmentsSummaryResponse" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:complexType name="AppointmentsSummaryResponse">
+				<s:complexContent>
+					<s:extension base="s0:Ens_Response">
+						<s:sequence>
+							<s:element minOccurs="0" name="AppointmentsList"
+								type="s0:ArrayOfAppointmentsSummaryResultRowPairOfAppointmentsListKeyAppointmentsSummaryResultRow" />
+							<s:element minOccurs="0" name="StatusCode" type="s:string" />
+							<s:element minOccurs="0" name="StatusDesc" type="s:string" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:complexType
+				name="ArrayOfAppointmentsSummaryResultRowPairOfAppointmentsListKeyAppointmentsSummaryResultRow">
+				<s:sequence>
+					<s:element maxOccurs="unbounded" minOccurs="0"
+						name="AppointmentsSummaryResultRow" nillable="true"
+						type="s0:PairOfAppointmentsListKeyAppointmentsSummaryResultRow" />
+				</s:sequence>
+			</s:complexType>
+			<s:complexType
+				name="PairOfAppointmentsListKeyAppointmentsSummaryResultRow">
+				<s:complexContent>
+					<s:extension base="s0:AppointmentsSummaryResultRow">
+						<s:attribute name="AppointmentsListKey" type="s:string"
+							use="required" />
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:complexType name="AppointmentsSummaryResultRow">
+				<s:complexContent>
+					<s:extension base="s0:Ens_Response">
+						<s:sequence>
+							<s:element minOccurs="0" name="ServiceTeam" type="s:string" />
+							<s:element minOccurs="0" name="DateOfAppointment" type="s:string" />
+							<s:element minOccurs="0" name="TimeOfAppointment" type="s:string" />
+							<s:element minOccurs="0" name="SourceID" type="s:string" />
+							<s:element minOccurs="0" name="DataSourceName" type="s:string" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+		</s:schema>
+	</types>
+	<message name="FindAppointmentsDetailsBOSoapIn">
+		<part name="parameters" element="s0:FindAppointmentsDetailsBO" />
+	</message>
+	<message name="FindAppointmentsDetailsBOSoapOut">
+		<part name="parameters" element="s0:FindAppointmentsDetailsBOResponse" />
+	</message>
+	<message name="FindAppointmentsSummariesBOSoapIn">
+		<part name="parameters" element="s0:FindAppointmentsSummariesBO" />
+	</message>
+	<message name="FindAppointmentsSummariesBOSoapOut">
+		<part name="parameters" element="s0:FindAppointmentsSummariesBOResponse" />
+	</message>
+	<portType name="AppointmentServiceSoap">
+		<operation name="FindAppointmentsDetailsBO">
+			<input message="s0:FindAppointmentsDetailsBOSoapIn" />
+			<output message="s0:FindAppointmentsDetailsBOSoapOut" />
+		</operation>
+		<operation name="FindAppointmentsSummariesBO">
+			<input message="s0:FindAppointmentsSummariesBOSoapIn" />
+			<output message="s0:FindAppointmentsSummariesBOSoapOut" />
+		</operation>
+	</portType>
+	<binding name="Appointments" type="s0:AppointmentServiceSoap">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<operation name="FindAppointmentsDetailsBO">
+			<soap:operation
+				soapAction="http://www.HSCIERipple.org/HSCIEDEV.SOAP.Appointments.FindAppointmentsDetailsBO"
+				style="document" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		<operation name="FindAppointmentsSummariesBO">
+			<soap:operation
+				soapAction="http://www.HSCIERipple.org/HSCIEDEV.SOAP.Appointments.FindAppointmentsSummariesBO"
+				style="document" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+	</binding>
+	<service name="AppointmentService">
+		<port name="Appointments" binding="s0:Appointments">
+		</port>
+	</service>
+</definitions>
