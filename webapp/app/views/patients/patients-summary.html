@@ -8,7 +8,7 @@
       </div>
       </div>
     <!-- START Patient Dashboard -->
-    <div class="dashboard row">
+    <div class="dashboard row" ng-hide="!optIn">
       <!-- START Board
                         Note: Make sure the 4th board always does a clear left
                         Note: In our design, all boards have 5 rows, so the board below
@@ -107,8 +107,17 @@
         </table>
       </div>
     </div>
+
+    <div class="dashboard row" ng-hide="optIn">
+      <div class="col-md-12">
+        <div class="messageBox">
+          <span><b>The patient has opted-out of this record sharing initiative and as such their record is unable to be displayed.</b>
+            <br><br> If the patient wishes to opt-in, they should call 0800 0000 000.</span>
+        </div>
+      </div>
+    </div>
     <!-- END Patient Dashboard -->
   </div>
   <!-- END Main Content Area -->
 
-</div>
+  </div>
