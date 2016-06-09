@@ -3,65 +3,65 @@
 </li>
 
 <li class="navigation-menu">
-  <a ng-click="goTo('keyworkers')" ng-hide="!optIn" ng-class="{'disabled' : !navBar.keyworkersEnabled }">Key Workers</a>
+  <a ng-click="goTo('keyworkers')" ng-show="patient.optIn" ng-class="{'disabled' : !navBar.keyworkersEnabled }">Key Workers</a>
 </li>
 
 <li class="navigation-menu">
-  <a ng-click="goTo('contacts')" ng-hide="!optIn" ng-class="{'disabled' : !navBar.contactsEnabled }">Contacts</a>
+  <a ng-click="goTo('contacts')" ng-show="patient.optIn" ng-class="{'disabled' : !navBar.contactsEnabled }">Contacts</a>
 </li>
 
 <li class="navigation-menu">
-  <a ng-click="goTo('problems')" ng-hide="!optIn" ng-class="{'disabled' : !navBar.diagnosisEnabled }">Problems / Diagnosis</a>
+  <a ng-click="goTo('problems')" ng-show="patient.optIn" ng-class="{'disabled' : !navBar.diagnosisEnabled }">Problems / Diagnosis</a>
 </li>
 
 <li class="navigation-menu">
-  <a ng-click="goTo('allergies')" ng-hide="!optIn" ng-class="{'disabled' : !navBar.allergiesEnabled }">Allergies</a>
+  <a ng-click="goTo('allergies')" ng-show="patient.optIn" ng-class="{'disabled' : !navBar.allergiesEnabled }">Allergies</a>
 </li>
 
 <li class="navigation-menu">
-  <a ng-click="goTo('medications')" ng-hide="!optIn" ng-class="{'disabled' : !navBar.medicationsEnabled }">Medications</a>
+  <a ng-click="goTo('medications')" ng-show="patient.optIn" ng-class="{'disabled' : !navBar.medicationsEnabled }">Medications</a>
 </li>
 
 <li class="navigation-menu">
-  <a ng-click="goTo('orders')" ng-hide="!optIn" ng-class="{'disabled' : !navBar.ordersEnabled }">Orders</a>
+  <a ng-click="goTo('orders')" ng-show="patient.optIn" ng-class="{'disabled' : !navBar.ordersEnabled }">Orders</a>
 </li>
 
 <li class="navigation-menu">
-  <a ng-click="goTo('results')" ng-hide="!optIn" ng-class="{'disabled' : !navBar.resultsEnabled }">Results</a>
+  <a ng-click="goTo('results')" ng-show="patient.optIn" ng-class="{'disabled' : !navBar.resultsEnabled }">Results</a>
 </li>
 
 <li class="navigation-menu">
-  <a ng-click="goTo('procedures')" ng-hide="!optIn" ng-class="{'disabled' : !navBar.proceduresEnabled }">Procedures</a>
+  <a ng-click="goTo('procedures')" ng-show="patient.optIn" ng-class="{'disabled' : !navBar.proceduresEnabled }">Procedures</a>
 </li>
 
 <li class="navigation-menu">
-  <a ng-click="goTo('referrals')" ng-hide="!optIn" ng-class="{'disabled' : !navBar.referralsEnabled }">Referrals</a>
+  <a ng-click="goTo('referrals')" ng-show="patient.optIn" ng-class="{'disabled' : !navBar.referralsEnabled }">Referrals</a>
 </li>
 
 <li class="navigation-menu">
-  <a ng-click="goTo('appointments')" ng-hide="!optIn" ng-class="{'disabled' : !navBar.appointmentsEnabled }">Appointments</a>
+  <a ng-click="goTo('appointments')" ng-show="patient.optIn" ng-class="{'disabled' : !navBar.appointmentsEnabled }">Appointments</a>
 </li>
 
 <li class="navigation-menu">
-  <a ng-click="goTo('transfers')" ng-hide="!optIn" ng-class="{'disabled' : !navBar.transfersEnabled }">Transfer of Care</a>
+  <a ng-click="goTo('transfers')" ng-show="patient.optIn" ng-class="{'disabled' : !navBar.transfersEnabled }">Transfer of Care</a>
 </li>
 
 <li class="navigation-menu">
-  <a ng-click="goTo('careplans')" ng-hide="!optIn" ng-class="{'disabled' : !navBar.careplansEnabled }">Care Plans</a>
+  <a ng-click="goTo('careplans')" ng-show="patient.optIn" ng-class="{'disabled' : !navBar.careplansEnabled }">Care Plans</a>
 </li>
 
 <li class="navigation-menu">
-  <a ng-click="goTo('mdt')" ng-hide="!optIn" ng-class="{'disabled' : !navBar.mdtEnabled }">MDT</a>
+  <a ng-click="goTo('mdt')" ng-show="patient.optIn" ng-class="{'disabled' : !navBar.mdtEnabled }">MDT</a>
 </li>
 
 <li class="navigation-menu">
-  <a ng-click="goTo('images')" ng-hide="!optIn" ng-class="{'disabled' : !navBar.imagesEnabled }">Images</a>
+  <a ng-click="goTo('images')" ng-show="patient.optIn" ng-class="{'disabled' : !navBar.imagesEnabled }">Images</a>
 </li>
 
 <li class="navigation-menu">
-  <a ng-class="{'disabled' : !navBar.tagsEnabled }" ng-hide="!optIn">Tags</a>
+  <a ng-class="{'disabled' : !navBar.tagsEnabled }" ng-show="patient.optIn">Tags</a>
 </li>
 
 <li class="navigation-menu">
-  <a ng-click="goTo('informationgov')" ng-hide="!optIn">Information Governance</a>
+  <a ng-click="goTo('informationgov')" ng-show="patient.optIn">Information Governance</a>
 </li>
