@@ -2,8 +2,8 @@
 
 angular.module('rippleDemonstrator')
   .value("content", {
-    "idcr_title": "HSCIE Care Record",
-    "phr_title": "HSCIE Care Record",
+    "idcr_title": "HSCIE Ripple",
+    "phr_title": "HSCIE Ripple",
     "patientContextParams": {
       "pasNumberLabel": "Other ID"
     }

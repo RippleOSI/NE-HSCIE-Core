@@ -10,13 +10,15 @@
   <tr>
     <th>Status</th>
     <th>Date Created</th>
+    <th class="col-sm-2">Source</th>
   </tr>
   </thead>
 
   <tbody>
-  <tr dir-paginate="consent in consents | filter:search | itemsPerPage: 9 " current-page="currentPage"  ng-click="go('{{consent.sourceId}}')" ng-class="{info: selected(consent.sourceId)}">
+  <tr dir-paginate="consent in consents | filter:search | orderBy:'-dateCreated' |itemsPerPage: 9 " current-page="currentPage"  ng-click="go('{{consent.sourceId}}')" ng-class="{info: selected(consent.sourceId)}">
     <td>{{ consent.optIn | optedIn }}</td>
-    <td class="dateTime">{{ consent.dateCreated }}</td>
+    <td class="dateTime">{{ consent.dateCreated | date:'dd-MMM-yyyy' }}</td>
+    <td>{{ consent.source }}</td>
   </tr>
 
   <tr ng-if="!consents.length">

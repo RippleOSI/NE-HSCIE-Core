@@ -16,6 +16,7 @@
 package org.hscieripple.config;
 
 import org.apache.cxf.jaxws.spring.JaxWsProxyFactoryBeanDefinitionParser.JAXWSSpringClientProxyFactoryBean;
+import org.hscieripple.patient.consent.*;
 import org.hscieripple.patient.datasources.DataSourcesServiceSoap;
 import org.hscieripple.patient.keyworkers.KeyWorkerServiceSoap;
 import org.hscieripple.patient.contacts.ContactsServiceSoap;
@@ -62,6 +63,18 @@ public class CXFConfig {
     @Value("${hscie.tie.problemsServiceUrl:''}")
     private String problemsServiceUrl;
 
+    @Value("${hscie.tie.consentsFindDetailsServiceUrl:''}")
+    private String consentsFindDetailsServiceUrl;
+
+    @Value("${hscie.tie.consentsFindAllServiceUrl:''}")
+    private String consentsFindAllServiceUrl;
+
+    @Value("${hscie.tie.consentsInsertUrl:''}")
+    private String consentsInsertUrl;
+
+    @Value("${hscie.tie.consentsUpdateUrl:''}")
+    private String consentsUpdateUrl;
+
     @Bean
     public PatientServiceSoap patientService() {
         return createJAXWSService(PatientServiceSoap.class, patientServiceUrl);
@@ -95,6 +108,26 @@ public class CXFConfig {
     @Bean
     public ProblemServiceSoap problemsService() {
         return createJAXWSService(ProblemServiceSoap.class, problemsServiceUrl);
+    }
+
+    @Bean
+    public ConsentFindAllServiceSoap consentsFindAllService() {
+        return createJAXWSService(ConsentFindAllServiceSoap.class, consentsFindAllServiceUrl);
+    }
+
+    @Bean
+    public ConsentFindSingleServiceSoap consentsFindDetailsService() {
+        return createJAXWSService(ConsentFindSingleServiceSoap.class, consentsFindDetailsServiceUrl);
+    }
+
+    @Bean
+    public ConsentInsertServiceSoap consentsInsertService() {
+        return createJAXWSService(ConsentInsertServiceSoap.class, consentsInsertUrl);
+    }
+
+    @Bean
+    public ConsentUpdateServiceSoap consentsUpdateService() {
+        return createJAXWSService(ConsentUpdateServiceSoap.class, consentsUpdateUrl);
     }
 
     public <T> T createJAXWSService(Class<T> serviceClass, String serviceUrl) {

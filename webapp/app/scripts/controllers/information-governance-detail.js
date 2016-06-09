@@ -1,10 +1,14 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('InformationGovernanceDetailCtrl', function ($scope, $stateParams, SearchInput, $modal, $state, $location, Helper, usSpinnerService, PatientService, InformationGovernance) {
+  .controller('InformationGovernanceDetailCtrl', function ($scope, $stateParams, SearchInput, $modal, $state, $location, Helper, usSpinnerService, UserService, PatientService, InformationGovernance) {
 
     SearchInput.update();
-    PatientService.get($stateParams.patientId).then(function (patient) {
+
+    var currentUser = UserService.getCurrentUser();
+    $stateParams.patientSource = currentUser.feature.patientSource;
+
+    PatientService.get($stateParams.patientId, $stateParams.patientSource).then(function (patient) {
       $scope.patient = patient;
     });
 
@@ -42,15 +46,17 @@ angular.module('rippleDemonstrator')
           dateCreated: consent.dateCreated
         };
 
-        InformationGovernance.update($scope.patient.id, toUpdate).then(function () {
+        InformationGovernance.update($scope.patient.nhsNumber, toUpdate).then(function () {
           setTimeout(function () {
             $state.go('informationgov-detail', {
-              patientId: $scope.patient.id,
-              consentIndex: Helper.updateId(consent.sourceId),
+              patientId: $scope.patient.nhsNumber,
+              consentIndex: consent.sourceId,
               page: $scope.currentPage,
               reportType: $stateParams.reportType,
               searchString: $stateParams.searchString,
               queryType: $stateParams.queryType
+            }, {
+              reload: true
             });
           }, 2000);
         });
