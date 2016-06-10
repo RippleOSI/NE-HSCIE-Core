@@ -27,20 +27,16 @@ angular.module('rippleDemonstrator')
 
       switch (section) {
       case 'summary':
-        if ($scope.currentUser.feature.patientSummaryView === 'landing') {
-          toState = 'patients-landing';
-        } else {
-          toState = 'patients-summary';
-        }
+        toState = 'patients-summary';
         break;
       case 'keyworkers':
         toState = 'keyworkers-list';
         break;
       case 'contacts':
-        toState = 'contacts';
+        toState = 'contacts-list';
         break;
-      case 'diagnosis':
-        toState = 'diagnoses-list';
+      case 'problems':
+        toState = 'problems-list';
         break;
       case 'allergies':
         toState = 'allergies';
@@ -58,10 +54,10 @@ angular.module('rippleDemonstrator')
         toState = 'procedures';
         break;
       case 'referrals':
-        toState = 'referrals';
+        toState = 'referrals-list';
         break;
       case 'appointments':
-        toState = 'appointments';
+        toState = 'appointments-list';
         break;
       case 'transfers':
         toState = 'transferOfCare';

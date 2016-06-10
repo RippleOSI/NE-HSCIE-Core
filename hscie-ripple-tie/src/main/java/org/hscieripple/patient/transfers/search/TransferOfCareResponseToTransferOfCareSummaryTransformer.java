@@ -20,7 +20,7 @@ import java.util.Date;
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.patient.transfers.TransferOfCareSummaryResultRow;
 import org.hscieripple.patient.transfers.model.HSCIETransferOfCareSummary;
-import org.rippleosi.common.util.HSCIEDateFormatter;
+import org.hscieripple.common.util.HSCIEDateFormatter;
 
 public class TransferOfCareResponseToTransferOfCareSummaryTransformer implements Transformer<TransferOfCareSummaryResultRow, HSCIETransferOfCareSummary> {
 

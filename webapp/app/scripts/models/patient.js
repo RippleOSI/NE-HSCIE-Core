@@ -11,6 +11,8 @@ angular.module('rippleDemonstrator')
         return $window.moment().diff(self.dateOfBirth, 'years');
       };
 
+      self.optIn = attributes.optIn || true;
+
       self.ageRange = (function () {
         var age = self.age();
 

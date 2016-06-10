@@ -20,7 +20,7 @@ import java.util.Date;
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.patient.keyworkers.KWSummaryResultRow;
 import org.hscieripple.patient.keyworkers.model.KeyWorkerSummary;
-import org.rippleosi.common.util.HSCIEDateFormatter;
+import org.hscieripple.common.util.HSCIEDateFormatter;
 
 public class KeyWorkerResponseToKeyWorkerSummaryTransformer implements Transformer<KWSummaryResultRow, KeyWorkerSummary> {
 

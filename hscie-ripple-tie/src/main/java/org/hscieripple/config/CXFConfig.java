@@ -16,8 +16,13 @@
 package org.hscieripple.config;
 
 import org.apache.cxf.jaxws.spring.JaxWsProxyFactoryBeanDefinitionParser.JAXWSSpringClientProxyFactoryBean;
+import org.hscieripple.patient.consent.*;
 import org.hscieripple.patient.datasources.DataSourcesServiceSoap;
 import org.hscieripple.patient.keyworkers.KeyWorkerServiceSoap;
+import org.hscieripple.patient.contacts.ContactsServiceSoap;
+import org.hscieripple.patient.appointments.AppointmentServiceSoap;
+import org.hscieripple.patient.referrals.ReferralServiceSoap;
+import org.hscieripple.patient.problems.ProblemServiceSoap;
 import org.hscieripple.patient.query.PatientServiceSoap;
 import org.hscieripple.patient.medications.MedicationServiceSoap;
 import org.hscieripple.patient.transfers.TransferOfCareServiceSoap;
@@ -47,6 +52,30 @@ public class CXFConfig {
 
     @Value("${hscie.tie.dataSourcesServiceUrl:''}")
     private String dataSourcesServiceUrl;
+    
+    @Value("${hscie.tie.contactsServiceUrl:''}")
+    private String contactsServiceUrl;
+    
+    @Value("${hscie.tie.appointmentsServiceUrl:''}")
+    private String appointmentsServiceUrl;
+    
+    @Value("${hscie.tie.referralsServiceUrl:''}")
+    private String referralsServiceUrl;
+    
+    @Value("${hscie.tie.problemsServiceUrl:''}")
+    private String problemsServiceUrl;
+
+    @Value("${hscie.tie.consentsFindDetailsServiceUrl:''}")
+    private String consentsFindDetailsServiceUrl;
+
+    @Value("${hscie.tie.consentsFindAllServiceUrl:''}")
+    private String consentsFindAllServiceUrl;
+
+    @Value("${hscie.tie.consentsInsertUrl:''}")
+    private String consentsInsertUrl;
+
+    @Value("${hscie.tie.consentsUpdateUrl:''}")
+    private String consentsUpdateUrl;
 
     @Value("${hscie.tie.medicationsServiceUrl:''}")
     private String medicationsServiceUrl;
@@ -70,6 +99,7 @@ public class CXFConfig {
     }
     
     @Bean
+
     public MedicationServiceSoap medicationsService() {
         return createJAXWSService(MedicationServiceSoap.class, medicationsServiceUrl);
     }
@@ -77,6 +107,46 @@ public class CXFConfig {
     @Bean
     public TransferOfCareServiceSoap transfersService() {
         return createJAXWSService(TransferOfCareServiceSoap.class, transferOfCareServiceUrl);
+    }
+    
+    @Bean
+    public ContactsServiceSoap contactsService() {
+      return createJAXWSService(ContactsServiceSoap.class, contactsServiceUrl);
+    }
+    
+    @Bean
+    public AppointmentServiceSoap appointmentsService() {
+      return createJAXWSService(AppointmentServiceSoap.class, appointmentsServiceUrl);
+    }
+    
+    @Bean
+    public ReferralServiceSoap referralsService() {
+        return createJAXWSService(ReferralServiceSoap.class, referralsServiceUrl);
+    }
+    
+    @Bean
+    public ProblemServiceSoap problemsService() {
+        return createJAXWSService(ProblemServiceSoap.class, problemsServiceUrl);
+    }
+
+    @Bean
+    public ConsentFindAllServiceSoap consentsFindAllService() {
+        return createJAXWSService(ConsentFindAllServiceSoap.class, consentsFindAllServiceUrl);
+    }
+
+    @Bean
+    public ConsentFindSingleServiceSoap consentsFindDetailsService() {
+        return createJAXWSService(ConsentFindSingleServiceSoap.class, consentsFindDetailsServiceUrl);
+    }
+
+    @Bean
+    public ConsentInsertServiceSoap consentsInsertService() {
+        return createJAXWSService(ConsentInsertServiceSoap.class, consentsInsertUrl);
+    }
+
+    @Bean
+    public ConsentUpdateServiceSoap consentsUpdateService() {
+        return createJAXWSService(ConsentUpdateServiceSoap.class, consentsUpdateUrl);
     }
 
     public <T> T createJAXWSService(Class<T> serviceClass, String serviceUrl) {

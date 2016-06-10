@@ -1,30 +1,19 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .factory('Diagnosis', function ($http) {
+  .factory('DiagnosesService', function ($http) {
 
     var all = function (patientId) {
-      return $http.get('/api/patients/' + patientId + '/diagnoses');
+      return $http.get('/api/hscie/patients/' + patientId + '/diagnoses');
     };
 
-    var get = function (patientId, compositionId, source) {
-      return $http.get('/api/patients/' + patientId + '/diagnoses/' + compositionId + '?source=' + source);
-    };
-
-    var create = function (patientId, composition) {
-      return $http.post('/api/patients/' + patientId + '/diagnoses', composition);
-    };
-
-    var update = function (patientId, composition) {
-      return $http.put('/api/patients/' + patientId + '/diagnoses', composition);
+    var get = function (patientId, diagnosesId, subSource) {
+      return $http.get('/api/hscie/patients/' + patientId + '/diagnoses/' + diagnosesId + '?subSource=' + subSource);
     };
 
     return {
       all: all,
-      get: get,
-      update: update,
-      create: create
+      get: get
     };
 
   });
-

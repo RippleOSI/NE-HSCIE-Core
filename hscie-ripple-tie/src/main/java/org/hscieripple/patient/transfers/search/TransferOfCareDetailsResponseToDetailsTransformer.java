@@ -22,7 +22,7 @@ import java.util.List;
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.patient.transfers.TransferOfCareDetailsResponse;
 import org.hscieripple.patient.transfers.model.HSCIETransferOfCareDetails;
-import org.rippleosi.common.util.HSCIEDateFormatter;
+import org.hscieripple.common.util.HSCIEDateFormatter;
 
 public class TransferOfCareDetailsResponseToDetailsTransformer implements Transformer<TransferOfCareDetailsResponse, HSCIETransferOfCareDetails> {
 

@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.rippleosi.common.util;
+package org.hscieripple.common.util;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -64,6 +64,10 @@ public final class HSCIEDateFormatter {
                 
         if(systemFrom.equals("PCS long Time")){
         	format = "HH:mm:ss";
+        }
+        
+        if(systemFrom.equals("Emis Community")){
+        	format = "yyyy-MM-dd HH:mm:ss";
         }
         
         //Return value of formatted String

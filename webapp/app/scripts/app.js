@@ -40,19 +40,19 @@ angular
         }
       })
 
-      .state('patients-search', {
-         url: '/search?patientSource',
-        views: {
-          main: { templateUrl: 'views/patients/patients-search.html', controller: 'PatientsSearchCtrl' }
-        }
-      })
-
       .state('patients-landing', {
         url: '/patients/{patientId:int}/patients-landing?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
           main: { templateUrl: 'views/patients/patients-landing.html', controller: 'PatientsLandingCtrl' }
+        }
+      })
+
+      .state('main-search', {
+        url: '/search',
+        views: {
+          main: { templateUrl: 'views/main-search/main-search.html', controller: 'MainSearchController' }
         }
       })
 
@@ -99,24 +99,7 @@ angular
         }
       })
 
-      .state('diagnoses-list', {
-        url: '/patients/{patientId:int}/diagnoses?reportType&searchString&queryType',
-        views: {
-          'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
-          actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
-          main: { templateUrl: 'views/diagnoses/diagnoses-list.html', controller: 'DiagnosesListCtrl' }
-        }
-      })
 
-      .state('diagnoses-detail', {
-        url: '/patients/{patientId:int}/diagnoses/{diagnosisIndex}?filter&page&reportType&searchString&queryType&source',
-        views: {
-          'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
-          actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
-          main: { templateUrl: 'views/diagnoses/diagnoses-list.html', controller: 'DiagnosesListCtrl' },
-          detail: { templateUrl: 'views/diagnoses/diagnoses-detail.html', controller: 'DiagnosesDetailCtrl' }
-        }
-      })
 
       .state('allergies', {
         url: '/patients/{patientId:int}/allergies?reportType&searchString&queryType',
@@ -156,9 +139,8 @@ angular
           detail: { templateUrl: 'views/medications/medications-detail.html', controller: 'MedicationsDetailCtrl' }
         }
       })
-
-      .state('contacts', {
-        url: '/patients/{patientId:int}/contacts?reportType&searchString&queryType',
+      .state('contacts-list', {
+        url: '/patients/{patientId:int}/contacts?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -167,7 +149,7 @@ angular
       })
 
       .state('contacts-detail', {
-        url: '/patients/{patientId:int}/contacts/{contactIndex}?filter&page&reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/contacts/{contactIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -175,9 +157,46 @@ angular
           detail: { templateUrl: 'views/contacts/contacts-detail.html', controller: 'ContactsDetailCtrl' }
         }
       })
+      
+      .state('problems-list', {
+        url: '/patients/{patientId:int}/problems?patientSource&reportType&searchString&queryType',
+        views: {
+          'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
+          actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
+          main: { templateUrl: 'views/problems/problems-list.html', controller: 'ProblemsListCtrl' }
+        }
+      })
+
+      .state('problems-detail', {
+        url: '/patients/{patientId:int}/problems/{problemIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
+        views: {
+          'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
+          actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
+          main: { templateUrl: 'views/problems/problems-list.html', controller: 'ProblemsListCtrl' },
+          detail: { templateUrl: 'views/problems/problems-detail.html', controller: 'ProblemsDetailCtrl' }
+        }
+      })
+      //.state('contacts', {
+       // url: '/patients/{patientId:int}/contacts?reportType&searchString&queryType',
+       // views: {
+          //'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
+          //actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
+          //main: { templateUrl: 'views/contacts/contacts-list.html', controller: 'ContactsListCtrl' }
+        //}
+      //})
+
+      //.state('contacts-detail', {
+       // url: '/patients/{patientId:int}/contacts/{contactIndex}?filter&page&reportType&searchString&queryType',
+        //views: {
+          //'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
+          //actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
+          //main: { templateUrl: 'views/contacts/contacts-list.html', controller: 'ContactsListCtrl' },
+          //detail: { templateUrl: 'views/contacts/contacts-detail.html', controller: 'ContactsDetailCtrl' }
+       // }
+     // })
 
       .state('transferOfCare', {
-        url: '/patients/{patientId:int}/hscie-transfer?patientSource&reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/transfer?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -242,25 +261,26 @@ angular
           detail: { templateUrl: 'views/procedures/procedures-detail.html', controller: 'ProceduresDetailCtrl' }
         }
       })
-
-    .state('referrals', {
-        url: '/patients/{patientId:int}/referrals?reportType&searchString&queryType',
+      
+      .state('referrals-list', {
+        url: '/patients/{patientId:int}/referrals?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
-          main: { templateUrl: 'views/referrals/referrals-list.html', controller: 'ReferralsListCtrl' }
+          main: { templateUrl: 'views/referrals/referrals-list.html', controller: 'ReferralListCtrl' }
         }
       })
 
       .state('referrals-detail', {
-        url: '/patients/{patientId:int}/referrals/{referralId}?filter&page&reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/referrals/{referralIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
-          main: { templateUrl: 'views/referrals/referrals-list.html', controller: 'ReferralsListCtrl' },
-          detail: { templateUrl: 'views/referrals/referrals-detail.html', controller: 'ReferralsDetailCtrl' }
+          main: { templateUrl: 'views/referrals/referrals-list.html', controller: 'ReferralListCtrl' },
+          detail: { templateUrl: 'views/referrals/referrals-detail.html', controller: 'ReferralDetailCtrl' }
         }
       })
+      
 
     .state('eolcareplans', {
         url: '/patients/{patientId:int}/eolcareplans?reportType&searchString&queryType',
@@ -281,22 +301,22 @@ angular
         }
       })
 
-     .state('appointments', {
-        url: '/patients/{patientId:int}/appointments?reportType&searchString&queryType',
+     .state('appointments-list', {
+        url: '/patients/{patientId:int}/appointments?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
-          main: { templateUrl: 'views/appointments/appointments-list.html', controller: 'AppointmentsListCtrl' }
+          main: { templateUrl: 'views/appointments/appointments-list.html', controller: 'AppointmentListCtrl' }
         }
       })
 
       .state('appointments-detail', {
-        url: '/patients/{patientId:int}/appointments/{appointmentIndex}?filter&page&reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/appointments/{appointmentIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
-          main: { templateUrl: 'views/appointments/appointments-list.html', controller: 'AppointmentsListCtrl' },
-          detail: { templateUrl: 'views/appointments/appointments-detail.html', controller: 'AppointmentsDetailCtrl' }
+          main: { templateUrl: 'views/appointments/appointments-list.html', controller: 'AppointmentListCtrl' },
+          detail: { templateUrl: 'views/appointments/appointments-detail.html', controller: 'AppointmentDetailCtrl' }
         }
       })
 
@@ -401,6 +421,51 @@ angular
     };
   })
 
+  .directive('autoFocus', function($timeout) {
+    return {
+      restrict: 'A',
+      require: 'ngModel',
+      scope : {
+        ngModel: '='
+      },
+      link: function(scope, elem, attrs, ctrl) {
+        scope.$watch("ngModel", function (value) {
+          $timeout(function () {
+            elem[0].focus();
+          });
+        });
+      }
+    };
+  })
+
+  .directive('isValidNhsNumber', function() {
+    return {
+      restrict: 'A',
+      require: 'ngModel',
+      link: function(scope, elem, attrs, ctrl) {
+        scope.$watch(attrs.ngModel, function(value) {
+          checkFormat(value);
+        });
+
+        ctrl.$parsers.unshift(function(value) {
+          return checkFormat(value);
+        });
+
+        var checkFormat = function(value) {
+          // Strip white space
+          if(value) {
+            var nhsNum = value.replace(/\s+/g, '');
+            var valid = !isNaN(nhsNum) && nhsNum.length === 10;
+
+            ctrl.$setValidity('invalidNHSNumFormat', valid);
+
+            return valid ? nhsNum : '';
+          }
+        }
+      }
+    }
+  })
+
   .constant('keyCodes', {
     esc: 27,
     enter: 13
@@ -429,6 +494,20 @@ angular
       });
     };
   }])
+
+  .directive('focusElement', function($timeout) {
+    return {
+      link: function(scope, element, attrs) {
+        scope.$watch(attrs.focusElement, function(value) {
+          $timeout(function() {
+            if(value === true) {
+              element.focus();
+            }
+          });
+        });
+      }
+    }
+  })
 
   .directive('rpOnLoad', ['$parse', function ($parse) {
     return function (scope, elem, attrs) {

@@ -34,6 +34,10 @@ angular.module('rippleDemonstrator')
       $scope.transferofCareComposition.transfers = descendingTransferofCareComposition;
       $scope.transferofCareComposition = $scope.transferofCareComposition.transfers.slice(0, 5);
 
+      $scope.isOptedOut = function() {
+        return !$scope.patient.optIn;
+      };
+
       usSpinnerService.stop('patientSummary-spinner');
     });
 

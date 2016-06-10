@@ -82,7 +82,7 @@
   <script src="scripts/services/patient-landing.js"></script>
   <script src="scripts/services/helper.js"></script>
   <script src="scripts/services/keyworkers.js"></script>
-  <script src="scripts/services/diagnosis.js"></script>
+  <script src="scripts/services/problem.js"></script>
   <script src="scripts/services/allergy.js"></script>
   <script src="scripts/services/medication.js"></script>
   <script src="scripts/services/contact.js"></script>
@@ -100,6 +100,7 @@
   <script src="scripts/services/image.js"></script>
   <script src="scripts/services/information-governance.js"></script>
   <script src="scripts/services/medication.js"></script>
+  <script src="scripts/services/advancedSearch.js"></script>
   <script src="scripts/models/patient.js"></script>
   <script src="scripts/controllers/patients-list.js"></script>
   <script src="scripts/controllers/header-controller.js"></script>
@@ -111,8 +112,8 @@
   <script src="scripts/controllers/patients-detail.js"></script>
   <script src="scripts/controllers/keyworkers-list.js"></script>
   <script src="scripts/controllers/keyworkers-detail.js"></script>
-  <script src="scripts/controllers/diagnoses-list.js"></script>
-  <script src="scripts/controllers/diagnoses-detail.js"></script>
+  <script src="scripts/controllers/problems-list.js"></script>
+  <script src="scripts/controllers/problems-detail.js"></script>
   <script src="scripts/controllers/diagnoses-modal.js"></script>
   <script src="scripts/controllers/allergies-list.js"></script>
   <script src="scripts/controllers/allergies-detail.js"></script>
@@ -157,6 +158,8 @@
   <script src="scripts/controllers/information-governance-detail.js"></script>
   <script src="scripts/controllers/medications-list.js"></script>
   <script src="scripts/controllers/medications-detail.js"></script>
+  <script src="scripts/controllers/main-search.js"></script>
+  <script src="scripts/controllers/advanced-search.js"></script>
   <!-- endbuild -->
 
 </head>
@@ -172,7 +175,7 @@
   <div class="row header-background hidden-xs">
     <div class="col-md-4 col-sm-4 header-left">
       <div class="glyphs g">
-        <p class="header-title-1" ng-if="title"><img src="images/hscie-icon.jpg" alt="Ripple Icon" class="ripple-icon" ng-click="goHome()"> {{title}}</p>
+        <p class="header-title-1" ng-if="title"><img src="images/hscie-icon.png" alt="Ripple Icon" class="ripple-icon" ng-click="goHome()"> {{title}}</p>
       </div>
     </div>
 
@@ -194,7 +197,10 @@
           </span>
         </div>
         <div><i ng-show="searchExpression !== '' || searchMode" ng-click="cancelSearchMode()" class="clearAll fa fa-times-circle"></i></div>
-        <input key-bind="{ enter: 'searchFunction()', esc: 'cancelSearchMode()' }" class="form-control" placeholder="Search..." type="text" typeahead="report for report in reportTypes | filter:$viewValue" ng-model="searchExpression" ng-keyup="checkExpression()" ng-trim="false" ng-class="{'moveRight': searchMode && !reportTypeSet, 'moveFurtherRight': searchMode && reportTypeSet}" />
+        <input key-bind="{ enter: 'searchFunction()', esc: 'cancelSearchMode()' }" class="form-control" placeholder="Search..." type="text" typeahead="report for report in reportTypes | filter:$viewValue" ng-model="searchExpression" ng-keyup="checkExpression()" ng-trim="false" ng-class="{'moveRight': searchMode && !reportTypeSet, 'moveFurtherRight': searchMode && reportTypeSet}"  focus-element="searchFocused"/>
+        <div class="advanced-search-text pull-right">
+          <a ng-click="openAdvancedSearch()">Advanced search</a>
+        </div>
       </div>
       <button class="btn btn-info searchButton" ng-click="searchFunction();"><i class="fa fa-search"></i> Search</button>
     </div>
@@ -249,7 +255,7 @@
   <div class="row header-background-mobile visible-xs">
     <div class="col-xs-12 header-left-mobile">
       <div class="glyphs g">
-        <p class="header-title-1" ng-if="title"><img src="images/hscie-icon.jpg" alt="Ripple Icon" class="ripple-icon" ng-click="goHome()"> {{title}}</p>
+        <p class="header-title-1" ng-if="title"><img src="images/hscie-icon.png" alt="Ripple Icon" class="ripple-icon" ng-click="goHome()"> {{title}}</p>
       </div>
     </div>
 

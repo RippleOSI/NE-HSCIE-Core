@@ -18,14 +18,15 @@ package org.hscieripple.patient.query.search;
 import java.util.Date;
 
 import org.apache.commons.collections4.Transformer;
+import org.hscieripple.patient.details.model.HSCIEPatientDetails;
 import org.hscieripple.patient.query.ResultRow;
 import org.rippleosi.common.util.DateFormatter;
 import org.rippleosi.patient.summary.model.PatientDetails;
 
-public class PatientResponseToPatientDetailsTransformer implements Transformer<ResultRow, PatientDetails> {
+public class PatientResponseToPatientDetailsTransformer implements Transformer<ResultRow, HSCIEPatientDetails> {
 
     @Override
-    public PatientDetails transform(ResultRow response) {
+    public HSCIEPatientDetails transform(ResultRow response) {
 
         String sourceId = String.valueOf(response.getPersonNumber());
         String name = response.getForename() + " " + response.getSurname();
@@ -33,7 +34,7 @@ public class PatientResponseToPatientDetailsTransformer implements Transformer<R
         Date dateOfBirth = DateFormatter.toDate(response.getDOB());
         String nhsNumber = String.valueOf(response.getNHSNumber());
 
-        PatientDetails details = new PatientDetails();
+        HSCIEPatientDetails details = new HSCIEPatientDetails();
 
         details.setId(sourceId);
         details.setName(name);
@@ -42,6 +43,7 @@ public class PatientResponseToPatientDetailsTransformer implements Transformer<R
         details.setGender(response.getGender());
         details.setNhsNumber(nhsNumber);
         details.setPasNumber(response.getPersonNumber());
+        details.setOptIn(response.isConsentStatus());
 
         return details;
     }
