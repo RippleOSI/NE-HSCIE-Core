@@ -83,6 +83,7 @@
         <module>hscie-ripple-core</module>
         <module>hscie-ripple-packaging</module>
         <module>hscie-ripple-tie</module>
+        <module>hscie-ripple-database</module>
     </modules>
 
     <dependencyManagement>
