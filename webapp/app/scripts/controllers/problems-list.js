@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('ProblemsListCtrl', function ($scope, $state, $stateParams, SearchInput, $location, $modal, usSpinnerService, PatientService, ProblemsService, UserService) {
+  .controller('ProblemsListCtrl', function ($scope, $filter, $state, $stateParams, SearchInput, $location, $modal, usSpinnerService, PatientService, ProblemsService, UserService) {
 
     SearchInput.update();
     $scope.currentPage = 1;
@@ -18,10 +18,11 @@ angular.module('rippleDemonstrator')
     }
 
     $scope.search = function (row) {
-        return (
-    		  angular.lowercase(row.problem).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
-    	        angular.lowercase(row.dateOfOnset).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
-    	        angular.lowercase(row.source).indexOf(angular.lowercase($scope.query) || '') !== -1
+    var date = $filter('date')(row.dateOfOnset, "dd/MM/yyyy HH:mm");
+      return (
+        angular.lowercase(row.problem).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
+        angular.lowercase(date).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
+        angular.lowercase(row.sourceId).indexOf(angular.lowercase($scope.query) || '') !== -1
       );
     };
 

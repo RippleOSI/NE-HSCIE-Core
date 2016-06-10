@@ -99,24 +99,7 @@ angular
         }
       })
 
-      .state('diagnoses-list', {
-        url: '/patients/{patientId:int}/diagnoses?patientSource&reportType&searchString&queryType',
-        views: {
-          'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
-          actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
-          main: { templateUrl: 'views/diagnoses/diagnoses-list.html', controller: 'DiagnosesListCtrl' }
-        }
-      })
 
-      .state('diagnoses-detail', {
-    	  url: '/patients/{patientId:int}/diagnoses/{diagnosesIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
-        views: {
-          'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
-          actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
-          main: { templateUrl: 'views/diagnoses/diagnoses-list.html', controller: 'DiagnosesListCtrl' },
-          detail: { templateUrl: 'views/diagnoses/diagnoses-detail.html', controller: 'DiagnosesDetailCtrl' }
-        }
-      })
 
       .state('allergies', {
         url: '/patients/{patientId:int}/allergies?reportType&searchString&queryType',
@@ -137,8 +120,9 @@ angular
         }
       })
 
-      .state('medications', {
-        url: '/patients/{patientId:int}/medications?reportType&searchString&queryType',
+      
+	  .state('medications', {
+        url: '/patients/{patientId:int}/hscie-medications?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -147,7 +131,7 @@ angular
       })
 
       .state('medications-detail', {
-        url: '/patients/{patientId:int}/medications/{medicationIndex}?filter&page&reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/hscie-medications/{medicationIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -212,7 +196,7 @@ angular
      // })
 
       .state('transferOfCare', {
-        url: '/patients/{patientId:int}/transfer-of-care-list?reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/transfer?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -221,7 +205,7 @@ angular
       })
 
       .state('transferOfCare-detail', {
-        url: '/patients/{patientId:int}/transfer-of-care-detail/{transferOfCareIndex}?filter&page&reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/transfer/{transferIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -229,6 +213,7 @@ angular
           detail: { templateUrl: 'views/transfer-of-care/transfer-of-care-detail.html', controller: 'TransferOfCareDetailCtrl' }
         }
       })
+
 
       .state('transferOfCare-create', {
         url: '/patients/{patientId:int}/transfer-of-care-create?reportType&searchString&queryType',
@@ -296,24 +281,6 @@ angular
         }
       })
       
-    //.state('referrals', {
-        //url: '/patients/{patientId:int}/referrals?reportType&searchString&queryType',
-        //views: {
-          //'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
-          //actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
-          //main: { templateUrl: 'views/referrals/referrals-list.html', controller: 'ReferralsListCtrl' }
-        //}
-      //})
-
-      //.state('referrals-detail', {
-      //  url: '/patients/{patientId:int}/referrals/{referralId}?filter&page&reportType&searchString&queryType',
-        //views: {
-          //'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
-          //actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
-          //main: { templateUrl: 'views/referrals/referrals-list.html', controller: 'ReferralsListCtrl' },
-          //detail: { templateUrl: 'views/referrals/referrals-detail.html', controller: 'ReferralsDetailCtrl' }
-        //}
-     // })
 
     .state('eolcareplans', {
         url: '/patients/{patientId:int}/eolcareplans?reportType&searchString&queryType',

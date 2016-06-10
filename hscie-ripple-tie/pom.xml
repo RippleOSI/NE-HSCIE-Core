@@ -32,9 +32,14 @@
         </patientServiceWsdlLocation>
         <dataSourcesServiceWsdlLocation>org/hscieripple/patient/datasources/HSCIEDEV.SOAP.DataSources.wsdl
         </dataSourcesServiceWsdlLocation>
-        <contactsServiceWsdlLocation>org/hscieripple/patient/contacts/HSCIEDEV.SOAP.Contacts.wsdl</contactsServiceWsdlLocation>
+        <contactsServiceWsdlLocation>org/hscieripple/patient/contacts/HSCIEDEV.SOAP.Contacts.wsdl
+        </contactsServiceWsdlLocation>
         <keyWorkersServiceWsdlLocation>org/hscieripple/patient/keyworkers/HSCIEDEV.SOAP.KeyWorkers.wsdl
         </keyWorkersServiceWsdlLocation>
+        <medicationsWsdlLocation>org/hscieripple/patient/medications/HSCIEDEV.SOAP.Medications.wsdl
+        </medicationsWsdlLocation>
+        <transfersWsdlLocation>org/hscieripple/patient/transfers/HSCIEDEV.SOAP.TransferOfCare.wsdl
+        </transfersWsdlLocation>
         <consentsFindAllServiceWsdlLocation>org/hscieripple/patient/consent/HSCIEDEV.SOAP.ConsentFindAll.wsdl
         </consentsFindAllServiceWsdlLocation>
         <consentsFindOneServiceWsdlLocation>org/hscieripple/patient/consent/HSCIEDEV.SOAP.ConsentFindSingle.wsdl
@@ -45,8 +50,10 @@
         </consentsUpdateServiceWsdlLocation>
         <appointmentsServiceWsdlLocation>org/hscieripple/patient/appointments/HSCIEDEV.SOAP.Appointments.wsdl
         </appointmentsServiceWsdlLocation>
-        <referralsServiceWsdlLocation>org/hscieripple/patient/referrals/HSCIEDEV.SOAP.Referrals.wsdl</referralsServiceWsdlLocation>
-        <problemsServiceWsdlLocation>org/hscieripple/patient/problems/HSCIEDEV.SOAP.Problems.wsdl</problemsServiceWsdlLocation>
+        <referralsServiceWsdlLocation>org/hscieripple/patient/referrals/HSCIEDEV.SOAP.Referrals.wsdl
+        </referralsServiceWsdlLocation>
+        <problemsServiceWsdlLocation>org/hscieripple/patient/problems/HSCIEDEV.SOAP.Problems.wsdl
+        </problemsServiceWsdlLocation>
     </properties>
 
     <dependencies>
@@ -127,6 +134,25 @@
                                         <extraarg>org.hscieripple.patient.keyworkers</extraarg>
                                     </extraargs>
                                 </wsdlOption>
+                                
+                                <wsdlOption>
+									<wsdl>${basedir}/src/main/resources/${medicationsWsdlLocation}</wsdl>
+									<wsdlLocation>classpath:${medicationsWsdlLocation}</wsdlLocation>
+									<extraargs>
+										<extraarg>-p</extraarg>
+										<extraarg>org.hscieripple.patient.medications</extraarg>
+									</extraargs>
+								</wsdlOption>
+								
+								<wsdlOption>
+									<wsdl>${basedir}/src/main/resources/${transfersWsdlLocation}</wsdl>
+									<wsdlLocation>classpath:${transfersWsdlLocation}</wsdlLocation>
+									<extraargs>
+										<extraarg>-p</extraarg>
+										<extraarg>org.hscieripple.patient.transfers</extraarg>
+									</extraargs>
+								</wsdlOption>
+
                                 <wsdlOption>
                                     <wsdl>${basedir}/src/main/resources/${consentsFindAllServiceWsdlLocation}</wsdl>
                                     <wsdlLocation>classpath:${consentsFindAllServiceWsdlLocation}</wsdlLocation>
@@ -191,7 +217,6 @@
                                         <extraarg>org.hscieripple.patient.problems</extraarg>
                                     </extraargs>
                                 </wsdlOption>
-
 
                                 <!-- Insert a new option for any addition WSDL added to the codebase -->
                             </wsdlOptions>

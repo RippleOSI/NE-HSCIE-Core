@@ -20,7 +20,7 @@ import java.util.Date;
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.patient.appointments.AppointmentsSummaryResultRow;
 import org.hscieripple.patient.appointments.model.HSCIEAppointmentSummary;
-import org.rippleosi.common.util.HSCIEDateFormatter;
+import org.hscieripple.common.util.HSCIEDateFormatter;
 
 public class AppointmentsResponseToAppointmentsSummaryTransformer implements Transformer<AppointmentsSummaryResultRow, HSCIEAppointmentSummary> {
 

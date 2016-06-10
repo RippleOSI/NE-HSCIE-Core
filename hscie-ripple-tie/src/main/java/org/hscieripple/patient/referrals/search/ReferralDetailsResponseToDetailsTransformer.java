@@ -20,7 +20,7 @@ import java.util.Date;
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.patient.referrals.ReferralsDetailsResponse;
 import org.hscieripple.patient.referrals.model.HSCIEReferralDetails;
-import org.rippleosi.common.util.HSCIEDateFormatter;
+import org.hscieripple.common.util.HSCIEDateFormatter;
 
 public class ReferralDetailsResponseToDetailsTransformer implements Transformer<ReferralsDetailsResponse, HSCIEReferralDetails> {
 
