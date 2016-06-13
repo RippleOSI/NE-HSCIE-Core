@@ -1,4 +1,4 @@
-package org.rippleosi.config;
+package org.hscieripple.config;
 
 import java.util.EnumSet;
 
@@ -22,5 +22,6 @@ public class HSCIEWebInitializer implements WebApplicationInitializer {
 		
 		// could make this a URL mapping and use */patient/[1-9]?
 		registration.addMappingForServletNames(EnumSet.of(DispatcherType.REQUEST), false, AbstractDispatcherServletInitializer.DEFAULT_SERVLET_NAME);
+		//registration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), false, "patient/*");
 	}
 }

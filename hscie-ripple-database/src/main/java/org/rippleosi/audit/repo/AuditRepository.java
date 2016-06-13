@@ -1,9 +1,9 @@
 /**
  * 
  */
-package org.hscieripple.audit.repo;
+package org.rippleosi.audit.repo;
 
-import org.hscieripple.audit.model.AuditEntity;
+import org.rippleosi.audit.model.AuditEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

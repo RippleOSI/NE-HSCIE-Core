@@ -4,7 +4,6 @@
 package org.hscieripple.audit.model;
 
 import java.io.Serializable;
-import java.net.URL;
 import java.util.Date;
 
 /**
@@ -19,8 +18,8 @@ public class AuditDetails implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String requesterUsername;
-	private int targetNhsNumber;
-	private URL targetResource;
+	private long targetNhsNumber;
+	private String targetResource;
 	private Date requestDateTime;
 	
 	public String getRequesterUsername() {
@@ -31,19 +30,19 @@ public class AuditDetails implements Serializable {
 		this.requesterUsername = requesterUsername;
 	}
 	
-	public int getTargetNhsNumber() {
+	public long getTargetNhsNumber() {
 		return targetNhsNumber;
 	}
 	
-	public void setTargetNhsNumber(int targetNhsNumber) {
-		this.targetNhsNumber = targetNhsNumber;
+	public void setTargetNhsNumber(Long targetNhsNumber2) {
+		this.targetNhsNumber = targetNhsNumber2;
 	}
 	
-	public URL getTargetResource() {
+	public String getTargetResource() {
 		return targetResource;
 	}
 	
-	public void setTargetResource(URL targetResource) {
+	public void setTargetResource(String targetResource) {
 		this.targetResource = targetResource;
 	}
 	

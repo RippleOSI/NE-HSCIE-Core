@@ -141,6 +141,12 @@
                 <artifactId>hscie-ripple-tie</artifactId>
                 <version>${project.version}</version>
             </dependency>
+			
+            <dependency>
+                <groupId>org.hscieripple</groupId>
+                <artifactId>hscie-ripple-database</artifactId>
+                <version>${project.version}</version>
+            </dependency>			
 
             <dependency>
                 <groupId>org.rippleosi</groupId>

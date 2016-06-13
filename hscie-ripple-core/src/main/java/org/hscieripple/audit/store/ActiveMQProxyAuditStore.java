@@ -51,9 +51,9 @@ public class ActiveMQProxyAuditStore implements AuditStore {
     }
 
     @Override
-    public void create(final String patientId, final AuditDetails auditDetails) {
+    public void create(final AuditDetails auditDetails) {
         try {
-            createTopic.create(patientId, auditDetails);
+            createTopic.create(auditDetails);
         } catch (final Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
         }

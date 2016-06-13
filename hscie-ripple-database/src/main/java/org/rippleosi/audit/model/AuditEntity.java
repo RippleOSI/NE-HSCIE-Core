@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.hscieripple.audit.model;
+package org.rippleosi.audit.model;
 
 import java.net.URL;
 import java.util.Date;
@@ -31,10 +31,10 @@ public class AuditEntity {
 	private String requesterUsername;
 	
 	@Column(name = "target_nhs_number")
-	private int targetNhsNumber;
+	private String targetNhsNumber;
 	
 	@Column(name = "target_resource")
-	private URL targetResource;
+	private String targetResource;
 	
 	@Column(name = "request_date_time")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -56,19 +56,19 @@ public class AuditEntity {
 		this.requesterUsername = requesterUsername;
 	}
 	
-	public int getTargetNhsNumber() {
+	public String getTargetNhsNumber() {
 		return targetNhsNumber;
 	}
 	
-	public void setTargetNhsNumber(int targetNhsNumber) {
+	public void setTargetNhsNumber(String targetNhsNumber) {
 		this.targetNhsNumber = targetNhsNumber;
 	}
 	
-	public URL getTargetResource() {
+	public String getTargetResource() {
 		return targetResource;
 	}
 	
-	public void setTargetResource(URL targetResource) {
+	public void setTargetResource(String targetResource) {
 		this.targetResource = targetResource;
 	}
 	

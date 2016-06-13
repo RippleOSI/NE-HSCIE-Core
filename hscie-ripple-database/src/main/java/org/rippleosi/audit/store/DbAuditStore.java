@@ -1,10 +1,11 @@
-package org.hscieripple.audit.store;
+package org.rippleosi.audit.store;
 
 import javax.annotation.PostConstruct;
 
 import org.hscieripple.audit.model.AuditDetails;
-import org.hscieripple.audit.model.AuditEntity;
-import org.hscieripple.audit.repo.AuditRepository;
+import org.hscieripple.audit.store.AuditStore;
+import org.rippleosi.audit.model.AuditEntity;
+import org.rippleosi.audit.repo.AuditRepository;
 import org.rippleosi.common.types.RepoSourceType;
 import org.rippleosi.common.types.RepoSourceTypes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +41,15 @@ public class DbAuditStore implements AuditStore {
 	}
 
 	@Override
-	public void create(String patientId, AuditDetails auditDetails) {
+	public void create(AuditDetails auditDetails) {
 		AuditEntity auditEntity = transformer.transform(auditDetails);
 		
 		if(auditEntity != null) {
-			auditRepository.save(auditEntity);
+			auditEntity = auditRepository.saveAndFlush(auditEntity);
+			
+			if(auditEntity != null) {
+				// saved
+			}
 		}
 		else {
 			// TODO - log and throw?

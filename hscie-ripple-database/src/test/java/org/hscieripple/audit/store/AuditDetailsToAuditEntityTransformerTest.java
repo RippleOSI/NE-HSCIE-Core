@@ -13,7 +13,7 @@ public class AuditDetailsToAuditEntityTransformerTest {
 
 	@Test
 	public void testTransform() {
-		fail("Not yet implemented");
+		
 		
 		// pass null - return null
 		

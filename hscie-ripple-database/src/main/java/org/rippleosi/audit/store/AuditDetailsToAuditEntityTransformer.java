@@ -1,14 +1,13 @@
 /**
  * 
  */
-package org.hscieripple.audit.store;
+package org.rippleosi.audit.store;
 
-import java.net.URL;
 import java.util.Date;
 
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.audit.model.AuditDetails;
-import org.hscieripple.audit.model.AuditEntity;
+import org.rippleosi.audit.model.AuditEntity;
 
 /**
  * Package-access class that is used to transform from the core representation of an Audit record
@@ -62,20 +61,24 @@ class AuditDetailsToAuditEntityTransformer implements Transformer<AuditDetails, 
 		return requestorUsername;
 	}
 	
-	private int getTargetNhsNumber(AuditDetails auditDetails) {
-		Integer targetNhsNumber = auditDetails.getTargetNhsNumber();
+	private String getTargetNhsNumber(AuditDetails auditDetails) {
+		String targetNhsNumber = null;
 		
-		if(targetNhsNumber.toString().length() != 10) {
-			throw new IllegalStateException(String.format("The target NHS property (%d) is not a valid NHS number on the given AuditDetails instance - %s", targetNhsNumber, auditDetails));
+		Long targetNhsNumberRaw = auditDetails.getTargetNhsNumber();
+		
+		targetNhsNumber = targetNhsNumberRaw.toString();
+		
+		if(targetNhsNumber.length() != 10) {
+			throw new IllegalStateException(String.format("The target NHS property (%d) is not a valid NHS number on the given AuditDetails instance - %s", targetNhsNumberRaw, auditDetails));
 		}
 		
 		return targetNhsNumber;
 	}
 	
-	private URL getTargetResource(AuditDetails auditDetails) {
-		URL targetResource = auditDetails.getTargetResource();
+	private String getTargetResource(AuditDetails auditDetails) {
+		String targetResource = auditDetails.getTargetResource();
 		
-		if(targetResource != null) {
+		if(targetResource == null) {
 			throw new IllegalStateException(String.format("The requested resource is null on the given AuditDetails instance - %s", auditDetails));
 		}
 		

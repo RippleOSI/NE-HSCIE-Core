@@ -17,9 +17,7 @@
 package org.hscieripple.audit.store;
 
 import org.apache.camel.Body;
-import org.apache.camel.Header;
 import org.hscieripple.audit.model.AuditDetails;
-import org.hscieripple.patient.consent.model.ConsentDetails;
 import org.rippleosi.common.exception.ConfigurationException;
 import org.rippleosi.common.types.RepoSourceType;
 import org.rippleosi.common.types.RepoSourceTypes;
@@ -39,7 +37,7 @@ public class NotConfiguredAuditStore implements AuditStore {
     }
 
     @Override
-    public void create(@Header("patientId") String patientId, @Body AuditDetails auditDetails) {
+    public void create(@Body AuditDetails auditDetails) {
         throw ConfigurationException.unimplementedTransaction(AuditStore.class);
     }
 }

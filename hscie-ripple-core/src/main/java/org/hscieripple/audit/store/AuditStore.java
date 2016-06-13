@@ -1,7 +1,7 @@
 package org.hscieripple.audit.store;
 
 import org.apache.camel.Body;
-import org.apache.camel.Header;
+import org.apache.camel.InOnly;
 import org.hscieripple.audit.model.AuditDetails;
 import org.rippleosi.common.repo.Repository;
 
@@ -13,8 +13,9 @@ import org.rippleosi.common.repo.Repository;
  * @author WeatherillW
  *
  */
+@InOnly
 public interface AuditStore  extends Repository {
 
-    void create(@Header("patientId") String patientId, @Body AuditDetails auditDetails);
+    void create(@Body AuditDetails auditDetails);
 
 }
