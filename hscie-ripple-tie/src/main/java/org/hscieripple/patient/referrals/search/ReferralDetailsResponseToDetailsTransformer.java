@@ -36,7 +36,7 @@ public class ReferralDetailsResponseToDetailsTransformer implements Transformer<
         details.setSourceId(response.getSourceID());            
 			
         details.setReferralFrom(response.getReferralFrom());
-        details.setReferralFrom(response.getReferralTo());
+        details.setReferralTo(response.getReferralTo());
         details.setDateOfReferral(dateOfReferral);
         details.setReason(response.getReason());
         details.setClinicalSummary(response.getClinicalSummary());
