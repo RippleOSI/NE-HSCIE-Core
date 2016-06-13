@@ -3,7 +3,6 @@
  */
 package org.rippleosi.audit.model;
 
-import java.net.URL;
 import java.util.Date;
 
 import javax.persistence.Column;
