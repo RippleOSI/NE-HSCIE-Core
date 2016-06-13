@@ -29,22 +29,19 @@ public class ReferralDetailsResponseToDetailsTransformer implements Transformer<
     	 
     	Date dateCreated = HSCIEDateFormatter.toDate(response.getDateCreated(), response.getDataSourceName());
 		Date dateOfReferral = HSCIEDateFormatter.toDate(response.getDateOfReferral(), response.getDataSourceName());
-		Date timeOfReferral = HSCIEDateFormatter.toDate(response.getTimeOfReferral(), response.getDataSourceName());
-    	    	
+		    	
 		HSCIEReferralDetails details = new HSCIEReferralDetails();
 
         details.setSource(response.getDataSourceName());
-        details.setSourceId(response.getSourceID());
-            
+        details.setSourceId(response.getSourceID());            
 			
-        details.setAuthor(response.getAuthor());
+        details.setReferralFrom(response.getReferralFrom());
+        details.setReferralFrom(response.getReferralTo());
+        details.setDateOfReferral(dateOfReferral);
+        details.setReason(response.getReason());
+        details.setClinicalSummary(response.getClinicalSummary());
+        details.setAuthor(response.getAuthor());		
 		details.setDateCreated(dateCreated);
-        details.setServiceTeam(response.getServiceTeam());
-		details.setDateOfReferral(dateOfReferral);
-		details.setTimeOfReferral(timeOfReferral);
-		
-        details.setLocation(response.getLocation());
-		details.setStatus(response.getStatus());
 
         return details;
     }

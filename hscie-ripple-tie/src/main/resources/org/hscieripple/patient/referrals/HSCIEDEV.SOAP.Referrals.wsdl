@@ -1,160 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
-	xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://www.HSCIERipple.org"
-	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://www.HSCIERipple.org">
-	<types>
-		<s:schema elementFormDefault="qualified" targetNamespace="http://www.HSCIERipple.org">
-			<s:element name="FindReferralsDetailsBO">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="0" name="NHSNumber" type="s:long" />
-						<s:element minOccurs="0" name="SourceID" type="s:string" />
-						<s:element minOccurs="0" name="DataSource" type="s:string" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:element name="FindReferralsDetailsBOResponse">
-				<s:complexType>
-					<s:sequence>
-						<s:element name="FindReferralsDetailsBOResult" type="s0:ReferralsDetailsResponse" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:complexType name="ReferralsDetailsResponse">
-				<s:complexContent>
-					<s:extension base="s0:Ens_Response">
-						<s:sequence>
-							<s:element minOccurs="0" name="SourceID" type="s:string" />
-							<s:element minOccurs="0" name="Author" type="s:string" />
-							<s:element minOccurs="0" name="ServiceTeam" type="s:string" />
-							<s:element minOccurs="0" name="DateOfReferral" type="s:string" />
-							<s:element minOccurs="0" name="TimeOfReferral" type="s:string" />
-							<s:element minOccurs="0" name="Location" type="s:string" />
-							<s:element minOccurs="0" name="Status" type="s:string" />
-							<s:element minOccurs="0" name="DateCreated" type="s:string" />
-							<s:element minOccurs="0" name="DataSourceName" type="s:string" />
-							<s:element minOccurs="0" name="StatusCode" type="s:string" />
-							<s:element minOccurs="0" name="StatusDesc" type="s:string" />
-						</s:sequence>
-					</s:extension>
-				</s:complexContent>
-			</s:complexType>
-			<s:complexType name="Ens_Response">
-				<s:complexContent>
-					<s:extension base="s0:Ens_Messagebody" />
-				</s:complexContent>
-			</s:complexType>
-			<s:complexType name="Ens_Messagebody" />
-			<s:element name="FindReferralsSummariesBO">
-				<s:complexType>
-					<s:sequence>
-						<s:element minOccurs="0" name="NHSNumber" type="s:long" />
-						<s:element minOccurs="0" name="DataSource" type="s:string" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:element name="FindReferralsSummariesBOResponse">
-				<s:complexType>
-					<s:sequence>
-						<s:element name="FindReferralsSummariesBOResult" type="s0:ReferralsSummaryResponse" />
-					</s:sequence>
-				</s:complexType>
-			</s:element>
-			<s:complexType name="ReferralsSummaryResponse">
-				<s:complexContent>
-					<s:extension base="s0:Ens_Response">
-						<s:sequence>
-							<s:element minOccurs="0" name="ReferralsList"
-								type="s0:ArrayOfReferralsSummaryResultRowPairOfReferralsListKeyReferralsSummaryResultRow" />
-							<s:element minOccurs="0" name="StatusCode" type="s:string" />
-							<s:element minOccurs="0" name="StatusDesc" type="s:string" />
-						</s:sequence>
-					</s:extension>
-				</s:complexContent>
-			</s:complexType>
-			<s:complexType
-				name="ArrayOfReferralsSummaryResultRowPairOfReferralsListKeyReferralsSummaryResultRow">
-				<s:sequence>
-					<s:element maxOccurs="unbounded" minOccurs="0"
-						name="ReferralsSummaryResultRow" nillable="true"
-						type="s0:PairOfReferralsListKeyReferralsSummaryResultRow" />
-				</s:sequence>
-			</s:complexType>
-			<s:complexType name="PairOfReferralsListKeyReferralsSummaryResultRow">
-				<s:complexContent>
-					<s:extension base="s0:ReferralsSummaryResultRow">
-						<s:attribute name="ReferralsListKey" type="s:string"
-							use="required" />
-					</s:extension>
-				</s:complexContent>
-			</s:complexType>
-			<s:complexType name="ReferralsSummaryResultRow">
-				<s:complexContent>
-					<s:extension base="s0:Ens_Response">
-						<s:sequence>
-							<s:element minOccurs="0" name="DateOfReferral" type="s:string" />
-							<s:element minOccurs="0" name="ReferralFrom" type="s:string" />
-							<s:element minOccurs="0" name="ReferralTo" type="s:string" />
-							<s:element minOccurs="0" name="SourceID" type="s:string" />
-							<s:element minOccurs="0" name="DataSourceName" type="s:string" />
-						</s:sequence>
-					</s:extension>
-				</s:complexContent>
-			</s:complexType>
-		</s:schema>
-	</types>
-	<message name="FindReferralsDetailsBOSoapIn">
-		<part name="parameters" element="s0:FindReferralsDetailsBO" />
-	</message>
-	<message name="FindReferralsDetailsBOSoapOut">
-		<part name="parameters" element="s0:FindReferralsDetailsBOResponse" />
-	</message>
-	<message name="FindReferralsSummariesBOSoapIn">
-		<part name="parameters" element="s0:FindReferralsSummariesBO" />
-	</message>
-	<message name="FindReferralsSummariesBOSoapOut">
-		<part name="parameters" element="s0:FindReferralsSummariesBOResponse" />
-	</message>
-	<portType name="ReferralServiceSoap">
-		<operation name="FindReferralsDetailsBO">
-			<input message="s0:FindReferralsDetailsBOSoapIn" />
-			<output message="s0:FindReferralsDetailsBOSoapOut" />
-		</operation>
-		<operation name="FindReferralsSummariesBO">
-			<input message="s0:FindReferralsSummariesBOSoapIn" />
-			<output message="s0:FindReferralsSummariesBOSoapOut" />
-		</operation>
-	</portType>
-	<binding name="Referrals" type="s0:ReferralServiceSoap">
-		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
-			style="document" />
-		<operation name="FindReferralsDetailsBO">
-			<soap:operation
-				soapAction="http://www.HSCIERipple.org/HSCIEDEV.SOAP.Referrals.FindReferralsDetailsBO"
-				style="document" />
-			<input>
-				<soap:body use="literal" />
-			</input>
-			<output>
-				<soap:body use="literal" />
-			</output>
-		</operation>
-		<operation name="FindReferralsSummariesBO">
-			<soap:operation
-				soapAction="http://www.HSCIERipple.org/HSCIEDEV.SOAP.Referrals.FindReferralsSummariesBO"
-				style="document" />
-			<input>
-				<soap:body use="literal" />
-			</input>
-			<output>
-				<soap:body use="literal" />
-			</output>
-		</operation>
-	</binding>
-	<service name="ReferralService">
-		<port name="Referrals" binding="s0:Referrals">
-		</port>
-	</service>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://www.HSCIERipple.org" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://www.HSCIERipple.org">
+    <types>
+        <s:schema elementFormDefault="qualified" targetNamespace="http://www.HSCIERipple.org">
+            <s:element name="FindReferralsDetailsBO">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" name="NHSNumber" type="s:long"/>
+                        <s:element minOccurs="0" name="SourceID" type="s:string"/>
+                        <s:element minOccurs="0" name="DataSource" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="FindReferralsDetailsBOResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element name="FindReferralsDetailsBOResult" type="s0:ReferralsDetailsResponse"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="ReferralsDetailsResponse">
+                <s:complexContent>
+                    <s:extension base="s0:Ens_Response">
+                        <s:sequence>
+                            <s:element minOccurs="0" name="SourceID" type="s:string"/>
+                            <s:element minOccurs="0" name="ReferralFrom" type="s:string"/>
+                            <s:element minOccurs="0" name="ReferralTo" type="s:string"/>
+                            <s:element minOccurs="0" name="DateOfReferral" type="s:string"/>
+                            <s:element minOccurs="0" name="Reason" type="s:string"/>
+                            <s:element minOccurs="0" name="ClinicalSummary" type="s:string"/>
+                            <s:element minOccurs="0" name="Author" type="s:string"/>
+                            <s:element minOccurs="0" name="DateCreated" type="s:string"/>
+                            <s:element minOccurs="0" name="DataSourceName" type="s:string"/>
+                            <s:element minOccurs="0" name="StatusCode" type="s:string"/>
+                            <s:element minOccurs="0" name="StatusDesc" type="s:string"/>
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="Ens_Response">
+                <s:complexContent>
+                    <s:extension base="s0:Ens_Messagebody"/>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="Ens_Messagebody"/>
+            <s:element name="FindReferralsSummariesBO">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" name="NHSNumber" type="s:long"/>
+                        <s:element minOccurs="0" name="DataSource" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="FindReferralsSummariesBOResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element name="FindReferralsSummariesBOResult" type="s0:ReferralsSummaryResponse"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="ReferralsSummaryResponse">
+                <s:complexContent>
+                    <s:extension base="s0:Ens_Response">
+                        <s:sequence>
+                            <s:element minOccurs="0" name="ReferralsList" type="s0:ArrayOfReferralsSummaryResultRowPairOfReferralsListKeyReferralsSummaryResultRow"/>
+                            <s:element minOccurs="0" name="StatusCode" type="s:string"/>
+                            <s:element minOccurs="0" name="StatusDesc" type="s:string"/>
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="ArrayOfReferralsSummaryResultRowPairOfReferralsListKeyReferralsSummaryResultRow">
+                <s:sequence>
+                    <s:element maxOccurs="unbounded" minOccurs="0" name="ReferralsSummaryResultRow" nillable="true" type="s0:PairOfReferralsListKeyReferralsSummaryResultRow"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="PairOfReferralsListKeyReferralsSummaryResultRow">
+                <s:complexContent>
+                    <s:extension base="s0:ReferralsSummaryResultRow">
+                        <s:attribute name="ReferralsListKey" type="s:string" use="required"/>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="ReferralsSummaryResultRow">
+                <s:complexContent>
+                    <s:extension base="s0:Ens_Response">
+                        <s:sequence>
+                            <s:element minOccurs="0" name="DateOfReferral" type="s:string"/>
+                            <s:element minOccurs="0" name="ReferralFrom" type="s:string"/>
+                            <s:element minOccurs="0" name="ReferralTo" type="s:string"/>
+                            <s:element minOccurs="0" name="SourceID" type="s:string"/>
+                            <s:element minOccurs="0" name="DataSourceName" type="s:string"/>
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+        </s:schema>
+    </types>
+    <message name="FindReferralsDetailsBOSoapIn">
+        <part name="parameters" element="s0:FindReferralsDetailsBO"/>
+    </message>
+    <message name="FindReferralsDetailsBOSoapOut">
+        <part name="parameters" element="s0:FindReferralsDetailsBOResponse"/>
+    </message>
+    <message name="FindReferralsSummariesBOSoapIn">
+        <part name="parameters" element="s0:FindReferralsSummariesBO"/>
+    </message>
+    <message name="FindReferralsSummariesBOSoapOut">
+        <part name="parameters" element="s0:FindReferralsSummariesBOResponse"/>
+    </message>
+    <portType name="ReferralServiceSoap">
+        <operation name="FindReferralsDetailsBO">
+            <input message="s0:FindReferralsDetailsBOSoapIn"/>
+            <output message="s0:FindReferralsDetailsBOSoapOut"/>
+        </operation>
+        <operation name="FindReferralsSummariesBO">
+            <input message="s0:FindReferralsSummariesBOSoapIn"/>
+            <output message="s0:FindReferralsSummariesBOSoapOut"/>
+        </operation>
+    </portType>
+    <binding name="Referrals" type="s0:ReferralServiceSoap">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="FindReferralsDetailsBO">
+            <soap:operation soapAction="http://www.HSCIERipple.org/HSCIEDEV.SOAP.Referrals.FindReferralsDetailsBO" style="document"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="FindReferralsSummariesBO">
+            <soap:operation soapAction="http://www.HSCIERipple.org/HSCIEDEV.SOAP.Referrals.FindReferralsSummariesBO" style="document"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="ReferralService">
+        <port name="Referrals" binding="s0:Referrals">
+            <soap:address location="http://10.152.3.237:57772/csp/healthshare/hscie_ripple_dev/HSCIEDEV.SOAP.Referrals.cls"/>
+        </port>
+    </service>
 </definitions>
