@@ -15,7 +15,7 @@ angular.module('rippleDemonstrator')
 
     ReferralService.get($stateParams.patientId, $stateParams.referralIndex, $stateParams.source).then(function (result) {
       $scope.referral = result.data;
-      usSpinnerService.stop('referralDetail-spinner');
+      usSpinnerService.stop('referralsDetail-spinner');
     });
 
     $scope.isLocked = function (referral) {

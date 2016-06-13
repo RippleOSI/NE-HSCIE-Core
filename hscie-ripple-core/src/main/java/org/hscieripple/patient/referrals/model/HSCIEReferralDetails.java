@@ -23,13 +23,13 @@ public class HSCIEReferralDetails implements Serializable {
 
     private String source;
     private String sourceId;
+    private String referralFrom;
+    private String referralTo;
+    private Date dateOfReferral;
+    private String reason;
+    private String clinicalSummary;
     private String author;
     private Date dateCreated;
-    private String serviceTeam;
-    private Date dateOfReferral;
-    private Date timeOfReferral;
-    private String location;
-    private String status;
 
     public String getSource() {
         return source;
@@ -47,6 +47,46 @@ public class HSCIEReferralDetails implements Serializable {
         this.sourceId = sourceId;
     }
 
+    public String getReferralFrom() {
+        return referralFrom;
+    }
+
+    public void setReferralFrom(String referralFrom) {
+        this.referralFrom = referralFrom;
+    }
+    
+    public String getReferralTo() {
+        return referralTo;
+    }
+
+    public void setReferralTo(String referralTo) {
+        this.referralTo = referralTo;
+    }
+    
+    public Date getDateOfReferral() {
+        return dateOfReferral;
+    }
+
+    public void setDateOfReferral(Date dateOfReferral) {
+        this.dateOfReferral = dateOfReferral;
+    }
+    
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+    
+    public String getClinicalSummary() {
+        return clinicalSummary;
+    }
+
+    public void setClinicalSummary(String clinicalSummary) {
+        this.clinicalSummary = clinicalSummary;
+    }
+
     public String getAuthor() {
         return author;
     }
@@ -61,45 +101,5 @@ public class HSCIEReferralDetails implements Serializable {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
-    }
-
-    public String getServiceTeam() {
-        return serviceTeam;
-    }
-
-    public void setServiceTeam(String serviceTeam) {
-        this.serviceTeam = serviceTeam;
-    }
-
-    public Date getDateOfReferral() {
-        return dateOfReferral;
-    }
-
-    public void setDateOfReferral(Date dateOfReferral) {
-        this.dateOfReferral = dateOfReferral;
-    }
-
-    public Date getTimeOfReferral() {
-        return timeOfReferral;
-    }
-
-    public void setTimeOfReferral(Date timeOfReferral) {
-        this.timeOfReferral = timeOfReferral;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 }
