@@ -321,7 +321,7 @@ angular
       })
 
       .state('orders', {
-        url: '/patients/{patientId:int}/orders?reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/orders?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -330,7 +330,7 @@ angular
       })
 
       .state('orders-detail', {
-        url: '/patients/{patientId:int}/orders/{orderId}?filter&page&reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/orders/{orderIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
