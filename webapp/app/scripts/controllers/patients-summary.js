@@ -11,7 +11,7 @@ angular.module('rippleDemonstrator')
     PatientService.get($stateParams.patientId, $stateParams.patientSource).then(function (patient) {
       $scope.patient = patient;
 
-      $scope.allergiesCount = patient.allergies.length;
+/*      $scope.allergiesCount = patient.allergies.length;
       $scope.allergies = patient.allergies.slice(0, 5);
 
       $scope.diagnosesCount = patient.problems.length;
@@ -32,11 +32,9 @@ angular.module('rippleDemonstrator')
       }
 
       $scope.transferofCareComposition.transfers = descendingTransferofCareComposition;
-      $scope.transferofCareComposition = $scope.transferofCareComposition.transfers.slice(0, 5);
+      $scope.transferofCareComposition = $scope.transferofCareComposition.transfers.slice(0, 5);*/
 
-      $scope.isOptedOut = function() {
-        return !$scope.patient.optIn;
-      };
+      $scope.isOptedOut = !$scope.patient.optIn;
 
       usSpinnerService.stop('patientSummary-spinner');
     });
