@@ -6,8 +6,10 @@ angular.module('rippleDemonstrator')
    SearchInput.update();
     $scope.currentPage = 1;
 
-    var currentUser = UserService.getCurrentUser();
-    $stateParams.patientSource = currentUser.feature.patientSource;
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
+      $stateParams.patientSource = $scope.currentUser.feature.patientSource;
+    });
 
     $scope.pageChangeHandler = function (newPage) {
       $scope.currentPage = newPage;

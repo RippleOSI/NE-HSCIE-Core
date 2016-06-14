@@ -3,7 +3,6 @@
 angular.module('rippleDemonstrator')
   .controller('ReferralDetailCtrl', function ($scope, $stateParams, SearchInput, $location, $modal, Helper, $state, usSpinnerService, PatientService, ReferralService) {
 
-  
    SearchInput.update();
     $scope.UnlockedSources = [
       'handi.ehrscape.com'
