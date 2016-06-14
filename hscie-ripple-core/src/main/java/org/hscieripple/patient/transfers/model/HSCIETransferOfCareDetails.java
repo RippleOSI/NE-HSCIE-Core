@@ -22,10 +22,6 @@ import java.util.List;
 public class HSCIETransferOfCareDetails implements Serializable {
 
     private String sourceId;
-    private List problems;
-    private List medications;
-    private List allergies;
-    private List contacts;
     private String reasonForContact;
     private String clinicalSummary;
     private String siteFrom;
@@ -42,40 +38,6 @@ public class HSCIETransferOfCareDetails implements Serializable {
     }
 
     
-    public List getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(List contacts) {
-        this.contacts = contacts;
-    }
-    
-    public List getProblems() {
-        return problems;
-    }
-
-    public void setProblems(List problems) {
-        this.problems = problems;
-    }
-
-    public List getMedications() {
-        return medications;
-    }
-
-    public void setMedications(List medications) {
-        this.medications = medications;
-    }
-
-    public List getAllergies() {
-        return allergies;
-    }
-
-    public void setAllergies(List allergies) {
-        this.allergies = allergies;
-    }
-
-    
-
     public String getReasonForContact() {
         return reasonForContact;
     }

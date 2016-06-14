@@ -42,32 +42,23 @@ public final class HSCIEDateFormatter {
         }
         String format = "dd.MM.yyyy";
         
-        if (systemFrom.equals("RIO") && input.contains("-")){
-        	format = "yyyy-MM-dd HH:mm:ss";        	
-        }
-        
-        if (systemFrom.equals("RIO") && input.contains("/")){
-        	format = "dd/MM/yyyy HH:mm";        	
-        }
-        
-        if(systemFrom.equals("Liquid Logic")){
-        	format = "yyyy-MM-dd HH:mm:ss";
-        }
-        
-        if(systemFrom.equals("PCS")){
-        	format = "yyyy-MM-dd HH:mm:ss";
-        }
-        
-        if(systemFrom.equals("Emis Community")){
-        	format = "yyyy-MM-dd HH:mm:ss";
-        }
-        
-        if(systemFrom.equals("PCS Time")){
-        	format = "HH:mm:ss";
-        }
-                
-        if(systemFrom.equals("PCS long Time")){
-        	format = "HH:mm:ss";
+        switch (systemFrom){
+        case "Liquid Logic":
+        case "PCS":
+        case "Emis Community":
+        	format = "yyyy-MM-dd HH:mm:ss";   
+        	break;
+        case "PCS Time":
+        case "PCS long Time":
+        	format = "yyyy-MM-dd HH:mm:ss";   
+        	break;
+        case "RIO":
+        	if (input.contains("-")){
+            	format = "yyyy-MM-dd HH:mm:ss";        	
+            } else {
+            	format = "dd/MM/yyyy HH:mm";        	
+            } 
+        	break;
         }
         
         //Return value of formatted String
