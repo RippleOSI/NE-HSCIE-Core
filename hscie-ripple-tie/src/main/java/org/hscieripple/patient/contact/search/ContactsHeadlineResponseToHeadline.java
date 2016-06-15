@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package org.hscieripple.patient.problems.search;
+package org.hscieripple.patient.contact.search;
 
 import org.apache.commons.collections4.Transformer;
-import org.hscieripple.patient.problems.ProblemsHeadlineResultRow;
+import org.hscieripple.patient.contacts.ContactsHeadlineResultRow;
 import org.rippleosi.patient.summary.model.PatientHeadline;
 
-public class ProblemHeadlineResponseToHeadlineTransformer implements Transformer<ProblemsHeadlineResultRow, PatientHeadline> {
+public class ContactsHeadlineResponseToHeadline implements Transformer<ContactsHeadlineResultRow, PatientHeadline> {
     
     @Override
-    public PatientHeadline transform(ProblemsHeadlineResultRow response) {
+    public PatientHeadline transform(ContactsHeadlineResultRow response) {
 
         PatientHeadline headline = new PatientHeadline();
         headline.setSource(response.getSource());
