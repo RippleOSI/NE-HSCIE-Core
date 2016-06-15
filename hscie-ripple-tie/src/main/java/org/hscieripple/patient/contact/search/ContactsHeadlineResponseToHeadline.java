@@ -28,7 +28,7 @@ public class ContactsHeadlineResponseToHeadline implements Transformer<ContactsH
     	ContactHeadline headline = new ContactHeadline();
         headline.setSource(response.getSource());
         headline.setSourceId(response.getSourceId());
-        headline.setName(response.getName());
+        headline.setText(response.getName());
 
         return headline;
     }

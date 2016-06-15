@@ -56,14 +56,6 @@ public class PatientResponseToPatientDetailsTransformer implements Transformer<R
     @Autowired
     private HSCIEContactSearchFactory contactSearchFactory;
 
-    @Autowired
-    private HSCIEMedicationSearchFactory medicationSearchFactory;
-
-    @Autowired
-    private HSCIEProblemSearchFactory problemSearchFactory;
-
-    @Autowired
-    private HSCIETransferOfCareSearchFactory transferOfCareSearchFactory;
 
     @Override
     public HSCIEPatientDetails transform(final ResultRow response) {
@@ -86,9 +78,6 @@ public class PatientResponseToPatientDetailsTransformer implements Transformer<R
         details.setOptIn(response.isConsentStatus());
 
         details.setContacts(findContacts(nhsNumber));
-        details.setMedications(findMedications(nhsNumber));
-        details.setProblems(findProblems(nhsNumber));
-        details.setTransfers(findTransfers(nhsNumber));
 
         return details;
     }
@@ -102,51 +91,6 @@ public class PatientResponseToPatientDetailsTransformer implements Transformer<R
             final List<ContactHeadline> contacts = contactSearch.findAllContactHeadlines(patientId, dataSources);
 
             return CollectionUtils.collect(contacts, new ContactHeadlineToPatientHeadlineTransformer(), new ArrayList<>());
-        }
-        catch (DataNotFoundException ignore) {
-            return Collections.emptyList();
-        }
-    }
-
-    private List<PatientHeadline> findMedications(final String patientId) {
-        try {
-            final List<DataSourceSummary> dataSources = findDataSources(patientId, "medications");
-
-            final HSCIEMedicationSearch medicationSearch = medicationSearchFactory.select(null);
-
-            final List<MedicationHeadline> medications = medicationSearch.findAllMedicationHeadlines(patientId, dataSources);
-
-            return CollectionUtils.collect(medications, new MedicationHeadlineToPatientHeadlineTransformer(), new ArrayList<>());
-        }
-        catch (DataNotFoundException ignore) {
-            return Collections.emptyList();
-        }
-    }
-
-    private List<PatientHeadline> findProblems(final String patientId) {
-        try {
-            final List<DataSourceSummary> dataSources = findDataSources(patientId, "problems");
-
-            final HSCIEProblemSearch problemSearch = problemSearchFactory.select(null);
-
-            final List<ProblemHeadline> problems = problemSearch.findAllProblemHeadlines(patientId, dataSources);
-
-            return CollectionUtils.collect(problems, new ProblemHeadlineToPatientHeadlineTransformer(), new ArrayList<>());
-        }
-        catch (DataNotFoundException ignore) {
-            return Collections.emptyList();
-        }
-    }
-
-    private List<TransferHeadline> findTransfers(final String patientId) {
-        try {
-            final List<DataSourceSummary> dataSources = findDataSources(patientId, "transfers");
-
-            final HSCIETransferOfCareSearch transferOfCareSearch = transferOfCareSearchFactory.select(null);
-
-            final List<TransferOfCareSummary> transfers = transferOfCareSearch.findAllTransferHeadlines(patientId, dataSources);
-
-            return CollectionUtils.collect(transfers, new TransferHeadlineToPatientHeadlineTransformer(), new ArrayList<>());
         }
         catch (DataNotFoundException ignore) {
             return Collections.emptyList();
