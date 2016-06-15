@@ -18,17 +18,17 @@ package org.hscieripple.patient.contact.search;
 
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.patient.contacts.ContactsHeadlineResultRow;
-import org.rippleosi.patient.summary.model.PatientHeadline;
+import org.rippleosi.patient.contacts.model.ContactHeadline;
 
-public class ContactsHeadlineResponseToHeadline implements Transformer<ContactsHeadlineResultRow, PatientHeadline> {
+public class ContactsHeadlineResponseToHeadline implements Transformer<ContactsHeadlineResultRow, ContactHeadline> {
     
     @Override
-    public PatientHeadline transform(ContactsHeadlineResultRow response) {
+    public ContactHeadline transform(ContactsHeadlineResultRow response) {
 
-        PatientHeadline headline = new PatientHeadline();
+    	ContactHeadline headline = new ContactHeadline();
         headline.setSource(response.getSource());
         headline.setSourceId(response.getSourceId());
-        headline.setText(response.getText());
+        headline.setName(response.getName());
 
         return headline;
     }
