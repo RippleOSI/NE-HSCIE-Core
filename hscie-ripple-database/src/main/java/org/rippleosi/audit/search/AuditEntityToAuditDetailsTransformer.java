@@ -20,6 +20,7 @@ public class AuditEntityToAuditDetailsTransformer implements Transformer<AuditEn
 		if(auditEntity != null) {
 			auditDetails = new AuditDetails();
 			
+			auditDetails.setId(auditEntity.getId());
 			auditDetails.setRequesterUsername(auditEntity.getRequesterUsername());
 			auditDetails.setTargetNhsNumber(Long.parseLong(auditEntity.getTargetNhsNumber()));
 			auditDetails.setRequestDateTime(auditEntity.getRequestDateTime());

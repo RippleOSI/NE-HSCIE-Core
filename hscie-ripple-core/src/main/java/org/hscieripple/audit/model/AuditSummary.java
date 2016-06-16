@@ -7,10 +7,19 @@ public class AuditSummary implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private long id;
 	private String requesterUsername;
 	private long targetNhsNumber;
 	private Date requestDateTime;
 	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getRequesterUsername() {
 		return requesterUsername;
 	}
@@ -37,8 +46,11 @@ public class AuditSummary implements Serializable {
 
 	@Override
 	public String toString() {
-		return "AuditSummary [" + (requesterUsername != null ? "requesterUsername=" + requesterUsername + ", " : "")
+		return "AuditSummary [id=" + id + ", "
+				+ (requesterUsername != null ? "requesterUsername=" + requesterUsername + ", " : "")
 				+ "targetNhsNumber=" + targetNhsNumber + ", "
 				+ (requestDateTime != null ? "requestDateTime=" + requestDateTime : "") + "]";
 	}
+
+
 }

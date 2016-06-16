@@ -23,7 +23,6 @@ import org.hscieripple.audit.model.AuditSummary;
 import org.rippleosi.common.exception.ConfigurationException;
 import org.rippleosi.common.types.RepoSourceType;
 import org.rippleosi.common.types.RepoSourceTypes;
-import org.rippleosi.search.common.model.PageableTableQuery;
 
 /**
  */
@@ -40,12 +39,37 @@ public class NotConfiguredAuditSearch implements AuditSearch {
     }
 
 	@Override
-	public List<AuditSummary> findAllAudits(PageableTableQuery tableQuer) {
+	public List<AuditSummary> findAllAudits(int page) {
 		  throw ConfigurationException.unimplementedTransaction(AuditSearch.class);
 	}
 
 	@Override
-	public List<AuditDetails> findAuditsByPatientAndUser(long patientNhsNumber, String requesterUsername, PageableTableQuery tableQuery) {
+	public List<AuditSummary> findAllAuditsByUsername(int page, String username) {
+		  throw ConfigurationException.unimplementedTransaction(AuditSearch.class);
+	}
+
+	@Override
+	public List<AuditSummary> findAllAuditsByPatientId(int page, String patientId) {
+		  throw ConfigurationException.unimplementedTransaction(AuditSearch.class);
+	}
+
+	@Override
+	public AuditDetails findAudit(long auditId) {
+		  throw ConfigurationException.unimplementedTransaction(AuditSearch.class);
+	}
+
+	@Override
+	public long countAuditsByUsername(String username) {
+		  throw ConfigurationException.unimplementedTransaction(AuditSearch.class);
+	}
+
+	@Override
+	public long countAuditsByPatientId(String patientId) {
+		  throw ConfigurationException.unimplementedTransaction(AuditSearch.class);
+	}
+
+	@Override
+	public long countAudits() {
 		  throw ConfigurationException.unimplementedTransaction(AuditSearch.class);
 	}
 }

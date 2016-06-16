@@ -43,22 +43,59 @@ public class HSCIEAuditController {
 	
 	@RequestMapping(method = RequestMethod.GET)
     public List<AuditSummary> findAllAudits(@RequestParam(required = false) String source,
-    									    @RequestBody ReportTableQuery tableQuery) {
+    									    @RequestParam(required = false) String username,
+    									    @RequestParam(required = false) String patientId,    									    
+    									    @RequestParam int page) {
+		List<AuditSummary> audits = null;
+		
+		// the search code uses a zero-index
+		int zeroIndexedPage = page -1;
+		
 		final RepoSourceType sourceType = repoSourceLookup.lookup(source); 	
 		AuditSearch auditSearch = auditSearchFactory.select(sourceType);
 		
-		return auditSearch.findAllAudits(tableQuery);
+		if(username != null) {
+			audits = auditSearch.findAllAuditsByUsername(zeroIndexedPage, username);
+		}
+		else if(patientId != null) {
+			audits = auditSearch.findAllAuditsByPatientId(zeroIndexedPage, patientId);
+		}
+		else {
+			audits = auditSearch.findAllAudits(page);
+		}
+		
+		return audits;
     }
 
-    @RequestMapping(value = "/user/{username}", method = RequestMethod.GET)
-    public List<AuditDetails> findAppointment(@PathVariable("username") String username,
-                                              @RequestParam("patientNhsNumber") long nhsNumber,
-                                              @RequestParam(required = false) String source,
-                                              @RequestBody ReportTableQuery tableQuery) {
+    @RequestMapping(value = "/{auditId}", method = RequestMethod.GET)
+    public AuditDetails findAudit(@RequestParam(required = false) String source, 
+    							  @PathVariable("auditId") long auditId) {
+    	
     	final RepoSourceType sourceType = repoSourceLookup.lookup(source); 
 		AuditSearch auditSearch = auditSearchFactory.select(sourceType);
        
-		return auditSearch.findAuditsByPatientAndUser(nhsNumber, username, tableQuery);
+		return auditSearch.findAudit(auditId);
     }
-    
+ 
+    @RequestMapping(value = "/count", method = RequestMethod.GET)
+    public long getAuditCount(@RequestParam(required = false) String source,
+    						 @RequestParam(required = false) String username,
+    						 @RequestParam(required = false) String patientId) {
+    	long count = 0;
+		
+		final RepoSourceType sourceType = repoSourceLookup.lookup(source); 	
+		AuditSearch auditSearch = auditSearchFactory.select(sourceType);
+		
+		if(username != null) {
+			count = auditSearch.countAuditsByUsername(username);
+		}
+		else if(patientId != null) {
+			count = auditSearch.countAuditsByPatientId(patientId);
+		}
+		else {
+			count = auditSearch.countAudits();
+		}
+		
+		return count;
+    }
 }

@@ -17,11 +17,20 @@ public class AuditDetails implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private long id;
 	private String requesterUsername;
 	private long targetNhsNumber;
 	private String targetResource;
 	private Date requestDateTime;
 	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getRequesterUsername() {
 		return requesterUsername;
 	}
@@ -56,11 +65,11 @@ public class AuditDetails implements Serializable {
 
 	@Override
 	public String toString() {
-		return "AuditDetails [" + (requesterUsername != null ? "requesterUsername=" + requesterUsername + ", " : "")
+		return "AuditDetails [id=" + id + ", "
+				+ (requesterUsername != null ? "requesterUsername=" + requesterUsername + ", " : "")
 				+ "targetNhsNumber=" + targetNhsNumber + ", "
 				+ (targetResource != null ? "targetResource=" + targetResource + ", " : "")
 				+ (requestDateTime != null ? "requestDateTime=" + requestDateTime : "") + "]";
-	}
-	
+	}	
 	
 }

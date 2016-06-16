@@ -18,17 +18,14 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-//@Component
 public class AuditFilter extends OncePerRequestFilter {
-
-	//@Autowired(required = true)
-	//AuditStoreFactory auditStoreFactory;
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 		
 		System.out.println("Filter called");
 		
+		// TODO - temp. Replace with User service when it's available
 		String tempUserName = "bob";
 		
 		String targetResource = request.getRequestURI();
@@ -58,7 +55,7 @@ public class AuditFilter extends OncePerRequestFilter {
 	private Long parseNhsNumber(String targetResource) {
 		Long nhsNumber = null;
 		
-		Pattern nhsNumberPattern = Pattern.compile(".*/patients/(\\d+)");
+		Pattern nhsNumberPattern = Pattern.compile(".*/patients/(\\d+).*");
 		Matcher matcher = nhsNumberPattern.matcher(targetResource);
 		
 		if(matcher.matches()) {
@@ -68,7 +65,7 @@ public class AuditFilter extends OncePerRequestFilter {
 		return nhsNumber;
 	}
 	
-	// no great - couples us directly to Spring
+	// not great - couples us directly to Spring
 	private AuditStoreFactory getAuditStoreFactory(HttpServletRequest request) {
 		WebApplicationContext springContext = RequestContextUtils.findWebApplicationContext(request);
 		

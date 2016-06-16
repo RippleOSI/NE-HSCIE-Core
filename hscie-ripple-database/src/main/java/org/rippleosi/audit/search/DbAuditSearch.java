@@ -17,17 +17,16 @@ import org.rippleosi.audit.model.QAuditEntity;
 import org.rippleosi.audit.repo.AuditRepository;
 import org.rippleosi.common.types.RepoSourceType;
 import org.rippleosi.common.types.RepoSourceTypes;
-import org.rippleosi.search.common.model.PageableTableQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mysema.query.BooleanBuilder;
+import com.mysema.query.types.Predicate;
 
 /**
  * @author WeatherillW
@@ -74,34 +73,67 @@ public class DbAuditSearch implements AuditSearch {
 	 * @see org.hscieripple.audit.search.AuditSearch#findAllAudits(java.util.List)
 	 */
 	@Override
-	public List<AuditSummary> findAllAudits(PageableTableQuery tableQuery) {
-        List<AuditEntity> audits = auditRepository.findAll(new Sort(SORT_PROPERTY));
+	public List<AuditSummary> findAllAudits(int page) {
+        Page<AuditEntity> audits = auditRepository.findAll(generatePageRequest(page));
 
         return CollectionUtils.collect(audits, toAuditSummaryTransformer, new ArrayList<>());
 	}
-
-	/* (non-Javadoc)
-	 * @see org.hscieripple.audit.search.AuditSearch#findAuditsByPatientAndUser(long, java.lang.String)
-	 */
+	
 	@Override
-	public List<AuditDetails> findAuditsByPatientAndUser(long patientNhsNumber, String requesterUsername, PageableTableQuery tableQuery) {
-		QAuditEntity blueprint = QAuditEntity.auditEntity;
-		BooleanBuilder predicate = new BooleanBuilder();
-		predicate.and(blueprint.targetNhsNumber.eq(Long.toString(patientNhsNumber)));
-		predicate.and(blueprint.requesterUsername.eq(requesterUsername));
+	public List<AuditSummary> findAllAuditsByUsername(int page, String username) {
+		Page<AuditEntity> audits = auditRepository.findAll(getRequesterUserNameEqualityPredicate(username), generatePageRequest(page));
 		
-		Page<AuditEntity> audits = auditRepository.findAll(predicate, generatePageRequest(tableQuery));
+		return CollectionUtils.collect(audits, toAuditSummaryTransformer, new ArrayList<>());
+	}
+
+	@Override
+	public List<AuditSummary> findAllAuditsByPatientId(int page, String targetNhsNumber) {
+		Page<AuditEntity> audits = auditRepository.findAll(getTargetNhsNumberEqualityPredicate(targetNhsNumber), generatePageRequest(page));
 		
-		return CollectionUtils.collect(audits, toAuditDetailsTransformer, new ArrayList<>());
+		return CollectionUtils.collect(audits, toAuditSummaryTransformer, new ArrayList<>());
+	}
+
+	@Override
+	public AuditDetails findAudit(long auditId) {
+		AuditEntity auditEntity = auditRepository.findOne(auditId);
+		
+		return toAuditDetailsTransformer.transform(auditEntity);
+	}
+
+	@Override
+	public long countAuditsByUsername(String username) {
+		return auditRepository.count(getRequesterUserNameEqualityPredicate(username));
+	}
+
+	@Override
+	public long countAuditsByPatientId(String targetNhsNumber) {
+		return auditRepository.count(getTargetNhsNumberEqualityPredicate(targetNhsNumber));
+	}
+
+	@Override
+	public long countAudits() {
+		return auditRepository.count();
 	}
 	
-    private PageRequest generatePageRequest(PageableTableQuery tableQuery) {
-        // determine page number (zero indexed) and sort direction
-        Integer pageNumber = Integer.valueOf(tableQuery.getPageNumber()) - 1;
-        Direction sortDirection = Direction.fromString(tableQuery.getOrderType());
+	private Predicate getRequesterUserNameEqualityPredicate(String username) {
+		QAuditEntity blueprint = QAuditEntity.auditEntity;
+		BooleanBuilder predicate = new BooleanBuilder();
+		predicate.and(blueprint.requesterUsername.eq(username));
+		
+		return predicate;
+	}
+	
+	private Predicate getTargetNhsNumberEqualityPredicate(String targetNhsNumber) {
+		QAuditEntity blueprint = QAuditEntity.auditEntity;
+		BooleanBuilder predicate = new BooleanBuilder();
+		predicate.and(blueprint.targetNhsNumber.eq(targetNhsNumber));
+		
+		return predicate;
+	}
 
+	
+    private PageRequest generatePageRequest(int page) {
         // create the request for a page (sorted by target NHS number)
-        return new PageRequest(pageNumber, 15, sortDirection, SORT_PROPERTY);
+        return new PageRequest(page, 15, Direction.ASC, SORT_PROPERTY);
     }
-
 }

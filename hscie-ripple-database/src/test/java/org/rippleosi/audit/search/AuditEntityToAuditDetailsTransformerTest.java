@@ -19,6 +19,7 @@ public class AuditEntityToAuditDetailsTransformerTest {
 		transformer = new AuditEntityToAuditDetailsTransformer();
 		
 		auditEntity = new AuditEntity();
+		auditEntity.setId(1l);
 		auditEntity.setRequestDateTime(new Date());
 		auditEntity.setRequesterUsername("bob");
 		auditEntity.setTargetNhsNumber("1234567890");
