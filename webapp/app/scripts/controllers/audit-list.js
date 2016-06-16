@@ -19,15 +19,23 @@ angular.module('rippleDemonstrator')
     	current: 1
     };
     
-    $scope.onSearch = function() {
-        getResultsPage(firstPage);
+    $scope.onSearchByPatient = function(newPage) {
+    	getPageByPatient(firstPage);
     };
     
-    $scope.onPageChanged = function(newPage) {
-        getResultsPage(newPage);
+    $scope.onSearchByUsername = function(newPage) {
+    	getPageByUser(firstPage);
+    };    
+    
+    $scope.onPatientPageChanged = function(newPage) {
+    	getPageByPatient(newPage);
     };
     
-    function getResultsPage(pageNumber) {
+    $scope.onUsernamePageChanged = function(newPage) {
+    	getPageByUser(newPage);
+    };    
+    
+    function getPageByPatient(pageNumber) {
 
 		AuditService.countByPatient($scope.searchTerm).then(function (result) {
 			$scope.totalAudits = result.data;
@@ -41,14 +49,23 @@ angular.module('rippleDemonstrator')
 		});    	
     }    
     
+    function getPageByUser(pageNumber) {
+
+		AuditService.countByUsername($scope.searchTerm).then(function (result) {
+			$scope.totalAudits = result.data;
+	    }); 
+    	
+		usSpinnerService.spin('auditSummary-spinner');
+	  		
+		AuditService.allByUsername($scope.searchTerm, pageNumber).then(function (result) {
+          $scope.audits = result.data;
+          usSpinnerService.stop('auditSummary-spinner');
+		});    	
+    }
+    
     // Detail drill down
     $scope.go = function (id) {
     	$rootScope.$broadcast('audits:get-audit', { auditId: id });
-    	
-//      $state.go('audit-detail', {
-//        auditId: id,
-//        page: $scope.currentPage
-//      });
     };
     
   });

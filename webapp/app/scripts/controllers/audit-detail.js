@@ -12,14 +12,15 @@ angular.module('rippleDemonstrator')
     }; 
     
     $scope.getAudit = function(auditId){
-	    AuditService.get(auditId).then(function (result) {
+    	usSpinnerService.spin('auditDetail-spinner');
+    	
+    	AuditService.get(auditId).then(function (result) {
 	        $scope.audit = result.data;
 	        usSpinnerService.stop('auditDetail-spinner');
 	      });
     };
     
     $scope.$on('audits:get-audit', function(event, args) {
-
     	$scope.getAudit(args.auditId); 
     });
     

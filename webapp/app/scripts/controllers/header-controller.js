@@ -105,6 +105,13 @@ angular.module('rippleDemonstrator')
         mainWidth = 12;
         detailWidth = 0;
         break;
+      case 'audits':
+          previousState = '';
+          pageHeader = 'Admin Console';
+          previousPage = '';
+          mainWidth = 6;
+          detailWidth = 6;
+          break;        
       default:
         previousState = 'patients-list';
         pageHeader = 'Patients Details';

@@ -429,40 +429,25 @@ angular
         }
       })
     
-      .state('audits', {
-        url: '/audits',
+      .state('audits-by-patient', {
+        url: '/audits/patient',
         views: {
-          main: { templateUrl: 'views/audits/audit-list.html', controller: 'AuditListCtrl' },
+        	'user-context': { templateUrl: 'views/admin/admin-context.html', controller: 'AdminCtrl' },
+          actions: { templateUrl: 'views/admin/admin-sidebar.html', controller: 'AdminCtrl' },
+          main: { templateUrl: 'views/audits/audit-list-by-patient.html', controller: 'AuditListCtrl' },
           detail: { templateUrl: 'views/audits/audit-detail.html', controller: 'AuditDetailCtrl' } 
         }
       })
-    
-//      .state('audit-detail', {
-//        url: '/audits/{auditId:int}?&page',
-//        views: {
-//    	  main: { templateUrl: 'views/audits/audit-list.html', controller: 'AuditListCtrl' },
-//          detail: { templateUrl: 'views/audits/audit-detail.html', controller: 'AuditDetailCtrl' } 
-//       }
-//      });    
       
-//      .state('audits', {
-//          url: '/audits',
-//          views: {
-//            'user-context': { templateUrl: 'views/users/user-context.html', controller: 'UserDetailCtrl' },
-//            actions: { templateUrl: 'views/users/user-sidebar.html', controller: 'UserDetailCtrl' },
-//            main: { templateUrl: 'views/audits/audits-list.html', controller: 'AuditListCtrl' }
-//          }
-//        });
-
-//      .state('audit-detail', {
-//        url: '/audits/{auditId:int}/allergies/{allergyIndex}?filter&page&reportType&searchString&queryType',
-//        views: {
-//            'user-context': { templateUrl: 'views/users/user-context.html', controller: 'UserDetailCtrl' },
-//            actions: { templateUrl: 'views/users/user-sidebar.html', controller: 'UserDetailCtrl' },
-//            main: { templateUrl: 'views/audits/audits-list.html', controller: 'AuditListCtrl' },
-//          detail: { templateUrl: 'views/audit/audit-detail.html', controller: 'AuditDetailCtrl' }
-//        }
-//      });
+      .state('audits-by-user', {
+        url: '/audits/user',
+        views: {
+        	'user-context': { templateUrl: 'views/admin/admin-context.html', controller: 'AdminCtrl' },
+          actions: { templateUrl: 'views/admin/admin-sidebar.html', controller: 'AdminCtrl' },
+          main: { templateUrl: 'views/audits/audit-list-by-user.html', controller: 'AuditListCtrl' },
+          detail: { templateUrl: 'views/audits/audit-detail.html', controller: 'AuditDetailCtrl' } 
+        }
+      })      
   })
 
   .directive('datepickerPopup', function () {

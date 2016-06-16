@@ -2,38 +2,31 @@
 	<strong>User Audit Reports By Patient</strong>
 </h3>
 
-
-<form>
-	<label>Search:</label> <input type="text" ng-model="searchTerm"
-		placeholder="Keywords...">
-	<button type="submit" ng-click="onSearch()">Search</button>
-</form>
+<label>Search:</label> <input type="text" ng-model="searchTerm" placeholder="NHS Number...">
+<button type="submit" ng-click="onSearchByPatient()">Search</button>
 
 <table class="table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
 			<th>User</th>
-			<th>Patient</th>
-			<th>Request Time</th>
+			<th>Date accessed</th>
 		</tr>
 	</thead>
 
 	<tbody>		
 		<tr dir-paginate="audit in audits | itemsPerPage: auditsPerPage" total-items="totalAudits" current-page="pagination.current" ng-click="go(audit.id)"
-			ng-class="{info: selected(audit.sourceId)}">
+			ng-class="{info: selected(audit.id)}">
 			<td>{{ audit.requesterUsername }}</td>
-			<td>{{ audit.targetNhsNumber }}</td>
-			<td>{{ audit.requestDateTime }}</td>
+			<td>{{ audit.requestDateTime | date:'medium' }}</td>
 		</tr>
 
 		<tr ng-if="!audits.length">
 			<td colspan="3"><span class="label label-default">No audit records</span></td>
 		</tr>
 	</tbody>
-
-    <dir-pagination-controls on-page-change="onPageChanged(newPageNumber)"></dir-pagination-controls>
 </table>
 
+<dir-pagination-controls on-page-change="onPatientPageChanged(newPageNumber)"></dir-pagination-controls>
 
 <div class="row">
 	<div class="col-md-12">
