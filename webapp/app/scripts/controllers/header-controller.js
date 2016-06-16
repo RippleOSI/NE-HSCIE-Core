@@ -1,13 +1,15 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('headerController', function ($scope, $rootScope, $state, usSpinnerService, $stateParams, UserService, AdvancedSearch) {
+  .controller('headerController', function ($scope, $rootScope, $state, $window, usSpinnerService, $stateParams, UserService, AdvancedSearch) {
 
     $rootScope.searchExpression = '';
     $scope.searchExpression = $rootScope.searchExpression;
     $scope.reportTypes = [];
 
     $scope.searchFocused = false;
+
+    var redirectUrl;
 
     // Get current user
     UserService.findCurrentUser().then( function (response) {
