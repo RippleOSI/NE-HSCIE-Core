@@ -427,7 +427,42 @@ angular
           main: { templateUrl: 'views/dicom/image-list.html', controller: 'ImageListCtrl' },
           detail: { templateUrl: 'views/dicom/image-detail.html', controller: 'ImageDetailCtrl' }
         }
-      });
+      })
+    
+      .state('audits', {
+        url: '/audits',
+        views: {
+          main: { templateUrl: 'views/audits/audit-list.html', controller: 'AuditListCtrl' },
+          detail: { templateUrl: 'views/audits/audit-detail.html', controller: 'AuditDetailCtrl' } 
+        }
+      })
+    
+//      .state('audit-detail', {
+//        url: '/audits/{auditId:int}?&page',
+//        views: {
+//    	  main: { templateUrl: 'views/audits/audit-list.html', controller: 'AuditListCtrl' },
+//          detail: { templateUrl: 'views/audits/audit-detail.html', controller: 'AuditDetailCtrl' } 
+//       }
+//      });    
+      
+//      .state('audits', {
+//          url: '/audits',
+//          views: {
+//            'user-context': { templateUrl: 'views/users/user-context.html', controller: 'UserDetailCtrl' },
+//            actions: { templateUrl: 'views/users/user-sidebar.html', controller: 'UserDetailCtrl' },
+//            main: { templateUrl: 'views/audits/audits-list.html', controller: 'AuditListCtrl' }
+//          }
+//        });
+
+//      .state('audit-detail', {
+//        url: '/audits/{auditId:int}/allergies/{allergyIndex}?filter&page&reportType&searchString&queryType',
+//        views: {
+//            'user-context': { templateUrl: 'views/users/user-context.html', controller: 'UserDetailCtrl' },
+//            actions: { templateUrl: 'views/users/user-sidebar.html', controller: 'UserDetailCtrl' },
+//            main: { templateUrl: 'views/audits/audits-list.html', controller: 'AuditListCtrl' },
+//          detail: { templateUrl: 'views/audit/audit-detail.html', controller: 'AuditDetailCtrl' }
+//        }
+//      });
   })
 
   .directive('datepickerPopup', function () {
