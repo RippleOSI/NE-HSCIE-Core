@@ -2,13 +2,21 @@
 	<strong>User Audit Reports By Patient</strong>
 </h3>
 
-<label>Search:</label> <input type="text" ng-model="searchTerm" placeholder="NHS Number...">
-<button type="submit" ng-click="onSearchByPatient()">Search</button>
+<div class="input-group">
+	<input type="text" class="form-control" ng-model="searchTerm"
+		placeholder="Patient NHS Number..."> <span
+		class="input-group-btn">
+		<button class="btn btn-default" type="submit"
+			ng-click="onSearchByPatient()">Search</button>
+	</span>
+</div>
+
+<p>
 
 <table class="table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
-			<th>User</th>
+			<th>User accessing patient data</th>
 			<th>Date accessed</th>
 		</tr>
 	</thead>

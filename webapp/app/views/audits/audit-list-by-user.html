@@ -2,8 +2,16 @@
 	<strong>User Audit Reports By User</strong>
 </h3>
 
-<label>Search:</label> <input type="text" ng-model="searchTerm" placeholder="User name">
-<button type="submit" ng-click="onSearchByUsername()">Search</button>
+<div class="input-group">
+	<input type="text" class="form-control" ng-model="searchTerm"
+		placeholder="User accessing patient data..."> <span
+		class="input-group-btn">
+		<button class="btn btn-default" type="submit"
+			ng-click="onSearchByUsername()">Search</button>
+	</span>
+</div>
+
+<p>
 
 <table class="table table-bordered table-striped table-hover">
 	<thead>
