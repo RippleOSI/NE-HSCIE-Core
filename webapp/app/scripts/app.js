@@ -120,7 +120,7 @@ angular
         }
       })
 
-      
+
 	  .state('medications', {
         url: '/patients/{patientId:int}/hscie-medications?patientSource&reportType&searchString&queryType',
         views: {
@@ -157,7 +157,7 @@ angular
           detail: { templateUrl: 'views/contacts/contacts-detail.html', controller: 'ContactsDetailCtrl' }
         }
       })
-      
+
       .state('problems-list', {
         url: '/patients/{patientId:int}/problems?patientSource&reportType&searchString&queryType',
         views: {
@@ -261,7 +261,7 @@ angular
           detail: { templateUrl: 'views/procedures/procedures-detail.html', controller: 'ProceduresDetailCtrl' }
         }
       })
-      
+
       .state('referrals-list', {
         url: '/patients/{patientId:int}/referrals?patientSource&reportType&searchString&queryType',
         views: {
@@ -280,7 +280,7 @@ angular
           detail: { templateUrl: 'views/referrals/referrals-detail.html', controller: 'ReferralDetailCtrl' }
         }
       })
-      
+
 
     .state('eolcareplans', {
         url: '/patients/{patientId:int}/eolcareplans?reportType&searchString&queryType',
@@ -393,6 +393,25 @@ angular
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
           main: { templateUrl: 'views/dicom/image-list.html', controller: 'ImageListCtrl' },
           detail: { templateUrl: 'views/dicom/image-detail.html', controller: 'ImageDetailCtrl' }
+        }
+      })
+
+      .state('alerts', {
+        url: '/patients/{patientId:int}/alerts?filter&page',
+        views: {
+          'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
+          actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
+          main: { templateUrl: 'views/alerts/alerts-list.html', controller: 'AlertsListCtrl' }
+        }
+      })
+
+      .state('alerts-detail', {
+        url: '/patients/{patientId:int}/alerts/{alertId}?filter&page&source',
+        views: {
+          'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
+          actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
+          main: { templateUrl: 'views/alerts/alerts-list.html', controller: 'AlertsListCtrl' },
+          detail: { templateUrl: 'views/alerts/alerts-detail.html', controller: 'AlertsDetailCtrl' }
         }
       });
   })
