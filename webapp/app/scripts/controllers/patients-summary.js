@@ -10,8 +10,8 @@ angular.module('rippleDemonstrator')
 
     PatientService.get($stateParams.patientId, $stateParams.patientSource).then(function (patient) {
       $scope.patient = patient;
-
-/*      $scope.allergiesCount = patient.allergies.length;
+/*
+      $scope.allergiesCount = patient.allergies.length;
       $scope.allergies = patient.allergies.slice(0, 5);
 
       $scope.diagnosesCount = patient.problems.length;
@@ -19,10 +19,10 @@ angular.module('rippleDemonstrator')
 
       $scope.medicationsCount = patient.medications.length;
       $scope.medications = patient.medications.slice(0, 5);
-
+*/
       $scope.contactsCount = patient.contacts.length;
       $scope.contacts = patient.contacts.slice(0, 5);
-
+/*
       $scope.transferofCaresCount = patient.transfers.length;
       $scope.transferofCareComposition = patient;
 
@@ -32,8 +32,8 @@ angular.module('rippleDemonstrator')
       }
 
       $scope.transferofCareComposition.transfers = descendingTransferofCareComposition;
-      $scope.transferofCareComposition = $scope.transferofCareComposition.transfers.slice(0, 5);*/
-
+      $scope.transferofCareComposition = $scope.transferofCareComposition.transfers.slice(0, 5);
+*/
       $scope.isOptedOut = !$scope.patient.optIn;
 
       usSpinnerService.stop('patientSummary-spinner');
@@ -64,7 +64,7 @@ angular.module('rippleDemonstrator')
         toState = 'medications';
         break;
       case 'Contacts':
-        toState = 'contacts';
+        toState = 'contacts-list';
         break;
       case 'Transfer':
         toState = 'transferOfCare';
@@ -72,5 +72,21 @@ angular.module('rippleDemonstrator')
       }
       $state.go(toState, requestHeader);
     };
+    
+        $scope.goContact = function (id, contactSource) {
+      $state.go('contacts-detail', {
+        patientId: $scope.patient.nhsNumber,
+        contactIndex: id,
+        filter: $scope.query,
+        page: $scope.currentPage,
+        reportType: $stateParams.reportType,
+        searchString: $stateParams.searchString,
+        queryType: $stateParams.queryType,
+        source: contactSource,
+        patientSource: $stateParams.patientSource
+      });
+    };
+    
+    
 
   });
