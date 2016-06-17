@@ -24,6 +24,8 @@ import org.hscieripple.patient.appointments.AppointmentServiceSoap;
 import org.hscieripple.patient.referrals.ReferralServiceSoap;
 import org.hscieripple.patient.problems.ProblemServiceSoap;
 import org.hscieripple.patient.query.PatientServiceSoap;
+import org.hscieripple.patient.medications.MedicationServiceSoap;
+import org.hscieripple.patient.transfers.TransferOfCareServiceSoap;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -33,48 +35,54 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan("org.rippleosi")
 public class CXFConfig {
 
-    @Value("${hscie.tie.authentication.username:''}")
+    @Value("${hscie.tie.authentication.username}")
     private String username;
 
-    @Value("${hscie.tie.authentication.password:''}")
+    @Value("${hscie.tie.authentication.password}")
     private String password;
 
-    @Value("${hscie.tie.address:''}")
+    @Value("${hscie.tie.address}")
     private String hscieTieAddress;
 
-    @Value("${hscie.tie.patientServiceUrl:''}")
+    @Value("${hscie.tie.patientServiceUrl}")
     private String patientServiceUrl;
 
-    @Value("${hscie.tie.keyWorkersServiceUrl:''}")
+    @Value("${hscie.tie.keyWorkersServiceUrl}")
     private String keyWorkersServiceUrl;
 
-    @Value("${hscie.tie.dataSourcesServiceUrl:''}")
+    @Value("${hscie.tie.dataSourcesServiceUrl}")
     private String dataSourcesServiceUrl;
     
-    @Value("${hscie.tie.contactsServiceUrl:''}")
+    @Value("${hscie.tie.contactsServiceUrl}")
     private String contactsServiceUrl;
     
-    @Value("${hscie.tie.appointmentsServiceUrl:''}")
+    @Value("${hscie.tie.appointmentsServiceUrl}")
     private String appointmentsServiceUrl;
     
-    @Value("${hscie.tie.referralsServiceUrl:''}")
+    @Value("${hscie.tie.referralsServiceUrl}")
     private String referralsServiceUrl;
     
-    @Value("${hscie.tie.problemsServiceUrl:''}")
+    @Value("${hscie.tie.problemsServiceUrl}")
     private String problemsServiceUrl;
 
-    @Value("${hscie.tie.consentsFindDetailsServiceUrl:''}")
+    @Value("${hscie.tie.consentsFindDetailsServiceUrl}")
     private String consentsFindDetailsServiceUrl;
 
-    @Value("${hscie.tie.consentsFindAllServiceUrl:''}")
+    @Value("${hscie.tie.consentsFindAllServiceUrl}")
     private String consentsFindAllServiceUrl;
 
-    @Value("${hscie.tie.consentsInsertUrl:''}")
+    @Value("${hscie.tie.consentsInsertUrl}")
     private String consentsInsertUrl;
 
-    @Value("${hscie.tie.consentsUpdateUrl:''}")
+    @Value("${hscie.tie.consentsUpdateUrl}")
     private String consentsUpdateUrl;
 
+    @Value("${hscie.tie.medicationsServiceUrl}")
+    private String medicationsServiceUrl;
+    
+    @Value("${hscie.tie.transferOfCareServiceUrl}")
+    private String transferOfCareServiceUrl;
+    
     @Bean
     public PatientServiceSoap patientService() {
         return createJAXWSService(PatientServiceSoap.class, patientServiceUrl);
@@ -88,6 +96,17 @@ public class CXFConfig {
     @Bean
     public DataSourcesServiceSoap dataSourcesService() {
         return createJAXWSService(DataSourcesServiceSoap.class, dataSourcesServiceUrl);
+    }
+    
+    @Bean
+
+    public MedicationServiceSoap medicationsService() {
+        return createJAXWSService(MedicationServiceSoap.class, medicationsServiceUrl);
+    }
+    
+    @Bean
+    public TransferOfCareServiceSoap transfersService() {
+        return createJAXWSService(TransferOfCareServiceSoap.class, transferOfCareServiceUrl);
     }
     
     @Bean

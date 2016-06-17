@@ -19,7 +19,7 @@ import java.util.Date;
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.patient.contacts.ContactsDetailsResponse;
 import org.hscieripple.patient.contacts.model.HSCIEContactDetails;
-import org.rippleosi.common.util.HSCIEDateFormatter;
+import org.hscieripple.common.util.HSCIEDateFormatter;
 
 public class ContactsDetailsResponseToDetailsTransformer implements Transformer<ContactsDetailsResponse, HSCIEContactDetails> {
 

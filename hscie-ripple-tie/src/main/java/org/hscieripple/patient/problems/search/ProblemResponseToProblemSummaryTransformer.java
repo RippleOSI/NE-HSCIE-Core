@@ -20,7 +20,7 @@ import java.util.Date;
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.patient.problems.ProblemsSummaryResultRow;
 import org.hscieripple.patient.problems.model.HSCIEProblemSummary;
-import org.rippleosi.common.util.HSCIEDateFormatter;
+import org.hscieripple.common.util.HSCIEDateFormatter;
 
 public class ProblemResponseToProblemSummaryTransformer implements Transformer<ProblemsSummaryResultRow, HSCIEProblemSummary> {
 

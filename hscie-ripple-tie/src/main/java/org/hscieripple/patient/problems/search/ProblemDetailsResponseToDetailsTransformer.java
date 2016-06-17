@@ -21,7 +21,7 @@ import java.util.List;
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.patient.problems.ProblemsDetailsResponse;
 import org.hscieripple.patient.problems.model.HSCIEProblemDetails;
-import org.rippleosi.common.util.HSCIEDateFormatter;
+import org.hscieripple.common.util.HSCIEDateFormatter;
 
 public class ProblemDetailsResponseToDetailsTransformer implements Transformer<ProblemsDetailsResponse, HSCIEProblemDetails> {
 
