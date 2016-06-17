@@ -50,6 +50,9 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
     @Autowired
     private PatientServiceSoap patientService;
 
+    @Autowired
+    private PatientResponseToPatientDetailsTransformer patientResponseTransformer;
+
     @Override
     public List<PatientSummary> findPatientsByQueryObject(PatientQueryParams params) {
         List<PairOfResultsSetKeyResultRow> patients = new ArrayList<>();
@@ -98,7 +101,7 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
                 patients = response.getResultsSet().getResultRow();
             }
 
-            return new PatientResponseToPatientDetailsTransformer().transform(patients.get(0));
+            return patientResponseTransformer.transform(patients.get(0));
         }
         catch (SOAPFaultException e) {
             log.error(e.getMessage(), e);

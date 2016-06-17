@@ -1,20 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~   Copyright 2016 Ripple OSI
-  ~
-  ~      Licensed under the Apache License, Version 2.0 (the "License");
-  ~      you may not use this file except in compliance with the License.
-  ~      You may obtain a copy of the License at
-  ~
-  ~          http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~      Unless required by applicable law or agreed to in writing, software
-  ~      distributed under the License is distributed on an "AS IS" BASIS,
-  ~      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~      See the License for the specific language governing permissions and
-  ~      limitations under the License.
-  -->
-
 <definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://www.HSCIERipple.org" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://www.HSCIERipple.org">
     <types>
         <s:schema elementFormDefault="qualified" targetNamespace="http://www.HSCIERipple.org">
@@ -86,6 +70,53 @@
                     </s:extension>
                 </s:complexContent>
             </s:complexType>
+            <s:element name="FindStatusDSBO">
+                <s:complexType>
+                    <s:sequence/>
+                </s:complexType>
+            </s:element>
+            <s:element name="FindStatusDSBOResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element name="FindStatusDSBOResult" type="s0:DataSourceStatusResponse"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="DataSourceStatusResponse">
+                <s:complexContent>
+                    <s:extension base="s0:Ens_Response">
+                        <s:sequence>
+                            <s:element minOccurs="0" name="ResultCount" type="s:long"/>
+                            <s:element minOccurs="0" name="Results" type="s0:ArrayOfResultsItemPairOfResultsKeyString"/>
+                            <s:element minOccurs="0" name="ResultsSet" type="s0:ArrayOfDSStatusResultRowPairOfResultsSetKeyDSStatusResultRow"/>
+                            <s:element minOccurs="0" name="StatusCode" type="s:string"/>
+                            <s:element minOccurs="0" name="StatusDesc" type="s:string"/>
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="ArrayOfDSStatusResultRowPairOfResultsSetKeyDSStatusResultRow">
+                <s:sequence>
+                    <s:element maxOccurs="unbounded" minOccurs="0" name="DSStatusResultRow" nillable="true" type="s0:PairOfResultsSetKeyDSStatusResultRow"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="PairOfResultsSetKeyDSStatusResultRow">
+                <s:complexContent>
+                    <s:extension base="s0:DSStatusResultRow">
+                        <s:attribute name="ResultsSetKey" type="s:string" use="required"/>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="DSStatusResultRow">
+                <s:complexContent>
+                    <s:extension base="s0:Ens_Response">
+                        <s:sequence>
+                            <s:element minOccurs="0" name="DataSourceStatus" type="s:string"/>
+                            <s:element minOccurs="0" name="DataSourceName" type="s:string"/>
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
         </s:schema>
     </types>
     <message name="FindAvailableDSBOSoapIn">
@@ -94,10 +125,20 @@
     <message name="FindAvailableDSBOSoapOut">
         <part name="parameters" element="s0:FindAvailableDSBOResponse"/>
     </message>
+    <message name="FindStatusDSBOSoapIn">
+        <part name="parameters" element="s0:FindStatusDSBO"/>
+    </message>
+    <message name="FindStatusDSBOSoapOut">
+        <part name="parameters" element="s0:FindStatusDSBOResponse"/>
+    </message>
     <portType name="DataSourcesServiceSoap">
         <operation name="FindAvailableDSBO">
             <input message="s0:FindAvailableDSBOSoapIn"/>
             <output message="s0:FindAvailableDSBOSoapOut"/>
+        </operation>
+        <operation name="FindStatusDSBO">
+            <input message="s0:FindStatusDSBOSoapIn"/>
+            <output message="s0:FindStatusDSBOSoapOut"/>
         </operation>
     </portType>
     <binding name="DataSources" type="s0:DataSourcesServiceSoap">
@@ -111,8 +152,19 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
+        <operation name="FindStatusDSBO">
+            <soap:operation soapAction="http://www.HSCIERipple.org/HSCIEDEV.SOAP.DataSources.FindStatusDSBO" style="document"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
     </binding>
     <service name="DataSourcesService">
-        <port name="DataSources" binding="s0:DataSources"/>
+        <port name="DataSources" binding="s0:DataSources">
+            <soap:address location="http://10.152.3.237:57772/csp/healthshare/hscie_ripple_dev/HSCIEDEV.SOAP.DataSources.cls"/>
+        </port>
     </service>
 </definitions>

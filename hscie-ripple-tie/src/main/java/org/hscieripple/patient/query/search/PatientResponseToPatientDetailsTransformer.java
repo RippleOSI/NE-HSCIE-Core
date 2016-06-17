@@ -89,7 +89,7 @@ public class PatientResponseToPatientDetailsTransformer implements Transformer<R
             final HSCIEContactSearch contactSearch = contactSearchFactory.select(null);
 
             final List<ContactHeadline> contacts = contactSearch.findAllContactHeadlines(patientId, dataSources);
-
+            
             return CollectionUtils.collect(contacts, new ContactHeadlineToPatientHeadlineTransformer(), new ArrayList<>());
         }
         catch (DataNotFoundException ignore) {
