@@ -27,16 +27,9 @@ public class ProceduresResponseToProceduresSummaryTransformer implements Transfo
     @Override
     public HSCIEProcedureSummary transform(ProceduresSummaryResultRow response) {
     	HSCIEProcedureSummary summary = new HSCIEProcedureSummary();
-    	
-    	Date date = HSCIEDateFormatter.toDate(response.getDate(),response.getDataSourceName());
-		Date time = HSCIEDateFormatter.toDate(response.getTime(),response.getDataSourceName());
-    	
+    	    	
         summary.setSource(response.getDataSourceName());
         summary.setSourceId(response.getSourceID());
-        
-        summary.setName(response.getName());
-        summary.setDate(date);
-        summary.setTime(time);
 
         return summary;
     }

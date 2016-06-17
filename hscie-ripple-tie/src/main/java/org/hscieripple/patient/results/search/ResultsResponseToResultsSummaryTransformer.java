@@ -28,14 +28,9 @@ public class ResultsResponseToResultsSummaryTransformer implements Transformer<R
     public HSCIEResultSummary transform(ResultsSummaryResultRow response) {
     	HSCIEResultSummary summary = new HSCIEResultSummary();
     	
-    	Date dateCreated = HSCIEDateFormatter.toDate(response.getDateCreated(),response.getDataSourceName());
-    	
         summary.setSource(response.getDataSourceName());
         summary.setSourceId(response.getSourceID());
         
-        summary.setTestName(response.getTestName());
-        summary.setSampleTaken(response.getSampleTaken());
-        summary.setDateCreated(dateCreated);
 
         return summary;
     }

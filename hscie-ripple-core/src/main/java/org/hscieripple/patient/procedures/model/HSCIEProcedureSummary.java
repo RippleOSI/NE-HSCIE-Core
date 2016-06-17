@@ -21,9 +21,6 @@ public class HSCIEProcedureSummary {
 
     private String source;
     private String sourceId;
-    private String name;
-    private Date date;
-    private Date time;
 
     public String getSource() {
         return source;
@@ -39,29 +36,5 @@ public class HSCIEProcedureSummary {
 
     public void setSourceId(String sourceId) {
         this.sourceId = sourceId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
     }
 }

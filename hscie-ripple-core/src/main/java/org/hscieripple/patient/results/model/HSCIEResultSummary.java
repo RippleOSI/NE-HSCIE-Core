@@ -21,9 +21,6 @@ public class HSCIEResultSummary {
 
     private String source;
     private String sourceId;
-    private String testName;
-    private String sampleTaken;
-    private Date dateCreated;
 
     public String getSource() {
         return source;
@@ -39,29 +36,5 @@ public class HSCIEResultSummary {
 
     public void setSourceId(String sourceId) {
         this.sourceId = sourceId;
-    }
-
-    public String getTestName() {
-        return testName;
-    }
-
-    public void setTestName(String testName) {
-        this.testName = testName;
-    }
-        
-    public String getSampleTaken() {
-        return sampleTaken;
-    }
-
-    public void setSampleTaken(String sampleTaken) {
-        this.sampleTaken = sampleTaken;
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
     }
 }

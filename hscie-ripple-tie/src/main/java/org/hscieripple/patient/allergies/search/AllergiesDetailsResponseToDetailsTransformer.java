@@ -27,20 +27,11 @@ public class AllergiesDetailsResponseToDetailsTransformer implements Transformer
     @Override
     public HSCIEAllergyDetails transform(AllergiesDetailsResponse response) {
     	 
-    	Date dateCreated = HSCIEDateFormatter.toDate(response.getDateCreated(), response.getDataSourceName());
-    	    	
 		HSCIEAllergyDetails details = new HSCIEAllergyDetails();
 
         details.setSource(response.getDataSourceName());
         details.setSourceId(response.getSourceID());
         
-        details.setCause(response.getCause());
-        details.setCauseCode(response.getCauseCode());
-        details.setReaction(response.getReaction());
-        details.setCauseTerminology(response.getCauseTerminology());
-			
-        details.setAuthor(response.getAuthor());
-		details.setDateCreated(dateCreated);
 
         return details;
     }

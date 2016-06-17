@@ -23,9 +23,6 @@ public class HSCIEOrderDetails implements Serializable {
 
     private String source;
     private String sourceId;
-    private String name;
-    private String author;
-    private Date dateOfOrder;
 
     public String getSource() {
         return source;
@@ -41,29 +38,5 @@ public class HSCIEOrderDetails implements Serializable {
 
     public void setSourceId(String sourceId) {
         this.sourceId = sourceId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public Date getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
     }
 }

@@ -27,27 +27,11 @@ public class ProceduresDetailsResponseToDetailsTransformer implements Transforme
     @Override
     public HSCIEProcedureDetails transform(ProceduresDetailsResponse response) {
     	 
-    	Date date = HSCIEDateFormatter.toDate(response.getDate(), response.getDataSourceName());
-    	Date dateSubmitted = HSCIEDateFormatter.toDate(response.getDateSubmitted(), response.getDataSourceName());
-    	    	
 		HSCIEProcedureDetails details = new HSCIEProcedureDetails();
 
         details.setSource(response.getDataSourceName());
         details.setSourceId(response.getSourceID());
-            
-        details.setName(response.getName());
-        details.setCurrentStatusTerminology(response.getCurrentStatusTerminology());
-        details.setCurrentStatusCode(response.getCurrentStatusCode());
-        details.setNotes(response.getNotes());
-        details.setPerformer(response.getPerformer());
-			
-        details.setAuthor(response.getAuthor());
-		details.setDateSubmitted(dateSubmitted);
-		details.setDate(date);
         
-		
-        details.setLocation(response.getLocation());
-		details.setStatus(response.getStatus());
 
         return details;
     }

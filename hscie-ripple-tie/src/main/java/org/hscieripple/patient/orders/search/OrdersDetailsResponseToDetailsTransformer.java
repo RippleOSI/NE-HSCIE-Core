@@ -27,19 +27,11 @@ public class OrdersDetailsResponseToDetailsTransformer implements Transformer<Or
     @Override
     public HSCIEOrderDetails transform(OrdersDetailsResponse response) {
     	 
-    	Date orderDate = HSCIEDateFormatter.toDate(response.getOrderDate(), response.getDataSourceName());
-    	    	
 		HSCIEOrderDetails details = new HSCIEOrderDetails();
 
         details.setSource(response.getDataSourceName());
         details.setSourceId(response.getSourceID());
-            
-        details.setName(response.getName());
-        details.setAuthor(response.getAuthor());
-		details.setOrderDate(orderDate);
-		
-        details.setLocation(response.getLocation());
-		details.setStatus(response.getStatus());
+        
 
         return details;
     }

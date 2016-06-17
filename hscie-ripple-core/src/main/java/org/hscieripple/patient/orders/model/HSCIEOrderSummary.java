@@ -21,8 +21,6 @@ public class HSCIEOrderSummary {
 
     private String source;
     private String sourceId;
-    private String name;
-    private Date orderDate;
 
     public String getSource() {
         return source;
@@ -38,21 +36,5 @@ public class HSCIEOrderSummary {
 
     public void setSourceId(String sourceId) {
         this.sourceId = sourceId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
     }
 }

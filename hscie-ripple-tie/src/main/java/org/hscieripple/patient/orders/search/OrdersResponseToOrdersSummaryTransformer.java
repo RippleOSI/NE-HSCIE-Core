@@ -28,13 +28,9 @@ public class OrdersResponseToOrdersSummaryTransformer implements Transformer<Ord
     public HSCIEOrderSummary transform(OrdersSummaryResultRow response) {
     	HSCIEOrderSummary summary = new HSCIEOrderSummary();
     	
-    	Date orderDate = HSCIEDateFormatter.toDate(response.getOrderDate(),response.getDataSourceName());
-    	
         summary.setSource(response.getDataSourceName());
         summary.setSourceId(response.getSourceID());
         
-        summary.setName(response.getName());
-        summary.setDateOfOrder(orderDate);
 
         return summary;
     }

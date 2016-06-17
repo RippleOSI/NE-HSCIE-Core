@@ -27,26 +27,11 @@ public class ResultsDetailsResponseToDetailsTransformer implements Transformer<R
     @Override
     public HSCIEResultDetails transform(ResultsDetailsResponse response) {
     	 
-    	Date dateCreated = HSCIEDateFormatter.toDate(response.getDateCreated(), response.getDataSourceName());
-    	    	
 		HSCIEResultDetails details = new HSCIEResultDetails();
 
         details.setSource(response.getDataSourceName());
         details.setSourceId(response.getSourceID());			
         
-        details.setTestName(response.getTestName());
-        details.setStatus(response.getStatus());
-        details.setSampleTaken(response.getSampleTaken());
-        details.setResult(response.getResult());
-        details.setValue(response.getValue());
-        details.setUnit(response.getUnit());
-        details.setNormalRange(response.getNormalRange());
-        details.setComment(response.getComment());
-        details.setConclusion(response.getConclusion());        
-		
-		details.setAuthor(response.getAuthor());
-		details.setDateCreated(dateCreated);
-
         return details;
     }
 }

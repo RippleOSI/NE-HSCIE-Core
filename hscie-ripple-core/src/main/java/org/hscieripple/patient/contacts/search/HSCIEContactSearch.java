@@ -26,8 +26,6 @@ import org.hscieripple.patient.datasources.model.DataSourceSummary;
 /**
  */
 public interface HSCIEContactSearch extends Repository {
-
-	List<ContactHeadline> findContactHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries); 
 	
 	List<ContactHeadline> findAllContactHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries);
 

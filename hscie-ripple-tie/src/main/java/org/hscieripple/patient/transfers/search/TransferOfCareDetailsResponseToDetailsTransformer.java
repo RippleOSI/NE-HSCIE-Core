@@ -41,11 +41,7 @@ public class TransferOfCareDetailsResponseToDetailsTransformer implements Transf
 
         details.setSource(response.getDataSourceName());
         details.setSourceId(response.getSourceID());
-            
-        details.setMedications(medications);
-        details.setProblems(problems);
-        details.setAllergies(allergies);
-        details.setContacts(contacts);
+        
         details.setReasonForContact(response.getReasonForContact());
         details.setClinicalSummary(response.getClinicalSummary());
         details.setSiteFrom(response.getSiteFrom());

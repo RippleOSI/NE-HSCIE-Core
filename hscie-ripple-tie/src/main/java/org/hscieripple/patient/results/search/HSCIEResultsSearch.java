@@ -48,7 +48,7 @@ public class HSCIEResultsSearch extends AbstractHSCIEService implements HSCIERes
 
     @Override
     public List<HSCIEResultSummary> findAllResults(String patientId, List<DataSourceSummary> datasourceSummaries) {
-        List<HSCIEResultSummary> results = new ArrayList<>();
+        List<HSCIEResultSummary> resultsList = new ArrayList<>();
 
         Long nhsNumber = convertPatientIdToLong(patientId);
 
@@ -58,7 +58,7 @@ public class HSCIEResultsSearch extends AbstractHSCIEService implements HSCIERes
             results.addAll(results);
         }
 
-        return results;
+        return resultsList;
     }
 
     @Override

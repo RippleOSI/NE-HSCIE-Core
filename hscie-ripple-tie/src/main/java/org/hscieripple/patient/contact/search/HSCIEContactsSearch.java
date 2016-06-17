@@ -24,8 +24,10 @@ import java.util.List;
 import org.apache.commons.collections4.CollectionUtils;
 import org.hscieripple.patient.contacts.ContactsDetailsResponse;
 import org.hscieripple.patient.contacts.ContactsSummaryResponse;
+import org.hscieripple.patient.contacts.ContactsHeadlineResponse;
 import org.hscieripple.patient.contacts.ContactsServiceSoap;
 import org.hscieripple.patient.contacts.PairOfContactsListKeyContactsSummaryResultRow;
+import org.hscieripple.patient.contacts.PairOfContactsListKeyContactsHeadlineResultRow;
 import org.hscieripple.common.service.AbstractHSCIEService; 
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
 import org.hscieripple.patient.contacts.model.HSCIEContactDetails;
@@ -63,7 +65,7 @@ public class HSCIEContactsSearch extends AbstractHSCIEService implements HSCIECo
     }
 
     @Override
-    public List<ContactHeadline> findContactHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries) {
+    public List<ContactHeadline> findAllContactHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries) {
         List<ContactHeadline> contacts = new ArrayList<>();
 
         Long nhsNumber = convertPatientIdToLong(patientId);
@@ -76,7 +78,7 @@ public class HSCIEContactsSearch extends AbstractHSCIEService implements HSCIECo
 
         return contacts;
     }
-
+    
     @Override
     public HSCIEContactDetails findContact(String patientId, String contactId, String source) {
         ContactsDetailsResponse response = new ContactsDetailsResponse();
@@ -128,7 +130,7 @@ public class HSCIEContactsSearch extends AbstractHSCIEService implements HSCIECo
             log.error(e.getMessage(), e);
         }
 
-        return CollectionUtils.collect(results, new ContactsResponseToContactsSummaryTransformer(), new ArrayList<>());
+        return CollectionUtils.collect(results, new ContactsHeadlineResponseToHeadlineTransformer(), new ArrayList<>());
     }
 
     private boolean isSuccessfulSummaryResponse(ContactsSummaryResponse response) {

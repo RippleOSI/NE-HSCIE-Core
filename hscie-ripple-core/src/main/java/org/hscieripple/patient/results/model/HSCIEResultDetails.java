@@ -23,17 +23,6 @@ public class HSCIEResultDetails implements Serializable {
 
     private String source;
     private String sourceId;
-    private String testName;
-    private String status;
-    private String sampleTaken;
-    private String result;
-    private String value;
-    private String unit;
-    private String normalRange;
-    private String comment;
-    private String conclusion;
-    private String author;
-    private Date dateCreated;
 
     public String getSource() {
         return source;
@@ -49,93 +38,5 @@ public class HSCIEResultDetails implements Serializable {
 
     public void setSourceId(String sourceId) {
         this.sourceId = sourceId;
-    }
-
-    public String getTestName() {
-        return testName;
-    }
-
-    public void setTestName(String testName) {
-        this.testName = testName;
-    }
-    
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    
-    public String getSampleTaken() {
-        return sampleTaken;
-    }
-
-    public void setSampleTaken(String sampleTaken) {
-        this.sampleTaken = sampleTaken;
-    }
-    
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
-    
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-    
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-    
-    public String getNormalRange() {
-        return normalRange;
-    }
-
-    public void setNormalRange(String normalRange) {
-        this.normalRange = normalRange;
-    }
-    
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-    
-    public String getConclusion() {
-        return conclusion;
-    }
-
-    public void setConclusion(String conclusion) {
-        this.conclusion = conclusion;
-    }
-    
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
     }
 }
