@@ -36,9 +36,8 @@ angular.module('rippleDemonstrator')
             });
             break;
           default:
-            $state.go('patients-summary', {
-              patientId: $rootScope.currentUser.nhsNumber
-            });
+            $state.go('main-search');
+            break;
         }
       }
     });

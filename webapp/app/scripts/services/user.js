@@ -7,15 +7,17 @@ angular.module('rippleDemonstrator')
        return $http.get('/api/user').then(function (response) {
          var currentUser = response.data;
 
-         currentUser.tenant = {
-           id: response.data.tenant,
-           name: claims.tenant_name
-         };
+         if (currentUser && currentUser !== '') {
+           currentUser.tenant = {
+             id: response.data.tenant,
+             name: claims.tenant_name
+           };
 
-         currentUser.isAuthenticated = true;
-         currentUser.feature = claims.scope;
+           currentUser.isAuthenticated = true;
+           currentUser.feature = claims.scope;
 
-         response.data = currentUser;
+           response.data = currentUser;
+         }
 
          return response;
        });
