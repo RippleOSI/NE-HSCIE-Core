@@ -15,18 +15,20 @@
  */
 package org.hscieripple.patient.datasources.search;
 
-import java.util.Collection;
-import java.util.List;
+import org.apache.commons.collections4.Transformer;
+import org.hscieripple.patient.datasources.DSStatusResultRow;
+import org.hscieripple.patient.datasources.model.DataSourceStatus;
 
-import org.hscieripple.patient.notification.model.Notification;
-import org.rippleosi.common.repo.Repository;
-import org.hscieripple.patient.datasources.model.DataSourceSummary;
+/**
+ */
+public class DataSourceStatusResponseToStatusTransformer implements Transformer<DSStatusResultRow, DataSourceStatus> {
 
-public interface DataSourcesSearch extends Repository {
+    @Override
+    public DataSourceStatus transform(final DSStatusResultRow dataSource) {
+        final DataSourceStatus status = new DataSourceStatus();
+        status.setSource(dataSource.getDataSourceName());
+        status.setStatus(dataSource.getDataSourceStatus());
 
-    List<DataSourceSummary> findAvailableDataSources(String patientId, String dataType);
-
-    Collection<Notification> getNotifications();
-
-    void remove(String source);
+        return status;
+    }
 }

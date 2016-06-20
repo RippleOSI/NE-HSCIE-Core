@@ -13,20 +13,21 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package org.hscieripple.patient.datasources.search;
+package org.hscieripple.patient.notification.model;
 
-import java.util.Collection;
-import java.util.List;
+/**
+ */
+public enum NotificationStatus {
 
-import org.hscieripple.patient.notification.model.Notification;
-import org.rippleosi.common.repo.Repository;
-import org.hscieripple.patient.datasources.model.DataSourceSummary;
+    OK("OK"), DISABLED("Disabled"), ERROR("Error");
 
-public interface DataSourcesSearch extends Repository {
+    private final String status;
 
-    List<DataSourceSummary> findAvailableDataSources(String patientId, String dataType);
+    NotificationStatus(final String status) {
+        this.status = status;
+    }
 
-    Collection<Notification> getNotifications();
-
-    void remove(String source);
+    public String getStatus() {
+        return status;
+    }
 }

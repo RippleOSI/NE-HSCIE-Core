@@ -13,20 +13,28 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package org.hscieripple.patient.datasources.search;
+package org.hscieripple.patient.datasources.model;
 
-import java.util.Collection;
-import java.util.List;
+/**
+ */
+public class DataSourceStatus {
 
-import org.hscieripple.patient.notification.model.Notification;
-import org.rippleosi.common.repo.Repository;
-import org.hscieripple.patient.datasources.model.DataSourceSummary;
+    private String source;
+    private String status;
 
-public interface DataSourcesSearch extends Repository {
+    public String getStatus() {
+        return status;
+    }
 
-    List<DataSourceSummary> findAvailableDataSources(String patientId, String dataType);
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-    Collection<Notification> getNotifications();
+    public String getSource() {
+        return source;
+    }
 
-    void remove(String source);
+    public void setSource(String source) {
+        this.source = source;
+    }
 }
