@@ -12,7 +12,8 @@ angular
     'angularUtils.directives.dirPagination',
     'ui.timepicker',
     'ui.calendar',
-    'angularSpinner'
+    'angularSpinner',
+    'mgcrea.ngStrap.popover'
   ])
   .config(function ($stateProvider, $urlRouterProvider) {
 
@@ -120,7 +121,7 @@ angular
         }
       })
 
-      
+
 	  .state('medications', {
         url: '/patients/{patientId:int}/hscie-medications?patientSource&reportType&searchString&queryType',
         views: {
@@ -157,7 +158,7 @@ angular
           detail: { templateUrl: 'views/contacts/contacts-detail.html', controller: 'ContactsDetailCtrl' }
         }
       })
-      
+
       .state('problems-list', {
         url: '/patients/{patientId:int}/problems?patientSource&reportType&searchString&queryType',
         views: {
@@ -261,7 +262,7 @@ angular
           detail: { templateUrl: 'views/procedures/procedures-detail.html', controller: 'ProceduresDetailCtrl' }
         }
       })
-      
+
       .state('referrals-list', {
         url: '/patients/{patientId:int}/referrals?patientSource&reportType&searchString&queryType',
         views: {
@@ -280,7 +281,7 @@ angular
           detail: { templateUrl: 'views/referrals/referrals-detail.html', controller: 'ReferralDetailCtrl' }
         }
       })
-      
+
 
     .state('eolcareplans', {
         url: '/patients/{patientId:int}/eolcareplans?reportType&searchString&queryType',
@@ -520,6 +521,27 @@ angular
       });
     };
   }])
+
+  .directive('customPopover', function ($templateCache) {
+    return {
+      restrict: 'A',
+      template: '<span>{{label}}</span>',
+      link: function(scope, elem, attrs) {
+        scope.label = attrs.popoverLabel;
+        var template = $templateCache.get("example.html");
+
+        elem.bind('click', function(e){
+          $(elem).popover({
+            html: true,
+            title: "Notifications (" + scope.notifications.length + ")",
+            content: template,
+            placement: attrs.popoverPlacement,
+            dataContent: scope.notifications
+          });
+        });
+      }
+    };
+  })
 
   .filter('optedIn', function() {
     return function(optedIn) {
