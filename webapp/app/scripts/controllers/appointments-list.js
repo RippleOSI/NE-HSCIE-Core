@@ -6,8 +6,10 @@ angular.module('rippleDemonstrator')
     SearchInput.update();
     $scope.currentPage = 1;
 
-    var currentUser = UserService.getCurrentUser();
-    $stateParams.patientSource = currentUser.feature.patientSource;
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
+      $stateParams.patientSource = $scope.currentUser.feature.patientSource;
+    });
 
     $scope.pageChangeHandler = function (newPage) {
       $scope.currentPage = newPage;
@@ -20,12 +22,12 @@ angular.module('rippleDemonstrator')
     $scope.search = function (row) {
     var date = $filter('date')(row.dateOfAppointment, "dd/MM/yyyy");
     var time = $filter('date')(row.timeOfAppointment, "HH:mm");
-    
+
       return (
         angular.lowercase(row.serviceTeam).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
         angular.lowercase(row.source).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
         angular.lowercase(date).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
-        angular.lowercase(time).indexOf(angular.lowercase($scope.query) || '') !== -1 
+        angular.lowercase(time).indexOf(angular.lowercase($scope.query) || '') !== -1
       );
     };
 
@@ -60,5 +62,5 @@ angular.module('rippleDemonstrator')
     $scope.selected = function (appointmentIndex) {
       return appointmentIndex === $stateParams.appointmentIndex;
     };
-    
+
   });

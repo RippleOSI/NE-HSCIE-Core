@@ -3,7 +3,10 @@
 angular.module('rippleDemonstrator')
   .controller('MedicationsModalCtrl', function ($scope, $modalInstance, UserService, medication, patient, modal) {
 
-    $scope.currentUser = UserService.getCurrentUser();
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
+    });
+
     $scope.medication = medication;
     $scope.patient = patient;
     $scope.modal = modal;

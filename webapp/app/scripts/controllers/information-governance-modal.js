@@ -3,7 +3,10 @@
 angular.module('rippleDemonstrator')
   .controller('InformationGovernanceModalCtrl', function ($scope, $modalInstance, consent, UserService, patient, modal) {
 
-    $scope.currentUser = UserService.getCurrentUser();
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
+    });
+
     $scope.consent = consent;
     $scope.patient = patient;
     $scope.modal = modal;

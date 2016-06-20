@@ -75,7 +75,7 @@
         <gitscm.plugin.version>1.9.4</gitscm.plugin.version>
         <resources.plugin.version>2.7</resources.plugin.version>
         
-        <ripple.version>0.5.5.0</ripple.version>
+        <ripple.version>0.6.0.0</ripple.version>
     </properties>
 
     <modules>
@@ -147,6 +147,12 @@
                 <artifactId>hscie-ripple-database</artifactId>
                 <version>${project.version}</version>
             </dependency>			
+
+            <dependency>
+                <groupId>org.rippleosi</groupId>
+                <artifactId>ripple-security</artifactId>
+                <version>${ripple.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.rippleosi</groupId>

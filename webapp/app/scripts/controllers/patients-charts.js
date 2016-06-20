@@ -3,16 +3,18 @@
 angular.module('rippleDemonstrator')
   .controller('PatientsChartsCtrl', function ($scope, $window, $state, PatientService, $modal, UserService) {
 
-    var currentUser = UserService.getCurrentUser();
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
 
-    $scope.proceed = function (row, chartType) {
-      if (currentUser.feature.roleConfirmationRequired) {
-        openModal(row, chartType);
-      }
-      else {
-        ok(row, chartType);
-      }
-    };
+      $scope.proceed = function (row, chartType) {
+        if ($scope.currentUser.feature.roleConfirmationRequired) {
+          openModal(row, chartType);
+        }
+        else {
+          ok(row, chartType);
+        }
+      };
+    });
 
     var openModal = function (row, chartType) {
       $modal.open({

@@ -5,7 +5,10 @@ angular.module('rippleDemonstrator')
 
     $('#dateofreferral').datepicker({ dateFormat: 'dd-MMM-y' });
 
-    $scope.currentUser = UserService.getCurrentUser();
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
+    });
+
     $scope.referral = referral;
     $scope.patient = patient;
     $scope.modal = modal;

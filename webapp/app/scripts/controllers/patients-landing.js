@@ -7,8 +7,10 @@ angular.module('rippleDemonstrator')
       $scope.patient = result;
     });
 
-    var currentUser = UserService.getCurrentUser();
-    $stateParams.patientSource = currentUser.feature.patientSource;
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
+      $stateParams.patientSource = $scope.currentUser.feature.patientSource;
+    });
 
     PatientLandingService.all($stateParams.patientId).then(function (datasources) {
       $scope.datasources = datasources;
