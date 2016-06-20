@@ -22,7 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 /**
  */
 @Configuration
-@ComponentScan("org.hscieripple")
+@ComponentScan({"org.rippleosi", "org.hscieripple"})
 public class HSCIERestConfig extends WebMvcConfigurerAdapter {
 
 }

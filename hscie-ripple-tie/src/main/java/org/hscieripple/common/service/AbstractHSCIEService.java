@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 public abstract class AbstractHSCIEService implements Repository {
 
-    @Value("${repository.config.hscie.tie:1000}")
+    @Value("${repository.config.hscie.tie:800}")
     private int priority;
 
     @Override

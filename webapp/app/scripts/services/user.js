@@ -14,6 +14,7 @@ angular.module('rippleDemonstrator')
            };
 
            currentUser.isAuthenticated = true;
+           organisation: claims.organisation,
            currentUser.feature = claims.scope;
 
            response.data = currentUser;

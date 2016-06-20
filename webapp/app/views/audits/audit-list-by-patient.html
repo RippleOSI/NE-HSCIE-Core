@@ -1,0 +1,45 @@
+<h3>
+	<strong>User Audit Reports By Patient</strong>
+</h3>
+
+<div class="input-group">
+	<input type="text" class="form-control" ng-model="searchTerm"
+		placeholder="Patient NHS Number..."> <span
+		class="input-group-btn">
+		<button class="btn btn-default" type="submit"
+			ng-click="onSearchByPatient()">Search</button>
+	</span>
+</div>
+
+<p>
+
+<table class="table table-bordered table-striped table-hover">
+	<thead>
+		<tr>
+			<th>User accessing patient data</th>
+			<th>Date accessed</th>
+		</tr>
+	</thead>
+
+	<tbody>		
+		<tr dir-paginate="audit in audits | itemsPerPage: auditsPerPage" total-items="totalAudits" current-page="pagination.current" ng-click="go(audit.id)"
+			ng-class="{info: selected(audit.id)}">
+			<td>{{ audit.requesterUsername }}</td>
+			<td>{{ audit.requestDateTime | date:'medium' }}</td>
+		</tr>
+
+		<tr ng-if="!audits.length">
+			<td colspan="3"><span class="label label-default">No audit records</span></td>
+		</tr>
+	</tbody>
+</table>
+
+<dir-pagination-controls on-page-change="onPatientPageChanged(newPageNumber)"></dir-pagination-controls>
+
+<div class="row">
+	<div class="col-md-12">
+		<span class="patientSummary-spinner"
+			us-spinner="{radius:20, width:8, length: 16}"
+			spinner-key="auditSummary-spinner" spinner-start-active="false"></span>
+	</div>
+</div>

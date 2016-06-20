@@ -2,6 +2,7 @@
 
 angular.module('rippleDemonstrator')
   .value("claims", {
+    "organisation" : "hscie",
     "scope": {
       "homeView": "main-search",
       "autoAdvancedSearch": true,
