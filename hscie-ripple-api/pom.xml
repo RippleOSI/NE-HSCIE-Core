@@ -50,6 +50,12 @@
             <artifactId>hscie-ripple-tie</artifactId>
             <scope>runtime</scope>
         </dependency>
+		
+        <dependency>
+            <groupId>org.hscieripple</groupId>
+            <artifactId>hscie-ripple-database</artifactId>
+            <scope>runtime</scope>
+        </dependency>		
 
         <dependency>
             <groupId>org.rippleosi</groupId>

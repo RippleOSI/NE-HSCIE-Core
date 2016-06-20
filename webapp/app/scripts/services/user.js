@@ -12,6 +12,9 @@ angular.module('rippleDemonstrator')
       },
       firstName: claims.given_name,
       surname: claims.family_name,
+      username: claims.username,
+      organisation: claims.organisation,
+      permissions: 
       isAuthenticated: true,
       feature: claims.scope
     };

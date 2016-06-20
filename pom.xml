@@ -83,6 +83,7 @@
         <module>hscie-ripple-core</module>
         <module>hscie-ripple-packaging</module>
         <module>hscie-ripple-tie</module>
+        <module>hscie-ripple-database</module>
     </modules>
 
     <dependencyManagement>
@@ -140,6 +141,12 @@
                 <artifactId>hscie-ripple-tie</artifactId>
                 <version>${project.version}</version>
             </dependency>
+			
+            <dependency>
+                <groupId>org.hscieripple</groupId>
+                <artifactId>hscie-ripple-database</artifactId>
+                <version>${project.version}</version>
+            </dependency>			
 
             <dependency>
                 <groupId>org.rippleosi</groupId>
@@ -241,6 +248,12 @@
                 <groupId>me.fhir</groupId>
                 <artifactId>fhir-dstu2</artifactId>
                 <version>1.0.1.7108</version>
+                 <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>               
             </dependency>
 
             <dependency>

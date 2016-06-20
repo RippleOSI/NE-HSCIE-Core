@@ -6,6 +6,8 @@ angular.module('rippleDemonstrator')
     "given_name": "Bob",
     "family_name": "Smith",
     "email": "bob.smith@gmail.com",
+    "username" : "bob.smith",
+    "organisation" : "hscie",
     "scope": {
       "homeView": "main-search",
       "autoAdvancedSearch": true,
