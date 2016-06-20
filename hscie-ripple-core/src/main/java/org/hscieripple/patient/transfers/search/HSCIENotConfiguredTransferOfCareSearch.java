@@ -23,6 +23,7 @@ import org.rippleosi.common.types.RepoSourceType;
 import org.hscieripple.patient.transfers.model.HSCIETransferOfCareDetails;
 import org.hscieripple.patient.transfers.model.HSCIETransferOfCareSummary;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
+import org.rippleosi.patient.summary.model.TransferHeadline;
 
 public class HSCIENotConfiguredTransferOfCareSearch implements HSCIETransferOfCareSearch {
 
@@ -38,6 +39,11 @@ public class HSCIENotConfiguredTransferOfCareSearch implements HSCIETransferOfCa
 
     @Override
     public List<HSCIETransferOfCareSummary> findAllTransfers(String patientId, List<DataSourceSummary> datasourceSummaries) {
+        throw ConfigurationException.unimplementedTransaction(HSCIETransferOfCareSearch.class);
+    }
+    
+    @Override
+    public List<TransferHeadline> findAllTransferOfCareHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries) {
         throw ConfigurationException.unimplementedTransaction(HSCIETransferOfCareSearch.class);
     }
 

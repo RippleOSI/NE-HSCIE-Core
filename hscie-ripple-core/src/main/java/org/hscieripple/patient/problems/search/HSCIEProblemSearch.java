@@ -18,6 +18,7 @@ package org.hscieripple.patient.problems.search;
 import java.util.List;
 
 import org.rippleosi.common.repo.Repository;
+import org.rippleosi.patient.problems.model.ProblemHeadline;
 import org.hscieripple.patient.problems.model.HSCIEProblemDetails;
 import org.hscieripple.patient.problems.model.HSCIEProblemSummary;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
@@ -26,7 +27,7 @@ import org.hscieripple.patient.datasources.model.DataSourceSummary;
  */
 public interface HSCIEProblemSearch extends Repository {
 
-
+	List<ProblemHeadline> findAllProblemHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries);
 
     List<HSCIEProblemSummary> findAllProblems(String patientId, List<DataSourceSummary> datasourceSummaries);
 

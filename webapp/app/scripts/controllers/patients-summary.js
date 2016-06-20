@@ -14,15 +14,18 @@ angular.module('rippleDemonstrator')
       $scope.allergiesCount = patient.allergies.length;
       $scope.allergies = patient.allergies.slice(0, 5);
 
-      $scope.diagnosesCount = patient.problems.length;
-      $scope.diagnoses = patient.problems.slice(0, 5);
+      
 
       $scope.medicationsCount = patient.medications.length;
       $scope.medications = patient.medications.slice(0, 5);
 */
+
+	  $scope.diagnosesCount = patient.problems.length;
+      $scope.diagnoses = patient.problems.slice(0, 5);
+      
       $scope.contactsCount = patient.contacts.length;
       $scope.contacts = patient.contacts.slice(0, 5);
-/*
+
       $scope.transferofCaresCount = patient.transfers.length;
       $scope.transferofCareComposition = patient;
 
@@ -33,7 +36,7 @@ angular.module('rippleDemonstrator')
 
       $scope.transferofCareComposition.transfers = descendingTransferofCareComposition;
       $scope.transferofCareComposition = $scope.transferofCareComposition.transfers.slice(0, 5);
-*/
+
       $scope.isOptedOut = !$scope.patient.optIn;
 
       usSpinnerService.stop('patientSummary-spinner');
@@ -83,6 +86,21 @@ angular.module('rippleDemonstrator')
         searchString: $stateParams.searchString,
         queryType: $stateParams.queryType,
         source: contactSource,
+        patientSource: $stateParams.patientSource
+      });
+    };
+    
+    
+        $scope.goTransfer = function (id, transferSource) {
+      $state.go('transferOfCare-detail', {
+        patientId: $scope.patient.nhsNumber,
+        transferIndex: id,
+        filter: $scope.query,
+        page: $scope.currentPage,
+        reportType: $stateParams.reportType,
+        searchString: $stateParams.searchString,
+        queryType: $stateParams.queryType,
+        source: transferSource,
         patientSource: $stateParams.patientSource
       });
     };

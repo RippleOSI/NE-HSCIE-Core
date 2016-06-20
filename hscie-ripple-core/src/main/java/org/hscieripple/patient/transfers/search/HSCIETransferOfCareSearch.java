@@ -21,8 +21,11 @@ import org.rippleosi.common.repo.Repository;
 import org.hscieripple.patient.transfers.model.HSCIETransferOfCareDetails;
 import org.hscieripple.patient.transfers.model.HSCIETransferOfCareSummary;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
+import org.rippleosi.patient.summary.model.TransferHeadline;
 
 public interface HSCIETransferOfCareSearch extends Repository {
+	
+	List<TransferHeadline> findAllTransferOfCareHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries);
 
     List<HSCIETransferOfCareSummary> findAllTransfers(String patientId, List<DataSourceSummary> datasourceSummaries);
 

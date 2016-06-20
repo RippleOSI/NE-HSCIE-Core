@@ -43,7 +43,6 @@ import org.rippleosi.patient.medication.model.MedicationHeadline;
 import org.rippleosi.patient.problems.model.ProblemHeadline;
 import org.rippleosi.patient.summary.model.PatientHeadline;
 import org.rippleosi.patient.summary.model.TransferHeadline;
-import org.rippleosi.patient.transfers.model.TransferOfCareSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -55,6 +54,12 @@ public class PatientResponseToPatientDetailsTransformer implements Transformer<R
 
     @Autowired
     private HSCIEContactSearchFactory contactSearchFactory;
+    
+    @Autowired
+    private HSCIEProblemSearchFactory problemSearchFactory;
+    
+    @Autowired
+    private HSCIETransferOfCareSearchFactory transferSearchFactory;
 
 
     @Override
@@ -78,6 +83,7 @@ public class PatientResponseToPatientDetailsTransformer implements Transformer<R
         details.setOptIn(response.isConsentStatus());
 
         details.setContacts(findContacts(nhsNumber));
+        details.setTransfers(findTransfers(nhsNumber));
 
         return details;
     }
@@ -91,6 +97,39 @@ public class PatientResponseToPatientDetailsTransformer implements Transformer<R
             final List<ContactHeadline> contacts = contactSearch.findAllContactHeadlines(patientId, dataSources);
             
             return CollectionUtils.collect(contacts, new ContactHeadlineToPatientHeadlineTransformer(), new ArrayList<>());
+        }
+        catch (DataNotFoundException ignore) {
+            return Collections.emptyList();
+        }
+    }
+    
+    
+    private List<PatientHeadline> findProblems(final String patientId) {
+        try {
+            final List<DataSourceSummary> dataSources = findDataSources(patientId, "transfers");
+
+            final HSCIEProblemSearch problemSearch = problemSearchFactory.select(null);
+
+            final List<ProblemHeadline> problems = problemSearch.findAllProblemHeadlines(patientId, dataSources);
+            
+            return CollectionUtils.collect(problems, new ProblemHeadlineToPatientHeadlineTransformer(), new ArrayList<>());
+        }
+        catch (DataNotFoundException ignore) {
+            return Collections.emptyList();
+        }
+    }
+    
+    
+    
+    private List<TransferHeadline> findTransfers(final String patientId) {
+        try {
+            final List<DataSourceSummary> dataSources = findDataSources(patientId, "transfers");
+
+            final HSCIETransferOfCareSearch transferSearch = transferSearchFactory.select(null);
+
+            final List<TransferHeadline> transfers = transferSearch.findAllTransferOfCareHeadlines(patientId, dataSources);
+            
+            return CollectionUtils.collect(transfers, new TransferOfCareHeadlineToPatientHeadlineTransformer(), new ArrayList<>());
         }
         catch (DataNotFoundException ignore) {
             return Collections.emptyList();
