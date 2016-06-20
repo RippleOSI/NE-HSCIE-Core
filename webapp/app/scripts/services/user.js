@@ -14,7 +14,6 @@ angular.module('rippleDemonstrator')
       surname: claims.family_name,
       username: claims.username,
       organisation: claims.organisation,
-      permissions: 
       isAuthenticated: true,
       feature: claims.scope
     };
