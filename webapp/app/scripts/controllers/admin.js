@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('AdminCtrl', function ($scope, SearchInput, UserService) {
+  .controller('AdminCtrl', function ($scope, $state, SearchInput, UserService) {
 
     SearchInput.update();
 
@@ -9,4 +9,15 @@ angular.module('rippleDemonstrator')
         $scope.adminUser = response.data;
     });
 
+    $scope.goTo = function (section) {
+      var toState = '';
+
+      switch (section) {
+        case 'adminConsole':
+          toState = 'admin-console';
+          break;
+      }
+
+      $state.go(toState);
+    }
   });

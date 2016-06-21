@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .factory('UserService', function ($http, claims, content) {
+  .factory('UserService', function ($rootScope, $http, claims, content) {
 
     var findCurrentUser = function () {
        return $http.get('/api/user').then(function (response) {
@@ -16,6 +16,9 @@ angular.module('rippleDemonstrator')
            currentUser.isAuthenticated = true;
            currentUser.organisation = claims.organisation;
            currentUser.feature = claims.scope;
+           currentUser.hasPermission = function(role) {
+             return $rootScope.currentUser.permissions.indexOf(role) > -1;
+           };
 
            response.data = currentUser;
          }

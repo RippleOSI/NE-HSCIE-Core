@@ -396,26 +396,34 @@ angular
           detail: { templateUrl: 'views/dicom/image-detail.html', controller: 'ImageDetailCtrl' }
         }
       })
-    
+
+      .state('admin-console', {
+        url: '/admin',
+        views: {
+          'user-context': { templateUrl: 'views/admin/admin-context.html', controller: 'AdminCtrl' },
+          actions: { templateUrl: 'views/admin/admin-sidebar.html', controller: 'AdminCtrl' }
+        }
+      })
+
       .state('audits-by-patient', {
         url: '/audits/patient',
         views: {
         	'user-context': { templateUrl: 'views/admin/admin-context.html', controller: 'AdminCtrl' },
           actions: { templateUrl: 'views/admin/admin-sidebar.html', controller: 'AdminCtrl' },
           main: { templateUrl: 'views/audits/audit-list-by-patient.html', controller: 'AuditListCtrl' },
-          detail: { templateUrl: 'views/audits/audit-detail.html', controller: 'AuditDetailCtrl' } 
+          detail: { templateUrl: 'views/audits/audit-detail.html', controller: 'AuditDetailCtrl' }
         }
       })
-      
+
       .state('audits-by-user', {
         url: '/audits/user',
         views: {
         	'user-context': { templateUrl: 'views/admin/admin-context.html', controller: 'AdminCtrl' },
           actions: { templateUrl: 'views/admin/admin-sidebar.html', controller: 'AdminCtrl' },
           main: { templateUrl: 'views/audits/audit-list-by-user.html', controller: 'AuditListCtrl' },
-          detail: { templateUrl: 'views/audits/audit-detail.html', controller: 'AuditDetailCtrl' } 
+          detail: { templateUrl: 'views/audits/audit-detail.html', controller: 'AuditDetailCtrl' }
         }
-      })      
+      })
   })
 
   .directive('datepickerPopup', function () {

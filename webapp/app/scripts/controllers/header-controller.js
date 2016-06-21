@@ -131,14 +131,21 @@ angular.module('rippleDemonstrator')
         previousPage = '';
         mainWidth = 6;
         detailWidth = 6;
-        break;  
+        break;
       case 'audits-by-user':
           previousState = '';
           pageHeader = 'Admin Console';
           previousPage = '';
           mainWidth = 6;
           detailWidth = 6;
-          break;        
+          break;
+      case 'admin-console':
+        previousState = '';
+        pageHeader = 'Admin Console';
+        previousPage = '';
+        mainWidth = 6;
+        detailWidth = 6;
+        break;
       default:
         previousState = 'patients-list';
         pageHeader = 'Patients Details';
@@ -324,8 +331,8 @@ angular.module('rippleDemonstrator')
         });
       };
 
-      if ($scope.currentUser.role === 'IDCR') {
-        $scope.title = 'IDCR POC'
+      if ($scope.currentUser.role === 'IDCR' || $scope.currentUser.role === 'IG') {
+        $scope.title = 'HSCIE Ripple'
       }
       if ($scope.currentUser.role === 'PHR') {
         $scope.title = 'PHR POC'
@@ -342,6 +349,10 @@ angular.module('rippleDemonstrator')
             patientId: 10
           }); // Id is hardcoded
         }
+      };
+
+      $scope.goToAdminConsole = function() {
+        $state.go('admin-console');
       };
     });
 

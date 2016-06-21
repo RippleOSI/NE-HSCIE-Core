@@ -8,7 +8,6 @@ angular.module('rippleDemonstrator')
         for(var i=0; i < $scope.notifications.length; i++) {
           if (source === $scope.notifications[i].source) {
             $scope.notifications.splice(i,1);
-            $scope.apply();
           }
         }
       });
