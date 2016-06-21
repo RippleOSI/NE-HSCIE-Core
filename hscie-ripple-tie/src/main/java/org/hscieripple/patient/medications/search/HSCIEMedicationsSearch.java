@@ -23,7 +23,9 @@ import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.hscieripple.patient.medications.MedicationsDetailsResponse;
+import org.hscieripple.patient.medications.MedicationsHeadlineResponse;
 import org.hscieripple.patient.medications.MedicationsSummaryResponse;
+import org.hscieripple.patient.medications.PairOfMedicationsListKeyMedicationsHeadlineResultRow;
 import org.hscieripple.patient.medications.MedicationServiceSoap;
 import org.hscieripple.patient.medications.PairOfMedicationsListKeyMedicationsSummaryResultRow;
 import org.hscieripple.common.service.AbstractHSCIEService; 
@@ -31,6 +33,7 @@ import org.hscieripple.patient.datasources.model.DataSourceSummary;
 import org.hscieripple.patient.medications.model.HSCIEMedicationDetails;
 import org.hscieripple.patient.medications.model.HSCIEMedicationSummary;
 import org.hscieripple.patient.medications.search.HSCIEMedicationSearch;
+import org.rippleosi.patient.medication.model.MedicationHeadline;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +83,27 @@ public class HSCIEMedicationsSearch extends AbstractHSCIEService implements HSCI
 
         return new MedicationDetailsResponseToDetailsTransformer().transform(response);
     }
+    
+    
+    
+    
+    @Override
+    public List<MedicationHeadline> findAllMedicationHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries) {
+        List<MedicationHeadline> medications = new ArrayList<>();
+
+        Long nhsNumber = convertPatientIdToLong(patientId);
+
+        for (DataSourceSummary summary : datasourceSummaries) {
+            List<MedicationHeadline> results = makeHeadlineCall(nhsNumber, summary.getSourceId());
+
+            medications.addAll(results);
+        }
+
+        return medications;
+    }
+    
+    
+    
 
     private List<HSCIEMedicationSummary> makeSummaryCall(Long nhsNumber, String source) {
         List<PairOfMedicationsListKeyMedicationsSummaryResultRow> results = new ArrayList<>();
@@ -97,8 +121,35 @@ public class HSCIEMedicationsSearch extends AbstractHSCIEService implements HSCI
 
         return CollectionUtils.collect(results, new MedicationResponseToMedicationSummaryTransformer(), new ArrayList<>());
     }
+    
+    
+    
+    private List<MedicationHeadline> makeHeadlineCall(Long nhsNumber, String source) {
+        List<PairOfMedicationsListKeyMedicationsHeadlineResultRow> results = new ArrayList<>();
+
+        try {
+            MedicationsHeadlineResponse response = medicationsService.findMedicationsHeadlinesBO(nhsNumber, source);
+
+            if (isSuccessfulHeadlineResponse(response)) {
+                results = response.getMedicationsList().getMedicationsHeadlineResultRow();
+            }
+        }
+        catch (SOAPFaultException e) {
+            log.error(e.getMessage(), e);
+        }
+
+        return CollectionUtils.collect(results, new MedicationHeadlineResponseToHeadlineTransformer(), new ArrayList<>());
+    }
+    
+    
+    
+    
 
     private boolean isSuccessfulSummaryResponse(MedicationsSummaryResponse response) {
+        return OK.equalsIgnoreCase(response.getStatusCode()); 
+    }
+    
+    private boolean isSuccessfulHeadlineResponse(MedicationsHeadlineResponse response) {
         return OK.equalsIgnoreCase(response.getStatusCode()); 
     }
 

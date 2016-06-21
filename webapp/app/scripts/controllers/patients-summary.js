@@ -13,12 +13,12 @@ angular.module('rippleDemonstrator')
 /*
       $scope.allergiesCount = patient.allergies.length;
       $scope.allergies = patient.allergies.slice(0, 5);
-
+*/
       
 
       $scope.medicationsCount = patient.medications.length;
       $scope.medications = patient.medications.slice(0, 5);
-*/
+
 
 	  $scope.diagnosesCount = patient.problems.length;
       $scope.diagnoses = patient.problems.slice(0, 5);
@@ -116,6 +116,21 @@ angular.module('rippleDemonstrator')
         searchString: $stateParams.searchString,
         queryType: $stateParams.queryType,
         source: problemSource,
+        patientSource: $stateParams.patientSource
+      });
+    };
+    
+    
+        $scope.goMedication = function (id, medicationSource) {
+      $state.go('medications-detail', {
+        patientId: $scope.patient.nhsNumber,
+        medicationIndex: id,
+        filter: $scope.query,
+        page: $scope.currentPage,
+        reportType: $stateParams.reportType,
+        searchString: $stateParams.searchString,
+        queryType: $stateParams.queryType,
+        source: medicationSource,
         patientSource: $stateParams.patientSource
       });
     };

@@ -23,7 +23,9 @@ import org.rippleosi.common.types.RepoSourceTypes;
 import org.rippleosi.common.types.RepoSourceType;
 import org.hscieripple.patient.medications.model.HSCIEMedicationDetails;
 import org.hscieripple.patient.medications.model.HSCIEMedicationSummary;
+import org.hscieripple.patient.contacts.search.HSCIEContactSearch;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
+import org.rippleosi.patient.medication.model.MedicationHeadline;
 
 public class HSCIENotConfiguredMedicationSearch implements HSCIEMedicationSearch {
 
@@ -40,6 +42,11 @@ public class HSCIENotConfiguredMedicationSearch implements HSCIEMedicationSearch
     @Override
     public List<HSCIEMedicationSummary> findAllMedications(String patientId, List<DataSourceSummary> datasourceSummaries) {
         throw ConfigurationException.unimplementedTransaction(HSCIEMedicationSearch.class);
+    }
+    
+    @Override
+    public List<MedicationHeadline> findAllMedicationHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries) {
+        throw ConfigurationException.unimplementedTransaction(HSCIEContactSearch.class);
     }
 
     @Override

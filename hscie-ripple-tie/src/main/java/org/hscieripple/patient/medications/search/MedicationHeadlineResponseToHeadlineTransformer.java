@@ -16,19 +16,20 @@
 
 package org.hscieripple.patient.medications.search;
 
-import java.util.List;
-
-import org.rippleosi.common.repo.Repository;
+import org.apache.commons.collections4.Transformer;
+import org.hscieripple.patient.medications.MedicationsHeadlineResultRow;
 import org.rippleosi.patient.medication.model.MedicationHeadline;
-import org.hscieripple.patient.medications.model.HSCIEMedicationDetails;
-import org.hscieripple.patient.medications.model.HSCIEMedicationSummary;
-import org.hscieripple.patient.datasources.model.DataSourceSummary;
 
-public interface HSCIEMedicationSearch extends Repository {
+public class MedicationHeadlineResponseToHeadlineTransformer implements Transformer<MedicationsHeadlineResultRow, MedicationHeadline> {
+    
+    @Override
+    public MedicationHeadline transform(MedicationsHeadlineResultRow response) {
 
-	List<MedicationHeadline> findAllMedicationHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries);
-	
-	List<HSCIEMedicationSummary> findAllMedications(String patientId, List<DataSourceSummary> datasourceSummaries);
+    	MedicationHeadline headline = new MedicationHeadline();
+        headline.setSource(response.getDataSourceName());
+        headline.setSourceId(response.getSourceID());
+        headline.setName(response.getName());
 
-    HSCIEMedicationDetails findMedication(String patientId, String medicationId, String sourceId);
+        return headline;
+    }
 }

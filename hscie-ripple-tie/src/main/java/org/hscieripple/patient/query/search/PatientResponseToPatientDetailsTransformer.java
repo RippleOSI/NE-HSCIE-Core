@@ -60,6 +60,9 @@ public class PatientResponseToPatientDetailsTransformer implements Transformer<R
     
     @Autowired
     private HSCIETransferOfCareSearchFactory transferSearchFactory;
+    
+    @Autowired
+    private HSCIEMedicationSearchFactory medicationSearchFactory;
 
 
     @Override
@@ -84,6 +87,7 @@ public class PatientResponseToPatientDetailsTransformer implements Transformer<R
 
         details.setContacts(findContacts(nhsNumber));
         details.setProblems(findProblems(nhsNumber));
+        details.setMedications(findMedications(nhsNumber));
         details.setTransfers(findTransfers(nhsNumber));
 
         return details;
@@ -107,13 +111,29 @@ public class PatientResponseToPatientDetailsTransformer implements Transformer<R
     
     private List<PatientHeadline> findProblems(final String patientId) {
         try {
-            final List<DataSourceSummary> dataSources = findDataSources(patientId, "transfers");
+            final List<DataSourceSummary> dataSources = findDataSources(patientId, "problems");
 
             final HSCIEProblemSearch problemSearch = problemSearchFactory.select(null);
 
             final List<ProblemHeadline> problems = problemSearch.findAllProblemHeadlines(patientId, dataSources);
             
             return CollectionUtils.collect(problems, new ProblemHeadlineToPatientHeadlineTransformer(), new ArrayList<>());
+        }
+        catch (DataNotFoundException ignore) {
+            return Collections.emptyList();
+        }
+    }
+    
+    
+    private List<PatientHeadline> findMedications(final String patientId) {
+        try {
+            final List<DataSourceSummary> dataSources = findDataSources(patientId, "medications");
+
+            final HSCIEMedicationSearch medicationsSearch = medicationSearchFactory.select(null);
+
+            final List<MedicationHeadline> medications = medicationsSearch.findAllMedicationHeadlines(patientId, dataSources);
+            
+            return CollectionUtils.collect(medications, new MedicationHeadlineToPatientHeadlineTransformer(), new ArrayList<>());
         }
         catch (DataNotFoundException ignore) {
             return Collections.emptyList();
