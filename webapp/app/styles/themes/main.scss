@@ -2114,7 +2114,8 @@ span.selectedTab {
   color: #030303;
 }
 
-.orderDateTime {
+.orderDateTime
+.alertDateTime {
   width: 23%;
 }
 
@@ -2150,6 +2151,7 @@ i.fa.cancel-reportType.fa-times {
 
 .contactForm textarea,
 .allergyForm textarea,
+.alertForm textarea,
 .diagnosisForm textarea
 {
   height: 100px;
@@ -2172,17 +2174,20 @@ i.fa.cancel-reportType.fa-times {
   line-height: 30px;
 }
 
-.allergyForm .input-group {
+.allergyForm .input-group,
+.alertForm .input-group {
   width: 100%;
   padding-top: 8px;
 }
 
-.allergyForm .nonEditValue {
+.allergyForm .nonEditValue,
+.alertForm .nonEditValue {
   padding-top: 8px;
 }
 
 .patientSearchForm .row,
 .allergyForm .row,
+.alertForm .row,
 .medicationForm .row,
 .diagnosisForm > .row {
   margin-right: 0px;

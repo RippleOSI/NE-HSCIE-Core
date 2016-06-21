@@ -11,6 +11,7 @@ angular.module('rippleDemonstrator')
       "roleConfirmationRequired": false,
       "navBar": {
         "patientSummaryEnabled": true,
+        "alertsEnabled": true,
         "keyworkersEnabled": true,
         "contactsEnabled": true,
         "diagnosisEnabled": true,

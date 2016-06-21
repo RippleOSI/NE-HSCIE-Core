@@ -16,6 +16,7 @@
 package org.hscieripple.config;
 
 import org.apache.cxf.jaxws.spring.JaxWsProxyFactoryBeanDefinitionParser.JAXWSSpringClientProxyFactoryBean;
+import org.hscieripple.patient.alerts.AlertServiceSoap;
 import org.hscieripple.patient.consent.*;
 import org.hscieripple.patient.datasources.DataSourcesServiceSoap;
 import org.hscieripple.patient.keyworkers.KeyWorkerServiceSoap;
@@ -82,6 +83,9 @@ public class CXFConfig {
     
     @Value("${hscie.tie.transferOfCareServiceUrl}")
     private String transferOfCareServiceUrl;
+
+    @Value("${hscie.tie.alertsServiceUrl}")
+    private String alertsServiceUrl;
     
     @Bean
     public PatientServiceSoap patientService() {
@@ -147,6 +151,11 @@ public class CXFConfig {
     @Bean
     public ConsentUpdateServiceSoap consentsUpdateService() {
         return createJAXWSService(ConsentUpdateServiceSoap.class, consentsUpdateUrl);
+    }
+
+    @Bean
+    public AlertServiceSoap alertsService() {
+        return createJAXWSService(AlertServiceSoap.class, alertsServiceUrl);
     }
 
     public <T> T createJAXWSService(Class<T> serviceClass, String serviceUrl) {
