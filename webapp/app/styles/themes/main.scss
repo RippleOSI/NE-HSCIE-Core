@@ -593,15 +593,30 @@ legend {
 }
 
 .ripple-icon {
-  width: 40px;
-  height: 40px;
+  width: auto;
+  height: 60px;
   cursor: pointer;
 }
 
+/* Main search bar for home page */
+.main-search {
+  position: absolute;
+  top: 40%;
+  left: 27%;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 40%;
+}
 
 /* Header - Search Bar */
 .searchBarHidden {
   visibility: hidden;
+}
+
+.advanced-search-text {
+  font-size: 12px;
+  margin-top: 11px;
 }
 
 .icon-searchbar:before {
@@ -1705,6 +1720,10 @@ textarea#procedureNotes {
   margin-bottom: 15px;
 }
 
+.advancedSearchForm .input-group {
+  padding-top: 5px;
+  width: 100%; }
+
 
 /* enable absolute positioning */
 
@@ -1961,7 +1980,12 @@ tr.ng-scope.selectedItemLeft {
 }
 
 .searchButton {
-  margin-top: -35px;
+  margin-top: -58px;
+  margin-left: 101%;
+}
+
+.mainSearchButton {
+  margin-top: -110px;
   margin-left: 101%;
 }
 
@@ -1969,6 +1993,24 @@ tr.ng-scope.selectedItemLeft {
   border: 1px solid #bdbdbd;
   border-radius: 4px;
   background-color: #fff;
+}
+
+.col-inline-label {
+  width: auto;
+  height: 30px;
+  padding-top: 8px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #a9a9a9;
+}
+
+.required-label {
+  width: auto;
+  height: 30px;
+  padding-top: 8px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #a32d44;
 }
 
 .patient-list-full-subheader {
@@ -2072,7 +2114,8 @@ span.selectedTab {
   color: #030303;
 }
 
-.orderDateTime {
+.orderDateTime
+.alertDateTime {
   width: 23%;
 }
 
@@ -2108,6 +2151,7 @@ i.fa.cancel-reportType.fa-times {
 
 .contactForm textarea,
 .allergyForm textarea,
+.alertForm textarea,
 .diagnosisForm textarea
 {
   height: 100px;
@@ -2130,21 +2174,29 @@ i.fa.cancel-reportType.fa-times {
   line-height: 30px;
 }
 
-.allergyForm .input-group {
+.allergyForm .input-group,
+.alertForm .input-group {
   width: 100%;
   padding-top: 8px;
 }
 
-.allergyForm .nonEditValue {
+.allergyForm .nonEditValue,
+.alertForm .nonEditValue {
   padding-top: 8px;
 }
 
 .patientSearchForm .row,
 .allergyForm .row,
+.alertForm .row,
 .medicationForm .row,
 .diagnosisForm > .row {
   margin-right: 0px;
   margin-left: 0px;
+}
+
+.infoGovForm .input-group {
+  width: 100%;
+  padding-top: 8px;
 }
 
 .row .topMedicationRow {
@@ -2250,4 +2302,111 @@ div#age-chart div.morris-hover.morris-default-style {
 
 .dicomImageMetadata {
   margin-top: 5px;
+}
+
+/* Main search bar for home page */
+.search-logo {
+  width: 50%;
+  display: block;
+  margin: 0 auto;
+  padding-bottom: 10px;
+}
+
+div.messageBox {
+  background-color: #fafafa;
+  color: #000000;
+  border: 2px solid #bebcbd;
+  padding: 10px;
+  margin-left: 0.9%;
+  margin-right: 3.1%;
+}
+
+.notification {
+  vertical-align: middle;
+  text-align: center;
+  padding-top: 15px;
+}
+
+.glyphicon-button {
+  -webkit-appearance: none;
+  outline: none;
+  border: 0;
+  background: transparent;
+}
+
+.badge-notify {
+  background: darkorange;
+  position: relative;
+  top: -20px;
+  left: -20px;
+}
+
+.notification-entry {
+  width: 100%;
+  height: 70px;
+  font-size: 13px;
+  font-weight: normal;
+  background-color: white;
+  border-top: solid 1px #a9a9a9;
+  padding-top: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  line-height: 16px;
+  position: relative;
+}
+
+.notification-timeago {
+  color: grey;
+  font-size: 10px;
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+}
+
+.notification-acknowledge {
+  color: grey;
+  text-underline: grey;
+  font-size: 10px;
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+}
+
+.notification-unavailable-indicator {
+  border-left: solid red 8px;
+}
+
+.notification-available-indicator {
+  border-left: solid limegreen 8px;
+}
+
+.notification-list {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.popover {
+  min-width: 300px;
+}
+
+.popover-content {
+  padding: 0px 0px;
+  border-bottom: solid 1px #a9a9a9;
+}
+
+.popover-footer {
+  margin: 0;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  background-color: #F7F7F7;
+  border-bottom: 1px solid #EBEBEB;
+  border-radius: 5px 5px 0 0;
+}
+
+h2.popover-title {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 16px;
 }

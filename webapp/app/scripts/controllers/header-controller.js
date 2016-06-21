@@ -1,37 +1,56 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('headerController', function ($scope, $rootScope, $state, usSpinnerService, $stateParams, UserService) {
+  .controller('headerController', function ($scope, $rootScope, $state, $window, usSpinnerService, $stateParams, UserService, AdvancedSearch) {
 
     $rootScope.searchExpression = '';
     $scope.searchExpression = $rootScope.searchExpression;
     $scope.reportTypes = [];
 
+    $scope.searchFocused = false;
+
+    var redirectUrl;
+
     // Get current user
-    $scope.currentUser = UserService.getCurrentUser();
+    UserService.findCurrentUser().then( function (response) {
+       redirectUrl = response.headers().location;
 
-    // Direct different roles to different pages at login
-    switch ($scope.currentUser.role) {
-      case 'idcr':
-        if ($scope.currentUser.feature.homeView === 'search') {
-          $state.go('patients-search');
-        } else {
-          $state.go('patients-charts');
+      if (redirectUrl) {
+        $window.location = redirectUrl;
+      }
+      else {
+        $rootScope.currentUser = response.data;
+
+        $scope.autoAdvancedSearch = $rootScope.currentUser.feature.autoAdvancedSearch;
+        $scope.searchBarEnabled = $rootScope.currentUser.feature.searchBarEnabled;
+        $scope.navBar = $rootScope.currentUser.feature.navBar;
+
+        // Direct different roles to different pages at login
+        switch ($rootScope.currentUser.role) {
+          case 'IDCR':
+            $state.go('main-search');
+            break;
+          case 'PHR':
+            $state.go('patients-summary', {
+              patientId: $rootScope.currentUser.nhsNumber
+            });
+            break;
+          default:
+            $state.go('main-search');
+            break;
         }
-        break;
-      case 'phr':
-        $state.go('patients-summary', {
-          patientId: 10
-        }); // id is hard coded
-        break;
-      default:
-        $state.go('patients-summary', {
-          patientId: 10
-        }); // id is hard coded
-    }
+      }
+    });
 
-    $scope.searchBarEnabled = $scope.currentUser.feature.searchBarEnabled;
-    $scope.navBar = $scope.currentUser.feature.navBar;
+    $scope.logout = function () {
+      UserService.logout().then(function (response) {
+        redirectUrl = response.headers().location;
+
+        if (redirectUrl) {
+          $window.location = redirectUrl;
+        }
+      });
+    };
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState) {
       var params = $stateParams;
@@ -43,6 +62,13 @@ angular.module('rippleDemonstrator')
       var detailWidth = 0;
 
       switch (toState.name) {
+        case 'main-search':
+          previousState = '';
+          pageHeader = 'Welcome';
+          previousPage = '';
+          mainWidth = 12;
+          detailWidth = 0;
+          break;
       case 'patients-list':
         previousState = 'patients-charts';
         pageHeader = 'Patient Lists';
@@ -99,6 +125,27 @@ angular.module('rippleDemonstrator')
         mainWidth = 12;
         detailWidth = 0;
         break;
+      case 'audits-by-patient':
+        previousState = '';
+        pageHeader = 'Admin Console';
+        previousPage = '';
+        mainWidth = 6;
+        detailWidth = 6;
+        break;
+      case 'audits-by-user':
+          previousState = '';
+          pageHeader = 'Admin Console';
+          previousPage = '';
+          mainWidth = 6;
+          detailWidth = 6;
+          break;
+      case 'admin-console':
+        previousState = '';
+        pageHeader = 'Admin Console';
+        previousPage = '';
+        mainWidth = 6;
+        detailWidth = 6;
+        break;
       default:
         previousState = 'patients-list';
         pageHeader = 'Patients Details';
@@ -142,7 +189,12 @@ angular.module('rippleDemonstrator')
       $rootScope.reportTypeString = '';
 
       $scope.checkExpression = function () {
-        if ($rootScope.searchMode) {
+        if($scope.autoAdvancedSearch) {
+          if($scope.searchExpression.length >= 3) {
+            AdvancedSearch.openAdvancedSearch($scope.searchExpression);
+          }
+        }
+        else if ($rootScope.searchMode) {
           if ($rootScope.reportMode && !$rootScope.reportTypeSet) {
             $scope.reportTypes = [
               'Diagnosis: ',
@@ -191,6 +243,10 @@ angular.module('rippleDemonstrator')
       };
 
       $scope.searchFunction = function () {
+        if($scope.autoAdvancedSearch)
+        {
+          AdvancedSearch.openAdvancedSearch();
+        }
         if ($rootScope.reportTypeSet && $scope.searchExpression !== '') {
           var tempExpression = $rootScope.reportTypeString + ': ' + $scope.searchExpression;
           $state.go('search-report', {
@@ -254,15 +310,18 @@ angular.module('rippleDemonstrator')
       $scope.previousState = previousState;
       $scope.previousPage = previousPage;
 
-      $scope.backButtonEnabled = $scope.currentUser.feature.homeView !== 'search';
+      $scope.backButtonEnabled = $scope.currentUser.feature.homeView !== 'main-search';
 
       $scope.mainWidth = mainWidth;
       $scope.detailWidth = detailWidth;
+
+      $scope.searchBarEnabled = !$state.is('main-search');
 
       $scope.goBack = function () {
         history.back();
       };
 
+      $scope.footer = 'Integrated Digital Care Record';
       $scope.userContextViewExists = ('user-context' in $state.current.views);
       $scope.actionsExists = ('actions' in $state.current.views);
 
@@ -272,29 +331,39 @@ angular.module('rippleDemonstrator')
         });
       };
 
-      if ($scope.currentUser.role === 'idcr') {
-        $scope.title = UserService.getContent('idcr_title');
+      if ($scope.currentUser.role === 'IDCR' || $scope.currentUser.role === 'IG') {
+        $scope.title = 'HSCIE Ripple'
       }
-      if ($scope.currentUser.role === 'phr') {
-        $scope.title = UserService.getContent('phr_title');
+      if ($scope.currentUser.role === 'PHR') {
+        $scope.title = 'PHR POC'
       }
 
       $scope.goHome = function () {
         $scope.cancelSearchMode();
 
-        if ($scope.currentUser.role === 'idcr') {
-          if ($scope.currentUser.feature.homeView === 'search') {
-            $state.go('patients-search');
-          } else {
-            $state.go('patients-charts');
-          }
+        if ($scope.currentUser.role === 'IDCR') {
+          $state.go('main-search');
         }
-        if ($scope.currentUser.role === 'phr') {
+        if ($scope.currentUser.role === 'PHR') {
           $state.go('patients-summary', {
             patientId: 10
           }); // Id is hardcoded
         }
       };
+
+      $scope.goToAdminConsole = function() {
+        $state.go('admin-console');
+      };
     });
 
+    $scope.openAdvancedSearch = AdvancedSearch.openAdvancedSearch;
+
+    $scope.$on("toggleHeaderSearchEnabled", function(event, enabled) {
+      $scope.searchBarEnabled = enabled;
+    });
+
+    $scope.$on("populateHeaderSearch", function(event, expression) {
+      $scope.searchExpression = expression;
+      $scope.searchFocused = true;
+    });
   });

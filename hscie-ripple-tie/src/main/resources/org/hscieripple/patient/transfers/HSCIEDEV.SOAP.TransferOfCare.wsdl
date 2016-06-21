@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://www.HSCIERipple.org"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://www.HSCIERipple.org">
+	<types>
+		<s:schema elementFormDefault="qualified" targetNamespace="http://www.HSCIERipple.org">
+			<s:element name="FindTransferOfCareDetailsBO">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" name="NHSNumber" type="s:long" />
+						<s:element minOccurs="0" name="SourceID" type="s:string" />
+						<s:element minOccurs="0" name="DataSource" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="FindTransferOfCareDetailsBOResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element name="FindTransferOfCareDetailsBOResult"
+							type="s0:TransferOfCareDetailsResponse" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:complexType name="TransferOfCareDetailsResponse">
+				<s:complexContent>
+					<s:extension base="s0:Ens_Response">
+						<s:sequence>
+							<s:element minOccurs="0" name="SourceID" type="s:string" />
+							<s:element minOccurs="0" name="Problems" type="s:string" />
+							<s:element minOccurs="0" name="Medications" type="s:string" />
+							<s:element minOccurs="0" name="Allergies" type="s:string" />
+							<s:element minOccurs="0" name="Contacts" type="s:string" />
+							<s:element minOccurs="0" name="ReasonForContact" type="s:string" />
+							<s:element minOccurs="0" name="ClinicalSummary" type="s:string" />
+							<s:element minOccurs="0" name="SiteFrom" type="s:string" />
+							<s:element minOccurs="0" name="SiteTo" type="s:string" />
+							<s:element minOccurs="0" name="DateOfTransfer" type="s:string" />
+							<s:element minOccurs="0" name="DataSourceName" type="s:string" />
+							<s:element minOccurs="0" name="StatusCode" type="s:string" />
+							<s:element minOccurs="0" name="StatusDesc" type="s:string" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:complexType name="Ens_Response">
+				<s:complexContent>
+					<s:extension base="s0:Ens_Messagebody" />
+				</s:complexContent>
+			</s:complexType>
+			<s:complexType name="Ens_Messagebody" />
+			<s:element name="FindTransferOfCareSummariesBO">
+				<s:complexType>
+					<s:sequence>
+						<s:element minOccurs="0" name="NHSNumber" type="s:long" />
+						<s:element minOccurs="0" name="DataSource" type="s:string" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="FindTransferOfCareSummariesBOResponse">
+				<s:complexType>
+					<s:sequence>
+						<s:element name="FindTransferOfCareSummariesBOResult"
+							type="s0:TransferOfCareSummaryResponse" />
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:complexType name="TransferOfCareSummaryResponse">
+				<s:complexContent>
+					<s:extension base="s0:Ens_Response">
+						<s:sequence>
+							<s:element minOccurs="0" name="ResultsSet"
+								type="s0:ArrayOfTransferOfCareSummaryResultRowPairOfResultsSetKeyTransferOfCareSummaryResultRow" />
+							<s:element minOccurs="0" name="StatusCode" type="s:string" />
+							<s:element minOccurs="0" name="StatusDesc" type="s:string" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:complexType
+				name="ArrayOfTransferOfCareSummaryResultRowPairOfResultsSetKeyTransferOfCareSummaryResultRow">
+				<s:sequence>
+					<s:element maxOccurs="unbounded" minOccurs="0"
+						name="TransferOfCareSummaryResultRow" nillable="true"
+						type="s0:PairOfResultsSetKeyTransferOfCareSummaryResultRow" />
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="PairOfResultsSetKeyTransferOfCareSummaryResultRow">
+				<s:complexContent>
+					<s:extension base="s0:TransferOfCareSummaryResultRow">
+						<s:attribute name="ResultsSetKey" type="s:string" use="required" />
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:complexType name="TransferOfCareSummaryResultRow">
+				<s:complexContent>
+					<s:extension base="s0:Ens_Response">
+						<s:sequence>
+							<s:element minOccurs="0" name="SiteFrom" type="s:string" />
+							<s:element minOccurs="0" name="SiteTo" type="s:string" />
+							<s:element minOccurs="0" name="SourceID" type="s:string" />
+							<s:element minOccurs="0" name="DateOfTransfer" type="s:string" />
+							<s:element minOccurs="0" name="HSP" type="s:string" />
+							<s:element minOccurs="0" name="CareType" type="s:string" />
+							<s:element minOccurs="0" name="DataSourceName" type="s:string" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+		</s:schema>
+	</types>
+	<message name="FindTransferOfCareDetailsBOSoapIn">
+		<part name="parameters" element="s0:FindTransferOfCareDetailsBO" />
+	</message>
+	<message name="FindTransferOfCareDetailsBOSoapOut">
+		<part name="parameters" element="s0:FindTransferOfCareDetailsBOResponse" />
+	</message>
+	<message name="FindTransferOfCareSummariesBOSoapIn">
+		<part name="parameters" element="s0:FindTransferOfCareSummariesBO" />
+	</message>
+	<message name="FindTransferOfCareSummariesBOSoapOut">
+		<part name="parameters" element="s0:FindTransferOfCareSummariesBOResponse" />
+	</message>
+	<portType name="TransferOfCareServiceSoap">
+		<operation name="FindTransferOfCareDetailsBO">
+			<input message="s0:FindTransferOfCareDetailsBOSoapIn" />
+			<output message="s0:FindTransferOfCareDetailsBOSoapOut" />
+		</operation>
+		<operation name="FindTransferOfCareSummariesBO">
+			<input message="s0:FindTransferOfCareSummariesBOSoapIn" />
+			<output message="s0:FindTransferOfCareSummariesBOSoapOut" />
+		</operation>
+	</portType>
+	<binding name="TransferOfCare" type="s0:TransferOfCareServiceSoap">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<operation name="FindTransferOfCareDetailsBO">
+			<soap:operation
+				soapAction="http://www.HSCIERipple.org/HSCIEDEV.SOAP.TransferOfCare.FindTransferOfCareDetailsBO"
+				style="document" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		<operation name="FindTransferOfCareSummariesBO">
+			<soap:operation
+				soapAction="http://www.HSCIERipple.org/HSCIEDEV.SOAP.TransferOfCare.FindTransferOfCareSummariesBO"
+				style="document" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+	</binding>
+	<service name="TransferOfCareService">
+		<port name="TransferOfCare" binding="s0:TransferOfCare">
+		</port>
+	</service>
+</definitions>

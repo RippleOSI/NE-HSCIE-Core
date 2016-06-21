@@ -1,65 +1,39 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('AppointmentsDetailCtrl', function ($scope, $stateParams, SearchInput, $modal, Helper, $state, $location, usSpinnerService, PatientService, Appointment) {
+  .controller('AppointmentDetailCtrl', function ($scope, $stateParams, SearchInput, $location, $modal, Helper, $state, usSpinnerService, PatientService, AppointmentService) {
 
-    SearchInput.update();
+  
+   SearchInput.update();
+    $scope.UnlockedSources = [
+      'handi.ehrscape.com'
+    ];
 
     PatientService.get($stateParams.patientId).then(function (patient) {
       $scope.patient = patient;
     });
 
-    Appointment.get($stateParams.patientId, $stateParams.appointmentIndex).then(function (result) {
+    AppointmentService.get($stateParams.patientId, $stateParams.appointmentIndex, $stateParams.source).then(function (result) {
       $scope.appointment = result.data;
-      $scope.timeOfAppointment = moment($scope.appointment.timeOfAppointment).format('h:mma') + '-' + moment($scope.appointment.timeOfAppointment).add(59, 'm').format('h:mma');
-      usSpinnerService.stop('appointmentsDetail-spinner');
+      usSpinnerService.stop('appointmentDetail-spinner');
     });
 
-    $scope.edit = function () {
-      var modalInstance = $modal.open({
-        templateUrl: 'views/appointments/appointments-modal.html',
-        size: 'lg',
-        controller: 'AppointmentsModalCtrl',
-        resolve: {
-          modal: function () {
-            return {
-              title: 'Edit Appointment'
-            };
-          },
-          appointment: function () {
-            return angular.copy($scope.appointment);
-          },
-          patient: function () {
-            return $scope.patient;
-          }
-        }
-      });
+    $scope.isLocked = function (appointment) {
+      if (!(appointment && appointment.id)) {
+        return true;
+      }
 
-      modalInstance.result.then(function (appointment) {
-        appointment.dateOfAppointment = new Date(appointment.dateOfAppointment);
-        appointment.dateCreated = new Date(appointment.dateCreated);
+      var appointmentIdSegments = appointment.id.toString().split('::');
+      if (appointmentIdSegments.length > 1) {
+        return ($scope.UnlockedSources.indexOf(appointmentIdSegments[1]) < 0);
+      }
 
-        var toUpdate = {
-          sourceId: appointment.sourceId,
-          serviceTeam: appointment.serviceTeam,
-          dateOfAppointment: appointment.dateOfAppointment,
-          location: appointment.location,
-          status: appointment.status,
-          author: 'example@email.com',
-          dateCreated: appointment.dateCreated,
-          source: 'openehr',
-          timeOfAppointment: appointment.timeOfAppointment
-        };
+      return true;
+    };
 
-        Appointment.update($scope.patient.id, toUpdate).then(function () {
-          setTimeout(function () {
-            $state.go('appointments-detail', {
-              patientId: $scope.patient.id,
-              appointmentIndex: Helper.updateId(appointment.sourceId)
-            });
-          }, 2000);
-        });
-      });
+    $scope.convertToLabel = function (text) {
+      var result = text.replace(/([A-Z])/g, ' $1');
+      return result.charAt(0).toUpperCase() + result.slice(1);
     };
 
   });

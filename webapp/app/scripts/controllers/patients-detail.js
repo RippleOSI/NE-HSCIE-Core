@@ -8,11 +8,13 @@ angular.module('rippleDemonstrator')
       $scope.patient = patient;
     });
 
-    var currentUser = UserService.getCurrentUser();
-    var patientContextParams = UserService.getContent('patientContextParams');
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
+      $stateParams.patientSource = $scope.currentUser.feature.patientSource;
 
-    $stateParams.patientSource = currentUser.feature.patientSource;
-    $scope.pasNumberLabel = patientContextParams.pasNumberLabel;
+      var patientContextParams = UserService.getContent('patientContextParams');
+      $scope.pasNumberLabel = patientContextParams.pasNumberLabel;
+    });
 
     $scope.goTo = function (section) {
       var requestHeader = {
@@ -27,20 +29,19 @@ angular.module('rippleDemonstrator')
 
       switch (section) {
       case 'summary':
-        if ($scope.currentUser.feature.patientSummaryView === 'landing') {
-          toState = 'patients-landing';
-        } else {
-          toState = 'patients-summary';
-        }
+        toState = 'patients-summary';
+        break;
+      case 'alerts':
+        toState = 'alerts';
         break;
       case 'keyworkers':
         toState = 'keyworkers-list';
         break;
       case 'contacts':
-        toState = 'contacts';
+        toState = 'contacts-list';
         break;
-      case 'diagnosis':
-        toState = 'diagnoses-list';
+      case 'problems':
+        toState = 'problems-list';
         break;
       case 'allergies':
         toState = 'allergies';
@@ -58,10 +59,10 @@ angular.module('rippleDemonstrator')
         toState = 'procedures';
         break;
       case 'referrals':
-        toState = 'referrals';
+        toState = 'referrals-list';
         break;
       case 'appointments':
-        toState = 'appointments';
+        toState = 'appointments-list';
         break;
       case 'transfers':
         toState = 'transferOfCare';
@@ -74,6 +75,9 @@ angular.module('rippleDemonstrator')
         break;
       case 'images':
         toState = 'images';
+        break;
+      case 'informationgov':
+        toState = 'informationgov';
         break;
       }
       $state.go(toState, requestHeader);

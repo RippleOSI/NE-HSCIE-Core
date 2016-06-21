@@ -1,13 +1,15 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('KeyworkersListCtrl', function ($scope, $state, $stateParams, SearchInput, $location, $modal, usSpinnerService, PatientService, KeyworkersService, UserService) {
+  .controller('KeyworkersListCtrl', function ($scope, $filter, $state, $stateParams, SearchInput, $location, $modal, usSpinnerService, PatientService, KeyworkersService, UserService) {
 
     SearchInput.update();
     $scope.currentPage = 1;
 
-    var currentUser = UserService.getCurrentUser();
-    $stateParams.patientSource = currentUser.feature.patientSource;
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
+      $stateParams.patientSource = $scope.currentUser.feature.patientSource;
+    });
 
     $scope.pageChangeHandler = function (newPage) {
       $scope.currentPage = newPage;
@@ -56,6 +58,43 @@ angular.module('rippleDemonstrator')
 
     $scope.selected = function (keyworkerIndex) {
       return keyworkerIndex === $stateParams.keyworkerIndex;
+    };
+
+     $scope.countKeyContact = function(keyworker, keyworkers)
+    {
+
+    	var admArray= $filter('filter')($scope.keyworkers, {role: 'ADMISSION - Key Contact'});
+    	var outArray= $filter('filter')($scope.keyworkers, {role: 'DISCHARGE - Key Contact'});
+    	var countAdm = admArray.length - 1;
+    	var countOut = outArray.length - 1;
+
+
+     if(countAdm != countOut)
+     {
+     	if(keyworker.role == "OUTPATIENTS - Key Contact")
+	     {
+	     	return false;
+	     }
+     }
+     return true;
+    };
+
+    $scope.hideKeyContact = function(keyworker)
+    {
+     if(keyworker.role.indexOf("Key Contact") > -1)
+     {
+     	return false;
+     }
+     return true;
+    };
+
+    $scope.showKeyContact = function(keyworker)
+    {
+     if(keyworker.role.indexOf(" - Key Contact") > -1)
+     {
+     	return true;
+     }
+     return false;
     };
 
   });

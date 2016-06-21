@@ -7,11 +7,13 @@ angular.module('rippleDemonstrator')
     "family_name": "Smith",
     "email": "bob.smith@gmail.com",
     "scope": {
-      "homeView": "chart",
+      "homeView": "main-search",
+      "autoAdvancedSearch": false,
       "searchBarEnabled": true,
       "roleConfirmationRequired": true,
       "navBar": {
         "patientSummaryEnabled": true,
+        "alertsEnabled": false,
         "keyworkersEnabled": false,
         "contactsEnabled": true,
         "diagnosisEnabled": true,

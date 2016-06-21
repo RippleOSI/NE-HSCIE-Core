@@ -2,28 +2,28 @@
 
 angular.module('rippleDemonstrator')
   .value("claims", {
-    "sub": "28AD8576-1948-4C84-8B5E-55FB7EE027CE",
-    "given_name": "Bob",
-    "family_name": "Smith",
-    "email": "bob.smith@gmail.com",
+    "organisation" : "hscie",
     "scope": {
-      "homeView": "search",
+      "homeView": "main-search",
+      "autoAdvancedSearch": true,
       "patientSummaryView": "landing",
       "searchBarEnabled": false,
       "roleConfirmationRequired": false,
       "navBar": {
         "patientSummaryEnabled": true,
+        "alertsEnabled": true,
         "keyworkersEnabled": true,
-        "contactsEnabled": false,
-        "diagnosisEnabled": false,
+        "contactsEnabled": true,
+        "diagnosisEnabled": true,
+        "problemsEnabled": true,
         "allergiesEnabled": false,
-        "medicationsEnabled": false,
+        "medicationsEnabled": true,
         "ordersEnabled": false,
         "resultsEnabled": false,
         "proceduresEnabled": false,
-        "referralsEnabled": false,
-        "appointmentsEnabled": false,
-        "transfersEnabled": false,
+        "referralsEnabled": true,
+        "appointmentsEnabled": true,
+        "transfersEnabled": true,
         "careplansEnabled": false,
         "mdtEnabled": false,
         "imagesEnabled": false,
@@ -31,7 +31,5 @@ angular.module('rippleDemonstrator')
       },
       "patientSource": "tie"
     },
-    "tenant_id": "STFT",
-    "tenant_name": "South Tyneside NHS Trust",
-    "role": "idcr"
+    "tenant_name": "South Tyneside NHS Trust"
   });
