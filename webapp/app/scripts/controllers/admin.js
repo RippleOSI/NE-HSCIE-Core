@@ -5,6 +5,8 @@ angular.module('rippleDemonstrator')
 
     SearchInput.update();
 
-    $scope.adminUser = UserService.getCurrentUser();
+    UserService.findCurrentUser().then(function (response) {
+        $scope.adminUser = response.data;
+    });
 
   });
