@@ -3,7 +3,6 @@
 angular.module('rippleDemonstrator')
   .controller('TransferOfCareDetailCtrl', function ($scope, $stateParams, SearchInput, $location, $modal, Helper, $state, usSpinnerService, PatientService, TransferOfCareService) {
 
-  
    SearchInput.update();
     $scope.UnlockedSources = [
       'handi.ehrscape.com'
@@ -30,8 +29,6 @@ angular.module('rippleDemonstrator')
 
       return true;
     };
-    
- 
 
     $scope.convertToLabel = function (text) {
       var result = text.replace(/([A-Z])/g, ' $1');

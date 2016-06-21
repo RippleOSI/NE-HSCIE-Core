@@ -2,10 +2,7 @@
 
 angular.module('rippleDemonstrator')
   .value("claims", {
-    "sub": "28AD8576-1948-4C84-8B5E-55FB7EE027CE",
-    "given_name": "Bob",
-    "family_name": "Smith",
-    "email": "bob.smith@gmail.com",
+    "organisation" : "hscie",
     "scope": {
       "homeView": "main-search",
       "autoAdvancedSearch": true,
@@ -34,7 +31,5 @@ angular.module('rippleDemonstrator')
       },
       "patientSource": "tie"
     },
-    "tenant_id": "STFT",
-    "tenant_name": "South Tyneside NHS Trust",
-    "role": "idcr"
+    "tenant_name": "South Tyneside NHS Trust"
   });

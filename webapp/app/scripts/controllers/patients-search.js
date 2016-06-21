@@ -5,8 +5,10 @@ angular.module('rippleDemonstrator')
 
     $scope.searching = false;
 
-    var currentUser = UserService.getCurrentUser();
-    $stateParams.patientSource = currentUser.feature.patientSource;
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
+      $stateParams.patientSource = $scope.currentUser.feature.patientSource;
+    });
 
     $scope.dateOfBirthDatePicker = function ($event, name) {
       $event.preventDefault();
@@ -24,7 +26,7 @@ angular.module('rippleDemonstrator')
       $scope.searching = true;
 
       if (search != undefined) {
-        PatientSearchService.searchPatients(search, 'tie').then(function (result) {
+        PatientSearchService.searchPatients(search, 'TIE').then(function (result) {
           $scope.patients = result.data;
         });
       }

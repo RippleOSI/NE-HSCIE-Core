@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('headerController', function ($scope, $rootScope, $state, usSpinnerService, $stateParams, UserService, AdvancedSearch) {
+  .controller('headerController', function ($scope, $rootScope, $state, $window, usSpinnerService, $stateParams, UserService, AdvancedSearch) {
 
     $rootScope.searchExpression = '';
     $scope.searchExpression = $rootScope.searchExpression;
@@ -9,28 +9,48 @@ angular.module('rippleDemonstrator')
 
     $scope.searchFocused = false;
 
+    var redirectUrl;
+
     // Get current user
-    $scope.currentUser = UserService.getCurrentUser();
-    $scope.autoAdvancedSearch = $scope.currentUser.feature.autoAdvancedSearch;
+    UserService.findCurrentUser().then( function (response) {
+       redirectUrl = response.headers().location;
 
-    // Direct different roles to different pages at login
-    switch ($scope.currentUser.role) {
-      case 'idcr':
-        $state.go('main-search');
-        break;
-      case 'phr':
-        $state.go('patients-summary', {
-          patientId: 10
-        }); // id is hard coded
-        break;
-      default:
-        $state.go('patients-summary', {
-          patientId: 10
-        }); // id is hard coded
-    }
+      if (redirectUrl) {
+        $window.location = redirectUrl;
+      }
+      else {
+        $rootScope.currentUser = response.data;
 
-    $scope.searchBarEnabled = $scope.currentUser.feature.searchBarEnabled;
-    $scope.navBar = $scope.currentUser.feature.navBar;
+        $scope.autoAdvancedSearch = $rootScope.currentUser.feature.autoAdvancedSearch;
+        $scope.searchBarEnabled = $rootScope.currentUser.feature.searchBarEnabled;
+        $scope.navBar = $rootScope.currentUser.feature.navBar;
+
+        // Direct different roles to different pages at login
+        switch ($rootScope.currentUser.role) {
+          case 'IDCR':
+            $state.go('main-search');
+            break;
+          case 'PHR':
+            $state.go('patients-summary', {
+              patientId: $rootScope.currentUser.nhsNumber
+            });
+            break;
+          default:
+            $state.go('main-search');
+            break;
+        }
+      }
+    });
+
+    $scope.logout = function () {
+      UserService.logout().then(function (response) {
+        redirectUrl = response.headers().location;
+
+        if (redirectUrl) {
+          $window.location = redirectUrl;
+        }
+      });
+    };
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState) {
       var params = $stateParams;
@@ -104,6 +124,27 @@ angular.module('rippleDemonstrator')
         previousPage = 'Patient Dashboard';
         mainWidth = 12;
         detailWidth = 0;
+        break;
+      case 'audits-by-patient':
+        previousState = '';
+        pageHeader = 'Admin Console';
+        previousPage = '';
+        mainWidth = 6;
+        detailWidth = 6;
+        break;
+      case 'audits-by-user':
+          previousState = '';
+          pageHeader = 'Admin Console';
+          previousPage = '';
+          mainWidth = 6;
+          detailWidth = 6;
+          break;
+      case 'admin-console':
+        previousState = '';
+        pageHeader = 'Admin Console';
+        previousPage = '';
+        mainWidth = 6;
+        detailWidth = 6;
         break;
       default:
         previousState = 'patients-list';
@@ -280,6 +321,7 @@ angular.module('rippleDemonstrator')
         history.back();
       };
 
+      $scope.footer = 'Integrated Digital Care Record';
       $scope.userContextViewExists = ('user-context' in $state.current.views);
       $scope.actionsExists = ('actions' in $state.current.views);
 
@@ -289,24 +331,28 @@ angular.module('rippleDemonstrator')
         });
       };
 
-      if ($scope.currentUser.role === 'idcr') {
-        $scope.title = UserService.getContent('idcr_title');
+      if ($scope.currentUser.role === 'IDCR' || $scope.currentUser.role === 'IG') {
+        $scope.title = 'HSCIE Ripple'
       }
-      if ($scope.currentUser.role === 'phr') {
-        $scope.title = UserService.getContent('phr_title');
+      if ($scope.currentUser.role === 'PHR') {
+        $scope.title = 'PHR POC'
       }
 
       $scope.goHome = function () {
         $scope.cancelSearchMode();
 
-        if ($scope.currentUser.role === 'idcr') {
+        if ($scope.currentUser.role === 'IDCR') {
           $state.go('main-search');
         }
-        if ($scope.currentUser.role === 'phr') {
+        if ($scope.currentUser.role === 'PHR') {
           $state.go('patients-summary', {
             patientId: 10
           }); // Id is hardcoded
         }
+      };
+
+      $scope.goToAdminConsole = function() {
+        $state.go('admin-console');
       };
     });
 

@@ -6,8 +6,10 @@ angular.module('rippleDemonstrator')
     SearchInput.update();
     $scope.currentPage = 1;
 
-    var currentUser = UserService.getCurrentUser();
-    $stateParams.patientSource = currentUser.feature.patientSource;
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
+      $stateParams.patientSource = $scope.currentUser.feature.patientSource;
+    });
 
     $scope.pageChangeHandler = function (newPage) {
       $scope.currentPage = newPage;
@@ -19,7 +21,7 @@ angular.module('rippleDemonstrator')
 
     $scope.search = function (row) {
     var date = $filter('date')(row.dateOfReferral, "dd/MM/yyyy");
-    
+
       return (
         angular.lowercase(row.referralFrom).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
         angular.lowercase(row.referralTo).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
@@ -59,5 +61,5 @@ angular.module('rippleDemonstrator')
     $scope.selected = function (referralIndex) {
       return referralIndex === $stateParams.referralIndex;
     };
-    
+
   });

@@ -12,7 +12,8 @@ angular
     'angularUtils.directives.dirPagination',
     'ui.timepicker',
     'ui.calendar',
-    'angularSpinner'
+    'angularSpinner',
+    'mgcrea.ngStrap.popover'
   ])
   .config(function ($stateProvider, $urlRouterProvider) {
 
@@ -396,6 +397,34 @@ angular
         }
       })
 
+      .state('admin-console', {
+        url: '/admin',
+        views: {
+          'user-context': { templateUrl: 'views/admin/admin-context.html', controller: 'AdminCtrl' },
+          actions: { templateUrl: 'views/admin/admin-sidebar.html', controller: 'AdminCtrl' }
+        }
+      })
+
+      .state('audits-by-patient', {
+        url: '/audits/patient',
+        views: {
+        	'user-context': { templateUrl: 'views/admin/admin-context.html', controller: 'AdminCtrl' },
+          actions: { templateUrl: 'views/admin/admin-sidebar.html', controller: 'AdminCtrl' },
+          main: { templateUrl: 'views/audits/audit-list-by-patient.html', controller: 'AuditListCtrl' },
+          detail: { templateUrl: 'views/audits/audit-detail.html', controller: 'AuditDetailCtrl' }
+        }
+      })
+
+      .state('audits-by-user', {
+        url: '/audits/user',
+        views: {
+        	'user-context': { templateUrl: 'views/admin/admin-context.html', controller: 'AdminCtrl' },
+          actions: { templateUrl: 'views/admin/admin-sidebar.html', controller: 'AdminCtrl' },
+          main: { templateUrl: 'views/audits/audit-list-by-user.html', controller: 'AuditListCtrl' },
+          detail: { templateUrl: 'views/audits/audit-detail.html', controller: 'AuditDetailCtrl' }
+        }
+      })
+
       .state('alerts', {
         url: '/patients/{patientId:int}/alerts?filter&page',
         views: {
@@ -539,6 +568,27 @@ angular
       });
     };
   }])
+
+  .directive('customPopover', function ($templateCache) {
+    return {
+      restrict: 'A',
+      template: '<span>{{label}}</span>',
+      link: function(scope, elem, attrs) {
+        scope.label = attrs.popoverLabel;
+        var template = $templateCache.get("example.html");
+
+        elem.bind('click', function(e){
+          $(elem).popover({
+            html: true,
+            title: "Notifications (" + scope.notifications.length + ")",
+            content: template,
+            placement: attrs.popoverPlacement,
+            dataContent: scope.notifications
+          });
+        });
+      }
+    };
+  })
 
   .filter('optedIn', function() {
     return function(optedIn) {

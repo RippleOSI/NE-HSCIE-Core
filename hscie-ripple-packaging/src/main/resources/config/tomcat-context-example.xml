@@ -4,6 +4,13 @@
     <Environment name="queue.broker.name"           type="java.lang.String" override="false" value="embedded"/>
     <Environment name="queue.broker.directory"      type="java.lang.String" override="false" value="activemq-data"/>
 
+    <Environment name="authentication.client.id"            type="java.lang.String" override="false" value="Ripple-Development"/>
+    <Environment name="authentication.server.url"           type="java.lang.String" override="false" value="https://ripple-identity-uat.answerappcloud.com"/>
+    <Environment name="authentication.redirect.uri"         type="java.lang.String" override="false" value="http://localhost:19191/api/token"/>
+
+    <Environment name="pac4j.callback.defaultUrl"           type="java.lang.String" override="false" value="http://localhost:9000/"/>
+    <Environment name="pac4j.applicationLogout.logoutUrl"   type="java.lang.String" override="false" value="https://ripple-identity-uat.answerappcloud.com/identity/connect/endsession"/>
+
     <Environment name="c4hOpenEHR.address"          type="java.lang.String" override="false" value="https://ehrscape.code-4-health.org/rest/v1/"/>
     <Environment name="c4hOpenEHR.user"             type="java.lang.String" override="false" value="c4h_ripple_osi"/>
     <Environment name="c4hOpenEHR.password"         type="java.lang.String" override="false" value="InDeCoMP"/>
@@ -29,6 +36,15 @@
     <Environment name="legacy.datasource.username"  type="java.lang.String"  override="false" value="answer"/>
     <Environment name="legacy.datasource.password"  type="java.lang.String"  override="false" value="answer99q"/>
     <Environment name="legacy.datasource.showSql"   type="java.lang.Boolean" override="false" value="false"/>
+
+    <Environment name="etherCIS.address"                  type="java.lang.String" override="false" value="http://188.166.246.78:8080/rest/v1"/>
+    <Environment name="etherCIS.user"                     type="java.lang.String" override="false" value="guest"/>
+    <Environment name="etherCIS.password"                 type="java.lang.String" override="false" value="guest"/>
+    <Environment name="etherCIS.subjectNamespace"         type="java.lang.String" override="false" value="uk.nhs.nhs_number"/>
+
+    <Environment name="etherCIS.allergyTemplate"        type="java.lang.String" override="false" value="IDCR - Adverse Reaction List.v1"/>
+    <Environment name="etherCIS.labOrderTemplate"       type="java.lang.String" override="false" value="IDCR - Laboratory Order.v0"/>
+    <Environment name="etherCIS.problemTemplate"       type="java.lang.String" override="false" value="IDCR Problem List.v1"/>
 
     <Environment name="vista.address"               type="java.lang.String" override="false" value="https://46.101.0.93:8000/ec2/vista/"/>
 
