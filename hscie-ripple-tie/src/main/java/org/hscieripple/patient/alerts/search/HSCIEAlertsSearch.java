@@ -45,9 +45,11 @@ public class HSCIEAlertsSearch extends AbstractHSCIEService implements AlertSear
         final Long nhsNumber = convertPatientIdToLong(patientId);
 
         for (final DataSourceSummary summary : dataSources) {
-            final List<AlertSummary> results = makeSummaryCall(nhsNumber, summary.getSourceId());
+            if (summary.isDataExists()) {
+                final List<AlertSummary> results = makeSummaryCall(nhsNumber, summary.getSourceId());
 
-            alerts.addAll(results);
+                alerts.addAll(results);
+            }
         }
 
         return alerts;
@@ -63,7 +65,7 @@ public class HSCIEAlertsSearch extends AbstractHSCIEService implements AlertSear
             response = alertService.findAlertsDetailsBO(nhsNumber, alertId, subSource);
 
             if (!isSuccessfulDetailsResponse(response)) {
-                new AlertsDetailsResponse();
+                return new AlertDetails();
             }
         }
         catch (final SOAPFaultException e) {
@@ -73,11 +75,11 @@ public class HSCIEAlertsSearch extends AbstractHSCIEService implements AlertSear
         return new AlertDetailsResponseToAlertDetailsTransformer().transform(response);
     }
 
-    private List<AlertSummary> makeSummaryCall(final Long nhsNumber, final String source) {
+    private List<AlertSummary> makeSummaryCall(final Long nhsNumber, final String subSource) {
         List<PairOfAlertsListKeyAlertsSummaryResultRow> results = new ArrayList<>();
 
         try {
-            final AlertsSummaryResponse response = alertService.findAlertsSummariesBO(nhsNumber);
+            final AlertsSummaryResponse response = alertService.findAlertsSummariesBO(nhsNumber, subSource);
 
             if (isSuccessfulSummaryResponse(response)) {
                 results = response.getAlertsList().getAlertsSummaryResultRow();
@@ -91,7 +93,7 @@ public class HSCIEAlertsSearch extends AbstractHSCIEService implements AlertSear
     }
 
     private boolean isSuccessfulSummaryResponse(final AlertsSummaryResponse response) {
-    	return OK.equalsIgnoreCase(response.getStatusCode());
+    	return OK.equalsIgnoreCase(response.getStatusCode()) && response.getAlertsList() != null;
     }
 
     private boolean isSuccessfulDetailsResponse(final AlertsDetailsResponse response) {

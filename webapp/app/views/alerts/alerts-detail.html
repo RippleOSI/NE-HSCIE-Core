@@ -6,21 +6,21 @@
       <div class="form-group form-group-sm">
         <label class="control-label col-md-12">Type:</label>
         <div class="col-md-12">
-          <div class="form-control-static">{{ alert.type }}</div>
+          <div class="form-control-static">{{ alert.alertType }}</div>
         </div>
       </div>
 
       <div class="form-group form-group-sm">
         <label class="control-label col-md-12">Note:</label>
         <div class="col-md-12">
-          <div class="form-control-static">{{ alert.note }}</div>
+          <div class="form-control-static">{{ alert.alertNote }}</div>
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-12">
           <span class="patientSummary-spinner" us-spinner="{radius:20, width:8, length: 16}"
-                spinner-key="alertDetail-spinner" spinner-start-active="true"></span>
+                spinner-key="alertsDetail-spinner" spinner-start-active="true"></span>
         </div>
       </div>
 
@@ -37,7 +37,8 @@
         <div class="form-group form-group-sm">
           <label class="control-label col-md-3">Date Created:</label>
           <div class="col-md-9">
-            <div class="form-control-static">{{ alert.dateTime | 'DD-MMM-YYYY h:mm a' }}</div>
+            <div class="form-control-static">{{ alert.dateTime }}</div>
+            <!--<div class="form-control-static">{{ alert.dateTime | 'DD-MMM-YYYY h:mm a' }}</div>-->
           </div>
         </div>
       </div>
@@ -50,8 +51,4 @@
       </div>
     </div>
   </div>
-</div>
-
-<div class="form-group form-group-sm text-right">
-  <button class="btn btn-info" ng-click="edit();"><i class="fa fa-pencil"></i> Edit</button>
 </div>

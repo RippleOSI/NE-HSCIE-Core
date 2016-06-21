@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/patients/{patientId}/appointments")
+@RequestMapping("/patients/{patientId}/alerts")
 public class AlertsController {
 
     @Autowired

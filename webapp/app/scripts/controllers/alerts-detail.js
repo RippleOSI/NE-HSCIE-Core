@@ -37,8 +37,8 @@ angular.module('rippleDemonstrator')
         var toUpdate = {
           source: alert.source,
           sourceId: alert.sourceId,
-          type: alert.type,
-          note: alert.note,
+          type: alert.alertType,
+          note: alert.alertNote,
           date: alert.dateTime,
           author: alert.author
         };

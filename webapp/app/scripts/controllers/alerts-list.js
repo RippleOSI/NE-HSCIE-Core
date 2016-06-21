@@ -15,9 +15,9 @@ angular.module('rippleDemonstrator')
 
     $scope.search = function (row) {
       return (
-        angular.lowercase(row.type).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
-        angular.lowercase(row.note).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
-        angular.lowercase(row.date).indexOf(angular.lowercase($scope.query) || '') !== -1
+        angular.lowercase(row.alertType).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
+        //angular.lowercase(row.dateTime).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
+        angular.lowercase(row.source).indexOf(angular.lowercase($scope.query) || '') !== -1
       );
     };
 
@@ -41,7 +41,7 @@ angular.module('rippleDemonstrator')
 
     $scope.go = function (sourceId) {
       $state.go('alerts-detail', {
-        patientId: $scope.patient.id,
+        patientId: $scope.patient.nhsNumber,
         alertId: sourceId,
         filter: $scope.query,
         page: $scope.currentPage
