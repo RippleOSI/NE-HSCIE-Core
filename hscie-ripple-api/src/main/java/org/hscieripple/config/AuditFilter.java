@@ -29,6 +29,10 @@ import org.hscieripple.audit.model.AuditDetails;
 import org.hscieripple.audit.store.AuditStore;
 import org.hscieripple.audit.store.AuditStoreFactory;
 import org.rippleosi.common.types.RepoSourceTypes;
+import org.rippleosi.users.model.UserDetails;
+import org.rippleosi.users.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -37,34 +41,36 @@ import org.springframework.web.servlet.support.RequestContextUtils;
  */
 public class AuditFilter extends OncePerRequestFilter {
 	
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuditFilter.class);
+	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-		
-		System.out.println("Filter called");
-		
-		// TODO - temp. Replace with User service when it's available
-		String tempUserName = "bob";
-		
 		String targetResource = request.getRequestURI();
 		Long targetNhsNumber = parseNhsNumber(targetResource);
 		
 		if(targetNhsNumber != null) {
-		
-			AuditDetails auditDetails = new AuditDetails();
-			auditDetails.setRequesterUsername(tempUserName);
-			auditDetails.setTargetResource(targetResource);
-			auditDetails.setTargetNhsNumber(targetNhsNumber);
-			auditDetails.setRequestDateTime(Calendar.getInstance().getTime());
 			
-					
-	        AuditStoreFactory auditStoreFactory = getAuditStoreFactory(request);
-			AuditStore auditStore = auditStoreFactory.select(RepoSourceTypes.LEGACY);
-	        auditStore.create(auditDetails);
+			UserService userService = getUserService(request);
+			UserDetails userDetails = userService.findUserDetails(request, response);
+			
+			if(userDetails != null) {
+				String userName = userDetails.getUsername();
+			
+				AuditDetails auditDetails = new AuditDetails();
+				auditDetails.setRequesterUsername(userName);
+				auditDetails.setTargetResource(targetResource);
+				auditDetails.setTargetNhsNumber(targetNhsNumber);
+				auditDetails.setRequestDateTime(Calendar.getInstance().getTime());
+								
+		        AuditStoreFactory auditStoreFactory = getAuditStoreFactory(request);
+				AuditStore auditStore = auditStoreFactory.select(RepoSourceTypes.LEGACY);
+		        auditStore.create(auditDetails);
+			}
+			else {
+				LOGGER.warn(String.format("Unable to log request (resource - %s) as no user details could be found", targetResource));
+			}
 		}
-		else {
-			// log the fact that we could not audit?
-		}
-		
+
 		// must be last step
 		filterChain.doFilter(request, response);
 	}
@@ -82,11 +88,16 @@ public class AuditFilter extends OncePerRequestFilter {
 		return nhsNumber;
 	}
 	
-	// not great - couples us directly to Spring
 	private AuditStoreFactory getAuditStoreFactory(HttpServletRequest request) {
 		WebApplicationContext springContext = RequestContextUtils.findWebApplicationContext(request);
 		
 		return springContext.getBean(AuditStoreFactory.class);
+	}
+	
+	private UserService getUserService(HttpServletRequest request) {
+		WebApplicationContext springContext = RequestContextUtils.findWebApplicationContext(request);
+		
+		return springContext.getBean(UserService.class);
 	}
 	
 }	
