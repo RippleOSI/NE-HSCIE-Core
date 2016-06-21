@@ -1,9 +1,11 @@
 <li class="navigation-menu">
   <a ng-click="goTo('adminConsole')">Admin Console</a>
 </li>
-<li class="navigation-menu">
+
+<li class="navigation-menu" ng-show="adminUser.hasPermission('IG')">
   <a href="#/audits/patient">User Audit Report By Patient</a>
 </li>
-<li class="navigation-menu">
+
+<li class="navigation-menu" ng-show="adminUser.hasPermission('IG')">
 	<a href="#/audits/user">User Audit Report By User</a>
 </li>
