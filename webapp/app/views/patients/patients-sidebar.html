@@ -3,11 +3,11 @@
 </li>
 
 <li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
-  <a ng-click="goTo('alerts')" ng-class="{'disabled' : !navBar.alertsEnabled }">Alerts</a>
+  <a ng-click="goTo('keyworkers')" ng-class="{'disabled' : !navBar.keyworkersEnabled }">Key Workers</a>
 </li>
 
 <li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
-  <a ng-click="goTo('keyworkers')" ng-class="{'disabled' : !navBar.keyworkersEnabled }">Key Workers</a>
+  <a ng-click="goTo('alerts')" ng-class="{'disabled' : !navBar.alertsEnabled }">Alerts</a>
 </li>
 
 <li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
