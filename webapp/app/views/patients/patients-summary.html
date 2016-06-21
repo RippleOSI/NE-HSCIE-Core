@@ -21,14 +21,14 @@
           <span class="resultcount" ng-if="diagnosesCount == 0">0 of 0</span>
           <span class="resultcount" ng-if="diagnosesCount > 0 && diagnosesCount < 5">{{diagnosesCount}} of {{diagnosesCount}}</span>
           <span class="resultcount" ng-if="diagnosesCount > 0 && diagnosesCount >= 5">5 of {{diagnosesCount}}</span>
-          <a ng-href="#/patients/{{patient.id}}/diagnoses" class="resultcount" ng-if="diagnosesCount > 0" style="padding-right: 10px;">View All</a>
+          <a ui-sref="problems-list({patientId: patient.nhsNumber})" class="resultcount" ng-if="diagnosesCount > 0" style="padding-right: 10px;">View All</a>
         </h2>
 
         <table class="table table-striped clickable">
           <tbody>
             <tr ng-repeat="diagnosis in diagnoses" data-target="patient-detail.html">
               <!--&lt;!&ndash;data target&ndash;&gt;-->
-              <td ng-click="go('/patients/{{patient.id}}/diagnoses/{{diagnosis.sourceId}}')">{{ diagnosis.text }} <span class="glyphicon glyphicon-chevron-right"></span></td>
+              <td ng-click="goProblem('{{diagnosis.sourceId}}', '{{diagnosis.source}}')">{{ diagnosis.text }} <span class="glyphicon glyphicon-chevron-right"></span></td>
             </tr>
           </tbody>
         </table>

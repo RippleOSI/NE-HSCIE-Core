@@ -58,7 +58,7 @@ angular.module('rippleDemonstrator')
       var toState = '';
       switch (section) {
       case 'Problems':
-        toState = 'diagnoses-list';
+        toState = 'problems-list';
         break;
       case 'Allergies':
         toState = 'allergies';
@@ -101,6 +101,21 @@ angular.module('rippleDemonstrator')
         searchString: $stateParams.searchString,
         queryType: $stateParams.queryType,
         source: transferSource,
+        patientSource: $stateParams.patientSource
+      });
+    };
+    
+    
+    $scope.goProblem = function (id, problemSource) {
+      $state.go('problems-detail', {
+        patientId: $scope.patient.nhsNumber,
+        problemIndex: id,
+        filter: $scope.query,
+        page: $scope.currentPage,
+        reportType: $stateParams.reportType,
+        searchString: $stateParams.searchString,
+        queryType: $stateParams.queryType,
+        source: problemSource,
         patientSource: $stateParams.patientSource
       });
     };

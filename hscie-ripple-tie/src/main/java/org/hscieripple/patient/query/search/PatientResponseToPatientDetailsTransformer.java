@@ -83,6 +83,7 @@ public class PatientResponseToPatientDetailsTransformer implements Transformer<R
         details.setOptIn(response.isConsentStatus());
 
         details.setContacts(findContacts(nhsNumber));
+        details.setProblems(findProblems(nhsNumber));
         details.setTransfers(findTransfers(nhsNumber));
 
         return details;
