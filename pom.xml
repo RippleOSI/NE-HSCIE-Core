@@ -76,6 +76,22 @@
         <resources.plugin.version>2.7</resources.plugin.version>
         
         <ripple.version>0.6.0.0</ripple.version>
+        
+        <!-- ************************ -->
+        <!-- Sonar/Reporting settings -->
+        <!-- ************************ -->
+        <!-- Tells Sonar to use jacoco for coverage results -->
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <!-- Jacoco version to use -->
+        <jacoco.outputDir>${session.executionRootDirectory}/target</jacoco.outputDir>
+        <!-- Jacoco output file for ITs -->
+        <jacoco.out.it.file>jacoco-it.exec</jacoco.out.it.file>
+        <!-- Tells Sonar where the Jacoco coverage result file is located for Integration Tests -->
+        <sonar.jacoco.itReportPath>${jacoco.outputDir}/${jacoco.out.it.file}</sonar.jacoco.itReportPath>
+        <!-- Jacoco output file for UTs -->
+        <jacoco.out.ut.file>jacoco-ut.exec</jacoco.out.ut.file>
+        <!-- Tells Sonar where the Jacoco coverage result file is located for Unit Tests -->
+        <sonar.jacoco.reportPath>${jacoco.outputDir}/${jacoco.out.ut.file}</sonar.jacoco.reportPath>
     </properties>
 
     <modules>
