@@ -341,7 +341,7 @@ angular.module('rippleDemonstrator')
       $scope.goHome = function () {
         $scope.cancelSearchMode();
 
-        if ($scope.currentUser.role === 'IDCR') {
+        if ($scope.currentUser.role === 'IDCR' || $scope.currentUser.role === 'IG') {
           $state.go('main-search');
         }
         if ($scope.currentUser.role === 'PHR') {
