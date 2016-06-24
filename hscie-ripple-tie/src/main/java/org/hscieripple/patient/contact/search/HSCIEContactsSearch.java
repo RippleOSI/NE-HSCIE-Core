@@ -30,6 +30,7 @@ import org.hscieripple.patient.contacts.PairOfContactsListKeyContactsSummaryResu
 import org.hscieripple.patient.contacts.PairOfContactsListKeyContactsHeadlineResultRow;
 import org.hscieripple.common.service.AbstractHSCIEService; 
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
+import org.hscieripple.patient.keyworker.search.KeyWorkerHeadlineResponseToHeadlineTransformer;
 import org.hscieripple.patient.contacts.model.HSCIEContactDetails;
 import org.hscieripple.patient.contacts.model.HSCIEContactSummary;
 import org.rippleosi.patient.contacts.model.ContactHeadline;
@@ -64,20 +65,7 @@ public class HSCIEContactsSearch extends AbstractHSCIEService implements HSCIECo
         return contacts;
     }
 
-    @Override
-    public List<ContactHeadline> findAllContactHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries) {
-        List<ContactHeadline> contacts = new ArrayList<>();
 
-        Long nhsNumber = convertPatientIdToLong(patientId);
-
-        for (DataSourceSummary summary : datasourceSummaries) {
-            List<ContactHeadline> results = makeHeadlineCall(nhsNumber, summary.getSourceId());
-
-            contacts.addAll(results);
-        }
-
-        return contacts;
-    }
     
     @Override
     public HSCIEContactDetails findContact(String patientId, String contactId, String source) {
@@ -116,30 +104,13 @@ public class HSCIEContactsSearch extends AbstractHSCIEService implements HSCIECo
         return CollectionUtils.collect(results, new ContactsResponseToContactsSummaryTransformer(), new ArrayList<>());
     }
     
-    private List<ContactHeadline> makeHeadlineCall(Long nhsNumber, String source) {
-        List<PairOfContactsListKeyContactsHeadlineResultRow> results = new ArrayList<>();
 
-        try {
-            ContactsHeadlineResponse response = contactsService.findContactsHeadlinesBO(nhsNumber, source);
-
-            if (isSuccessfulHeadlineResponse(response)) {
-                results = response.getContactsList().getContactsHeadlineResultRow();
-            }
-        }
-        catch (SOAPFaultException e) {
-            log.error(e.getMessage(), e);
-        }
-
-        return CollectionUtils.collect(results, new ContactsHeadlineResponseToHeadlineTransformer(), new ArrayList<>());
-    }
 
     private boolean isSuccessfulSummaryResponse(ContactsSummaryResponse response) {
         return OK.equalsIgnoreCase(response.getStatusCode()); 
     }
     
-    private boolean isSuccessfulHeadlineResponse(ContactsHeadlineResponse response) {
-        return OK.equalsIgnoreCase(response.getStatusCode()); 
-    }
+
 
     private boolean isSuccessfulDetailsResponse(ContactsDetailsResponse response) {
         return OK.equalsIgnoreCase(response.getStatusCode()); 

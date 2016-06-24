@@ -1,5 +1,5 @@
 <div class="row">
-
+{{contacts}}
   <!-- START Main Content Area -->
   <div class="main col-sm-12 col-md-12 patient-dashboard opaque-bg">
       <div class="row">
@@ -36,21 +36,23 @@
       <!--&lt;!&ndash; END Board &ndash;&gt;-->
 
       <div class="board problems col-md-4">
-        <h2><a ng-click="goToSection('Allergies')"><i class="fi-flag"></i> Allergies</a>
-          <span class="resultcount" ng-if="allergiesCount == 0">0 of 0</span>
-          <span class="resultcount" ng-if="allergiesCount > 0 && allergiesCount < 5">{{allergiesCount}} of {{allergiesCount}}</span>
-          <span class="resultcount" ng-if="allergiesCount > 0 && allergiesCount >= 5">5 of {{allergiesCount}}</span>
-          <a ui-sref="allergies({patientId: patient.nhsNumber})" class="resultcount" ng-if="allergiesCount > 0" style="padding-right: 10px;">View All</a>
+        <h2><a ng-click="goToSection('Keyworkers')"><i class="fi-torsos-all"></i> Key Workers</a>
+          <span class="resultcount" ng-if="contactsCount == 0">0 of 0</span>
+          <span class="resultcount" ng-if="contactsCount > 0 && contactsCount < 5">{{contactsCount}} of {{contactsCount}}</span>
+          <span class="resultcount" ng-if="contactsCount > 0 && contactsCount >= 5">5 of {{contactsCount}}</span>
+          <a ui-sref="keyworkers-list({patientId: patient.nhsNumber})" class="resultcount" ng-if="contactsCount > 0" style="padding-right: 10px;">View All</a>
         </h2>
 
         <table class="table table-striped clickable">
           <tbody>
-            <tr ng-repeat="allergy in allergies">
-              <td ng-click="goAllergy('{{allergy.sourceId}}', '{{allergy.source}}')">{{allergy.text}}<span class="glyphicon glyphicon-chevron-right"></span> </td>
+            <tr ng-repeat="contact in contacts  | filter: countKeyContact">
+              <td ng-click="goKeyworker('{{contact.sourceId}}', '{{contact.source}}')">{{$index}} {{ contact.sourceId }} <span class="glyphicon glyphicon-chevron-right"></span></td>
             </tr>
           </tbody>
         </table>
       </div>
+      
+      
 
       <div class="board problems col-md-4">
         <h2><a ng-click="goToSection('Medications')"><i class="fi-clipboard-pencil"></i> Medications</a>
@@ -68,23 +70,25 @@
           </tbody>
         </table>
       </div>
-
+      
       <div class="board problems col-md-4">
-        <h2><a ng-click="goToSection('Contacts')"><i class="fi-torsos-all"></i> Contacts</a>
-          <span class="resultcount" ng-if="contactsCount == 0">0 of 0</span>
-          <span class="resultcount" ng-if="contactsCount > 0 && contactsCount < 5">{{contactsCount}} of {{contactsCount}}</span>
-          <span class="resultcount" ng-if="contactsCount > 0 && contactsCount >= 5">5 of {{contactsCount}}</span>
-          <a ui-sref="contacts-list({patientId: patient.nhsNumber})" class="resultcount" ng-if="contactsCount > 0" style="padding-right: 10px;">View All</a>
+        <h2><a ng-click="goToSection('Allergies')"><i class="fi-flag"></i> Allergies</a>
+          <span class="resultcount" ng-if="allergiesCount == 0">0 of 0</span>
+          <span class="resultcount" ng-if="allergiesCount > 0 && allergiesCount < 5">{{allergiesCount}} of {{allergiesCount}}</span>
+          <span class="resultcount" ng-if="allergiesCount > 0 && allergiesCount >= 5">5 of {{allergiesCount}}</span>
+          <a ui-sref="allergies({patientId: patient.nhsNumber})" class="resultcount" ng-if="allergiesCount > 0" style="padding-right: 10px;">View All</a>
         </h2>
 
         <table class="table table-striped clickable">
           <tbody>
-            <tr ng-repeat="contact in contacts">
-              <td ng-click="goContact('{{contact.sourceId}}', '{{contact.source}}')"> {{ contact.text }} <span class="glyphicon glyphicon-chevron-right"></span></td>
+            <tr ng-repeat="allergy in allergies">
+              <td ng-click="goAllergy('{{allergy.sourceId}}', '{{allergy.source}}')">{{allergy.text}}<span class="glyphicon glyphicon-chevron-right"></span> </td>
             </tr>
           </tbody>
         </table>
       </div>
+
+
 
       <div class="board problems col-md-4">
         <h2><a ng-click="goToSection('Transfer')"><i class="fa fa-ambulance"></i> Transfer of Care</a>

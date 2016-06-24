@@ -29,6 +29,8 @@ import org.hscieripple.patient.datasources.search.DataSourceResponseToSummaryTra
 import org.hscieripple.patient.datasources.search.DataSourcesSearch;
 import org.hscieripple.patient.datasources.search.DataSourcesSearchFactory;
 import org.hscieripple.patient.details.model.HSCIEPatientDetails;
+import org.hscieripple.patient.keyworkers.search.KeyWorkerSearch;
+import org.hscieripple.patient.keyworkers.search.KeyWorkerSearchFactory;
 import org.hscieripple.patient.medications.search.HSCIEMedicationSearch;
 import org.hscieripple.patient.medications.search.HSCIEMedicationSearchFactory;
 import org.hscieripple.patient.problems.search.HSCIEProblemSearch;
@@ -53,7 +55,7 @@ public class PatientResponseToPatientDetailsTransformer implements Transformer<R
     private DataSourcesSearchFactory dataSourcesSearchFactory;
 
     @Autowired
-    private HSCIEContactSearchFactory contactSearchFactory;
+    private KeyWorkerSearchFactory keyworkerSearchFactory;
     
     @Autowired
     private HSCIEProblemSearchFactory problemSearchFactory;
@@ -85,7 +87,7 @@ public class PatientResponseToPatientDetailsTransformer implements Transformer<R
         details.setPasNumber(response.getPersonNumber());
         details.setOptIn(response.isConsentStatus());
 
-        details.setContacts(findContacts(nhsNumber));
+        details.setContacts(findKeyWorkers(nhsNumber));
         details.setProblems(findProblems(nhsNumber));
         details.setMedications(findMedications(nhsNumber));
         details.setTransfers(findTransfers(nhsNumber));
@@ -93,15 +95,15 @@ public class PatientResponseToPatientDetailsTransformer implements Transformer<R
         return details;
     }
 
-    private List<PatientHeadline> findContacts(final String patientId) {
+    private List<PatientHeadline> findKeyWorkers(final String patientId) {
         try {
             final List<DataSourceSummary> dataSources = findDataSources(patientId, "contacts");
 
-            final HSCIEContactSearch contactSearch = contactSearchFactory.select(null);
+            final KeyWorkerSearch keyworkerSearch = keyworkerSearchFactory.select(null);
 
-            final List<ContactHeadline> contacts = contactSearch.findAllContactHeadlines(patientId, dataSources);
+            final List<ContactHeadline> keyworkers = keyworkerSearch.findAllKeyWorkerHeadlines(patientId, dataSources);
             
-            return CollectionUtils.collect(contacts, new ContactHeadlineToPatientHeadlineTransformer(), new ArrayList<>());
+            return CollectionUtils.collect(keyworkers, new KeyWorkerHeadlineToPatientHeadlineTransformer(), new ArrayList<>());
         }
         catch (DataNotFoundException ignore) {
             return Collections.emptyList();

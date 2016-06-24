@@ -58,16 +58,7 @@ public class HSCIEContactsController {
         return HSCIEContactSearch.findAllContacts(patientId, dataSources);
     }
     
-    @RequestMapping(value = "/headlines", method = RequestMethod.GET)
-    public List<ContactHeadline> findAllContactHeadlines(@PathVariable("patientId") String patientId,
-                                                      @RequestParam(required = false) String source) {
-    	final RepoSourceType sourceType = repoSourceLookup.lookup(source); 
-    	DataSourcesSearch dataSourcesSearch = dataSourcesSearchFactory.select(null);
-    	List<DataSourceSummary> dataSources = dataSourcesSearch.findAvailableDataSources(patientId, "contacts");
-    	
-        HSCIEContactSearch HSCIEContactSearch = HSCIEContactSearchFactory.select(sourceType);
-        return HSCIEContactSearch.findAllContactHeadlines(patientId, dataSources);
-    }
+
 
     @RequestMapping(value = "/{contactId}", method = RequestMethod.GET)
     public HSCIEContactDetails findContact(@PathVariable("patientId") String patientId,

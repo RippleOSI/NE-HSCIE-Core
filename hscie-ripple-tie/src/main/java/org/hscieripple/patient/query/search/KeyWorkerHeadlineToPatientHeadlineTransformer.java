@@ -21,7 +21,7 @@ import org.rippleosi.patient.summary.model.PatientHeadline;
 
 /**
  */
-public class ContactHeadlineToPatientHeadlineTransformer implements Transformer<ContactHeadline, PatientHeadline> {
+public class KeyWorkerHeadlineToPatientHeadlineTransformer implements Transformer<ContactHeadline, PatientHeadline> {
 
     @Override
     public PatientHeadline transform(ContactHeadline input) {

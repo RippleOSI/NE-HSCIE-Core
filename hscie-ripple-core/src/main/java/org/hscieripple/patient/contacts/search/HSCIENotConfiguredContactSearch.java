@@ -45,10 +45,6 @@ public class HSCIENotConfiguredContactSearch implements HSCIEContactSearch {
         throw ConfigurationException.unimplementedTransaction(HSCIEContactSearch.class);
     }
     
-    @Override
-    public List<ContactHeadline> findAllContactHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries) {
-        throw ConfigurationException.unimplementedTransaction(HSCIEContactSearch.class);
-    }
 
     @Override
     public HSCIEContactDetails findContact(String patientId, String contactId, String source) {

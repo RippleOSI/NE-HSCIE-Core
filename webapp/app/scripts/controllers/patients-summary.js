@@ -24,7 +24,7 @@ angular.module('rippleDemonstrator')
       $scope.diagnoses = patient.problems.slice(0, 5);
       
       $scope.contactsCount = patient.contacts.length;
-      $scope.contacts = patient.contacts.slice(0, 5);
+      $scope.contacts = patient.contacts.slice(0, 20);
 
       $scope.transferofCaresCount = patient.transfers.length;
       $scope.transferofCareComposition = patient;
@@ -66,8 +66,8 @@ angular.module('rippleDemonstrator')
       case 'Medications':
         toState = 'medications';
         break;
-      case 'Contacts':
-        toState = 'contacts-list';
+      case 'Keyworkers':
+        toState = 'keyworkers-list';
         break;
       case 'Transfer':
         toState = 'transferOfCare';
@@ -76,16 +76,16 @@ angular.module('rippleDemonstrator')
       $state.go(toState, requestHeader);
     };
     
-        $scope.goContact = function (id, contactSource) {
-      $state.go('contacts-detail', {
+        $scope.goKeyworker = function (id, keyworkerSource) {
+      $state.go('keyworkers-detail', {
         patientId: $scope.patient.nhsNumber,
-        contactIndex: id,
+        keyworkerIndex: id,
         filter: $scope.query,
         page: $scope.currentPage,
         reportType: $stateParams.reportType,
         searchString: $stateParams.searchString,
         queryType: $stateParams.queryType,
-        source: contactSource,
+        source: keyworkerSource,
         patientSource: $stateParams.patientSource
       });
     };
@@ -135,6 +135,90 @@ angular.module('rippleDemonstrator')
       });
     };
     
+    
+    
+    
+    
+    
+    var admCount = 0;
+    var outCount = 0;
+	var latestResult = false;
+	var savedId = "";
+	var savedText = "";
+	var savedSource = "";
+    
+         $scope.countKeyContact = function(contact, contacts, index)
+    {
+		
+	    if(contact.sourceId.indexOf("- Key Contact") > -1)
+	     {   	
+			$scope.contacts.splice(1,1);
+			return false;
+	     
+			if(contact.sourceId.indexOf("ADMISSION - Key Contact") > -1)
+		     {   	
+				admCount++;
+			 }  
+			 else if(contact.sourceId.indexOf("DISCHARGES - Key Contact") > -1)
+		     {   	
+				outCount++;
+			 }  
+			 
+			 if(admCount != outCount){
+				 if(contact.sourceId.indexOf("OUTPATIENTS - Key Contact") > -1)
+				     { 
+						$scope.contacts.splice(1,1);
+						return false;
+					 }
+		 	  }
+			  if(latestResult == false){
+				  latestResult = true;
+				  savedId = contact.sourceId;
+				  savedSource = contact.source;
+				  savedText = contact.text;
+			  } else if(contact.sourceId != savedId){
+				$scope.contacts.splice(1,1);
+				return false;
+			}
+		 } 
+		 $scope.contactsCount = $scope.contacts.length;
+		 return true;
+		 
+    };    
+    
+    
+    
+    $scope.hideKeyContact = function(contact)
+    {
+     if(contact.sourceId.indexOf("- Key Contact") > -1)
+     {
+     	return false;
+     }    
+     return true;     
+    };    
+    
+    $scope.showKeyContact = function(contact)
+    {
+     if(contact.sourceId.indexOf("- Key Contact") > -1)
+     {
+     	return true;
+     }    
+     return false;     
+    };
+    
+    
+    
+    
+    
+
+        $scope.displayKeyContact = function(contact)
+    {
+     if(contact.sourceId.indexOf("- Key Contact") > -1)
+     {
+     	return false;
+     }    
+     return true;     
+    };
     
 
   });
