@@ -1,7 +1,7 @@
-<div class="main-search header-search" ng-class="{'searchBarHidden' : !mainSearchEnabled }">
+<div class="main-search header-search">
   <img src="images/hscie-logo.png" class="search-logo"/>
   <div class="search-left-inner-addon">
-    <input class="form-control" placeholder="Search..." type="text" ng-keyup="hideSearch()" ng-model="searchExpression"/>
+    <input class="form-control" placeholder="Search..." type="text" key-bind="{ enter: 'searchFunction()' }" ng-model="searchExpression" ng-keyup="checkExpression($event)"/>
     <div class="pull-right">
       <a ng-click="openAdvancedSearch()">Advanced search</a>
     </div>
