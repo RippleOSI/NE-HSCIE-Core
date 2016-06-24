@@ -62,10 +62,6 @@
   <a ng-click="goTo('images')"ng-class="{'disabled' : !navBar.imagesEnabled }">Images</a>
 </li>
 
-<li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
-  <a ng-class="{'disabled' : !navBar.tagsEnabled }">Tags</a>
-</li>
-
 <li class="navigation-menu" ng-show="currentUser.hasPermission('IG')">
   <a ng-click="goTo('informationgov')">Information Governance</a>
 </li>
