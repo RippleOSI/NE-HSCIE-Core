@@ -516,7 +516,12 @@ angular
 
   .constant('keyCodes', {
     esc: 27,
-    enter: 13
+    enter: 13,
+    backspace: 8,
+    arrowUp: 38,
+    arrowDown: 40,
+    arrowRight: 39,
+    arrowLeft: 37
   })
 
   .directive('keyBind', ['keyCodes', function (keyCodes) {
@@ -541,6 +546,19 @@ angular
         }
       });
     };
+  }])
+
+  .directive('containsKeyCode', ['keyCodes', function (keyCodes) {
+    return function(keyCode) {
+      var contains = false;
+      for (var key in keyCodes) {
+        if (keyCodes.hasOwnProperty(key) && keyCodes[key] === keyCode) {
+          contains = true;
+        }
+      }
+
+      return contains;
+    }
   }])
 
   .directive('focusElement', function($timeout) {
@@ -568,27 +586,6 @@ angular
       });
     };
   }])
-
-  .directive('customPopover', function ($templateCache) {
-    return {
-      restrict: 'A',
-      template: '<span>{{label}}</span>',
-      link: function(scope, elem, attrs) {
-        scope.label = attrs.popoverLabel;
-        var template = $templateCache.get("example.html");
-
-        elem.bind('click', function(e){
-          $(elem).popover({
-            html: true,
-            title: "Notifications (" + scope.notifications.length + ")",
-            content: template,
-            placement: attrs.popoverPlacement,
-            dataContent: scope.notifications
-          });
-        });
-      }
-    };
-  })
 
   .filter('optedIn', function() {
     return function(optedIn) {

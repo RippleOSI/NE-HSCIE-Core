@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('headerController', function ($scope, $rootScope, $state, $window, usSpinnerService, $stateParams, UserService, AdvancedSearch) {
+  .controller('headerController', function ($scope, $rootScope, $state, $window, usSpinnerService, $stateParams, UserService, AdvancedSearch, Helper) {
 
     $rootScope.searchExpression = '';
     $scope.searchExpression = $rootScope.searchExpression;
@@ -22,7 +22,7 @@ angular.module('rippleDemonstrator')
         $rootScope.currentUser = response.data;
 
         $scope.autoAdvancedSearch = $rootScope.currentUser.feature.autoAdvancedSearch;
-        $scope.searchBarEnabled = $rootScope.currentUser.feature.searchBarEnabled;
+        $scope.searchBarEnabled = false;
         $scope.navBar = $rootScope.currentUser.feature.navBar;
 
         // Direct different roles to different pages at login
@@ -360,10 +360,5 @@ angular.module('rippleDemonstrator')
 
     $scope.$on("toggleHeaderSearchEnabled", function(event, enabled) {
       $scope.searchBarEnabled = enabled;
-    });
-
-    $scope.$on("populateHeaderSearch", function(event, expression) {
-      $scope.searchExpression = expression;
-      $scope.searchFocused = true;
     });
   });
