@@ -15,7 +15,10 @@
  */
 package org.hscieripple.patient.datasources.search;
 
+import java.util.Collection;
 import java.util.List;
+
+import org.hscieripple.patient.notification.model.Notification;
 import org.rippleosi.common.types.RepoSourceType;
 
 import org.rippleosi.common.exception.ConfigurationException;
@@ -38,6 +41,16 @@ public class NotConfiguredDataSourcesSearch implements DataSourcesSearch {
 
     @Override
     public List<DataSourceSummary> findAvailableDataSources(String patientId, String dataType) {
+        throw ConfigurationException.unimplementedTransaction(DataSourcesSearch.class);
+    }
+
+    @Override
+    public Collection<Notification> getNotifications() {
+        throw ConfigurationException.unimplementedTransaction(DataSourcesSearch.class);
+    }
+
+    @Override
+    public void remove(String source) {
         throw ConfigurationException.unimplementedTransaction(DataSourcesSearch.class);
     }
 }

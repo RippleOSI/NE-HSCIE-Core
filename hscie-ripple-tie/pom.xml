@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.hscieripple</groupId>
         <artifactId>hscie-ripple</artifactId>
-        <version>0.5.0.0-SNAPSHOT</version>
+        <version>0.5.1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -62,6 +62,9 @@
         </resultsServiceWsdlLocation>
         <proceduresServiceWsdlLocation>org/hscieripple/patient/procedures/HSCIEDEV.SOAP.Procedures.wsdl
         </proceduresServiceWsdlLocation>
+        <alertsServiceWsdlLocation>org/hscieripple/patient/alerts/HSCIEDEV.SOAP.Alerts.wsdl</alertsServiceWsdlLocation>
+        
+
     </properties>
 
     <dependencies>
@@ -126,6 +129,7 @@
                                         <extraarg>org.hscieripple.patient.query</extraarg>
                                     </extraargs>
                                 </wsdlOption>
+
                                 <wsdlOption>
                                     <wsdl>${basedir}/src/main/resources/${dataSourcesServiceWsdlLocation}</wsdl>
                                     <wsdlLocation>classpath:${dataSourcesServiceWsdlLocation}</wsdlLocation>
@@ -134,6 +138,7 @@
                                         <extraarg>org.hscieripple.patient.datasources</extraarg>
                                     </extraargs>
                                 </wsdlOption>
+
                                 <wsdlOption>
                                     <wsdl>${basedir}/src/main/resources/${keyWorkersServiceWsdlLocation}</wsdl>
                                     <wsdlLocation>classpath:${keyWorkersServiceWsdlLocation}</wsdlLocation>
@@ -169,6 +174,7 @@
                                         <extraarg>org.hscieripple.patient.consent</extraarg>
                                     </extraargs>
                                 </wsdlOption>
+
                                 <wsdlOption>
                                     <wsdl>${basedir}/src/main/resources/${consentsFindOneServiceWsdlLocation}</wsdl>
                                     <wsdlLocation>classpath:${consentsFindOneServiceWsdlLocation}</wsdlLocation>
@@ -177,6 +183,7 @@
                                         <extraarg>org.hscieripple.patient.consent</extraarg>
                                     </extraargs>
                                 </wsdlOption>
+
                                 <wsdlOption>
                                     <wsdl>${basedir}/src/main/resources/${consentsInsertServiceWsdlLocation}</wsdl>
                                     <wsdlLocation>classpath:${consentsInsertServiceWsdlLocation}</wsdlLocation>
@@ -185,6 +192,7 @@
                                         <extraarg>org.hscieripple.patient.consent</extraarg>
                                     </extraargs>
                                 </wsdlOption>
+
                                 <wsdlOption>
                                     <wsdl>${basedir}/src/main/resources/${consentsUpdateServiceWsdlLocation}</wsdl>
                                     <wsdlLocation>classpath:${consentsUpdateServiceWsdlLocation}</wsdlLocation>
@@ -193,6 +201,7 @@
                                         <extraarg>org.hscieripple.patient.consent</extraarg>
                                     </extraargs>
                                 </wsdlOption>
+
                                 <wsdlOption>
                                     <wsdl>${basedir}/src/main/resources/${contactsServiceWsdlLocation}</wsdl>
                                     <wsdlLocation>classpath:${contactsServiceWsdlLocation}</wsdlLocation>
@@ -201,6 +210,7 @@
                                         <extraarg>org.hscieripple.patient.contacts</extraarg>
                                     </extraargs>
                                 </wsdlOption>
+
                                 <wsdlOption>
                                     <wsdl>${basedir}/src/main/resources/${appointmentsServiceWsdlLocation}</wsdl>
                                     <wsdlLocation>classpath:${appointmentsServiceWsdlLocation}</wsdlLocation>
@@ -209,6 +219,7 @@
                                         <extraarg>org.hscieripple.patient.appointments</extraarg>
                                     </extraargs>
                                 </wsdlOption>
+
                                 <wsdlOption>
                                     <wsdl>${basedir}/src/main/resources/${referralsServiceWsdlLocation}</wsdl>
                                     <wsdlLocation>classpath:${referralsServiceWsdlLocation}</wsdlLocation>
@@ -217,7 +228,8 @@
                                         <extraarg>org.hscieripple.patient.referrals</extraarg>
                                     </extraargs>
                                 </wsdlOption>
-                                 <wsdlOption>
+
+                                <wsdlOption>
                                     <wsdl>${basedir}/src/main/resources/${problemsServiceWsdlLocation}</wsdl>
                                     <wsdlLocation>classpath:${problemsServiceWsdlLocation}</wsdlLocation>
                                     <extraargs>
@@ -259,6 +271,15 @@
                                     <extraargs>
                                         <extraarg>-p</extraarg>
                                         <extraarg>org.hscieripple.patient.procedures</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${alertsServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${alertsServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.alerts</extraarg>
                                     </extraargs>
                                 </wsdlOption>
 

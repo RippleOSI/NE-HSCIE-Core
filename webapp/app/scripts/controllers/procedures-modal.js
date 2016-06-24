@@ -3,7 +3,11 @@
 angular.module('rippleDemonstrator')
   .controller('ProceduresModalCtrl', function ($scope, $filter, $modalInstance, UserService, patient, modal, procedure) {
 
-    $scope.currentUser = UserService.getCurrentUser();
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
+      $stateParams.patientSource = $scope.currentUser.feature.patientSource;
+    });
+
     $scope.procedure = procedure;
     $scope.patient = patient;
     $scope.modal = modal;

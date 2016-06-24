@@ -5,8 +5,10 @@ angular.module('rippleDemonstrator')
 
     SearchInput.update();
 
-    var currentUser = UserService.getCurrentUser();
-    $stateParams.patientSource = currentUser.feature.patientSource;
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
+      $stateParams.patientSource = $scope.currentUser.feature.patientSource;
+    });
 
     PatientService.get($stateParams.patientId, $stateParams.patientSource).then(function (patient) {
       $scope.patient = patient;

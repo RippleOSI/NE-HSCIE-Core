@@ -8,11 +8,13 @@ angular.module('rippleDemonstrator')
       $scope.patient = patient;
     });
 
-    var currentUser = UserService.getCurrentUser();
-    var patientContextParams = UserService.getContent('patientContextParams');
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
+      $stateParams.patientSource = $scope.currentUser.feature.patientSource;
 
-    $stateParams.patientSource = currentUser.feature.patientSource;
-    $scope.pasNumberLabel = patientContextParams.pasNumberLabel;
+      var patientContextParams = UserService.getContent('patientContextParams');
+      $scope.pasNumberLabel = patientContextParams.pasNumberLabel;
+    });
 
     $scope.goTo = function (section) {
       var requestHeader = {
@@ -28,6 +30,9 @@ angular.module('rippleDemonstrator')
       switch (section) {
       case 'summary':
         toState = 'patients-summary';
+        break;
+      case 'alerts':
+        toState = 'alerts';
         break;
       case 'keyworkers':
         toState = 'keyworkers-list';

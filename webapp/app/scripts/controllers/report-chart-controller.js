@@ -9,7 +9,9 @@ angular.module('rippleDemonstrator')
     $scope.resultSize = 0;
     $scope.noResults = '';
 
-    var currentUser = UserService.getCurrentUser();
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
+    });
 
     var proceed = function (row, requestBody) {
       if (currentUser.feature.roleConfirmationRequired) {

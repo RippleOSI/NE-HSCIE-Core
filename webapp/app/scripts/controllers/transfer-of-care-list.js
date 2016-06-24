@@ -6,8 +6,10 @@ angular.module('rippleDemonstrator')
    SearchInput.update();
     $scope.currentPage = 1;
 
-    var currentUser = UserService.getCurrentUser();
-    $stateParams.patientSource = currentUser.feature.patientSource;
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
+      $stateParams.patientSource = $scope.currentUser.feature.patientSource;
+    });
 
     $scope.pageChangeHandler = function (newPage) {
       $scope.currentPage = newPage;
@@ -17,7 +19,6 @@ angular.module('rippleDemonstrator')
       $scope.currentPage = $stateParams.page;
     }
 
-    
     $scope.search = function (row) {
       return (
         angular.lowercase(row.siteFrom).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
@@ -26,7 +27,7 @@ angular.module('rippleDemonstrator')
         angular.lowercase(row.source).indexOf(angular.lowercase($scope.query) || '') !== -1
       );
     };
-    
+
 
     if ($stateParams.filter) {
       $scope.query = $stateParams.filter;
@@ -60,8 +61,6 @@ angular.module('rippleDemonstrator')
       return transferIndex === $stateParams.transferIndex;
     };
 
-
-
  $scope.careOrder = function(transfer){
 	    if(transfer.careType.indexOf("Admission") > -1){
 	    	return 0;
@@ -73,5 +72,5 @@ angular.module('rippleDemonstrator')
 	    	return 2;
 	    }
     }
-    
+
   });

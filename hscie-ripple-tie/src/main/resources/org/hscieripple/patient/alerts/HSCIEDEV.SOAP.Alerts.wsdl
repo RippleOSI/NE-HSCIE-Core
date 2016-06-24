@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://www.HSCIERipple.org" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://www.HSCIERipple.org">
+    <types>
+        <s:schema elementFormDefault="qualified" targetNamespace="http://www.HSCIERipple.org">
+            <s:element name="FindAlertsDetailsBO">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" name="NHSNumber" type="s:long"/>
+                        <s:element minOccurs="0" name="SourceID" type="s:string"/>
+                        <s:element minOccurs="0" name="DataSource" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="FindAlertsDetailsBOResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element name="FindAlertsDetailsBOResult" type="s0:AlertsDetailsResponse"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="AlertsDetailsResponse">
+                <s:complexContent>
+                    <s:extension base="s0:Ens_Response">
+                        <s:sequence>
+                            <s:element minOccurs="0" name="AlertType" type="s:string"/>
+                            <s:element minOccurs="0" name="AlertNote" type="s:string"/>
+                            <s:element minOccurs="0" name="DateTime" type="s:string"/>
+                            <s:element minOccurs="0" name="Author" type="s:string"/>
+                            <s:element minOccurs="0" name="SourceID" type="s:string"/>
+                            <s:element minOccurs="0" name="DataSourceName" type="s:string"/>
+                            <s:element minOccurs="0" name="StatusCode" type="s:string"/>
+                            <s:element minOccurs="0" name="StatusDesc" type="s:string"/>
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="Ens_Response">
+                <s:complexContent>
+                    <s:extension base="s0:Ens_Messagebody"/>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="Ens_Messagebody"/>
+            <s:element name="FindAlertsSummariesBO">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" name="NHSNumber" type="s:long"/>
+                        <s:element minOccurs="0" name="DataSource" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="FindAlertsSummariesBOResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element name="FindAlertsSummariesBOResult" type="s0:AlertsSummaryResponse"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="AlertsSummaryResponse">
+                <s:complexContent>
+                    <s:extension base="s0:Ens_Response">
+                        <s:sequence>
+                            <s:element minOccurs="0" name="AlertsList" type="s0:ArrayOfAlertsSummaryResultRowPairOfAlertsListKeyAlertsSummaryResultRow"/>
+                            <s:element minOccurs="0" name="StatusCode" type="s:string"/>
+                            <s:element minOccurs="0" name="StatusDesc" type="s:string"/>
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="ArrayOfAlertsSummaryResultRowPairOfAlertsListKeyAlertsSummaryResultRow">
+                <s:sequence>
+                    <s:element maxOccurs="unbounded" minOccurs="0" name="AlertsSummaryResultRow" nillable="true" type="s0:PairOfAlertsListKeyAlertsSummaryResultRow"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="PairOfAlertsListKeyAlertsSummaryResultRow">
+                <s:complexContent>
+                    <s:extension base="s0:AlertsSummaryResultRow">
+                        <s:attribute name="AlertsListKey" type="s:string" use="required"/>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="AlertsSummaryResultRow">
+                <s:complexContent>
+                    <s:extension base="s0:Ens_Response">
+                        <s:sequence>
+                            <s:element minOccurs="0" name="AlertType" type="s:string"/>
+                            <s:element minOccurs="0" name="DateTime" type="s:string"/>
+                            <s:element minOccurs="0" name="SourceID" type="s:string"/>
+                            <s:element minOccurs="0" name="DataSourceName" type="s:string"/>
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+        </s:schema>
+    </types>
+    <message name="FindAlertsDetailsBOSoapIn">
+        <part name="parameters" element="s0:FindAlertsDetailsBO"/>
+    </message>
+    <message name="FindAlertsDetailsBOSoapOut">
+        <part name="parameters" element="s0:FindAlertsDetailsBOResponse"/>
+    </message>
+    <message name="FindAlertsSummariesBOSoapIn">
+        <part name="parameters" element="s0:FindAlertsSummariesBO"/>
+    </message>
+    <message name="FindAlertsSummariesBOSoapOut">
+        <part name="parameters" element="s0:FindAlertsSummariesBOResponse"/>
+    </message>
+    <portType name="AlertServiceSoap">
+        <operation name="FindAlertsDetailsBO">
+            <input message="s0:FindAlertsDetailsBOSoapIn"/>
+            <output message="s0:FindAlertsDetailsBOSoapOut"/>
+        </operation>
+        <operation name="FindAlertsSummariesBO">
+            <input message="s0:FindAlertsSummariesBOSoapIn"/>
+            <output message="s0:FindAlertsSummariesBOSoapOut"/>
+        </operation>
+    </portType>
+    <binding name="Alerts" type="s0:AlertServiceSoap">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="FindAlertsDetailsBO">
+            <soap:operation soapAction="http://www.HSCIERipple.org/HSCIEDEV.SOAP.Alerts.FindAlertsDetailsBO" style="document"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="FindAlertsSummariesBO">
+            <soap:operation soapAction="http://www.HSCIERipple.org/HSCIEDEV.SOAP.Alerts.FindAlertsSummariesBO" style="document"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="AlertService">
+        <port name="Alerts" binding="s0:Alerts" />
+    </service>
+</definitions>

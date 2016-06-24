@@ -15,12 +15,18 @@
  */
 package org.hscieripple.patient.datasources.search;
 
+import java.util.Collection;
 import java.util.List;
 
+import org.hscieripple.patient.notification.model.Notification;
 import org.rippleosi.common.repo.Repository;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
 
 public interface DataSourcesSearch extends Repository {
 
     List<DataSourceSummary> findAvailableDataSources(String patientId, String dataType);
+
+    Collection<Notification> getNotifications();
+
+    void remove(String source);
 }

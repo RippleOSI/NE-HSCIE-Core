@@ -2,66 +2,70 @@
   <a ng-click="goTo('summary')" ng-class="{'disabled' : !navBar.patientSummaryEnabled }">Patient Summary</a>
 </li>
 
-<li class="navigation-menu" ng-show="patient.optIn">
+<li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
   <a ng-click="goTo('keyworkers')" ng-class="{'disabled' : !navBar.keyworkersEnabled }">Key Workers</a>
 </li>
 
-<li class="navigation-menu" ng-show="patient.optIn">
+<li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
+  <a ng-click="goTo('alerts')" ng-class="{'disabled' : !navBar.alertsEnabled }">Alerts</a>
+</li>
+
+<li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
   <a ng-click="goTo('contacts')" ng-class="{'disabled' : !navBar.contactsEnabled }">Contacts</a>
 </li>
 
-<li class="navigation-menu" ng-show="patient.optIn">
+<li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
   <a ng-click="goTo('problems')" ng-class="{'disabled' : !navBar.diagnosisEnabled }">Problems / Diagnosis</a>
 </li>
 
-<li class="navigation-menu" ng-show="patient.optIn">
+<li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
   <a ng-click="goTo('allergies')" ng-class="{'disabled' : !navBar.allergiesEnabled }">Allergies</a>
 </li>
 
-<li class="navigation-menu" ng-show="patient.optIn">
+<li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
   <a ng-click="goTo('medications')" ng-class="{'disabled' : !navBar.medicationsEnabled }">Medications</a>
 </li>
 
-<li class="navigation-menu" ng-show="patient.optIn">
+<li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
   <a ng-click="goTo('orders')" ng-class="{'disabled' : !navBar.ordersEnabled }">Orders</a>
 </li>
 
-<li class="navigation-menu" ng-show="patient.optIn">
+<li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
   <a ng-click="goTo('results')" ng-class="{'disabled' : !navBar.resultsEnabled }">Results</a>
 </li>
 
-<li class="navigation-menu" ng-show="patient.optIn">
+<li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
   <a ng-click="goTo('procedures')" ng-class="{'disabled' : !navBar.proceduresEnabled }">Procedures</a>
 </li>
 
-<li class="navigation-menu" ng-show="patient.optIn">
+<li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
   <a ng-click="goTo('referrals')" ng-class="{'disabled' : !navBar.referralsEnabled }">Referrals</a>
 </li>
 
-<li class="navigation-menu" ng-show="patient.optIn">
+<li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
   <a ng-click="goTo('appointments')" ng-class="{'disabled' : !navBar.appointmentsEnabled }">Appointments</a>
 </li>
 
-<li class="navigation-menu" ng-show="patient.optIn">
+<li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
   <a ng-click="goTo('transfers')" ng-class="{'disabled' : !navBar.transfersEnabled }">Transfer of Care</a>
 </li>
 
-<li class="navigation-menu" ng-show="patient.optIn">
+<li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
   <a ng-click="goTo('careplans')" ng-class="{'disabled' : !navBar.careplansEnabled }">Care Plans</a>
 </li>
 
-<li class="navigation-menu" ng-show="patient.optIn">
+<li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
   <a ng-click="goTo('mdt')" ng-class="{'disabled' : !navBar.mdtEnabled }">MDT</a>
 </li>
 
-<li class="navigation-menu" ng-show="patient.optIn">
+<li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
   <a ng-click="goTo('images')"ng-class="{'disabled' : !navBar.imagesEnabled }">Images</a>
 </li>
 
-<li class="navigation-menu" ng-show="patient.optIn">
+<li class="navigation-menu" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
   <a ng-class="{'disabled' : !navBar.tagsEnabled }">Tags</a>
 </li>
 
-<li class="navigation-menu">
+<li class="navigation-menu" ng-show="currentUser.hasPermission('IG')">
   <a ng-click="goTo('informationgov')">Information Governance</a>
 </li>
