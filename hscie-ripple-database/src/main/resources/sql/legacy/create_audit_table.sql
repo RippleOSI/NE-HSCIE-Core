@@ -6,5 +6,6 @@ CREATE TABLE poc_legacy.audit (
   target_nhs_number     VARCHAR(20)     NOT NULL,
   target_resource       VARCHAR(500)    NOT NULL,
   request_date_time     DATETIME        NOT NULL,
+  requester_action     	VARCHAR(10)    	NOT NULL,
   PRIMARY KEY   (id)
 );
