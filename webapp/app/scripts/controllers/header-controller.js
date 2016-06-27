@@ -21,7 +21,6 @@ angular.module('rippleDemonstrator')
       else {
         $rootScope.currentUser = response.data;
 
-        $scope.autoAdvancedSearch = $rootScope.currentUser.feature.autoAdvancedSearch;
         $scope.searchBarEnabled = false;
         $scope.navBar = $rootScope.currentUser.feature.navBar;
 
@@ -155,149 +154,47 @@ angular.module('rippleDemonstrator')
         break;
       }
 
-      if (params.queryType === 'Reports: ') {
-        previousState = 'search-report';
-        previousPage = 'Report Chart';
-      }
-
-      $scope.containsReportString = function () {
-        return $scope.searchExpression.indexOf('rp ') === 0;
-      };
-
-      $scope.containsSettingString = function () {
-        return $scope.searchExpression.lastIndexOf('st ') === 0;
-      };
-
-      $scope.containsPatientString = function () {
-        return $scope.searchExpression.lastIndexOf('pt ') === 0;
-      };
-
-      $scope.containsReportTypeString = function () {
-        for (var i = 0; i < $scope.reportTypes.length; i++) {
-          if ($scope.searchExpression.lastIndexOf($scope.reportTypes[i]) !== -1) {
-            return true;
-          }
-        }
-        return false;
-      };
-
-      $rootScope.searchMode = false;
-      $rootScope.reportMode = false;
-      $rootScope.settingsMode = false;
-      $rootScope.patientMode = false;
-      $rootScope.reportTypeSet = false;
-      $rootScope.reportTypeString = '';
-
       $scope.checkExpression = function () {
-        if($scope.autoAdvancedSearch) {
-          if($scope.searchExpression.length >= 3) {
-            AdvancedSearch.openAdvancedSearch($scope.searchExpression);
-          }
-        }
-        else if ($rootScope.searchMode) {
-          if ($rootScope.reportMode && !$rootScope.reportTypeSet) {
-            $scope.reportTypes = [
-              'Diagnosis: ',
-              'Orders: '
-              ];
-          }
-          if ($scope.containsReportTypeString() && !$scope.patientMode) {
-            $rootScope.reportTypeSet = true;
-            $scope.processReportTypeMode();
-          }
-        } else {
-          $scope.reportTypes = [];
-          $rootScope.searchMode = ($scope.containsReportString() || $scope.containsSettingString() || $scope.containsPatientString());
-          $rootScope.reportMode = $scope.containsReportString();
-          $rootScope.settingsMode = $scope.containsSettingString();
-          $rootScope.patientMode = $scope.containsPatientString();
-          if ($rootScope.reportMode) {
-            if ($scope.containsReportTypeString) {
-              $scope.processReportTypeMode();
-            }
-            $scope.processReportMode();
-          }
-          if ($rootScope.settingsMode) {
-            $scope.processSettingMode();
-          }
-          if ($rootScope.patientMode) {
-            $scope.processPatientMode();
-          }
+        if (!Helper.containsKeyCode(event.keyCode) && $scope.searchExpression.length > 0 && /^(?!.*[0-9])/.test($scope.searchExpression)) {
+          AdvancedSearch.openAdvancedSearch($scope.searchExpression);
         }
       };
 
       $scope.cancelSearchMode = function () {
-        $rootScope.reportMode = false;
-        $rootScope.searchMode = false;
-        $rootScope.patientMode = false;
-        $rootScope.settingsMode = false;
-        $scope.searchExpression = '';
-        $scope.reportTypes = '';
-        $rootScope.reportTypeSet = false;
-        $rootScope.reportTypeString = '';
-      };
-
-      $scope.cancelReportType = function () {
-        $rootScope.reportTypeString = '';
-        $rootScope.reportTypeSet = false;
+        $rootScope.searchExpression = '';
+        $scope.searchExpression = $rootScope.searchExpression;
       };
 
       $scope.searchFunction = function () {
-        if($scope.autoAdvancedSearch)
-        {
-          AdvancedSearch.openAdvancedSearch();
-        }
-        if ($rootScope.reportTypeSet && $scope.searchExpression !== '') {
-          var tempExpression = $rootScope.reportTypeString + ': ' + $scope.searchExpression;
-          $state.go('search-report', {
-            searchString: tempExpression
-          });
-        }
-        if ($rootScope.settingsMode && $scope.searchExpression !== '') {
-          $state.go('patients-list-full', {
-            queryType: 'Setting: ',
-            searchString: $scope.searchExpression,
-            orderType: 'ASC',
-            pageNumber: '1'
-          });
-        }
-        if ($rootScope.patientMode && $scope.searchExpression !== '') {
-          $state.go('patients-list-full', {
-            queryType: 'Patient: ',
-            searchString: $scope.searchExpression,
-            orderType: 'ASC',
-            pageNumber: '1'
-          });
-        }
-      };
-
-      $scope.processReportMode = function () {
-        if ($scope.searchExpression === 'rp ') {
-          $scope.searchExpression = '';
-        }
-      };
-
-      $scope.processReportTypeMode = function () {
-        for (var i = 0; i < $scope.reportTypes.length; i++) {
-          if ($scope.searchExpression.lastIndexOf($scope.reportTypes[i]) !== -1) {
-            var arr = $scope.searchExpression.split(':');
-            $rootScope.reportTypeString = arr[0];
-            $rootScope.reportTypeSet = true;
+        if ($scope.searchExpression.length > 0 && !isNaN($scope.searchExpression)) {
+          AdvancedSearch.searchByDetails({nhsNumber: $scope.searchExpression}).then(function (result) {
             $scope.searchExpression = '';
-          }
-        }
-        $scope.reportTypes = [];
-      };
-
-      $scope.processSettingMode = function () {
-        if ($scope.searchExpression === 'st ') {
-          $scope.searchExpression = '';
+            $scope.patients = result.data;
+            changeState();
+          });
         }
       };
 
-      $scope.processPatientMode = function () {
-        if ($scope.searchExpression === 'pt ') {
-          $scope.searchExpression = '';
+      var changeState = function() {
+        $scope.formSubmitted = true;
+
+        if ($scope.patients.length == 1) {
+          $state.go('patients-summary', {
+            patientId: $scope.patients[0].nhsNumber
+          });
+        }
+        else if ($scope.patients.length > 1) {
+          $state.go('patients-list', {
+            patientsList: $scope.patients,
+            advancedSearchParams: $scope.searchParams
+          });
+        }
+        else {
+          $state.go('patients-list', {
+            patientsList: $scope.patients,
+            advancedSearchParams: $scope.searchParams,
+            displayEmptyTable: true
+          });
         }
       };
 
@@ -344,10 +241,10 @@ angular.module('rippleDemonstrator')
         if ($scope.currentUser.role === 'IDCR' || $scope.currentUser.role === 'IG') {
           $state.go('main-search');
         }
-        if ($scope.currentUser.role === 'PHR') {
+        else if ($scope.currentUser.role === 'PHR') {
           $state.go('patients-summary', {
-            patientId: 10
-          }); // Id is hardcoded
+            patientId: $scope.currentUser.nhsNumber
+          });
         }
       };
 
