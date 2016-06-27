@@ -25,6 +25,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hscieripple.audit.model.AuditedAction;
 import org.hscieripple.audit.model.AuditDetails;
 import org.hscieripple.audit.store.AuditStore;
 import org.hscieripple.audit.store.AuditStoreFactory;
@@ -61,6 +62,7 @@ public class AuditFilter extends OncePerRequestFilter {
 				auditDetails.setTargetResource(targetResource);
 				auditDetails.setTargetNhsNumber(targetNhsNumber);
 				auditDetails.setRequestDateTime(Calendar.getInstance().getTime());
+				auditDetails.setAction(getAction(request.getMethod()));
 								
 		        AuditStoreFactory auditStoreFactory = getAuditStoreFactory(request);
 				AuditStore auditStore = auditStoreFactory.select(RepoSourceTypes.LEGACY);
@@ -73,6 +75,19 @@ public class AuditFilter extends OncePerRequestFilter {
 
 		// must be last step
 		filterChain.doFilter(request, response);
+	}
+	
+	private AuditedAction getAction(String httpVerb) {
+		AuditedAction action = null;
+		
+		switch(httpVerb) {
+			case("POST"): action = AuditedAction.CREATE; break; 
+			case("PUT"): action = AuditedAction.UPDATE; break; 
+			case("GET"): action = AuditedAction.READ; break; 
+			default: action = AuditedAction.NULL; break;
+		}
+		
+		return action;
 	}
 	
 	private Long parseNhsNumber(String targetResource) {
@@ -99,5 +114,4 @@ public class AuditFilter extends OncePerRequestFilter {
 		
 		return springContext.getBean(UserService.class);
 	}
-	
 }	

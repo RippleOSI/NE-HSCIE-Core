@@ -113,6 +113,7 @@
                         <s:sequence>
                             <s:element minOccurs="0" name="DataSourceStatus" type="s:string"/>
                             <s:element minOccurs="0" name="DataSourceName" type="s:string"/>
+                            <s:element minOccurs="0" name="DataSourceSystem" type="s:string"/>
                         </s:sequence>
                     </s:extension>
                 </s:complexContent>
