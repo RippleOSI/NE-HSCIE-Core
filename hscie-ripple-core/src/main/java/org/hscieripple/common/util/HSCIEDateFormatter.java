@@ -13,17 +13,10 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.rippleosi.common.util;
+package org.hscieripple.common.util;
 
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
-import java.text.SimpleDateFormat;
-import java.text.DateFormat;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
 /**
@@ -51,6 +44,9 @@ public final class HSCIEDateFormatter {
         case "PCS Time":
         case "PCS long Time":
         	format = "yyyy-MM-dd HH:mm:ss";   
+        	break;
+        case "PCS alerts":
+        	format = "yyyy-MM-dd HH:mm";   
         	break;
         case "RIO":
         	if (input.contains("-")){

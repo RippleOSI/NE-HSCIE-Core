@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .factory('Helper', function () {
+  .factory('Helper', function (keyCodes) {
 
 
     var updateId = function (sourceId) {
@@ -11,8 +11,20 @@ angular.module('rippleDemonstrator')
       return newId;
     };
 
+    var containsKeyCode = function(keyCode) {
+      var contains = false;
+      for (var key in keyCodes) {
+        if (keyCodes.hasOwnProperty(key) && keyCodes[key] === keyCode) {
+          contains = true;
+        }
+      }
+
+      return contains;
+    };
+
     return {
-      updateId: updateId
+      updateId: updateId,
+      containsKeyCode: containsKeyCode
     };
 
   });

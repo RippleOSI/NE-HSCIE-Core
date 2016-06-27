@@ -31,17 +31,12 @@ public class TransferOfCareDetailsResponseToDetailsTransformer implements Transf
     	 
     	Date dateOfTransfer = HSCIEDateFormatter.toDate(response.getDateOfTransfer(),response.getDataSourceName());
     	
-    	
-    	List<String> medications = Arrays.asList(response.getMedications().split("\\s*,\\s*"));
-    	List<String> problems = Arrays.asList(response.getProblems().split("\\s*,\\s*"));
-    	List<String> allergies = Arrays.asList(response.getAllergies().split("\\s*,\\s*"));
-    	List<String> contacts = Arrays.asList(response.getContacts().split("\\s*,\\s*"));
+
     	    	
     	HSCIETransferOfCareDetails details = new HSCIETransferOfCareDetails();
 
         details.setSource(response.getDataSourceName());
         details.setSourceId(response.getSourceID());
-        
         details.setReasonForContact(response.getReasonForContact());
         details.setClinicalSummary(response.getClinicalSummary());
         details.setSiteFrom(response.getSiteFrom());

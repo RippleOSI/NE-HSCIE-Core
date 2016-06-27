@@ -36,7 +36,6 @@ public class HSCIETransferOfCareDetails implements Serializable {
     public void setSourceId(String sourceId) {
         this.sourceId = sourceId;
     }
-
     
     public String getReasonForContact() {
         return reasonForContact;
