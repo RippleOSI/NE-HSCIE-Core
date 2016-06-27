@@ -67,9 +67,11 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
                                                                            params.getGender(),
                                                                            DateFormatter.toSimpleDateString(dateOfBirth));
 
-            if (isSuccessfulResponse(response)) {
-                patients = response.getResultsSet().getResultRow();
+            if (!isSuccessfulResponse(response)) {
+                return new ArrayList<>();
             }
+
+            patients = response.getResultsSet().getResultRow();
         }
         catch (SOAPFaultException e) {
             log.error(e.getMessage(), e);
@@ -136,6 +138,6 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
     }
 
     private boolean isSuccessfulResponse(PatientDetailsResponse response) {
-        return OK.equalsIgnoreCase(response.getStatusCode());
+        return OK.equalsIgnoreCase(response.getStatusCode()) && response.getResultsSet() != null;
     }
 }
