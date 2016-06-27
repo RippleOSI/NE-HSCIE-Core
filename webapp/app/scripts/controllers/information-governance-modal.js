@@ -18,7 +18,7 @@ angular.module('rippleDemonstrator')
       $scope.consent.dateCreated = new Date($scope.consent.dateCreated).toISOString();
     }
 
-    $scope.consent.author = $scope.currentUser.firstName + ' ' + $scope.currentUser.surname;
+    $scope.consent.author = $scope.currentUser.givenName + ' ' + $scope.currentUser.familyName;
 
     $scope.ok = function (infoGovForm, consent) {
       $scope.formSubmitted = true;
