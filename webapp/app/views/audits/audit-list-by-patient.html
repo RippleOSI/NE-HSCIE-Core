@@ -17,6 +17,7 @@
 	<thead>
 		<tr>
 			<th>User accessing patient data</th>
+			<th>Action</th>
 			<th>Date accessed</th>
 		</tr>
 	</thead>
@@ -25,6 +26,7 @@
 		<tr dir-paginate="audit in audits | itemsPerPage: auditsPerPage" total-items="totalAudits" current-page="pagination.current" ng-click="go(audit.id)"
 			ng-class="{info: selected(audit.id)}">
 			<td>{{ audit.requesterUsername }}</td>
+			<td>{{ audit.requesterAction }}</td>			
 			<td>{{ audit.requestDateTime | date:'medium' }}</td>
 		</tr>
 

@@ -49,6 +49,9 @@ public class AuditEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date requestDateTime;
 	
+	@Column(name = "requester_action")
+	private String requesterAction;
+	
 	public Long getId() {
 		return id;
 	}
@@ -87,5 +90,13 @@ public class AuditEntity {
 	
 	public void setRequestDateTime(Date requestDateTime) {
 		this.requestDateTime = requestDateTime;
+	}
+
+	public String getRequesterAction() {
+		return requesterAction;
+	}
+
+	public void setRequesterAction(String requesterAction) {
+		this.requesterAction = requesterAction;
 	}
 }
