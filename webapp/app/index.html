@@ -108,7 +108,7 @@
   <script src="scripts/services/advancedSearch.js"></script>
   <script src="scripts/services/alert.js"></script>
   <script src="scripts/models/patient.js"></script>
-  <script src="scripts/models/audit.js"></script>  
+  <script src="scripts/models/audit.js"></script>
   <script src="scripts/controllers/patients-list.js"></script>
   <script src="scripts/controllers/header-controller.js"></script>
   <script src="scripts/controllers/patients-charts.js"></script>
@@ -223,7 +223,7 @@
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
           <li class="notification inline" ng-controller="NotificationsCtrl">
-            <button class="glyphicon-button" data-placement="bottom" data-template-url="scripts/notification-popover.tpl.html" auto-close=true bs-popover="popover">
+            <button class="glyphicon-button" data-placement="bottom" data-template-url="views/notifications/notification-popover.tpl.html" auto-close=true bs-popover="popover">
               <span class="glyphicon glyphicon-bell"></span>
             </button>
             <span class="badge badge-notify" ng-show="notifications.length">{{ notifications.length }}</span>
