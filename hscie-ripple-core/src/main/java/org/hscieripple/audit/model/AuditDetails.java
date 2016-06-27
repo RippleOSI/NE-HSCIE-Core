@@ -32,7 +32,6 @@ public class AuditDetails implements Serializable {
 	private long targetNhsNumber;
 	private String targetResource;
 	private Date requestDateTime;
-	private AuditedAction action;
 	
 	public long getId() {
 		return id;
@@ -54,8 +53,8 @@ public class AuditDetails implements Serializable {
 		return targetNhsNumber;
 	}
 	
-	public void setTargetNhsNumber(Long targetNhsNumber) {
-		this.targetNhsNumber = targetNhsNumber;
+	public void setTargetNhsNumber(Long targetNhsNumber2) {
+		this.targetNhsNumber = targetNhsNumber2;
 	}
 	
 	public String getTargetResource() {
@@ -73,14 +72,6 @@ public class AuditDetails implements Serializable {
 	public void setRequestDateTime(Date requestDateTime) {
 		this.requestDateTime = requestDateTime;
 	}
-	
-	public AuditedAction getAction() {
-		return action;
-	}
-
-	public void setAction(AuditedAction action) {
-		this.action = action;
-	}
 
 	@Override
 	public String toString() {
@@ -88,7 +79,7 @@ public class AuditDetails implements Serializable {
 				+ (requesterUsername != null ? "requesterUsername=" + requesterUsername + ", " : "")
 				+ "targetNhsNumber=" + targetNhsNumber + ", "
 				+ (targetResource != null ? "targetResource=" + targetResource + ", " : "")
-				+ (requestDateTime != null ? "requestDateTime=" + requestDateTime + ", " : "")
-				+ (action != null ? "action=" + action : "") + "]";
+				+ (requestDateTime != null ? "requestDateTime=" + requestDateTime : "") + "]";
 	}	
+	
 }

@@ -1,18 +1,14 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .factory('AuditService', function ($http, Audit) {
+  .factory('AuditService', function ($http) {
 
     var allByPatient = function (patientId, page) {
-        return $http.get('/api/audit?patientId=' + patientId + '&page=' + page).then(function(result) {
-        	return convertAudits(result.data);
-        });
+        return $http.get('/api/audit?patientId=' + patientId + '&page=' + page);
     };   
       
     var allByUsername = function (username, page) {
-        return $http.get('/api/audit?username=' + username + '&page=' + page).then(function(result) {
-        	return convertAudits(result.data);
-        });
+        return $http.get('/api/audit?username=' + username + '&page=' + page);
     };   
     
     var countByPatient = function (patientId) {
@@ -24,20 +20,8 @@ angular.module('rippleDemonstrator')
     };  
     
     var get = function (auditId) {
-        return $http.get('/api/audit/' + auditId).then(function(result) {
-        	return new Audit(result.data);
-        });
-    };  
-    
-    function convertAudits(rawAudits) {
-    	var audits = [];
-    	
-        angular.forEach(rawAudits, function (rawAudit) {
-            audits.push(new Audit(rawAudit));
-          });
-        
-        return audits;
-    };
+        return $http.get('/api/audit/' + auditId);
+    };      
 
     return {
       allByPatient: allByPatient,

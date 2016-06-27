@@ -17,7 +17,6 @@ package org.rippleosi.audit.search;
 
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.audit.model.AuditDetails;
-import org.hscieripple.audit.model.AuditedAction;
 import org.rippleosi.audit.model.AuditEntity;
 
 /**
@@ -36,7 +35,6 @@ public class AuditEntityToAuditDetailsTransformer implements Transformer<AuditEn
 			auditDetails.setTargetNhsNumber(Long.parseLong(auditEntity.getTargetNhsNumber()));
 			auditDetails.setRequestDateTime(auditEntity.getRequestDateTime());
 			auditDetails.setTargetResource(auditEntity.getTargetResource());
-			auditDetails.setAction(AuditedAction.valueOf(auditEntity.getRequesterAction()));
 		}
 		
 		return auditDetails;

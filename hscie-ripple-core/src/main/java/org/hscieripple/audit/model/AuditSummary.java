@@ -28,7 +28,6 @@ public class AuditSummary implements Serializable {
 	private String requesterUsername;
 	private long targetNhsNumber;
 	private Date requestDateTime;
-	private AuditedAction action;
 	
 	public long getId() {
 		return id;
@@ -61,21 +60,14 @@ public class AuditSummary implements Serializable {
 	public void setRequestDateTime(Date requestDateTime) {
 		this.requestDateTime = requestDateTime;
 	}
-	
-	public AuditedAction getAction() {
-		return action;
-	}
-
-	public void setAction(AuditedAction action) {
-		this.action = action;
-	}
 
 	@Override
 	public String toString() {
 		return "AuditSummary [id=" + id + ", "
 				+ (requesterUsername != null ? "requesterUsername=" + requesterUsername + ", " : "")
 				+ "targetNhsNumber=" + targetNhsNumber + ", "
-				+ (requestDateTime != null ? "requestDateTime=" + requestDateTime + ", " : "")
-				+ (action != null ? "action=" + action : "") + "]";
+				+ (requestDateTime != null ? "requestDateTime=" + requestDateTime : "") + "]";
 	}
+
+
 }

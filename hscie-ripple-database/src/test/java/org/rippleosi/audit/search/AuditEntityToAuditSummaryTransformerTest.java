@@ -40,7 +40,6 @@ public class AuditEntityToAuditSummaryTransformerTest {
 		auditEntity.setRequesterUsername("bob");
 		auditEntity.setTargetNhsNumber("1234567890");
 		auditEntity.setTargetResource("/resouce");
-		auditEntity.setRequesterAction("CREATE");
 	}
 
 	@Test
@@ -51,7 +50,6 @@ public class AuditEntityToAuditSummaryTransformerTest {
 		assertEquals("Make sure that the requester usernames match", auditSummary.getRequesterUsername(), auditEntity.getRequesterUsername());
 		assertEquals("Make sure that the target NHS numbers match", auditSummary.getTargetNhsNumber(), Long.parseLong((auditEntity.getTargetNhsNumber())));
 		assertEquals("Make sure that the request datetimes match", auditSummary.getRequestDateTime(), auditEntity.getRequestDateTime());
-		assertEquals("Make sure that the actions match", auditSummary.getAction().name(), auditEntity.getRequesterAction());
 	}
 
 }
