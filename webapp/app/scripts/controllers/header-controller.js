@@ -1,13 +1,14 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('headerController', function ($scope, $rootScope, $state, $window, usSpinnerService, $stateParams, UserService, AdvancedSearch, Helper) {
+  .controller('headerController', function ($scope, $rootScope, $state, $window, $modal, usSpinnerService, $stateParams, UserService, AdvancedSearch, Helper) {
 
     $rootScope.searchExpression = '';
     $scope.searchExpression = $rootScope.searchExpression;
     $scope.reportTypes = [];
 
     $scope.searchFocused = false;
+    $rootScope.termsAcknowledged = false;
 
     var redirectUrl;
 
@@ -23,6 +24,22 @@ angular.module('rippleDemonstrator')
 
         $scope.searchBarEnabled = false;
         $scope.navBar = $rootScope.currentUser.feature.navBar;
+
+        $modal.open({
+          templateUrl: 'views/terms-and-conditions/terms-and-conditions-modal.html',
+          size: 'lg',
+          controller: 'TermsAndConditionsCtrl',
+          resolve: {
+            modal: function () {
+              return {
+                title: 'Terms and Conditions',
+                heading: 'You must agree to the following terms and conditions before you proceed.'
+              };
+            }
+          },
+          backdrop: 'static',
+          keyboard: false
+        });
 
         // Direct different roles to different pages at login
         switch ($rootScope.currentUser.role) {
