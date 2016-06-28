@@ -75,7 +75,7 @@
         <gitscm.plugin.version>1.9.4</gitscm.plugin.version>
         <resources.plugin.version>2.7</resources.plugin.version>
         
-        <ripple.version>0.6.0.0</ripple.version>
+        <ripple.version>0.6.2.0</ripple.version>
         
         <!-- ************************ -->
         <!-- Sonar/Reporting settings -->
@@ -109,12 +109,6 @@
                 <artifactId>ripple-api</artifactId>
                 <version>${ripple.version}</version>
             </dependency>
-            
-            <dependency>
-                <groupId>org.rippleosi</groupId>
-                <artifactId>ripple-audit-example</artifactId>
-                <version>${ripple.version}</version>
-            </dependency>
 
             <dependency>
                 <groupId>org.rippleosi</groupId>
@@ -141,18 +135,6 @@
             </dependency>
 
             <dependency>
-                <groupId>org.rippleosi</groupId>
-                <artifactId>ripple-dicom</artifactId>
-                <version>${ripple.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.rippleosi</groupId>
-                <artifactId>ripple-openehr</artifactId>
-                <version>${ripple.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>org.hscieripple</groupId>
                 <artifactId>hscie-ripple-tie</artifactId>
                 <version>${project.version}</version>
@@ -167,18 +149,6 @@
             <dependency>
                 <groupId>org.rippleosi</groupId>
                 <artifactId>ripple-security</artifactId>
-                <version>${ripple.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.rippleosi</groupId>
-                <artifactId>ripple-terminology-example</artifactId>
-                <version>${ripple.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.rippleosi</groupId>
-                <artifactId>ripple-vista</artifactId>
                 <version>${ripple.version}</version>
             </dependency>
 
