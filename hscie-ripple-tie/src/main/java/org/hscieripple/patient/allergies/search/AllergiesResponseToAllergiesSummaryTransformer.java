@@ -16,24 +16,21 @@
 
 package org.hscieripple.patient.allergies.search;
 
-import java.util.Date;
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.patient.allergies.AllergiesSummaryResultRow;
-import org.hscieripple.patient.allergies.model.HSCIEAllergySummary;
-import org.hscieripple.common.util.HSCIEDateFormatter;
+import org.rippleosi.patient.allergies.model.AllergySummary;
 
-public class AllergiesResponseToAllergiesSummaryTransformer implements Transformer<AllergiesSummaryResultRow, HSCIEAllergySummary> {
+public class AllergiesResponseToAllergiesSummaryTransformer implements Transformer<AllergiesSummaryResultRow, AllergySummary> {
 
     @Override
-    public HSCIEAllergySummary transform(AllergiesSummaryResultRow response) {
-    	HSCIEAllergySummary summary = new HSCIEAllergySummary();
+    public AllergySummary transform(AllergiesSummaryResultRow response) {
+    	AllergySummary summary = new AllergySummary();
     	    	
         summary.setSource(response.getDataSourceName());
         summary.setSourceId(response.getSourceID());
         
         summary.setCause(response.getCause());
         summary.setReaction(response.getReaction());
-        
 
         return summary;
     }

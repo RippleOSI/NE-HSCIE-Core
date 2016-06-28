@@ -115,8 +115,6 @@
         </operation>
     </binding>
     <service name="PatientService">
-        <port name="Patient" binding="s0:Patient">
-            <soap:address location="http://10.152.3.237:57772/csp/healthshare/hscie_ripple_dev/HSCIEDEV.SOAP.Patient.cls"/>
-        </port>
+        <port name="Patient" binding="s0:Patient" />
     </service>
 </definitions>

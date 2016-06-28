@@ -17,19 +17,20 @@
 package org.hscieripple.patient.allergies.search;
 
 import java.util.Date;
-import org.apache.commons.collections4.Transformer;
-import org.hscieripple.patient.allergies.AllergiesDetailsResponse;
-import org.hscieripple.patient.allergies.model.HSCIEAllergyDetails;
-import org.hscieripple.common.util.HSCIEDateFormatter;
 
-public class AllergiesDetailsResponseToDetailsTransformer implements Transformer<AllergiesDetailsResponse, HSCIEAllergyDetails> {
+import org.apache.commons.collections4.Transformer;
+import org.hscieripple.common.util.HSCIEDateFormatter;
+import org.hscieripple.patient.allergies.AllergiesDetailsResponse;
+import org.rippleosi.patient.allergies.model.AllergyDetails;
+
+public class AllergiesDetailsResponseToDetailsTransformer implements Transformer<AllergiesDetailsResponse, AllergyDetails> {
 
     @Override
-    public HSCIEAllergyDetails transform(AllergiesDetailsResponse response) {
+    public AllergyDetails transform(AllergiesDetailsResponse response) {
     	
     	Date dateCreated = HSCIEDateFormatter.toDate(response.getDateCreated(),response.getDataSourceName());
     	 
-		HSCIEAllergyDetails details = new HSCIEAllergyDetails();
+		AllergyDetails details = new AllergyDetails();
 
         details.setSource(response.getDataSourceName());
         details.setSourceId(response.getSourceID());

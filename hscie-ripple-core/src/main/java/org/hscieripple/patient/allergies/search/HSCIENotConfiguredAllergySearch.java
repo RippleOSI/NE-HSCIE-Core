@@ -18,12 +18,12 @@ package org.hscieripple.patient.allergies.search;
 
 import java.util.List;
 
-import org.rippleosi.common.exception.ConfigurationException;
-import org.rippleosi.common.types.RepoSourceTypes; 
-import org.rippleosi.common.types.RepoSourceType;
-import org.hscieripple.patient.allergies.model.HSCIEAllergyDetails;
-import org.hscieripple.patient.allergies.model.HSCIEAllergySummary;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
+import org.rippleosi.common.exception.ConfigurationException;
+import org.rippleosi.common.types.RepoSourceType;
+import org.rippleosi.common.types.RepoSourceTypes;
+import org.rippleosi.patient.allergies.model.AllergyDetails;
+import org.rippleosi.patient.allergies.model.AllergySummary;
 
 public class HSCIENotConfiguredAllergySearch implements HSCIEAllergySearch {
 
@@ -38,12 +38,12 @@ public class HSCIENotConfiguredAllergySearch implements HSCIEAllergySearch {
     }
 
     @Override
-    public List<HSCIEAllergySummary> findAllAllergies(String patientId, List<DataSourceSummary> datasourceSummaries) {
+    public List<AllergySummary> findAllAllergies(String patientId, List<DataSourceSummary> datasourceSummaries) {
         throw ConfigurationException.unimplementedTransaction(HSCIEAllergySearch.class);
     }
 
     @Override
-    public HSCIEAllergyDetails findAllergy(String patientId, String allergyId, String sourceId) {
+    public AllergyDetails findAllergy(String patientId, String allergyId, String sourceId) {
         throw ConfigurationException.unimplementedTransaction(HSCIEAllergySearch.class);
     }
 }

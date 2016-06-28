@@ -22,16 +22,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.hscieripple.common.service.AbstractHSCIEService;
 import org.hscieripple.patient.allergies.AllergiesDetailsResponse;
 import org.hscieripple.patient.allergies.AllergiesSummaryResponse;
 import org.hscieripple.patient.allergies.AllergyServiceSoap;
 import org.hscieripple.patient.allergies.PairOfAllergiesListKeyAllergiesSummaryResultRow;
-import org.hscieripple.patient.allergies.search.AllergiesResponseToAllergiesSummaryTransformer;
-import org.hscieripple.common.service.AbstractHSCIEService; 
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
-import org.hscieripple.patient.allergies.model.HSCIEAllergyDetails;
-import org.hscieripple.patient.allergies.model.HSCIEAllergySummary;
-import org.hscieripple.patient.allergies.search.HSCIEAllergySearch;
+import org.rippleosi.patient.allergies.model.AllergyDetails;
+import org.rippleosi.patient.allergies.model.AllergySummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,13 +46,13 @@ public class HSCIEAllergiesSearch extends AbstractHSCIEService implements HSCIEA
     private AllergyServiceSoap allergiesService;
 
     @Override
-    public List<HSCIEAllergySummary> findAllAllergies(String patientId, List<DataSourceSummary> datasourceSummaries) {
-        List<HSCIEAllergySummary> allergies = new ArrayList<>();
+    public List<AllergySummary> findAllAllergies(String patientId, List<DataSourceSummary> datasourceSummaries) {
+        List<AllergySummary> allergies = new ArrayList<>();
 
         Long nhsNumber = convertPatientIdToLong(patientId);
 
         for (DataSourceSummary summary : datasourceSummaries) {
-            List<HSCIEAllergySummary> results = makeSummaryCall(nhsNumber, summary.getSourceId());
+            List<AllergySummary> results = makeSummaryCall(nhsNumber, summary.getSourceId());
 
             allergies.addAll(results);
         }
@@ -63,7 +61,7 @@ public class HSCIEAllergiesSearch extends AbstractHSCIEService implements HSCIEA
     }
 
     @Override
-    public HSCIEAllergyDetails findAllergy(String patientId, String allergyId, String source) {
+    public AllergyDetails findAllergy(String patientId, String allergyId, String source) {
         AllergiesDetailsResponse response = new AllergiesDetailsResponse();
 
         Long nhsNumber = convertPatientIdToLong(patientId);
@@ -72,7 +70,7 @@ public class HSCIEAllergiesSearch extends AbstractHSCIEService implements HSCIEA
             response = allergiesService.findAllergiesDetailsBO(nhsNumber, allergyId, source);
 
             if (!isSuccessfulDetailsResponse(response)) {
-                return new HSCIEAllergyDetails();
+                return new AllergyDetails();
             }
         }
         catch (SOAPFaultException e) {
@@ -82,7 +80,7 @@ public class HSCIEAllergiesSearch extends AbstractHSCIEService implements HSCIEA
         return new AllergiesDetailsResponseToDetailsTransformer().transform(response);
     }
 
-    private List<HSCIEAllergySummary> makeSummaryCall(Long nhsNumber, String source) {
+    private List<AllergySummary> makeSummaryCall(Long nhsNumber, String source) {
         List<PairOfAllergiesListKeyAllergiesSummaryResultRow> results = new ArrayList<>();
 
         try {
@@ -100,7 +98,7 @@ public class HSCIEAllergiesSearch extends AbstractHSCIEService implements HSCIEA
     }
 
     private boolean isSuccessfulSummaryResponse(AllergiesSummaryResponse response) {
-        return OK.equalsIgnoreCase(response.getStatusCode()); 
+        return OK.equalsIgnoreCase(response.getStatusCode()) && response.getAllergiesList() != null;
     }
 
     private boolean isSuccessfulDetailsResponse(AllergiesDetailsResponse response) {

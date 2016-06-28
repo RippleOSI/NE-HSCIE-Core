@@ -18,14 +18,14 @@ package org.hscieripple.patient.allergies.search;
 
 import java.util.List;
 
-import org.rippleosi.common.repo.Repository;
-import org.hscieripple.patient.allergies.model.HSCIEAllergyDetails;
-import org.hscieripple.patient.allergies.model.HSCIEAllergySummary;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
+import org.rippleosi.common.repo.Repository;
+import org.rippleosi.patient.allergies.model.AllergyDetails;
+import org.rippleosi.patient.allergies.model.AllergySummary;
 
 public interface HSCIEAllergySearch extends Repository {
 
-    List<HSCIEAllergySummary> findAllAllergies(String patientId, List<DataSourceSummary> datasourceSummaries);
+    List<AllergySummary> findAllAllergies(String patientId, List<DataSourceSummary> datasourceSummaries);
 
-    HSCIEAllergyDetails findAllergy(String patientId, String allergyId, String sourceId);
+    AllergyDetails findAllergy(String patientId, String allergyId, String sourceId);
 }
