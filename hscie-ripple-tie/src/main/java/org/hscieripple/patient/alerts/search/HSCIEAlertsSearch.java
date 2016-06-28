@@ -99,7 +99,7 @@ public class HSCIEAlertsSearch extends AbstractHSCIEService implements HSCIEAler
     }
 
     private boolean isSuccessfulSummaryResponse(AlertsSummaryResponse response) {
-        return OK.equalsIgnoreCase(response.getStatusCode()); 
+        return OK.equalsIgnoreCase(response.getStatusCode()) && response.getAlertsList() != null; 
     }
 
     private boolean isSuccessfulDetailsResponse(AlertsDetailsResponse response) {

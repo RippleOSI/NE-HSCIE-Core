@@ -24,6 +24,12 @@
                         <s:sequence>
                             <s:element minOccurs="0" name="SourceID" type="s:string"/>
                             <s:element minOccurs="0" name="DataSourceName" type="s:string"/>
+                            <s:element minOccurs="0" name="Cause" type="s:string"/>
+                            <s:element minOccurs="0" name="CauseCode" type="s:string"/>
+                            <s:element minOccurs="0" name="Reaction" type="s:string"/>
+                            <s:element minOccurs="0" name="CauseTerminology" type="s:string"/>
+                            <s:element minOccurs="0" name="Author" type="s:string"/>
+                            <s:element minOccurs="0" name="DateCreated" type="s:string"/>
                             <s:element minOccurs="0" name="StatusCode" type="s:string"/>
                             <s:element minOccurs="0" name="StatusDesc" type="s:string"/>
                         </s:sequence>
@@ -80,6 +86,8 @@
                         <s:sequence>
                             <s:element minOccurs="0" name="SourceID" type="s:string"/>
                             <s:element minOccurs="0" name="DataSourceName" type="s:string"/>
+                            <s:element minOccurs="0" name="Cause" type="s:string"/>
+                            <s:element minOccurs="0" name="Reaction" type="s:string"/>
                         </s:sequence>
                     </s:extension>
                 </s:complexContent>

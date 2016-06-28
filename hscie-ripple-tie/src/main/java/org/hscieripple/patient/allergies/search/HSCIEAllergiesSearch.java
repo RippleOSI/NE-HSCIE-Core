@@ -26,6 +26,7 @@ import org.hscieripple.patient.allergies.AllergiesDetailsResponse;
 import org.hscieripple.patient.allergies.AllergiesSummaryResponse;
 import org.hscieripple.patient.allergies.AllergyServiceSoap;
 import org.hscieripple.patient.allergies.PairOfAllergiesListKeyAllergiesSummaryResultRow;
+import org.hscieripple.patient.allergies.search.AllergiesResponseToAllergiesSummaryTransformer;
 import org.hscieripple.common.service.AbstractHSCIEService; 
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
 import org.hscieripple.patient.allergies.model.HSCIEAllergyDetails;

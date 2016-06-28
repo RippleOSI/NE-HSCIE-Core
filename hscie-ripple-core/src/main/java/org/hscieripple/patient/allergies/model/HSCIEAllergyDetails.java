@@ -24,6 +24,13 @@ public class HSCIEAllergyDetails implements Serializable {
 
     private String source;
     private String sourceId;
+    
+    private String cause;
+    private String causeCode;
+    private String reaction;
+    private String causeTerminology;
+    private String author;
+    private Date dateCreated;
 
     public String getSource() {
         return source;
@@ -40,4 +47,63 @@ public class HSCIEAllergyDetails implements Serializable {
     public void setSourceId(String sourceId) {
         this.sourceId = sourceId;
     }    
+    
+    
+    
+    public String getCause() {
+        return cause;
+    }
+
+    public void setCause(String cause) {
+        this.cause = cause;
+    }   
+    
+    
+    
+    public String getCauseCode() {
+        return causeCode;
+    }
+
+    public void setCauseCode(String causeCode) {
+        this.causeCode = causeCode;
+    }  
+    
+    
+    
+    public String getReaction() {
+        return reaction;
+    }
+
+    public void setReaction(String reaction) {
+        this.reaction = reaction;
+    } 
+    
+    
+    
+    public String getCauseTerminology() {
+        return causeTerminology;
+    }
+
+    public void setCauseTerminology(String causeTerminology) {
+        this.causeTerminology = causeTerminology;
+    }   
+    
+    
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    } 
+    
+    
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    } 
+    
 }

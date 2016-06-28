@@ -22,6 +22,8 @@ public class HSCIEAllergySummary {
 
     private String source;
     private String sourceId;
+    private String cause;
+    private String reaction;
 
     public String getSource() {
         return source;
@@ -37,5 +39,21 @@ public class HSCIEAllergySummary {
 
     public void setSourceId(String sourceId) {
         this.sourceId = sourceId;
+    }
+    
+    public String getCause() {
+        return cause;
+    }
+
+    public void setCause(String cause) {
+        this.cause = cause;
+    }
+    
+    public String getReaction() {
+        return reaction;
+    }
+
+    public void setReaction(String reaction) {
+        this.reaction = reaction;
     }
 }

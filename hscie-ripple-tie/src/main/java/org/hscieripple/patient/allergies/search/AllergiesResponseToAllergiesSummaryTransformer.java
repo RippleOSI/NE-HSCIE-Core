@@ -31,6 +31,9 @@ public class AllergiesResponseToAllergiesSummaryTransformer implements Transform
         summary.setSource(response.getDataSourceName());
         summary.setSourceId(response.getSourceID());
         
+        summary.setCause(response.getCause());
+        summary.setReaction(response.getReaction());
+        
 
         return summary;
     }
