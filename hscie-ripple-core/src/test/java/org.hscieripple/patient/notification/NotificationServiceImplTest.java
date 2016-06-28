@@ -15,6 +15,7 @@
  */
 package org.hscieripple.patient.notification;
 
+import org.hscieripple.common.exception.NotificationException;
 import org.hscieripple.patient.notification.model.Notification;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,12 +51,12 @@ public class NotificationServiceImplTest {
         assertEquals(1, notificationService.getNotifications().size());
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = NotificationException.class)
     public void shouldReturnRuntimeExceptionWhenAttemptingToReturnNullNotifications() {
         notificationService.getNotifications();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = NotificationException.class)
     public void shouldReturnRuntimeExceptionWhenAttemptingToRemoveNotificationWithNullArgument() {
         notificationService.removeNotification(null);
     }

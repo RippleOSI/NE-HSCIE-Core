@@ -24,13 +24,17 @@ import java.util.List;
 import org.apache.commons.collections4.CollectionUtils;
 import org.hscieripple.patient.keyworkers.KWDetailsResponse;
 import org.hscieripple.patient.keyworkers.KWSummaryResponse;
+import org.hscieripple.patient.keyworkers.KWHeadlineResponse;
 import org.hscieripple.patient.keyworkers.KeyWorkerServiceSoap;
+import org.hscieripple.patient.keyworkers.PairOfKWListKeyKWHeadlineResultRow;
 import org.hscieripple.patient.keyworkers.PairOfKeyWorkersListKeyKWSummaryResultRow;
-import org.hscieripple.common.service.AbstractHSCIEService; 
+import org.hscieripple.common.service.AbstractHSCIEService;
+import org.hscieripple.patient.keyworkers.KWHeadlineResponse;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
 import org.hscieripple.patient.keyworkers.model.KeyWorkerDetails;
 import org.hscieripple.patient.keyworkers.model.KeyWorkerSummary;
 import org.hscieripple.patient.keyworkers.search.KeyWorkerSearch;
+import org.rippleosi.patient.contacts.model.ContactHeadline;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +64,26 @@ public class HSCIEKeyWorkerSearch extends AbstractHSCIEService implements KeyWor
 
         return keyWorkers;
     }
+    
+    
+    
+    @Override
+    public List<ContactHeadline> findAllKeyWorkerHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries) {
+        List<ContactHeadline> keyWorkers = new ArrayList<>();
+
+        Long nhsNumber = convertPatientIdToLong(patientId);
+
+        for (DataSourceSummary summary : datasourceSummaries) {
+            List<ContactHeadline> results = makeHeadlineCall(nhsNumber, summary.getSourceId());
+
+            keyWorkers.addAll(results);
+        }
+
+        return keyWorkers;
+    }
+    
+    
+    
 
     @Override
     public KeyWorkerDetails findKeyWorker(String patientId, String keyWorkerId, String source) {
@@ -75,7 +99,7 @@ public class HSCIEKeyWorkerSearch extends AbstractHSCIEService implements KeyWor
             }
         }
         catch (SOAPFaultException e) {
-            log.error(e.getMessage(), e);
+            log.error(e.getMessage());
         }
 
         return new KeyWorkerDetailsResponseToDetailsTransformer().transform(response);
@@ -97,8 +121,31 @@ public class HSCIEKeyWorkerSearch extends AbstractHSCIEService implements KeyWor
 
         return CollectionUtils.collect(results, new KeyWorkerResponseToKeyWorkerSummaryTransformer(), new ArrayList<>());
     }
+    
+    
+    private List<ContactHeadline> makeHeadlineCall(Long nhsNumber, String source) {
+        List<PairOfKWListKeyKWHeadlineResultRow> results = new ArrayList<>();
+
+        try {
+            KWHeadlineResponse response = keyWorkersService.findKWHeadlinesBO(nhsNumber, source);
+
+            if (isSuccessfulHeadlineResponse(response)) {
+                results = response.getKWList().getKWHeadlineResultRow();
+            }
+        }
+        catch (SOAPFaultException e) {
+            log.error(e.getMessage(), e);
+        }
+
+        return CollectionUtils.collect(results, new KeyWorkerHeadlineResponseToHeadlineTransformer(), new ArrayList<>());
+    }
+    
 
     private boolean isSuccessfulSummaryResponse(KWSummaryResponse response) {
+    	return OK.equalsIgnoreCase(response.getStatusCode()); 
+    }
+    
+    private boolean isSuccessfulHeadlineResponse(KWHeadlineResponse response) {
     	return OK.equalsIgnoreCase(response.getStatusCode()); 
     }
 

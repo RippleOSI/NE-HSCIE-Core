@@ -19,13 +19,16 @@ package org.hscieripple.patient.medications.search;
 import java.util.List;
 
 import org.rippleosi.common.repo.Repository;
+import org.rippleosi.patient.medication.model.MedicationHeadline;
 import org.hscieripple.patient.medications.model.HSCIEMedicationDetails;
 import org.hscieripple.patient.medications.model.HSCIEMedicationSummary;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
 
 public interface HSCIEMedicationSearch extends Repository {
 
-    List<HSCIEMedicationSummary> findAllMedications(String patientId, List<DataSourceSummary> datasourceSummaries);
+	List<MedicationHeadline> findAllMedicationHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries);
+	
+	List<HSCIEMedicationSummary> findAllMedications(String patientId, List<DataSourceSummary> datasourceSummaries);
 
     HSCIEMedicationDetails findMedication(String patientId, String medicationId, String sourceId);
 }

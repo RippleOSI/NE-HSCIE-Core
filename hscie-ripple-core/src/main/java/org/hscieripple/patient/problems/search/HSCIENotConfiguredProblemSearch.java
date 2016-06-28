@@ -18,10 +18,12 @@ package org.hscieripple.patient.problems.search;
 import java.util.List;
 
 import org.rippleosi.common.exception.ConfigurationException;
-import org.rippleosi.common.types.RepoSourceTypes; 
+import org.rippleosi.common.types.RepoSourceTypes;
+import org.rippleosi.patient.problems.model.ProblemHeadline;
 import org.rippleosi.common.types.RepoSourceType;
 import org.hscieripple.patient.problems.model.HSCIEProblemDetails;
 import org.hscieripple.patient.problems.model.HSCIEProblemSummary;
+import org.hscieripple.patient.contacts.search.HSCIEContactSearch;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
 
 /**
@@ -42,6 +44,11 @@ public class HSCIENotConfiguredProblemSearch implements HSCIEProblemSearch {
 
     @Override
     public List<HSCIEProblemSummary> findAllProblems(String patientId, List<DataSourceSummary> datasourceSummaries) {
+        throw ConfigurationException.unimplementedTransaction(HSCIEProblemSearch.class);
+    }
+    
+    @Override
+    public List<ProblemHeadline> findAllProblemHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries) {
         throw ConfigurationException.unimplementedTransaction(HSCIEProblemSearch.class);
     }
 

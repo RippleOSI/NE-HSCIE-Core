@@ -23,6 +23,8 @@ import org.rippleosi.common.types.RepoSourceType;
 import org.hscieripple.patient.contacts.model.HSCIEContactDetails;
 import org.hscieripple.patient.contacts.model.HSCIEContactSummary;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
+import org.rippleosi.patient.contacts.model.ContactHeadline;
+
 
 /**
  */
@@ -38,12 +40,11 @@ public class HSCIENotConfiguredContactSearch implements HSCIEContactSearch {
         return Integer.MAX_VALUE;
     }
 
-
-
     @Override
     public List<HSCIEContactSummary> findAllContacts(String patientId, List<DataSourceSummary> datasourceSummaries) {
         throw ConfigurationException.unimplementedTransaction(HSCIEContactSearch.class);
     }
+    
 
     @Override
     public HSCIEContactDetails findContact(String patientId, String contactId, String source) {

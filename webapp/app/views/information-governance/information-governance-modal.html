@@ -39,7 +39,7 @@
             <label for="reason" class="control-label col-md-12">Reason</label>
             <div class="col-md-12">
               <div class="input-group">
-                <textarea class="form-control input-sm" id="reason" name="reason" ng-model="consent.reason" ng-disabled="consent.optIn" ng-required="!consent.optIn"></textarea>
+                <textarea class="form-control input-sm" id="reason" name="reason" ng-model="consent.reason" required></textarea> <!-- may need required -->
               </div>
               <span class="help-block animate-fade" ng-show="formSubmitted && infoGovForm.reason.$error.required">You must enter a value.</span>
             </div>

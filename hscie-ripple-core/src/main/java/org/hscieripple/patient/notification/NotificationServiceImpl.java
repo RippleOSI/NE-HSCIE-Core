@@ -15,6 +15,7 @@
  */
 package org.hscieripple.patient.notification;
 
+import org.hscieripple.common.exception.NotificationException;
 import org.hscieripple.patient.notification.model.Notification;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -49,7 +50,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     public Collection<Notification> getNotifications() {
         if(!isNotificationsInstantiated()) {
-            throw new RuntimeException("No notifications have been added.");
+            throw new NotificationException("No notifications have been added.");
         }
 
         return SOURCES_STATUS_MAP.values();
@@ -57,11 +58,11 @@ public class NotificationServiceImpl implements NotificationService {
 
     public void removeNotification(final String sourceId) {
         if(sourceId == null) {
-            throw new RuntimeException("A value must be entered for the source Id.");
+            throw new NotificationException("A value must be entered for the source Id.");
         }
 
         if(!isNotificationsInstantiated()) {
-            throw new RuntimeException("No notifications have been added.");
+            throw new NotificationException("No notifications have been added.");
         }
 
         SOURCES_STATUS_MAP.remove(sourceId);

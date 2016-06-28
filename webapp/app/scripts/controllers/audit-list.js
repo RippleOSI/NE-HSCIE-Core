@@ -44,9 +44,9 @@ angular.module('rippleDemonstrator')
 		usSpinnerService.spin('auditSummary-spinner');
 	  		
 		AuditService.allByPatient($scope.searchTerm, pageNumber).then(function (result) {
-          $scope.audits = result.data;
+          $scope.audits = result;
           usSpinnerService.stop('auditSummary-spinner');
-		});    	
+		}); 	
     }    
     
     function getPageByUser(pageNumber) {
@@ -58,7 +58,7 @@ angular.module('rippleDemonstrator')
 		usSpinnerService.spin('auditSummary-spinner');
 	  		
 		AuditService.allByUsername($scope.searchTerm, pageNumber).then(function (result) {
-          $scope.audits = result.data;
+          $scope.audits = result;
           usSpinnerService.stop('auditSummary-spinner');
 		});    	
     }

@@ -41,6 +41,10 @@
         <appointmentsServiceWsdlLocation>org/hscieripple/patient/appointments/HSCIEDEV.SOAP.Appointments.wsdl</appointmentsServiceWsdlLocation>
         <referralsServiceWsdlLocation>org/hscieripple/patient/referrals/HSCIEDEV.SOAP.Referrals.wsdl</referralsServiceWsdlLocation>
         <problemsServiceWsdlLocation>org/hscieripple/patient/problems/HSCIEDEV.SOAP.Problems.wsdl</problemsServiceWsdlLocation>
+        <allergiesServiceWsdlLocation>org/hscieripple/patient/allergies/HSCIEDEV.SOAP.Allergies.wsdl</allergiesServiceWsdlLocation>
+        <ordersServiceWsdlLocation>org/hscieripple/patient/orders/HSCIEDEV.SOAP.Orders.wsdl</ordersServiceWsdlLocation>
+        <resultsServiceWsdlLocation>org/hscieripple/patient/results/HSCIEDEV.SOAP.Results.wsdl</resultsServiceWsdlLocation>
+        <proceduresServiceWsdlLocation>org/hscieripple/patient/procedures/HSCIEDEV.SOAP.Procedures.wsdl</proceduresServiceWsdlLocation>
         <alertsServiceWsdlLocation>org/hscieripple/patient/alerts/HSCIEDEV.SOAP.Alerts.wsdl</alertsServiceWsdlLocation>
     </properties>
 
@@ -212,6 +216,42 @@
                                     <extraargs>
                                         <extraarg>-p</extraarg>
                                         <extraarg>org.hscieripple.patient.problems</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${allergiesServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${allergiesServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.allergies</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${ordersServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${ordersServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.orders</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${resultsServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${resultsServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.results</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+
+                                 <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/${proceduresServiceWsdlLocation}</wsdl>
+                                    <wsdlLocation>classpath:${proceduresServiceWsdlLocation}</wsdlLocation>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.hscieripple.patient.procedures</extraarg>
                                     </extraargs>
                                 </wsdlOption>
 

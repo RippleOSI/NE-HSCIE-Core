@@ -32,7 +32,7 @@ angular.module('rippleDemonstrator')
         toState = 'patients-summary';
         break;
       case 'alerts':
-        toState = 'alerts';
+        toState = 'alerts-list';
         break;
       case 'keyworkers':
         toState = 'keyworkers-list';

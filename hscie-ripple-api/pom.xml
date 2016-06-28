@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.hscieripple</groupId>
         <artifactId>hscie-ripple</artifactId>
-        <version>0.5.0.0-SNAPSHOT</version>
+        <version>0.5.1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>hscie-ripple-api</artifactId>
@@ -31,12 +31,6 @@
         <dependency>
             <groupId>org.rippleosi</groupId>
             <artifactId>ripple-api</artifactId>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.rippleosi</groupId>
-            <artifactId>ripple-audit-example</artifactId>
-            <scope>runtime</scope>
         </dependency>
 
         <dependency>
@@ -59,12 +53,6 @@
         <dependency>
             <groupId>org.rippleosi</groupId>
             <artifactId>ripple-security</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.rippleosi</groupId>
-            <artifactId>ripple-terminology-example</artifactId>
-            <scope>runtime</scope>
         </dependency>
 
         <dependency>

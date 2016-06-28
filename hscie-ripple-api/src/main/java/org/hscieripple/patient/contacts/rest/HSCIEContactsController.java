@@ -21,6 +21,7 @@ import org.hscieripple.patient.datasources.search.DataSourcesSearch;
 import org.hscieripple.patient.datasources.search.DataSourcesSearchFactory;
 import org.hscieripple.patient.contacts.model.HSCIEContactDetails;
 import org.hscieripple.patient.contacts.model.HSCIEContactSummary;
+import org.rippleosi.patient.contacts.model.ContactHeadline;
 import org.hscieripple.patient.contacts.search.HSCIEContactSearch;
 import org.hscieripple.patient.contacts.search.HSCIEContactSearchFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,8 @@ public class HSCIEContactsController {
         HSCIEContactSearch HSCIEContactSearch = HSCIEContactSearchFactory.select(sourceType);
         return HSCIEContactSearch.findAllContacts(patientId, dataSources);
     }
+    
+
 
     @RequestMapping(value = "/{contactId}", method = RequestMethod.GET)
     public HSCIEContactDetails findContact(@PathVariable("patientId") String patientId,
