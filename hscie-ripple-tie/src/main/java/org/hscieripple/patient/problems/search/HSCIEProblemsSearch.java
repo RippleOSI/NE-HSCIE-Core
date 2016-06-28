@@ -23,14 +23,17 @@ import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.hscieripple.patient.problems.ProblemsDetailsResponse;
+import org.hscieripple.patient.problems.ProblemsHeadlineResponse;
 import org.hscieripple.patient.problems.ProblemsSummaryResponse;
 import org.hscieripple.patient.problems.ProblemServiceSoap;
+import org.hscieripple.patient.problems.PairOfProblemsListKeyProblemsHeadlineResultRow;
 import org.hscieripple.patient.problems.PairOfProblemsListKeyProblemsSummaryResultRow;
-import org.hscieripple.common.service.AbstractHSCIEService; 
+import org.hscieripple.common.service.AbstractHSCIEService;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
 import org.hscieripple.patient.problems.model.HSCIEProblemDetails;
 import org.hscieripple.patient.problems.model.HSCIEProblemSummary;
 import org.hscieripple.patient.problems.search.HSCIEProblemSearch;
+import org.rippleosi.patient.problems.model.ProblemHeadline;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +63,27 @@ public class HSCIEProblemsSearch extends AbstractHSCIEService implements HSCIEPr
 
         return problems;
     }
+    
+    
+    
+    
+    @Override
+    public List<ProblemHeadline> findAllProblemHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries) {
+        List<ProblemHeadline> problems = new ArrayList<>();
+
+        Long nhsNumber = convertPatientIdToLong(patientId);
+
+        for (DataSourceSummary summary : datasourceSummaries) {
+            List<ProblemHeadline> results = makeHeadlineCall(nhsNumber, summary.getSourceId());
+
+            problems.addAll(results);
+        }
+
+        return problems;
+    }
+    
+    
+    
 
     @Override
     public HSCIEProblemDetails findProblem(String patientId, String problemId, String source) {
@@ -80,6 +104,23 @@ public class HSCIEProblemsSearch extends AbstractHSCIEService implements HSCIEPr
 
         return new ProblemDetailsResponseToDetailsTransformer().transform(response);
     }
+    
+    private List<ProblemHeadline> makeHeadlineCall(Long nhsNumber, String source) {
+        List<PairOfProblemsListKeyProblemsHeadlineResultRow> results = new ArrayList<>();
+
+        try {
+            ProblemsHeadlineResponse response = problemsService.findProblemsHeadlinesBO(nhsNumber, source);
+
+            if (isSuccessfulHeadlineResponse(response)) {
+                results = response.getProblemsList().getProblemsHeadlineResultRow();
+            }
+        }
+        catch (SOAPFaultException e) {
+            log.error(e.getMessage(), e);
+        }
+
+        return CollectionUtils.collect(results, new ProblemsHeadlineResponseToHeadlineTransformer(), new ArrayList<>());
+    }
 
     private List<HSCIEProblemSummary> makeSummaryCall(Long nhsNumber, String source) {
         List<PairOfProblemsListKeyProblemsSummaryResultRow> results = new ArrayList<>();
@@ -99,6 +140,10 @@ public class HSCIEProblemsSearch extends AbstractHSCIEService implements HSCIEPr
     }
 
     private boolean isSuccessfulSummaryResponse(ProblemsSummaryResponse response) {
+        return OK.equalsIgnoreCase(response.getStatusCode()); 
+    }
+    
+    private boolean isSuccessfulHeadlineResponse(ProblemsHeadlineResponse response) {
         return OK.equalsIgnoreCase(response.getStatusCode()); 
     }
 

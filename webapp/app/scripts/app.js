@@ -104,7 +104,7 @@ angular
 
 
       .state('allergies', {
-        url: '/patients/{patientId:int}/allergies?reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/hscie-allergies?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -113,7 +113,7 @@ angular
       })
 
       .state('allergies-detail', {
-        url: '/patients/{patientId:int}/allergies/{allergyIndex}?filter&page&reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/hscie-allergies/{allergyIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -246,7 +246,7 @@ angular
       })
 
      .state('procedures', {
-        url: '/patients/{patientId:int}/procedures?reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/procedures?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -255,7 +255,7 @@ angular
       })
 
       .state('procedures-detail', {
-        url: '/patients/{patientId:int}/procedures/{procedureId}?filter&page&reportType&searchString&queryType&source',
+        url: '/patients/{patientId:int}/procedures/{procedureIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -323,7 +323,7 @@ angular
       })
 
       .state('orders', {
-        url: '/patients/{patientId:int}/orders?reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/orders?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -332,7 +332,7 @@ angular
       })
 
       .state('orders-detail', {
-        url: '/patients/{patientId:int}/orders/{orderId}?filter&page&reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/orders/{orderIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
@@ -342,11 +342,21 @@ angular
       })
 
        .state('results', {
-        url: '/patients/{patientId:int}/results?reportType&searchString&queryType',
+        url: '/patients/{patientId:int}/hscie-results?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
           main: { templateUrl: 'views/results/results-list.html', controller: 'ResultsListCtrl' }
+        }
+      })
+      
+       .state('results-detail', {
+        url: '/patients/{patientId:int}/results/{resultIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
+        views: {
+          'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
+          actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
+          main: { templateUrl: 'views/results/results-list.html', controller: 'ResultsListCtrl' },
+          detail: { templateUrl: 'views/results/results-detail.html', controller: 'ResultsDetailCtrl' }
         }
       })
 
@@ -366,16 +376,6 @@ angular
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
           main: { templateUrl: 'views/information-governance/information-governance-list.html', controller: 'InformationGovernanceCtrl' },
           detail: { templateUrl: 'views/information-governance/information-governance-detail.html', controller: 'InformationGovernanceDetailCtrl' }
-        }
-      })
-
-      .state('results-detail', {
-        url: '/patients/{patientId:int}/results/{resultIndex}?filter&page&reportType&searchString&queryType',
-        views: {
-          'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
-          actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
-          main: { templateUrl: 'views/results/results-list.html', controller: 'ResultsListCtrl' },
-          detail: { templateUrl: 'views/results/results-detail.html', controller: 'ResultsDetailCtrl' }
         }
       })
 
@@ -426,22 +426,22 @@ angular
         }
       })
 
-      .state('alerts', {
-        url: '/patients/{patientId:int}/alerts?filter&page',
+                 .state('alerts-list', {
+        url: '/patients/{patientId:int}/hscie-alerts?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
-          main: { templateUrl: 'views/alerts/alerts-list.html', controller: 'AlertsListCtrl' }
+          main: { templateUrl: 'views/alerts/alerts-list.html', controller: 'AlertListCtrl' }
         }
       })
 
       .state('alerts-detail', {
-        url: '/patients/{patientId:int}/alerts/{alertId}?filter&page&source',
+        url: '/patients/{patientId:int}/hscie-alerts/{alertIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
-          main: { templateUrl: 'views/alerts/alerts-list.html', controller: 'AlertsListCtrl' },
-          detail: { templateUrl: 'views/alerts/alerts-detail.html', controller: 'AlertsDetailCtrl' }
+          main: { templateUrl: 'views/alerts/alerts-list.html', controller: 'AlertListCtrl' },
+          detail: { templateUrl: 'views/alerts/alerts-detail.html', controller: 'AlertDetailCtrl' }
         }
       });
   })

@@ -9,17 +9,17 @@
   <thead>
     <tr>
       <th>Type</th>
-      <th>Note</th>
       <th>Date</th>
+      <th>Source</th>
     </tr>
   </thead>
 
   <tbody>
     <tr dir-paginate="alert in alerts | filter:search | itemsPerPage : 9" current-page="currentPage"
-        ng-click="go('{{alert.sourceId}}')" ng-class="{info: selected(alert.sourceId)}">
+        ng-click="go('{{alert.sourceId}}', '{{alert.source}}')" ng-class="{info: selected(alert.sourceId)}">
       <td>{{ alert.alertType }}</td>
       <!--<td class="alertDateTime">{{ alert.dateTime }}</td>-->
-      <td>{{ alert.dateTime }}</td>
+      <td>{{ alert.dateTime | date:'dd/MM/yyyy HH:mm' }}</td>
       <td>{{ alert.source }}</td>
     </tr>
 

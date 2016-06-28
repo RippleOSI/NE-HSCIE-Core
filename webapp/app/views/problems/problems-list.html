@@ -18,7 +18,7 @@
 
 	<tbody>
 		<tr
-			dir-paginate="problem in problems| filter:search | orderBy:['-dateOfOnset'] |  itemsPerPage: 9 "
+			dir-paginate="problem in problems| filter:search | orderBy:['-dateOfOnset', 'problem'] |  itemsPerPage: 9 "
 			current-page="currentPage"
 			ng-click="go('{{problem.sourceId}}', '{{problem.source}}')"
 			ng-class="{info: selected(problem.sourceId)}">

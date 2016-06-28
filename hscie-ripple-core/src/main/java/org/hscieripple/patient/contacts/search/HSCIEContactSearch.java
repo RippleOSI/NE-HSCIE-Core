@@ -18,6 +18,7 @@ package org.hscieripple.patient.contacts.search;
 import java.util.List;
 
 import org.rippleosi.common.repo.Repository;
+import org.rippleosi.patient.contacts.model.ContactHeadline;
 import org.hscieripple.patient.contacts.model.HSCIEContactDetails;
 import org.hscieripple.patient.contacts.model.HSCIEContactSummary;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
@@ -25,9 +26,7 @@ import org.hscieripple.patient.datasources.model.DataSourceSummary;
 /**
  */
 public interface HSCIEContactSearch extends Repository {
-
-
-
+	
     List<HSCIEContactSummary> findAllContacts(String patientId, List<DataSourceSummary> datasourceSummaries);
 
     HSCIEContactDetails findContact(String patientId, String contactId, String source);

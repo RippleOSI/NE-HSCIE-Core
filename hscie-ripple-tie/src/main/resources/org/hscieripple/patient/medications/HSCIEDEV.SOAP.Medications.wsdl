@@ -47,6 +47,55 @@
                 </s:complexContent>
             </s:complexType>
             <s:complexType name="Ens_Messagebody"/>
+            <s:element name="FindMedicationsHeadlinesBO">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" name="NHSNumber" type="s:long"/>
+                        <s:element minOccurs="0" name="DataSource" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="FindMedicationsHeadlinesBOResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element name="FindMedicationsHeadlinesBOResult" type="s0:MedicationsHeadlineResponse"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="MedicationsHeadlineResponse">
+                <s:complexContent>
+                    <s:extension base="s0:Ens_Response">
+                        <s:sequence>
+                            <s:element minOccurs="0" name="MedicationsList" type="s0:ArrayOfMedicationsHeadlineResultRowPairOfMedicationsListKeyMedicationsHeadlineResultRow"/>
+                            <s:element minOccurs="0" name="StatusCode" type="s:string"/>
+                            <s:element minOccurs="0" name="StatusDesc" type="s:string"/>
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="ArrayOfMedicationsHeadlineResultRowPairOfMedicationsListKeyMedicationsHeadlineResultRow">
+                <s:sequence>
+                    <s:element maxOccurs="unbounded" minOccurs="0" name="MedicationsHeadlineResultRow" nillable="true" type="s0:PairOfMedicationsListKeyMedicationsHeadlineResultRow"/>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="PairOfMedicationsListKeyMedicationsHeadlineResultRow">
+                <s:complexContent>
+                    <s:extension base="s0:MedicationsHeadlineResultRow">
+                        <s:attribute name="MedicationsListKey" type="s:string" use="required"/>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
+            <s:complexType name="MedicationsHeadlineResultRow">
+                <s:complexContent>
+                    <s:extension base="s0:Ens_Response">
+                        <s:sequence>
+                            <s:element minOccurs="0" name="Name" type="s:string"/>
+                            <s:element minOccurs="0" name="SourceID" type="s:string"/>
+                            <s:element minOccurs="0" name="DataSourceName" type="s:string"/>
+                        </s:sequence>
+                    </s:extension>
+                </s:complexContent>
+            </s:complexType>
             <s:element name="FindMedicationsSummariesBO">
                 <s:complexType>
                     <s:sequence>
@@ -105,6 +154,12 @@
     <message name="FindMedicationsDetailsBOSoapOut">
         <part name="parameters" element="s0:FindMedicationsDetailsBOResponse"/>
     </message>
+    <message name="FindMedicationsHeadlinesBOSoapIn">
+        <part name="parameters" element="s0:FindMedicationsHeadlinesBO"/>
+    </message>
+    <message name="FindMedicationsHeadlinesBOSoapOut">
+        <part name="parameters" element="s0:FindMedicationsHeadlinesBOResponse"/>
+    </message>
     <message name="FindMedicationsSummariesBOSoapIn">
         <part name="parameters" element="s0:FindMedicationsSummariesBO"/>
     </message>
@@ -116,6 +171,10 @@
             <input message="s0:FindMedicationsDetailsBOSoapIn"/>
             <output message="s0:FindMedicationsDetailsBOSoapOut"/>
         </operation>
+        <operation name="FindMedicationsHeadlinesBO">
+            <input message="s0:FindMedicationsHeadlinesBOSoapIn"/>
+            <output message="s0:FindMedicationsHeadlinesBOSoapOut"/>
+        </operation>
         <operation name="FindMedicationsSummariesBO">
             <input message="s0:FindMedicationsSummariesBOSoapIn"/>
             <output message="s0:FindMedicationsSummariesBOSoapOut"/>
@@ -125,6 +184,15 @@
         <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
         <operation name="FindMedicationsDetailsBO">
             <soap:operation soapAction="http://www.HSCIERipple.org/HSCIEDEV.SOAP.Medications.FindMedicationsDetailsBO" style="document"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="FindMedicationsHeadlinesBO">
+            <soap:operation soapAction="http://www.HSCIERipple.org/HSCIEDEV.SOAP.Medications.FindMedicationsHeadlinesBO" style="document"/>
             <input>
                 <soap:body use="literal"/>
             </input>

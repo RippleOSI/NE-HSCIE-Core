@@ -2,7 +2,6 @@
 
 angular.module('rippleDemonstrator')
   .factory('ReferralService', function ($http) {
-
     
      var all = function (patientId) {
       return $http.get('/api/hscie/patients/' + patientId + '/referrals');

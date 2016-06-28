@@ -1,58 +1,39 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('AlertsDetailCtrl', function ($scope, $stateParams, $modal, $state, $location, usSpinnerService, PatientService, AlertService) {
+  .controller('AlertDetailCtrl', function ($scope, $stateParams, SearchInput, $location, $modal, Helper, $state, usSpinnerService, PatientService, AlertService) {
+
+  
+   SearchInput.update();
+    $scope.UnlockedSources = [
+      'handi.ehrscape.com'
+    ];
 
     PatientService.get($stateParams.patientId).then(function (patient) {
       $scope.patient = patient;
     });
 
-    AlertService.findDetails($stateParams.patientId, $stateParams.alertId).then(function (result) {
+    AlertService.get($stateParams.patientId, $stateParams.alertIndex, $stateParams.source).then(function (result) {
       $scope.alert = result.data;
-
       usSpinnerService.stop('alertsDetail-spinner');
     });
 
-    $scope.edit = function () {
-      var modalInstance = $modal.open({
-        templateUrl: 'views/alerts/alerts-modal.html',
-        size: 'lg',
-        controller: 'AlertsModalCtrl',
-        resolve: {
-          modal: function () {
-            return {
-              title: 'Edit Alert'
-            };
-          },
-          alert: function () {
-            return angular.copy($scope.alert);
-          },
-          patient: function () {
-            return $scope.patient;
-          }
-        }
-      });
+    $scope.isLocked = function (alert) {
+      if (!(alert && alert.id)) {
+        return true;
+      }
 
-      modalInstance.result.then(function (alert) {
-        var toUpdate = {
-          source: alert.source,
-          sourceId: alert.sourceId,
-          type: alert.alertType,
-          note: alert.alertNote,
-          date: alert.dateTime,
-          author: alert.author
-        };
+      var alertIdSegments = alert.id.toString().split('::');
+      if (alertIdSegments.length > 1) {
+        return ($scope.UnlockedSources.indexOf(alertIdSegments[1]) < 0);
+      }
 
-        AlertService.update($scope.patient.id, toUpdate).then(function () {
-          setTimeout(function () {
-            $state.go('alerts-detail', {
-              patientId: $scope.patient.id,
-              alertId: alert.sourceId,
-              page: $scope.currentPage
-            });
-          }, 2000);
-        });
-      });
+      return true;
+    };
+
+    $scope.convertToLabel = function (text) {
+      var result = text.replace(/([A-Z])/g, ' $1');
+      return result.charAt(0).toUpperCase() + result.slice(1);
     };
 
   });
