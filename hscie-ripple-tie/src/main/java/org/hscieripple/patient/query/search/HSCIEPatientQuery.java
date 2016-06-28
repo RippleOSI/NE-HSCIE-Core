@@ -50,6 +50,9 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
     @Autowired
     private PatientServiceSoap patientService;
 
+    @Autowired
+    private PatientResponseToPatientDetailsTransformer patientResponseTransformer;
+
     @Override
     public List<PatientSummary> findPatientsByQueryObject(PatientQueryParams params) {
         List<PairOfResultsSetKeyResultRow> patients = new ArrayList<>();
@@ -64,9 +67,11 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
                                                                            params.getGender(),
                                                                            DateFormatter.toSimpleDateString(dateOfBirth));
 
-            if (isSuccessfulResponse(response)) {
-                patients = response.getResultsSet().getResultRow();
+            if (!isSuccessfulResponse(response)) {
+                return new ArrayList<>();
             }
+
+            patients = response.getResultsSet().getResultRow();
         }
         catch (SOAPFaultException e) {
             log.error(e.getMessage(), e);
@@ -98,7 +103,7 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
                 patients = response.getResultsSet().getResultRow();
             }
 
-            return new PatientResponseToPatientDetailsTransformer().transform(patients.get(0));
+            return patientResponseTransformer.transform(patients.get(0));
         }
         catch (SOAPFaultException e) {
             log.error(e.getMessage(), e);
@@ -133,6 +138,6 @@ public class HSCIEPatientQuery extends AbstractHSCIEService implements PatientSe
     }
 
     private boolean isSuccessfulResponse(PatientDetailsResponse response) {
-        return OK.equalsIgnoreCase(response.getStatusCode());
+        return OK.equalsIgnoreCase(response.getStatusCode()) && response.getResultsSet() != null;
     }
 }

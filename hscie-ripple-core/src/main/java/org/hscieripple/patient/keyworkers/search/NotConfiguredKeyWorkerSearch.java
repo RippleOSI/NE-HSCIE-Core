@@ -19,7 +19,8 @@ package org.hscieripple.patient.keyworkers.search;
 import java.util.List;
 
 import org.rippleosi.common.exception.ConfigurationException;
-import org.rippleosi.common.types.RepoSourceTypes; 
+import org.rippleosi.common.types.RepoSourceTypes;
+import org.rippleosi.patient.contacts.model.ContactHeadline;
 import org.rippleosi.common.types.RepoSourceType;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
 import org.hscieripple.patient.keyworkers.model.KeyWorkerDetails;
@@ -41,6 +42,11 @@ public class NotConfiguredKeyWorkerSearch implements KeyWorkerSearch {
 
     @Override
     public List<KeyWorkerSummary> findAllKeyWorkers(String patientId, List<DataSourceSummary> datasourceSummaries) {
+        throw ConfigurationException.unimplementedTransaction(KeyWorkerSearch.class);
+    }
+    
+    @Override
+    public List<ContactHeadline> findAllKeyWorkerHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries) {
         throw ConfigurationException.unimplementedTransaction(KeyWorkerSearch.class);
     }
 

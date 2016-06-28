@@ -23,14 +23,18 @@ import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.hscieripple.patient.transfers.TransferOfCareDetailsResponse;
+import org.hscieripple.patient.transfers.TransferOfCareHeadlineResponse;
 import org.hscieripple.patient.transfers.TransferOfCareSummaryResponse;
 import org.hscieripple.patient.transfers.TransferOfCareServiceSoap;
 import org.hscieripple.patient.transfers.PairOfResultsSetKeyTransferOfCareSummaryResultRow;
-import org.hscieripple.common.service.AbstractHSCIEService; 
+import org.hscieripple.patient.transfers.PairOfTransferOfCareListKeyTransferOfCareHeadlineResultRow;
+import org.hscieripple.common.service.AbstractHSCIEService;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
 import org.hscieripple.patient.transfers.model.HSCIETransferOfCareDetails;
 import org.hscieripple.patient.transfers.model.HSCIETransferOfCareSummary;
 import org.hscieripple.patient.transfers.search.HSCIETransferOfCareSearch;
+import org.rippleosi.patient.summary.model.TransferHeadline;
+import org.hscieripple.patient.transfers.search.TransferOfCareHeadlineResponseToHeadlineTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +64,25 @@ public class HSCIETransfersOfCareSearch extends AbstractHSCIEService implements 
 
         return transfers;
     }
+    
+    
+    
+    @Override
+    public List<TransferHeadline> findAllTransferOfCareHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries) {
+        List<TransferHeadline> transfers = new ArrayList<>();
+
+        Long nhsNumber = convertPatientIdToLong(patientId);
+
+        for (DataSourceSummary summary : datasourceSummaries) {
+            List<TransferHeadline> results = makeHeadlineCall(nhsNumber, summary.getSourceId());
+
+            transfers.addAll(results);
+        }
+
+        return transfers;
+    }
+    
+    
 
     @Override
     public HSCIETransferOfCareDetails findTransfer(String patientId, String transferId, String source) {
@@ -97,10 +120,42 @@ public class HSCIETransfersOfCareSearch extends AbstractHSCIEService implements 
 
         return CollectionUtils.collect(results, new TransferOfCareResponseToTransferOfCareSummaryTransformer(), new ArrayList<>());
     }
+    
+    
+    
+    
+    
+    
+    private List<TransferHeadline> makeHeadlineCall(Long nhsNumber, String source) {
+        List<PairOfTransferOfCareListKeyTransferOfCareHeadlineResultRow> results = new ArrayList<>();
+
+        try {
+        	TransferOfCareHeadlineResponse response = transfersService.findTransferOfCareHeadlinesBO(nhsNumber, source);
+
+            if (isSuccessfulHeadlineResponse(response)) {
+                results = response.getTransferOfCareList().getTransferOfCareHeadlineResultRow();
+            }
+        }
+        catch (SOAPFaultException e) {
+            log.error(e.getMessage(), e);
+        }
+
+        return CollectionUtils.collect(results, new TransferOfCareHeadlineResponseToHeadlineTransformer(), new ArrayList<>());
+    }
+    
+    
+    
+    
+    
+    
 
     private boolean isSuccessfulSummaryResponse(TransferOfCareSummaryResponse response) {
         return OK.equalsIgnoreCase(response.getStatusCode()); 
     }
+    
+    private boolean isSuccessfulHeadlineResponse(TransferOfCareHeadlineResponse response) {
+        return OK.equalsIgnoreCase(response.getStatusCode()); 
+    }    
 
     private boolean isSuccessfulDetailsResponse(TransferOfCareDetailsResponse response) {
         return OK.equalsIgnoreCase(response.getStatusCode()); 

@@ -10,22 +10,22 @@
 <table class="table table-bordered table-striped table-hover">
   <thead>
     <tr>
-      <th>Problems / Diagnoses</th>
-      <th>Date</th>
-      <th>Source</th>
+      <th class="col-sm-6">Problems / Diagnoses</th>
+      <th class="col-sm-3">Date</th>
+      <th class="col-sm-3">Source</th>
     </tr>
   </thead>
 
 	<tbody>
 		<tr
-			dir-paginate="problem in problems| filter:search | orderBy:['-dateOfOnset'] |  itemsPerPage: 9 "
+			dir-paginate="problem in problems| filter:search | orderBy:['-dateOfOnset', 'problem'] |  itemsPerPage: 9 "
 			current-page="currentPage"
 			ng-click="go('{{problem.sourceId}}', '{{problem.source}}')"
 			ng-class="{info: selected(problem.sourceId)}">
 			<td class="dateTime">{{ problem.problem }}</td>
 			<td class="dateTime">{{ problem.dateOfOnset |
 				date:'dd/MM/yyyy HH:mm' }}</td>
-			
+
 			<td>{{ problem.source }}</td>
 		</tr>
 

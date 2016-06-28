@@ -13,17 +13,10 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.rippleosi.common.util;
+package org.hscieripple.common.util;
 
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
-import java.text.SimpleDateFormat;
-import java.text.DateFormat;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
 /**
@@ -42,32 +35,26 @@ public final class HSCIEDateFormatter {
         }
         String format = "dd.MM.yyyy";
         
-        if (systemFrom.equals("RIO") && input.contains("-")){
-        	format = "yyyy-MM-dd HH:mm:ss";        	
-        }
-        
-        if (systemFrom.equals("RIO") && input.contains("/")){
-        	format = "dd/MM/yyyy HH:mm";        	
-        }
-        
-        if(systemFrom.equals("Liquid Logic")){
-        	format = "yyyy-MM-dd HH:mm:ss";
-        }
-        
-        if(systemFrom.equals("PCS")){
-        	format = "yyyy-MM-dd HH:mm:ss";
-        }
-        
-        if(systemFrom.equals("Emis Community")){
-        	format = "yyyy-MM-dd HH:mm:ss";
-        }
-        
-        if(systemFrom.equals("PCS Time")){
-        	format = "HH:mm:ss";
-        }
-                
-        if(systemFrom.equals("PCS long Time")){
-        	format = "HH:mm:ss";
+        switch (systemFrom){
+        case "Liquid Logic":
+        case "PCS":
+        case "Emis Community":
+        	format = "yyyy-MM-dd HH:mm:ss";   
+        	break;
+        case "PCS Time":
+        case "PCS long Time":
+        	format = "yyyy-MM-dd HH:mm:ss";   
+        	break;
+        case "PCS alerts":
+        	format = "yyyy-MM-dd HH:mm";   
+        	break;
+        case "RIO":
+        	if (input.contains("-")){
+            	format = "yyyy-MM-dd HH:mm:ss";        	
+            } else {
+            	format = "dd/MM/yyyy HH:mm";        	
+            } 
+        	break;
         }
         
         //Return value of formatted String

@@ -18,8 +18,8 @@
   <tbody>
     <tr dir-paginate="procedure in procedures | filter:search  | itemsPerPage: 9" current-page="currentPage"  ng-click="go('{{procedure.sourceId}}','{{procedure.source}}')" ng-class="{info: selected(procedure.sourceId)}">
       <td>{{procedure.name}}</td>
-      <td class="dateTime">{{procedure.date}}</td>
-      <td>{{procedure.time}}</td>
+      <td class="dateTime">{{procedure.date | date:'dd/MM/yyyy'}}</td>
+      <td>{{procedure.time | date:'HH:mm'}}</td>
       <td>{{procedure.source}}</td>
     </tr>
     <tr ng-if="!procedures.length">

@@ -1,9 +1,15 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('AlertsListCtrl', function ($scope, $location, $stateParams, $modal, $state, usSpinnerService, PatientService, AlertService) {
+  .controller('AlertListCtrl', function ($scope, $filter, $state, $location, $stateParams, SearchInput, $modal, usSpinnerService, PatientService, AlertService, UserService) {
 
+    SearchInput.update();
     $scope.currentPage = 1;
+
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
+      $stateParams.patientSource = $scope.currentUser.feature.patientSource;
+    });
 
     $scope.pageChangeHandler = function (newPage) {
       $scope.currentPage = newPage;
@@ -14,10 +20,10 @@ angular.module('rippleDemonstrator')
     }
 
     $scope.search = function (row) {
+
       return (
         angular.lowercase(row.alertType).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
-        //angular.lowercase(row.dateTime).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
-        angular.lowercase(row.source).indexOf(angular.lowercase($scope.query) || '') !== -1
+        angular.lowercase(row.source).indexOf(angular.lowercase($scope.query) || '') !== -1 
       );
     };
 
@@ -25,73 +31,32 @@ angular.module('rippleDemonstrator')
       $scope.query = $stateParams.filter;
     }
 
-    PatientService.get($stateParams.patientId).then(function (patient) {
+    PatientService.get($stateParams.patientId, $stateParams.patientSource).then(function (patient) {
       $scope.patient = patient;
     });
 
-    AlertService.findAllSummaries($stateParams.patientId).then(function (result) {
+    AlertService.all($stateParams.patientId).then(function (result) {
       $scope.alerts = result.data;
-
-      for (var i = 0; i < $scope.alerts.length; i++) {
-        $scope.alerts[i].dateTime = moment($scope.alerts[i].dateTime).format('DD-MMM-YYYY h:mm a');
-      }
 
       usSpinnerService.stop('patientSummary-spinner');
     });
 
-    $scope.go = function (sourceId) {
+    $scope.go = function (id, alertSource) {
       $state.go('alerts-detail', {
         patientId: $scope.patient.nhsNumber,
-        alertId: sourceId,
+        alertIndex: id,
         filter: $scope.query,
-        page: $scope.currentPage
+        page: $scope.currentPage,
+        reportType: $stateParams.reportType,
+        searchString: $stateParams.searchString,
+        queryType: $stateParams.queryType,
+        source: alertSource,
+        patientSource: $stateParams.patientSource
       });
     };
 
-    $scope.selected = function ($index) {
-      return $index === $stateParams.alertId;
-    };
-
-    $scope.create = function () {
-      var modalInstance = $modal.open({
-        templateUrl: 'views/alerts/alerts-modal.html',
-        size: 'lg',
-        controller: 'AlertsModalCtrl',
-        resolve: {
-          modal: function () {
-            return {
-              title: 'Create Alert'
-            };
-          },
-          alert: function () {
-            return {};
-          },
-          patient: function () {
-            return $scope.patient;
-          }
-        }
-      });
-
-      modalInstance.result.then(function (alert) {
-        var toAdd = {
-          type: alert.type,
-          note: alert.note,
-          date: alert.dateTime,
-          author: alert.author
-        };
-
-        AlertService.create($scope.patient.id, toAdd).then(function () {
-          setTimeout(function () {
-            $state.go('alerts', {
-              patientId: $scope.patient.id,
-              filter: $scope.query,
-              page: $scope.currentPage
-            }, {
-              reload: true
-            });
-          }, 2000);
-        });
-      });
+    $scope.selected = function (alertIndex) {
+      return alertIndex === $stateParams.alertIndex;
     };
 
   });

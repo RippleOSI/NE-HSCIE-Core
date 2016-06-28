@@ -17,12 +17,16 @@
 package org.hscieripple.patient.details.model;
 
 import org.rippleosi.patient.summary.model.PatientDetails;
+import java.util.Date;
 
 /**
  */
 public class HSCIEPatientDetails extends PatientDetails {
 
     private boolean optIn;
+    private String from;
+    private String to;
+    private Date dateOfTransfer;
 
     public boolean isOptIn() {
         return optIn;
@@ -30,5 +34,29 @@ public class HSCIEPatientDetails extends PatientDetails {
 
     public void setOptIn(boolean optIn) {
         this.optIn = optIn;
+    }
+    
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public Date getDateOfTransfer() {
+        return dateOfTransfer;
+    }
+
+    public void setDateOfTransfer(Date dateOfTransfer) {
+        this.dateOfTransfer = dateOfTransfer;
     }
 }

@@ -27,6 +27,12 @@ import org.hscieripple.patient.problems.ProblemServiceSoap;
 import org.hscieripple.patient.query.PatientServiceSoap;
 import org.hscieripple.patient.medications.MedicationServiceSoap;
 import org.hscieripple.patient.transfers.TransferOfCareServiceSoap;
+
+import org.hscieripple.patient.allergies.AllergyServiceSoap;
+import org.hscieripple.patient.orders.OrderServiceSoap;
+import org.hscieripple.patient.procedures.ProcedureServiceSoap;
+import org.hscieripple.patient.results.ResultServiceSoap;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -86,6 +92,18 @@ public class CXFConfig {
 
     @Value("${hscie.tie.alertsServiceUrl}")
     private String alertsServiceUrl;
+    
+    @Value("${hscie.tie.allergiesServiceUrl}")
+    private String allergiesServiceUrl;
+    
+    @Value("${hscie.tie.ordersServiceUrl}")
+    private String ordersServiceUrl;
+    
+    @Value("${hscie.tie.proceduresServiceUrl}")
+    private String proceduresServiceUrl;
+    
+    @Value("${hscie.tie.resultsServiceUrl}")
+    private String resultsServiceUrl;
     
     @Bean
     public PatientServiceSoap patientService() {
@@ -151,6 +169,26 @@ public class CXFConfig {
     @Bean
     public ConsentUpdateServiceSoap consentsUpdateService() {
         return createJAXWSService(ConsentUpdateServiceSoap.class, consentsUpdateUrl);
+    }
+    
+    @Bean
+    public AllergyServiceSoap allergiesService() {
+        return createJAXWSService(AllergyServiceSoap.class, allergiesServiceUrl);
+    }
+    
+    @Bean
+    public OrderServiceSoap orderssService() {
+        return createJAXWSService(OrderServiceSoap.class, ordersServiceUrl);
+    }
+    
+    @Bean
+    public ResultServiceSoap resultsService() {
+        return createJAXWSService(ResultServiceSoap.class, resultsServiceUrl);
+    }
+    
+    @Bean
+    public ProcedureServiceSoap proceduresService() {
+        return createJAXWSService(ProcedureServiceSoap.class, proceduresServiceUrl);
     }
 
     @Bean

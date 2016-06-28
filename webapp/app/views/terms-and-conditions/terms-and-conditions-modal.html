@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ modal.title }}</h4>
+</div>
+
+<div class="modal-body">
+  <form name="termsAndConditionsForm" class="form-horizontal text-left">
+    <fieldset class="termsAndConditionsForm">
+      <legend>{{ modal.heading }}</legend>
+      <div class="row">
+        <div class="col-md-12">
+          <h4>IT IS AN OFFENCE TO ACCESS THIS SYSTEM WITHOUT PROPER AUTHORISATION.</h4>
+          <br>
+          <h5>Access to this system and the information within it is governed by the Data Protection Act 1998 and Computer Misuse Act 1990.</h5>
+          <h5>Any unauthorised access to the this system or modification of the information within it is an Offence.</h5>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <a class="btn btn-danger" ng-click="cancel()">Cancel</a>
+  <button class="btn btn-success" ng-click="proceed()"><i class="fa fa-check"></i> Proceed</button>
+</div>

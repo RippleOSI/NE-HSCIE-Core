@@ -1,0 +1,18 @@
+<div class="popover">
+  <h2 class="popover-title">Notifications ({{notifications.length}})</h2>
+  <div class="popover-content">
+    <ul>
+      <li ng-repeat="notification in notifications" ng-class="(notification.available) ? 'notification-available-indicator' : 'notification-unavailable-indicator'" >
+        <div class="notification-entry">
+          {{ notification.message }}
+
+          <br>
+          <span class="notification-timeago">{{ notification.timeCreated }}</span>
+          <a ng-click="acknowledge(notification.source)" class="notification-acknowledge"><u>Acknowledge</u></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="popover-footer">
+  </div>
+</div>

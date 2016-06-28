@@ -24,12 +24,16 @@ import java.util.List;
 import org.apache.commons.collections4.CollectionUtils;
 import org.hscieripple.patient.contacts.ContactsDetailsResponse;
 import org.hscieripple.patient.contacts.ContactsSummaryResponse;
+import org.hscieripple.patient.contacts.ContactsHeadlineResponse;
 import org.hscieripple.patient.contacts.ContactsServiceSoap;
 import org.hscieripple.patient.contacts.PairOfContactsListKeyContactsSummaryResultRow;
+import org.hscieripple.patient.contacts.PairOfContactsListKeyContactsHeadlineResultRow;
 import org.hscieripple.common.service.AbstractHSCIEService; 
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
+import org.hscieripple.patient.keyworker.search.KeyWorkerHeadlineResponseToHeadlineTransformer;
 import org.hscieripple.patient.contacts.model.HSCIEContactDetails;
 import org.hscieripple.patient.contacts.model.HSCIEContactSummary;
+import org.rippleosi.patient.contacts.model.ContactHeadline;
 import org.hscieripple.patient.contacts.search.HSCIEContactSearch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +65,8 @@ public class HSCIEContactsSearch extends AbstractHSCIEService implements HSCIECo
         return contacts;
     }
 
+
+    
     @Override
     public HSCIEContactDetails findContact(String patientId, String contactId, String source) {
         ContactsDetailsResponse response = new ContactsDetailsResponse();
@@ -97,10 +103,14 @@ public class HSCIEContactsSearch extends AbstractHSCIEService implements HSCIECo
 
         return CollectionUtils.collect(results, new ContactsResponseToContactsSummaryTransformer(), new ArrayList<>());
     }
+    
+
 
     private boolean isSuccessfulSummaryResponse(ContactsSummaryResponse response) {
         return OK.equalsIgnoreCase(response.getStatusCode()); 
     }
+    
+
 
     private boolean isSuccessfulDetailsResponse(ContactsDetailsResponse response) {
         return OK.equalsIgnoreCase(response.getStatusCode()); 

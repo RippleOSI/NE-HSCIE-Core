@@ -19,6 +19,7 @@ package org.hscieripple.patient.keyworkers.search;
 import java.util.List;
 
 import org.rippleosi.common.repo.Repository;
+import org.rippleosi.patient.contacts.model.ContactHeadline;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
 import org.hscieripple.patient.keyworkers.model.KeyWorkerDetails;
 import org.hscieripple.patient.keyworkers.model.KeyWorkerSummary;
@@ -27,7 +28,9 @@ import org.hscieripple.patient.keyworkers.model.KeyWorkerSummary;
  */
 public interface KeyWorkerSearch extends Repository {
 
-    List<KeyWorkerSummary> findAllKeyWorkers(String patientId, List<DataSourceSummary> datasourceSummaries);
+	List<ContactHeadline> findAllKeyWorkerHeadlines(String patientId, List<DataSourceSummary> datasourceSummaries);
+	
+	List<KeyWorkerSummary> findAllKeyWorkers(String patientId, List<DataSourceSummary> datasourceSummaries);
 
     KeyWorkerDetails findKeyWorker(String patientId, String keyWorkerId, String source);
 }

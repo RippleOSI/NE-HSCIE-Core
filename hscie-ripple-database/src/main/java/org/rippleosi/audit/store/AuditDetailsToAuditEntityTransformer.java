@@ -7,6 +7,7 @@ import java.util.Date;
 
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.audit.model.AuditDetails;
+import org.hscieripple.audit.model.AuditedAction;
 import org.rippleosi.audit.model.AuditEntity;
 
 /**
@@ -36,6 +37,7 @@ class AuditDetailsToAuditEntityTransformer implements Transformer<AuditDetails, 
 			auditEntity.setRequesterUsername(getRequesterUsername(auditDetails));
 			auditEntity.setTargetNhsNumber(getTargetNhsNumber(auditDetails));
 			auditEntity.setTargetResource(getTargetResource(auditDetails));
+			auditEntity.setRequesterAction(getAction(auditDetails));
 		}
 
 		return auditEntity;
@@ -83,5 +85,20 @@ class AuditDetailsToAuditEntityTransformer implements Transformer<AuditDetails, 
 		}
 		
 		return targetResource;
+	}
+	
+	private String getAction(AuditDetails auditDetails) {
+		AuditedAction action = auditDetails.getAction();
+		
+		String actionString = null;
+		
+		if(action != null) {
+			actionString = action.name();
+		
+		} else {
+			actionString = AuditedAction.NULL.name();
+		}
+		
+		return actionString;
 	}
 }
