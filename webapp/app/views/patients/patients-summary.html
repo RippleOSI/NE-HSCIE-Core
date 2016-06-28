@@ -46,7 +46,7 @@
         <table class="table table-striped clickable">
           <tbody>
             <tr ng-repeat="contact in contacts  | filter: countKeyContact">
-              <td ng-click="goKeyworker('{{contact.sourceId}}', '{{contact.source}}')">{{$index}} {{ contact.sourceId }} <span class="glyphicon glyphicon-chevron-right"></span></td>
+              <td ng-click="goKeyworker('{{contact.sourceId}}', '{{contact.source}}')">{{ contact.sourceId }} <span class="glyphicon glyphicon-chevron-right"></span></td>
             </tr>
           </tbody>
         </table>
@@ -70,7 +70,7 @@
           </tbody>
         </table>
       </div>
-      
+      <!--
       <div class="board problems col-md-4">
         <h2><a ng-click="goToSection('Allergies')"><i class="fi-flag"></i> Allergies</a>
           <span class="resultcount" ng-if="allergiesCount == 0">0 of 0</span>
@@ -88,7 +88,7 @@
         </table>
       </div>
 
-
+-->
 
       <div class="board problems col-md-4">
         <h2><a ng-click="goToSection('Transfer')"><i class="fa fa-ambulance"></i> Transfer of Care</a>
