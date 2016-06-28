@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
-			 xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s="http://www.w3.org/2001/XMLSchema"
-             xmlns:s0="http://www.HSCIERipple.org" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             targetNamespace="http://www.HSCIERipple.org">
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://www.HSCIERipple.org" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://www.HSCIERipple.org">
     <types>
         <s:schema elementFormDefault="qualified" targetNamespace="http://www.HSCIERipple.org">
             <s:element name="findPatientBO">
@@ -80,6 +76,14 @@
                             <s:element minOccurs="0" name="PersonNumber" type="s:string"/>
                             <s:element minOccurs="0" name="PostCode" type="s:string"/>
                             <s:element minOccurs="0" name="ConsentStatus" type="s:boolean"/>
+                            <s:element minOccurs="0" name="GPDetails">
+                                <s:simpleType>
+                                    <s:restriction base="s:string">
+                                        <s:maxLength value="500"/>
+                                    </s:restriction>
+                                </s:simpleType>
+                            </s:element>
+                            <s:element minOccurs="0" name="ContactNumber" type="s:string"/>
                         </s:sequence>
                     </s:extension>
                 </s:complexContent>
@@ -111,6 +115,8 @@
         </operation>
     </binding>
     <service name="PatientService">
-        <port name="Patient" binding="s0:Patient"/>
+        <port name="Patient" binding="s0:Patient">
+            <soap:address location="http://10.152.3.237:57772/csp/healthshare/hscie_ripple_dev/HSCIEDEV.SOAP.Patient.cls"/>
+        </port>
     </service>
 </definitions>

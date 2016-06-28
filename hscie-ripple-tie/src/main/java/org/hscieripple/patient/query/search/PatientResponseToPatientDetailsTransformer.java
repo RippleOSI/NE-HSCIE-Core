@@ -86,6 +86,8 @@ public class PatientResponseToPatientDetailsTransformer implements Transformer<R
         details.setNhsNumber(nhsNumber);
         details.setPasNumber(response.getPersonNumber());
         details.setOptIn(response.isConsentStatus());
+        details.setTelephone(response.getContactNumber());
+        details.setGpDetails(response.getGPDetails());
 
         details.setContacts(findKeyWorkers(nhsNumber));
         details.setProblems(findProblems(nhsNumber));
