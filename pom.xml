@@ -76,7 +76,7 @@
         <resources.plugin.version>2.7</resources.plugin.version>
         
         <ripple.version>0.6.2.0</ripple.version>
-        
+
         <!-- ************************ -->
         <!-- Sonar/Reporting settings -->
         <!-- ************************ -->
