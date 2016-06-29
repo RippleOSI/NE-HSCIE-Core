@@ -8,7 +8,7 @@
       </div>
       </div>
     <!--&lt;!&ndash; START Patient Dashboard &ndash;&gt;-->
-    <div class="dashboard row" ng-show="patient.optIn">
+    <div class="dashboard row" ng-show="patient.optIn && !currentUser.hasPermission('IG')">
       <!--&lt;!&ndash; START Board-->
                         <!--Note: Make sure the 4th board always does a clear left-->
                         <!--Note: In our design, all boards have 5 rows, so the board below-->
