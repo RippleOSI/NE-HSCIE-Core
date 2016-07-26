@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('PatientsSummaryCtrl', function ($scope, $stateParams, $state, SearchInput, $rootScope, $location, usSpinnerService, PatientService, UserService) {
+  .controller('PatientsSummaryCtrl', function ($scope, $filter, $stateParams, $state, SearchInput, $rootScope, $location, usSpinnerService, PatientService, UserService) {
 
     SearchInput.update();
     $scope.patients = $stateParams.patientsList;
@@ -24,7 +24,7 @@ angular.module('rippleDemonstrator')
       $scope.diagnoses = patient.problems.slice(0, 5);
 
       $scope.contactsCount = patient.contacts.length;
-      $scope.contacts = patient.contacts.slice(0, 20);
+      $scope.contacts = patient.contacts;
 
       $scope.transferofCaresCount = patient.transfers.length;
       $scope.transferofCareComposition = patient;
@@ -134,16 +134,13 @@ angular.module('rippleDemonstrator')
 
     var admCount = 0;
     var outCount = 0;
-    var latestResult = false;
-    var savedId = "";
-    var savedText = "";
-    var savedSource = "";
+	
 
-    $scope.countKeyContact = function (contact, contacts, index) {
+    $scope.countKeyContact = function (contact, contacts, index, findCount) {
 
       if (contact.sourceId.indexOf("- Key Contact") > -1) {
-        $scope.contacts.splice(1, 1);
-        return false;
+        //$scope.contacts.splice(1, 1);
+        //return false;
 
         if (contact.sourceId.indexOf("ADMISSION - Key Contact") > -1) {
           admCount++;
@@ -158,21 +155,38 @@ angular.module('rippleDemonstrator')
             return false;
           }
         }
-        if (latestResult == false) {
-          latestResult = true;
-          savedId = contact.sourceId;
-          savedSource = contact.source;
-          savedText = contact.text;
-        } else if (contact.sourceId != savedId) {
-          $scope.contacts.splice(1, 1);
-          return false;
-        }
-      }
-
-      $scope.contactsCount = $scope.contacts.length;
+        var timeString = contact.sourceId.split('|');
+	  contact.date = timeString[1] + timeString[2];
+      } else {
+		  contact.date = "999999999";
+	  }
+	  
       return true;
 
     };
+	var limitAmount = 0;
+	$scope.findCount = function(contact, contacts){
+	  var totalNoneContact= $filter('filter')($scope.contacts, {date: '999999999'});
+	  var totalNoneContactLength = totalNoneContact.length;
+	  if(totalNoneContactLength <= 4)
+	  {
+		  $scope.contactsCount = totalNoneContactLength + 1;
+		  return totalNoneContactLength + 1;
+	  }else{
+		  $scope.contactsCount = 5;
+		  return 5;
+	}
+	};
+	
+	
+	$scope.firstName = "John";
+    $scope.lastName = function(contact, contacts){
+	  return "found";
+	};
+    $scope.limit = function() {
+        return $scope.firstName + " " + $scope.lastName;
+    };
+	
 
     $scope.hideKeyContact = function (contact) {
       return !contact.sourceId.indexOf("- Key Contact") > -1;
@@ -187,3 +201,5 @@ angular.module('rippleDemonstrator')
     };
 
   });
+  
+
