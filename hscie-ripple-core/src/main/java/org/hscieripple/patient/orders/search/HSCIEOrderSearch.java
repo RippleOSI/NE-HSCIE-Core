@@ -18,13 +18,13 @@ package org.hscieripple.patient.orders.search;
 import java.util.List;
 
 import org.rippleosi.common.repo.Repository;
-import org.hscieripple.patient.orders.model.HSCIEOrderDetails;
-import org.hscieripple.patient.orders.model.HSCIEOrderSummary;
+import org.rippleosi.patient.laborders.model.LabOrderDetails;
+import org.rippleosi.patient.laborders.model.LabOrderSummary;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
 
 public interface HSCIEOrderSearch extends Repository {
 
-    List<HSCIEOrderSummary> findAllOrders(String patientId, List<DataSourceSummary> datasourceSummaries);
+    List<LabOrderSummary> findAllOrders(String patientId, List<DataSourceSummary> datasourceSummaries);
 
-    HSCIEOrderDetails findOrder(String patientId, String orderId, String sourceId);
+    LabOrderDetails findOrder(String patientId, String orderId, String sourceId);
 }

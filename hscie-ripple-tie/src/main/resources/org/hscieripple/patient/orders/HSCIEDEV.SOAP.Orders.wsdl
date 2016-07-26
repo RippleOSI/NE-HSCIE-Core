@@ -23,6 +23,9 @@
                     <s:extension base="s0:Ens_Response">
                         <s:sequence>
                             <s:element minOccurs="0" name="SourceID" type="s:string"/>
+                            <s:element minOccurs="0" name="Name" type="s:string"/>
+                            <s:element minOccurs="0" name="Author" type="s:string"/>
+                            <s:element minOccurs="0" name="OrderDate" type="s:string"/>
                             <s:element minOccurs="0" name="DataSourceName" type="s:string"/>
                             <s:element minOccurs="0" name="StatusCode" type="s:string"/>
                             <s:element minOccurs="0" name="StatusDesc" type="s:string"/>
@@ -78,6 +81,8 @@
                 <s:complexContent>
                     <s:extension base="s0:Ens_Response">
                         <s:sequence>
+                            <s:element minOccurs="0" name="Name" type="s:string"/>
+                            <s:element minOccurs="0" name="OrderDate" type="s:string"/>
                             <s:element minOccurs="0" name="SourceID" type="s:string"/>
                             <s:element minOccurs="0" name="DataSourceName" type="s:string"/>
                         </s:sequence>

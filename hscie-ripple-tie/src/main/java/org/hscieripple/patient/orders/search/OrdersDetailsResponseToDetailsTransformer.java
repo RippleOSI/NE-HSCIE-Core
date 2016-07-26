@@ -19,19 +19,24 @@ package org.hscieripple.patient.orders.search;
 import java.util.Date;
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.patient.orders.OrdersDetailsResponse;
-import org.hscieripple.patient.orders.model.HSCIEOrderDetails;
+import org.rippleosi.patient.laborders.model.LabOrderDetails;
 import org.hscieripple.common.util.HSCIEDateFormatter;
 
-public class OrdersDetailsResponseToDetailsTransformer implements Transformer<OrdersDetailsResponse, HSCIEOrderDetails> {
+public class OrdersDetailsResponseToDetailsTransformer implements Transformer<OrdersDetailsResponse, LabOrderDetails> {
 
     @Override
-    public HSCIEOrderDetails transform(OrdersDetailsResponse response) {
-    	 
-		HSCIEOrderDetails details = new HSCIEOrderDetails();
+    public LabOrderDetails transform(OrdersDetailsResponse response) {
+    	
+    	Date dateOfOrder = HSCIEDateFormatter.toDate(response.getOrderDate(),response.getDataSourceName());
+    	
+    	LabOrderDetails details = new LabOrderDetails();
 
         details.setSource(response.getDataSourceName());
         details.setSourceId(response.getSourceID());
         
+        details.setName(response.getName());
+        details.setAuthor(response.getAuthor());
+        details.setOrderDate(dateOfOrder);
 
         return details;
     }

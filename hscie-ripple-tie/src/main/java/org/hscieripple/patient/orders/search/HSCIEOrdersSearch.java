@@ -28,8 +28,8 @@ import org.hscieripple.patient.orders.OrderServiceSoap;
 import org.hscieripple.patient.orders.PairOfOrdersListKeyOrdersSummaryResultRow;
 import org.hscieripple.common.service.AbstractHSCIEService; 
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
-import org.hscieripple.patient.orders.model.HSCIEOrderDetails;
-import org.hscieripple.patient.orders.model.HSCIEOrderSummary;
+import org.rippleosi.patient.laborders.model.LabOrderDetails;
+import org.rippleosi.patient.laborders.model.LabOrderSummary;
 import org.hscieripple.patient.orders.search.HSCIEOrderSearch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,13 +47,13 @@ public class HSCIEOrdersSearch extends AbstractHSCIEService implements HSCIEOrde
     private OrderServiceSoap ordersService;
 
     @Override
-    public List<HSCIEOrderSummary> findAllOrders(String patientId, List<DataSourceSummary> datasourceSummaries) {
-        List<HSCIEOrderSummary> orders = new ArrayList<>();
+    public List<LabOrderSummary> findAllOrders(String patientId, List<DataSourceSummary> datasourceSummaries) {
+        List<LabOrderSummary> orders = new ArrayList<>();
 
         Long nhsNumber = convertPatientIdToLong(patientId);
 
         for (DataSourceSummary summary : datasourceSummaries) {
-            List<HSCIEOrderSummary> results = makeSummaryCall(nhsNumber, summary.getSourceId());
+            List<LabOrderSummary> results = makeSummaryCall(nhsNumber, summary.getSourceId());
 
             orders.addAll(results);
         }
@@ -62,7 +62,7 @@ public class HSCIEOrdersSearch extends AbstractHSCIEService implements HSCIEOrde
     }
 
     @Override
-    public HSCIEOrderDetails findOrder(String patientId, String orderId, String source) {
+    public LabOrderDetails findOrder(String patientId, String orderId, String source) {
         OrdersDetailsResponse response = new OrdersDetailsResponse();
 
         Long nhsNumber = convertPatientIdToLong(patientId);
@@ -71,7 +71,7 @@ public class HSCIEOrdersSearch extends AbstractHSCIEService implements HSCIEOrde
             response = ordersService.findOrdersDetailsBO(nhsNumber, orderId, source);
 
             if (!isSuccessfulDetailsResponse(response)) {
-                return new HSCIEOrderDetails();
+                return new LabOrderDetails();
             }
         }
         catch (SOAPFaultException e) {
@@ -81,7 +81,7 @@ public class HSCIEOrdersSearch extends AbstractHSCIEService implements HSCIEOrde
         return new OrdersDetailsResponseToDetailsTransformer().transform(response);
     }
 
-    private List<HSCIEOrderSummary> makeSummaryCall(Long nhsNumber, String source) {
+    private List<LabOrderSummary> makeSummaryCall(Long nhsNumber, String source) {
         List<PairOfOrdersListKeyOrdersSummaryResultRow> results = new ArrayList<>();
 
         try {

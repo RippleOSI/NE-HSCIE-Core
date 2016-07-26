@@ -48,6 +48,9 @@ public final class HSCIEDateFormatter {
         case "PCS alerts":
         	format = "yyyy-MM-dd HH:mm";   
         	break;
+        case "Sunquest ICE":
+        	format = "yyyyMMddHHmmss";   
+        	break;
         case "RIO":
         	if (input.contains("-")){
             	format = "yyyy-MM-dd HH:mm:ss";        	
