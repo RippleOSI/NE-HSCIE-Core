@@ -1,11 +1,15 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('OrdersListCtrl', function ($scope, $location, $stateParams, SearchInput, usSpinnerService, $modal, $state, PatientService, Order) {
+  .controller('OrdersListCtrl', function ($scope, $filter, $state, $stateParams, SearchInput, $location, $modal, usSpinnerService, PatientService, OrderService, UserService) {
 
     SearchInput.update();
-
     $scope.currentPage = 1;
+
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
+      $stateParams.patientSource = $scope.currentUser.feature.patientSource;
+    });
 
     $scope.pageChangeHandler = function (newPage) {
       $scope.currentPage = newPage;
@@ -16,10 +20,12 @@ angular.module('rippleDemonstrator')
     }
 
     $scope.search = function (row) {
+    var date = $filter('date')(row.orderDate, "dd/MM/yyyy");
+
       return (
         angular.lowercase(row.name).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
-        angular.lowercase(row.orderDate).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
-        angular.lowercase(row.source).indexOf(angular.lowercase($scope.query) || '') !== -1
+        angular.lowercase(row.source).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
+        angular.lowercase(date).indexOf(angular.lowercase($scope.query) || '') !== -1 
       );
     };
 
@@ -27,84 +33,32 @@ angular.module('rippleDemonstrator')
       $scope.query = $stateParams.filter;
     }
 
-    PatientService.get($stateParams.patientId).then(function (patient) {
+    PatientService.get($stateParams.patientId, $stateParams.patientSource).then(function (patient) {
       $scope.patient = patient;
     });
 
-    Order.all($stateParams.patientId).then(function (result) {
-      if (result.status !== 204) {
-        $scope.orders = result.data.reverse();
-        for (var i = 0; i < $scope.orders.length; i++) {
-          $scope.orders[i].orderDate = moment($scope.orders[i].orderDate).format('DD-MMM-YYYY h:mm a');
-        }
-      }
+    OrderService.all($stateParams.patientId).then(function (result) {
+      $scope.orders = result.data;
+
       usSpinnerService.stop('patientSummary-spinner');
     });
 
-    $scope.go = function (id) {
+    $scope.go = function (id, orderSource) {
       $state.go('orders-detail', {
-        patientId: $scope.patient.id,
-        orderId: id,
+        patientId: $scope.patient.nhsNumber,
+        orderIndex: id,
         filter: $scope.query,
         page: $scope.currentPage,
         reportType: $stateParams.reportType,
         searchString: $stateParams.searchString,
-        queryType: $stateParams.queryType
+        queryType: $stateParams.queryType,
+        source: orderSource,
+        patientSource: $stateParams.patientSource
       });
     };
 
-    $scope.selected = function (orderId) {
-      return orderId === $stateParams.orderId;
-    };
-
-    $scope.create = function () {
-      var modalInstance = $modal.open({
-        templateUrl: 'views/orders/orders-modal.html',
-        size: 'lg',
-        controller: 'OrdersModalCtrl',
-        resolve: {
-          modal: function () {
-            return {
-              title: 'Create Orders'
-            };
-          },
-          order: function () {
-            return {};
-          },
-          patient: function () {
-            return $scope.patient;
-          }
-        }
-      });
-
-      modalInstance.result.then(function (orders) {
-        var toAdd = [];
-        for (var i = 0; i < orders.length; i++) {
-          var newItem = {};
-          newItem.sourceId = '';
-          newItem.dateCreated = new Date();
-          newItem.author = 'Dr John Smith';
-          newItem.code = orders[i].code;
-          newItem.name = orders[i].text;
-          newItem.source = 'openehr';
-          toAdd.push(newItem);
-        }
-
-        Order.create($scope.patient.id, toAdd).then(function () {
-          setTimeout(function () {
-            $state.go('orders', {
-              patientId: $scope.patient.id,
-              filter: $scope.query,
-              page: $scope.currentPage,
-              reportType: $stateParams.reportType,
-              searchString: $stateParams.searchString,
-              queryType: $stateParams.queryType
-            }, {
-              reload: true
-            });
-          }, 2000);
-        });
-      });
+    $scope.selected = function (orderIndex) {
+      return orderIndex === $stateParams.orderIndex;
     };
 
   });

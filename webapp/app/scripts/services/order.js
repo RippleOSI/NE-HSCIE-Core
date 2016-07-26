@@ -1,29 +1,21 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .factory('Order', function ($http) {
+  .factory('OrderService', function ($http) {
 
-    var all = function (patientId) {
-      return $http.get('/api/patients/' + patientId + '/laborders');
+    
+     var all = function (patientId) {
+      return $http.get('/api/hscie/patients/' + patientId + '/orders');
     };
 
-    var get = function (patientId, compositionId) {
-      return $http.get('/api/patients/' + patientId + '/laborders/' + compositionId);
+    var get = function (patientId, orderId, subSource) {
+      return $http.get('/api/hscie/patients/' + patientId + '/orders/' + orderId + '?subSource=' + subSource);
     };
 
-    var create = function (patientId, composition) {
-      return $http.post('/api/patients/' + patientId + '/laborders', composition);
-    };
-
-    var suggestion = function () {
-      return $http.get('/api/terminology/list/order');
-    };
 
     return {
-      all: all,
       get: get,
-      create: create,
-      suggestion: suggestion
+      all: all
     };
 
   });
