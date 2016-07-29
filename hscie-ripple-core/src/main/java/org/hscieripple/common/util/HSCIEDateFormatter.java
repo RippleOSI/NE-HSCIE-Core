@@ -51,6 +51,9 @@ public final class HSCIEDateFormatter {
         case "Sunquest ICE":
         	format = "yyyyMMddHHmmss";   
         	break;
+        case "Meditech":
+        	format = "yyyyMMddHHmm";   
+        	break;
         case "RIO":
         	if (input.contains("-")){
             	format = "yyyy-MM-dd HH:mm:ss";        	

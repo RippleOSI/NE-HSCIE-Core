@@ -20,8 +20,8 @@ import java.util.List;
 import org.rippleosi.common.exception.ConfigurationException;
 import org.rippleosi.common.types.RepoSourceTypes; 
 import org.rippleosi.common.types.RepoSourceType;
-import org.hscieripple.patient.results.model.HSCIEResultDetails;
-import org.hscieripple.patient.results.model.HSCIEResultSummary;
+import org.rippleosi.patient.labresults.model.LabResultDetails;
+import org.rippleosi.patient.labresults.model.LabResultSummary;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
 
 public class HSCIENotConfiguredResultSearch implements HSCIEResultSearch {
@@ -37,12 +37,12 @@ public class HSCIENotConfiguredResultSearch implements HSCIEResultSearch {
     }
 
     @Override
-    public List<HSCIEResultSummary> findAllResults(String patientId, List<DataSourceSummary> datasourceSummaries) {
+    public List<LabResultSummary> findAllResults(String patientId, List<DataSourceSummary> datasourceSummaries) {
         throw ConfigurationException.unimplementedTransaction(HSCIEResultSearch.class);
     }
 
     @Override
-    public HSCIEResultDetails findResult(String patientId, String resultId, String sourceId) {
+    public LabResultDetails findResult(String patientId, String resultId, String sourceId) {
         throw ConfigurationException.unimplementedTransaction(HSCIEResultSearch.class);
     }
 }

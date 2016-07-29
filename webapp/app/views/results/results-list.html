@@ -1,8 +1,10 @@
-<h3><strong>Results</strong></h3>
+<h3>
+	<strong>Results</strong>
+</h3>
 
 <div class="inner-addon left-addon filterInput">
-  <i class="fa fa-filter"></i>
-  <input type="text" class="form-control" placeholder="Filter..." ng-model="query" />
+	<i class="fa fa-filter"></i> <input type="text" class="form-control"
+		placeholder="Filter..." ng-model="query" />
 </div>
 
 <table class="table table-bordered table-striped table-hover">
@@ -16,11 +18,12 @@
   </thead>
 
   <tbody>
-    <tr dir-paginate="result in results | filter:search | itemsPerPage: 9" current-page="currentPage"  ng-click="go('{{result.sourceId}}', '{{result.source}}')"  ng-class="{info: selected(result.sourceId)}">
+    <tr dir-paginate="result in results| filter:search  | itemsPerPage: 9" current-page="currentPage"  
+    ng-click="go('{{result.sourceId}}', '{{result.source}}')"   ng-class="{info: selected(result.sourceId)}">
       <td>{{ result.testName }}</td>
-      <td class="dateTime">{{ result.sampleTaken}}</td>
-      <td class="dateTime">{{ result.dateCreated}}</td>
-      <td>openehr</td>
+      <td class="dateTime">{{ result.sampleTaken | date:'dd/MM/yyyy'}}</td>
+      <td class="dateTime">{{ result.dateCreated | date:'dd/MM/yyyy'}}</td>
+      <td>{{ result.source}}</td>
     </tr>
 
     <tr ng-if="!results.length">
@@ -30,8 +33,28 @@
 </table>
 
 <div class="row">
-  <div class="col-md-6 hidden-xs"><div class="text-right"><dir-pagination-controls on-page-change="pageChangeHandler(newPageNumber)" boundary-links="false"></dir-pagination-controls></div></div>
+	<div class="col-md-12">
+		<span class="patientSummary-spinner"
+			us-spinner="{radius:20, width:8, length: 16}"
+			spinner-key="patientSummary-spinner" spinner-start-active="true"></span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6 hidden-xs">
+		<div class="text-right">
+			<dir-pagination-controls
+				on-page-change="pageChangeHandler(newPageNumber)"
+				boundary-links="false"></dir-pagination-controls>
+		</div>
+	</div>
 </div>
 <div class="row">
-  <div class="col-xs-6 hidden-sm hidden-md hidden-lg"><div class="text-right"><dir-pagination-controls on-page-change="pageChangeHandler(newPageNumber)" boundary-links="false"></dir-pagination-controls></div></div>
+	<div class="col-xs-6 hidden-sm hidden-md hidden-lg">
+		<div class="text-right">
+			<dir-pagination-controls
+				on-page-change="pageChangeHandler(newPageNumber)"
+				boundary-links="false"></dir-pagination-controls>
+		</div>
+	</div>
 </div>

@@ -18,13 +18,13 @@ package org.hscieripple.patient.results.search;
 import java.util.List;
 
 import org.rippleosi.common.repo.Repository;
-import org.hscieripple.patient.results.model.HSCIEResultDetails;
-import org.hscieripple.patient.results.model.HSCIEResultSummary;
+import org.rippleosi.patient.labresults.model.LabResultDetails;
+import org.rippleosi.patient.labresults.model.LabResultSummary;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
 
 public interface HSCIEResultSearch extends Repository {
 
-    List<HSCIEResultSummary> findAllResults(String patientId, List<DataSourceSummary> datasourceSummaries);
+    List<LabResultSummary> findAllResults(String patientId, List<DataSourceSummary> datasourceSummaries);
 
-    HSCIEResultDetails findResult(String patientId, String resultId, String sourceId);
+    LabResultDetails findResult(String patientId, String resultId, String sourceId);
 }

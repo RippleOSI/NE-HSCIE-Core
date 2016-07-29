@@ -19,7 +19,7 @@ angular.module('rippleDemonstrator')
         "allergiesEnabled": false,
         "medicationsEnabled": true,
         "ordersEnabled": true,
-        "resultsEnabled": false,
+        "resultsEnabled": true,
         "proceduresEnabled": false,
         "referralsEnabled": true,
         "appointmentsEnabled": true,

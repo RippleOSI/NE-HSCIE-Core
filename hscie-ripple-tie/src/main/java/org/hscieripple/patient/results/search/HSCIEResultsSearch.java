@@ -28,8 +28,8 @@ import org.hscieripple.patient.results.ResultServiceSoap;
 import org.hscieripple.patient.results.PairOfResultsListKeyResultsSummaryResultRow;
 import org.hscieripple.common.service.AbstractHSCIEService; 
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
-import org.hscieripple.patient.results.model.HSCIEResultDetails;
-import org.hscieripple.patient.results.model.HSCIEResultSummary;
+import org.rippleosi.patient.labresults.model.LabResultDetails;
+import org.rippleosi.patient.labresults.model.LabResultSummary;
 import org.hscieripple.patient.results.search.HSCIEResultSearch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,22 +47,22 @@ public class HSCIEResultsSearch extends AbstractHSCIEService implements HSCIERes
     private ResultServiceSoap resultsService;
 
     @Override
-    public List<HSCIEResultSummary> findAllResults(String patientId, List<DataSourceSummary> datasourceSummaries) {
-        List<HSCIEResultSummary> resultsList = new ArrayList<>();
+    public List<LabResultSummary> findAllResults(String patientId, List<DataSourceSummary> datasourceSummaries) {
+        List<LabResultSummary> resultsList = new ArrayList<>();
 
         Long nhsNumber = convertPatientIdToLong(patientId);
 
         for (DataSourceSummary summary : datasourceSummaries) {
-            List<HSCIEResultSummary> results = makeSummaryCall(nhsNumber, summary.getSourceId());
+            List<LabResultSummary> results = makeSummaryCall(nhsNumber, summary.getSourceId());
 
-            results.addAll(results);
+            resultsList.addAll(results);
         }
 
         return resultsList;
     }
 
     @Override
-    public HSCIEResultDetails findResult(String patientId, String resultId, String source) {
+    public LabResultDetails findResult(String patientId, String resultId, String source) {
         ResultsDetailsResponse response = new ResultsDetailsResponse();
 
         Long nhsNumber = convertPatientIdToLong(patientId);
@@ -71,7 +71,7 @@ public class HSCIEResultsSearch extends AbstractHSCIEService implements HSCIERes
             response = resultsService.findResultsDetailsBO(nhsNumber, resultId, source);
 
             if (!isSuccessfulDetailsResponse(response)) {
-                return new HSCIEResultDetails();
+                return new LabResultDetails();
             }
         }
         catch (SOAPFaultException e) {
@@ -81,7 +81,7 @@ public class HSCIEResultsSearch extends AbstractHSCIEService implements HSCIERes
         return new ResultsDetailsResponseToDetailsTransformer().transform(response);
     }
 
-    private List<HSCIEResultSummary> makeSummaryCall(Long nhsNumber, String source) {
+    private List<LabResultSummary> makeSummaryCall(Long nhsNumber, String source) {
         List<PairOfResultsListKeyResultsSummaryResultRow> results = new ArrayList<>();
 
         try {

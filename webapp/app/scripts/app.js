@@ -341,16 +341,18 @@ angular
         }
       })
 
-       .state('results', {
-        url: '/patients/{patientId:int}/hscie-results?patientSource&reportType&searchString&queryType',
+
+
+      .state('results', {
+        url: '/patients/{patientId:int}/results?patientSource&reportType&searchString&queryType',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
           actions: { templateUrl: 'views/patients/patients-sidebar.html', controller: 'PatientsDetailCtrl' },
           main: { templateUrl: 'views/results/results-list.html', controller: 'ResultsListCtrl' }
         }
       })
-      
-       .state('results-detail', {
+
+      .state('results-detail', {
         url: '/patients/{patientId:int}/results/{resultIndex}?patientSource&filter&page&reportType&searchString&queryType&source',
         views: {
           'user-context': { templateUrl: 'views/patients/patients-context.html', controller: 'PatientsDetailCtrl' },
@@ -359,6 +361,7 @@ angular
           detail: { templateUrl: 'views/results/results-detail.html', controller: 'ResultsDetailCtrl' }
         }
       })
+      
 
       .state('informationgov', {
         url: '/patients/{patientId:int}/consents?reportType&searchString&queryType',

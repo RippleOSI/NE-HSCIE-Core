@@ -18,8 +18,8 @@ import java.util.List;
 import org.hscieripple.patient.datasources.model.DataSourceSummary;
 import org.hscieripple.patient.datasources.search.DataSourcesSearch;
 import org.hscieripple.patient.datasources.search.DataSourcesSearchFactory;
-import org.hscieripple.patient.results.model.HSCIEResultDetails;
-import org.hscieripple.patient.results.model.HSCIEResultSummary;
+import org.rippleosi.patient.labresults.model.LabResultDetails;
+import org.rippleosi.patient.labresults.model.LabResultSummary;
 import org.hscieripple.patient.results.search.HSCIEResultSearch;
 import org.hscieripple.patient.results.search.HSCIEResultSearchFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ public class HSCIEResultsController {
     private HSCIEResultSearchFactory HSCIEResultSearchFactory;    	
 	
 	@RequestMapping(method = RequestMethod.GET)
-    public List<HSCIEResultSummary> findAllResults(@PathVariable("patientId") String patientId,
+    public List<LabResultSummary> findAllResults(@PathVariable("patientId") String patientId,
                                                     @RequestParam(required = false) String source) {
 		final RepoSourceType sourceType = repoSourceLookup.lookup(source); 
     	DataSourcesSearch dataSourcesSearch = dataSourcesSearchFactory.select(null);
@@ -58,7 +58,7 @@ public class HSCIEResultsController {
     }
 
     @RequestMapping(value = "/{resultId}", method = RequestMethod.GET)
-    public HSCIEResultDetails findResult(@PathVariable("patientId") String patientId,
+    public LabResultDetails findResult(@PathVariable("patientId") String patientId,
                                           @PathVariable("resultId") String resultId,
                                           @RequestParam(required = false) String source,
                                           @RequestParam(required = false) String subSource) {

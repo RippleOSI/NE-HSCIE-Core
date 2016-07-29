@@ -19,17 +19,24 @@ package org.hscieripple.patient.results.search;
 import java.util.Date;
 import org.apache.commons.collections4.Transformer;
 import org.hscieripple.patient.results.ResultsSummaryResultRow;
-import org.hscieripple.patient.results.model.HSCIEResultSummary;
+import org.rippleosi.patient.labresults.model.LabResultSummary;
 import org.hscieripple.common.util.HSCIEDateFormatter;
 
-public class ResultsResponseToResultsSummaryTransformer implements Transformer<ResultsSummaryResultRow, HSCIEResultSummary> {
+public class ResultsResponseToResultsSummaryTransformer implements Transformer<ResultsSummaryResultRow, LabResultSummary> {
 
     @Override
-    public HSCIEResultSummary transform(ResultsSummaryResultRow response) {
-    	HSCIEResultSummary summary = new HSCIEResultSummary();
+    public LabResultSummary transform(ResultsSummaryResultRow response) {
+    	Date sampleTaken = HSCIEDateFormatter.toDate(response.getSampleTaken(),response.getDataSourceName());
+    	Date dateCreated = HSCIEDateFormatter.toDate(response.getDateCreated(),response.getDataSourceName());
+    	
+    	LabResultSummary summary = new LabResultSummary();
     	
         summary.setSource(response.getDataSourceName());
         summary.setSourceId(response.getSourceID());
+        
+        summary.setTestName(response.getTestName());
+        summary.setSampleTaken(sampleTaken);
+        summary.setDateCreated(dateCreated);
         
 
         return summary;

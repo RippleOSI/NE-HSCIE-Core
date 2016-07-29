@@ -1,11 +1,15 @@
 'use strict';
 
 angular.module('rippleDemonstrator')
-  .controller('ResultsListCtrl', function ($scope, $location, $stateParams, SearchInput, $modal, usSpinnerService, $state, PatientService, Result) {
-
-    $scope.currentPage = 1;
+  .controller('ResultsListCtrl', function ($scope, $filter, $state, $stateParams, SearchInput, $location, $modal, usSpinnerService, PatientService, ResultService, UserService) {
 
     SearchInput.update();
+    $scope.currentPage = 1;
+
+    UserService.findCurrentUser().then(function (response) {
+      $scope.currentUser = response.data;
+      $stateParams.patientSource = $scope.currentUser.feature.patientSource;
+    });
 
     $scope.pageChangeHandler = function (newPage) {
       $scope.currentPage = newPage;
@@ -16,11 +20,14 @@ angular.module('rippleDemonstrator')
     }
 
     $scope.search = function (row) {
+    var date = $filter('date')(row.dateCreated, "dd/MM/yyyy");
+    var taken = $filter('date')(row.sampleTaken, "dd/MM/yyyy");
+
       return (
         angular.lowercase(row.testName).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
-        angular.lowercase(row.sampleTaken).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
-        angular.lowercase(row.dateCreated).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
-        angular.lowercase(row.source).indexOf(angular.lowercase($scope.query) || '') !== -1
+        angular.lowercase(row.source).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
+        angular.lowercase(date).indexOf(angular.lowercase($scope.query) || '') !== -1 ||
+        angular.lowercase(taken).indexOf(angular.lowercase($scope.query) || '') !== -1
       );
     };
 
@@ -28,29 +35,27 @@ angular.module('rippleDemonstrator')
       $scope.query = $stateParams.filter;
     }
 
-    PatientService.get($stateParams.patientId).then(function (patient) {
+    PatientService.get($stateParams.patientId, $stateParams.patientSource).then(function (patient) {
       $scope.patient = patient;
     });
 
-    Result.all($stateParams.patientId).then(function (result) {
+    ResultService.all($stateParams.patientId).then(function (result) {
       $scope.results = result.data;
 
-      for (var i = 0; i < $scope.results.length; i++) {
-        $scope.results[i].sampleTaken = moment($scope.results[i].sampleTaken).format('DD-MMM-YYYY');
-        $scope.results[i].dateCreated = moment($scope.results[i].dateCreated).format('DD-MMM-YYYY');
-      }
       usSpinnerService.stop('patientSummary-spinner');
     });
 
-    $scope.go = function (id) {
+    $scope.go = function (id, resultSource) {
       $state.go('results-detail', {
-        patientId: $scope.patient.id,
+        patientId: $scope.patient.nhsNumber,
         resultIndex: id,
         filter: $scope.query,
         page: $scope.currentPage,
         reportType: $stateParams.reportType,
         searchString: $stateParams.searchString,
-        queryType: $stateParams.queryType
+        queryType: $stateParams.queryType,
+        source: resultSource,
+        patientSource: $stateParams.patientSource
       });
     };
 
